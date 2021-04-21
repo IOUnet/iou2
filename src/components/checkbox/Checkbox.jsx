@@ -1,8 +1,13 @@
-import { Checkbox, FormGroup, FormControlLabel, withStyles } from '@material-ui/core';
+import {
+  Checkbox as MUICheckbox,
+  FormGroup,
+  FormControlLabel,
+  withStyles,
+} from '@material-ui/core';
 import React, { useState } from 'react';
 import styles from './styles';
 
-const AppCheckbox = ({ classes, ...props }) => {
+const Checkbox = ({ classes, ...props }) => {
   const [checked, setChecked] = useState(true);
 
   const handleChange = (event) => {
@@ -14,7 +19,7 @@ const AppCheckbox = ({ classes, ...props }) => {
       <FormControlLabel
         className={classes.label}
         control={
-          <Checkbox
+          <MUICheckbox
             checked={checked}
             className={classes.checkbox}
             color="primary"
@@ -27,4 +32,4 @@ const AppCheckbox = ({ classes, ...props }) => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(AppCheckbox);
+export default withStyles(styles, { withTheme: true })(Checkbox);
