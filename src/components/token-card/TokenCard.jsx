@@ -2,7 +2,7 @@ import { Box, Card, CardContent, Typography, withStyles } from '@material-ui/cor
 import React from 'react';
 import styles from './styles';
 
-const TokenCard = ({ classes, data }) => {
+const TokenCard = ({ classes, data, isFull }) => {
   const {
     title, count, description, keys, address, minted, payed, rating, units,
   } = data;
@@ -20,12 +20,14 @@ const TokenCard = ({ classes, data }) => {
             <Typography>{keys && `Keys: ${keys}`}</Typography>
             <Typography>{address && `Address: ${address}`}</Typography>
           </Box>
-          <Box className={classes.data}>
-            <Typography>{minted && `Minted: ${minted}`}</Typography>
-            <Typography>{payed && `Payed: ${payed}`}</Typography>
-            <Typography>{rating && `Rating: ${rating}%`}</Typography>
-            <Typography>{units && `Units: ${units}`}</Typography>
-          </Box>
+          {isFull && (
+            <Box className={classes.data}>
+              <Typography>{minted && `Minted: ${minted}`}</Typography>
+              <Typography>{payed && `Payed: ${payed}`}</Typography>
+              <Typography>{rating && `Rating: ${rating}%`}</Typography>
+              <Typography>{units && `Units: ${units}`}</Typography>
+            </Box>)
+          }
         </Box>
       </CardContent>
     </Card>

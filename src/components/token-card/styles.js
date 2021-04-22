@@ -23,12 +23,11 @@ const styles = (theme) =>
     token_data: {
       display: 'flex',
       marginTop: theme.spacing(0.5),
-      '& > * + *': {
+      '& > div + div': {
         marginLeft: theme.spacing(1),
       }
     },
     description: {
-      marginRight: 'auto',
       flexGrow: 1,
       color: fade(textColor, 0.54),
       '& > p': {
