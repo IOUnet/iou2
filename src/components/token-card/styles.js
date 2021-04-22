@@ -5,11 +5,19 @@ const styles = (theme) =>
   createStyles({
     root: {
       borderRadius: 2 * theme.shape.borderRadius,
+      backgroundColor: '#F0F0F0',
+      color: textColor,
+    },
+    root_active: {
+      backgroundColor: theme.palette.secondary.main,
+    },
+    root_disabled: {
+      opacity: 0.4,
+      pointerEvents: 'none',
+      userSelect: 'none',
     },
     content: {
       padding: theme.spacing(1.5, 2),
-      backgroundColor: '#F0F0F0',
-      color: textColor,
       '&:last-child': {
         paddingBottom: theme.spacing(1.5),
       },

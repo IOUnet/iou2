@@ -10,7 +10,6 @@ const Template = (args) => <TokenCard {...args} />;
 
 export const Base = Template.bind({});
 Base.args = {
-  isFull: true,
   data: {
     title: 'SmbdIOUtoken1',
     count: 1,
@@ -24,9 +23,30 @@ Base.args = {
   },
 };
 
+export const Active = Template.bind({});
+Active.args = {
+  isActive: true,
+  data: {
+    ...Base.args.data,
+    count: null,
+    address: '',
+    units: '',
+  },
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  isDisabled: true,
+  data: {
+    ...Base.args.data,
+    count: null,
+    address: '',
+    units: '',
+  },
+};
+
 export const SomeDataFalsy1 = Template.bind({});
 SomeDataFalsy1.args = {
-  isFull: true,
   data: {
     ...Base.args.data,
     count: null,
