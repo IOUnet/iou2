@@ -11,6 +11,9 @@ export default {
         options: ['start', 'end']
       }
     },
+    onChange: {
+      action: 'changed',
+    },
   },
   args: {
     label: 'checkbox label',
@@ -20,14 +23,24 @@ export default {
 const Template = (args) => (<Checkbox {...args} />);
 
 export const Checked = Template.bind({});
-Checked.args = {};
+Checked.args = {
+  checked: true,
+  labelPlacement: "end",
+};
+
+export const Unchecked = Template.bind({});
+Unchecked.args = {
+  checked: false,
+};
 
 export const Disabled = Template.bind({});
 Disabled.args = {
+  ...Checked.args,
   disabled: true,
 };
 
 export const LeftLabelPosition = Template.bind({});
 LeftLabelPosition.args = {
+  ...Checked.args,
   labelPlacement: "start",
 };

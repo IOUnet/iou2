@@ -5,14 +5,18 @@ import {
   Typography,
   withStyles,
 } from '@material-ui/core';
+import clsx from 'clsx';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShareIcon from '@material-ui/icons/Share';
 import CloseIcon from '@material-ui/icons/Close';
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './styles';
 
 const Header = ({ classes }) => {
+  const [isNotifications, setIsNotifications] = useState(false);
+  const [isFavorite, setIsFavorite] = useState(false);
+
   const handleCloseClick = () => {
     console.log('close button clicked');
   };
@@ -21,12 +25,12 @@ const Header = ({ classes }) => {
     console.log('share button clicked');
   };
 
-  const handleStarClick = () => {
-    console.log('star button clicked');
+  const handleFavoriteClick = () => {
+    setIsFavorite((s) => !s);
   };
 
   const handleNotificationClick = () => {
-    console.log('notification button clicked');
+    setIsNotifications((s) => !s);
   };
 
   return (
@@ -53,16 +57,16 @@ const Header = ({ classes }) => {
         </IconButton>
 
         <IconButton
-          aria-label="star"
-          className={classes.button}
-          onClick={handleStarClick}
+          aria-label="favorite"
+          className={clsx(classes.button, isFavorite && classes.button_active)}
+          onClick={handleFavoriteClick}
         >
           <StarIcon/>
         </IconButton>
 
         <IconButton
           aria-label="notification"
-          className={classes.button}
+          className={clsx(classes.button, isNotifications && classes.button_active)}
           onClick={handleNotificationClick}
         >
           <NotificationsIcon/>

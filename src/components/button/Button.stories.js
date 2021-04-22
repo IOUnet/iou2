@@ -11,9 +11,12 @@ export default {
         options: ['primary', 'secondary']
       }
     },
+    onClick: {
+      action: 'clicked',
+    },
   },
   args: {
-    label: 'button',
+    children: 'button',
   },
 };
 

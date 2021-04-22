@@ -2,14 +2,9 @@ import { createStyles } from '@material-ui/core/styles';
 
 const styles = (theme) =>
   createStyles({
-    root: {
-      // width: '100%',
-      // height: '100%',
-    },
+    root: {},
     label: {
-      // color: theme.palette.common.white,
-      // lineHeight: 1.14,
-      // letterSpacing: '1.25px',
+      userSelect: 'none',
     },
     checkbox: {
       padding: theme.spacing(1),

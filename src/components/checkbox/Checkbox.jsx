@@ -4,18 +4,13 @@ import {
   FormControlLabel,
   withStyles,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import clsx from 'clsx';
+import React from 'react';
 import styles from './styles';
 
-const Checkbox = ({ classes, ...props }) => {
-  const [checked, setChecked] = useState(true);
-
-  const handleChange = (event) => {
-    setChecked(event.target.checked);
-  };
-
+const Checkbox = ({ classes, className, checked, onChange, ...props }) => {
   return (
-    <FormGroup row className={classes.root}>
+    <FormGroup row className={clsx(classes.root, className)}>
       <FormControlLabel
         className={classes.label}
         control={
@@ -23,7 +18,7 @@ const Checkbox = ({ classes, ...props }) => {
             checked={checked}
             className={classes.checkbox}
             color="primary"
-            onChange={handleChange}
+            onChange={onChange}
             />
           }
         {...props}

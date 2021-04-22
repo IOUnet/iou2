@@ -19,6 +19,11 @@ const styles = (theme) =>
         fill: fade(theme.palette.common.white, 0.74),
       },
     },
+    button_active: {
+      '& path': {
+        fill: theme.palette.secondary.main,
+      },
+    },
     toolbar: {
       '& > * + *': {
         marginLeft: theme.spacing(3),

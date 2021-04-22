@@ -1,16 +1,17 @@
 import { Button as MUIButton, withStyles } from '@material-ui/core';
+import clsx from 'clsx';
 import React from 'react';
 import styles from './styles';
 
-const Button = ({ classes, label, ...props }) => {
+const Button = ({ classes, className, children, ...props }) => {
   return (
     <MUIButton
-      className={classes.root}
+      className={clsx(classes.root, className)}
       color="primary"
       variant="contained"
       {...props}
     >
-      {label}
+      {children}
     </MUIButton>
   );
 };
