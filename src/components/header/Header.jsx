@@ -44,7 +44,7 @@ const Header = ({ classes }) => {
           <CloseIcon />
         </IconButton>
 
-        <Typography component="h1" variant="subtitle1" className={classes.title}>
+        <Typography component="h1" className={classes.title}>
           IOUnet
         </Typography>
 

@@ -8,7 +8,6 @@ const styles = (theme) =>
     title: {
       marginRight: 'auto',
       color: theme.palette.common.white,
-      lineHeight: 1,
       letterSpacing: '0.4px',
     },
     button: {

@@ -7,7 +7,7 @@ const TokensInfo = ({ classes, data }) => {
 
   return (
     <Box className={classes.root} >
-      <Typography className={classes.text} variant="subtitle1">
+      <Typography className={classes.text}>
         {`IOUs already: ${tokens}`}
         {(issuers || issuers === 0) && `, from ${issuers}issuers`}
         {(keywords || keywords === 0) && `, with ${keywords}keywords`}

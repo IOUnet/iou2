@@ -9,7 +9,6 @@ const styles = (theme) =>
       color: theme.palette.common.white,
     },
     text: {
-      lineHeight: 1.5,
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis',
