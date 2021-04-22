@@ -2,7 +2,9 @@ import { Box, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import styles from './styles';
 
-const TokensInfo = ({ classes, data: { tokens, issuers, keywords } }) => {
+const TokensInfo = ({ classes, data }) => {
+  const { tokens, issuers, keywords } = data;
+
   return (
     <Box className={classes.root} >
       <Typography className={classes.text} variant="subtitle1">
