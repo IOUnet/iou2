@@ -1,50 +1,26 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@material-ui/core/styles';
 
-const textColor = '#263238';
 const styles = (theme) =>
   createStyles({
     root: {
-      borderRadius: 2 * theme.shape.borderRadius,
-    },
-    content: {
-      padding: theme.spacing(1.5, 2),
-      backgroundColor: '#F0F0F0',
-      color: textColor,
-      '&:last-child': {
-        paddingBottom: theme.spacing(1.5),
-      },
+      padding: theme.spacing(0.5, 0),
     },
     title: {
+      padding: theme.spacing(0, 1),
+      fontSize: '1.5rem',
       lineHeight: 1.25,
-      whiteSpace: 'nowrap',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
     },
-    token_data: {
-      display: 'flex',
-      marginTop: theme.spacing(0.5),
+    list: {
+      padding: theme.spacing(0, 0.5),
       '& > div + div': {
-        marginLeft: theme.spacing(1),
-      }
+        marginTop: theme.spacing(0.5),
+      },
     },
-    description: {
-      flexGrow: 1,
-      color: fade(textColor, 0.54),
-      '& > p': {
-        fontSize: theme.spacing(1.75),
-        lineHeight: `${theme.spacing(2.5)}px`,
-        letterSpacing: '0.005em',
-      }
-    },
-    data: {
-      width: theme.spacing(8.75),
-      '& > p': {
-        fontSize: theme.spacing(1.5),
-        lineHeight: `${theme.spacing(2)}px`,
-        fontWeight: theme.typography.fontWeightMedium,
-        whiteSpace: 'nowrap',
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
+    listItem: {
+      padding: 0,
+      borderRadius: 2 * theme.shape.borderRadius,
+      '&.Mui-selected': {
+        boxShadow: `0 0 3px 2px ${theme.palette.primary.main}`,
       }
     },
   });

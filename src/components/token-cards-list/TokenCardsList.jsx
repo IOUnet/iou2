@@ -1,11 +1,35 @@
-import { Box, Card, CardContent, Typography, withStyles } from '@material-ui/core';
+import { Box, List, ListItem, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
+import TokenCard from '../token-card/TokenCard';
 import styles from './styles';
 
-const TokenCardsList = ({ classes, data, onClick }) => {
+//-------------------------
+const disabledId = 'id2';
+const selectedId = 'id3';
+//-------------------------
+
+const TokenCardsList = ({ classes, title, data, onClick }) => {
+  const items = data.map(({ id, ...props }) => (
+    <ListItem
+      key={id}
+      button
+      className={classes.listItem}
+      disabled={id === disabledId}
+      id={id}
+      onClick={onClick}
+      selected={id === selectedId}
+    >
+      <TokenCard data={props} />
+    </ListItem>
+  ));
+
   return (
-    <Card className={classes.root}>
-    </Card>
+    <Box className={classes.root}>
+      <Typography className={classes.title} variant="subtitle1">{title}</Typography>
+      <List className={classes.list}>
+        {items}
+      </List>
+    </Box>
   );
 };
 
