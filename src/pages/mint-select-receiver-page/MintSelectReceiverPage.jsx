@@ -53,16 +53,20 @@ const MintSelectReceiverPage = ({ classes }) => {
         <Input
           id={'EthereumAddress0x...'}
           label={'Ethereum address 0x...'}
-          onChange={(e) => setAddress(e.target.value)}
-          value={address}
+          inputProps={{
+            onChange: (e) => setAddress(e.target.value),
+            value: address,
+          }}
         />
         <Box className={classes.numberInput}>
           <Input
             id={'NumberOfGivenIOUs'}
             label={'Number of given IOUs'}
-            onChange={(e) => setNumber(e.target.value)}
-            type="number"
-            value={number}
+            inputProps={{
+              onChange: (e) => setNumber(e.target.value),
+              type: "number",
+              value: number,
+            }}
           />
           <Typography>Units: hours</Typography>
         </Box>

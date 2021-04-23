@@ -7,7 +7,7 @@ const styles = (theme) =>
       overflowX: 'hidden',
     },
     label: {
-      top: '5px',
+      top: '8px',
     },
     input: {
       height: 'unset',
@@ -16,7 +16,7 @@ const styles = (theme) =>
       borderTopRightRadius: 1.5 * theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.black, 0.09),
       '& > input': {
-        padding: 0,
+        padding: theme.spacing(0.5, 0),
         fontSize: '1.375rem',
         lineHeight: 1.273,
         color: '#263238',

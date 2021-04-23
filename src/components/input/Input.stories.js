@@ -26,3 +26,12 @@ VeryLongLabel.args = {
   id: 'varyLongLabel',
   label: 'VeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery',
 };
+
+export const NumberInput = Template.bind({});
+NumberInput.args = {
+  id: 'number',
+  label: 'Enter number',
+  inputProps: {
+    type: 'number',
+  },
+};
