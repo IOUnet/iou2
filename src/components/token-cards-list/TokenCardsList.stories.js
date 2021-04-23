@@ -33,7 +33,7 @@ Base.args = {
     },
     {
       id: 'id2',
-      title: 'SmbdIOUtoken1',
+      title: 'SmbdIOUtoken2',
       count: 1,
       description: 'consulting in blockchain',
       keys: 'blockchain, consulting',
@@ -45,7 +45,43 @@ Base.args = {
     },
     {
       id: 'id3',
-      title: 'SmbdIOUtoken1',
+      title: 'SmbdIOUtoken3',
+      count: 1,
+      description: 'consulting in blockchain',
+      keys: 'blockchain, consulting',
+      address: '0x12345678ABCDF123456',
+      minted: 15,
+      payed: 8,
+      rating: 60,
+      units: 'hours',
+    },
+    {
+      id: 'id4',
+      title: 'SmbdIOUtoken4',
+      count: 1,
+      description: 'consulting in blockchain',
+      keys: 'blockchain, consulting',
+      address: '0x12345678ABCDF123456',
+      minted: 15,
+      payed: 8,
+      rating: 60,
+      units: 'hours',
+    },
+    {
+      id: 'id5',
+      title: 'SmbdIOUtoken5',
+      count: 1,
+      description: 'consulting in blockchain',
+      keys: 'blockchain, consulting',
+      address: '0x12345678ABCDF123456',
+      minted: 15,
+      payed: 8,
+      rating: 60,
+      units: 'hours',
+    },
+    {
+      id: 'id6',
+      title: 'SmbdIOUtoken6',
       count: 1,
       description: 'consulting in blockchain',
       keys: 'blockchain, consulting',
@@ -56,4 +92,9 @@ Base.args = {
       units: 'hours',
     },
   ],
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  data: [],
 };

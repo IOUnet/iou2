@@ -1,5 +1,6 @@
-import { createStyles } from '@material-ui/core/styles';
+import { createStyles, } from '@material-ui/core/styles';
 
+const headerHight = '56px';
 const styles = () =>
   createStyles({
     root: {
@@ -7,9 +8,12 @@ const styles = () =>
       padding: 0,
     },
     main: {
+      position: 'relative',
+      height: `calc(100% - ${headerHight})`,
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
+      alignItems: 'stretch',
+      // overflowY: 'scroll',
     },
   });
 

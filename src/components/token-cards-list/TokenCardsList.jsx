@@ -9,6 +9,17 @@ const selectedId = 'id3';
 //-------------------------
 
 const TokenCardsList = ({ classes, title, data, onClick }) => {
+  if (!data.length) {
+    return (
+      <Box className={classes.root}>
+        <Typography className={classes.title} variant="subtitle1">{title}</Typography>
+        <List className={classes.list}>
+          <Typography align="center">List is empty</Typography>
+        </List>
+      </Box>
+    );
+  }
+
   const items = data.map(({ id, ...props }) => (
     <ListItem
       key={id}
