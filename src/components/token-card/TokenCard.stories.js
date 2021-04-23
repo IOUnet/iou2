@@ -11,6 +11,7 @@ const Template = (args) => <TokenCard {...args} />;
 export const Base = Template.bind({});
 Base.args = {
   data: {
+    id: 'id1',
     title: 'SmbdIOUtoken1',
     count: 1,
     description: 'consulting in blockchain',
@@ -20,28 +21,6 @@ Base.args = {
     payed: 7,
     rating: 80,
     units: 'hours',
-  },
-};
-
-export const Active = Template.bind({});
-Active.args = {
-  isActive: true,
-  data: {
-    ...Base.args.data,
-    count: null,
-    address: '',
-    units: '',
-  },
-};
-
-export const Disabled = Template.bind({});
-Disabled.args = {
-  isDisabled: true,
-  data: {
-    ...Base.args.data,
-    count: null,
-    address: '',
-    units: '',
   },
 };
 
@@ -57,7 +36,7 @@ SomeDataFalsy1.args = {
 
 export const SomeDataFalsy2 = Template.bind({});
 SomeDataFalsy2.args = {
-  isFull: false,
+  isFullMode: false,
   data: {
     ...Base.args.data,
     count: 2,
