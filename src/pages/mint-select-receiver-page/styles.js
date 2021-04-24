@@ -22,7 +22,7 @@ const styles = (theme) =>
       '& button': {
         flexShrink: 0,
         width: theme.spacing(16),
-        height: theme.spacing(13),
+        padding: theme.spacing(0.75),
       },
       '& $text span': {
         fontSize: '1rem',
@@ -32,7 +32,7 @@ const styles = (theme) =>
       padding: 0,
     },
     qr_ico: {
-      width: theme.spacing(10),
+      width: theme.spacing(15.5),
       height: 'auto',
     },
     dataSection: {

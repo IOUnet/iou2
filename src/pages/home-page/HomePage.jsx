@@ -1,9 +1,9 @@
-import { Avatar, Box, Grid, Typography, withStyles } from '@material-ui/core';
+import { Box, Grid, SvgIcon, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
 import TokensInfo from '../../components/tokens-info/TokensInfo';
 import Button from '../../components/button/Button';
-import brand from '../../assets/img/iou.png';
+import { ReactComponent as BrandIcon } from '../../assets/img/iou.svg';
 import styles from './styles';
 
 // ------------------------------------------------------------
@@ -16,12 +16,7 @@ const HomePage = ({ classes }) => {
   return (
     <PageLayout>
       <Box className={classes.top_tagline}>
-        <Avatar
-          alt="iou brand"
-          className={classes.brand}
-          src={brand}
-          variant="square"
-        />
+        <SvgIcon className={classes.brand} component={BrandIcon} viewBox="0 0 95 80" />
         <Typography variant="subtitle1">
           Use IOU -<br />and you don't need money anymore
         </Typography>

@@ -1,10 +1,10 @@
-import { Avatar, Box, CardHeader, Typography, withStyles } from '@material-ui/core';
+import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
-import QRIcon from '../../assets/img/QRico.png';
+import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
 import styles from './styles';
 
 // ------------------------------------------------------------
@@ -45,7 +45,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           subheader="(paste address of receiver or scan their QR code)"
         />
         <Button onClick={handleQRButtonClick}>
-          <Avatar alt="QR" className={classes.qr_ico} src={QRIcon} variant="square" />
+          <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
       </Box>
 
