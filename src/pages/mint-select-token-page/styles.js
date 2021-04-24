@@ -7,11 +7,12 @@ const styles = (theme) =>
       justifyContent: 'space-between',
       padding: theme.spacing(1, 2),
       '& > * + *': {
-        marginLeft: theme.spacing(1),
+        marginLeft: theme.spacing(2),
       },
       '& button': {
         width: theme.spacing(15),
-        height: theme.spacing(12),
+        paddingTop: theme.spacing(4.125),
+        paddingBottom: theme.spacing(4.125),
       },
     },
     text: {
@@ -19,10 +20,7 @@ const styles = (theme) =>
       fontSize: '1.5rem',
       lineHeight: 1.167,
     },
-    listSection: {
-      position: 'relative',
-      height: 'calc(100% - 112px - 8px - 8px - 2 * 4px)',
-    }
+    listSection: {},
   });
 
 export default styles;

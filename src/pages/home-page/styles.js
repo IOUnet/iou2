@@ -6,7 +6,7 @@ const styles = (theme) =>
       display: 'flex',
       padding: theme.spacing(1, 2, 2, 2.5),
       '& > *': {
-        fontSize: theme.spacing(2.25),
+        fontSize: '1.125rem',
         lineHeight: 1.167,
       },
       '& > * + *': {
@@ -19,6 +19,9 @@ const styles = (theme) =>
     },
     button_group: {
       padding: theme.spacing(2.5, 4.25, 0.5, 4.25),
+      '& > div': {
+        justifyContent: 'flex-end',
+      },
       '& button': {
         width: theme.spacing(16),
         height: theme.spacing(11.5),
@@ -27,7 +30,7 @@ const styles = (theme) =>
     bottom_tagline: {
       padding: theme.spacing(1, 4),
       '& > *': {
-        fontSize: theme.spacing(3),
+        fontSize: '1.5rem',
         lineHeight: 1.167,
       },
     },
