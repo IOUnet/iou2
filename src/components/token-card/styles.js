@@ -1,13 +1,12 @@
 import { createStyles, fade } from '@material-ui/core/styles';
 
-const textColor = '#263238';
 const styles = (theme) =>
   createStyles({
     root: {
       width: '100%',
       borderRadius: 2 * theme.shape.borderRadius,
       backgroundColor: '#F0F0F0',
-      color: textColor,
+      color: theme.palette.iou.text,
     },
     content: {
       padding: theme.spacing(1.5, 2),
@@ -30,18 +29,18 @@ const styles = (theme) =>
     },
     description: {
       flexGrow: 1,
-      color: fade(textColor, 0.54),
+      color: fade(theme.palette.iou.text, 0.54),
       '& > p': {
-        fontSize: theme.spacing(1.75),
-        lineHeight: `${theme.spacing(2.5)}px`,
+        fontSize: '0.875rem',
+        lineHeight: 1.43,
         letterSpacing: '0.005em',
       }
     },
     data: {
       width: theme.spacing(8.75),
       '& > p': {
-        fontSize: theme.spacing(1.5),
-        lineHeight: `${theme.spacing(2)}px`,
+        fontSize: '0.75rem',
+        lineHeight: 1.333,
         fontWeight: theme.typography.fontWeightMedium,
         whiteSpace: 'nowrap',
         overflow: 'hidden',

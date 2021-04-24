@@ -4,7 +4,6 @@ const styles = (theme) =>
   createStyles({
     root: {
       width: '100%',
-      height: '100%',
       padding: theme.spacing(2.75, 2),
       color: theme.palette.common.white,
       lineHeight: 1.14,

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import React from 'react';
 import styles from './styles';
 
-const TextField = ({ classes, className = null, ...props }) => {
+const TextField = ({ classes, className, ...props }) => {
   return (
     <MUITextField
       className={clsx(classes.root, className)}

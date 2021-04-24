@@ -19,7 +19,7 @@ const styles = (theme) =>
         padding: theme.spacing(0.5, 0),
         fontSize: '1.375rem',
         lineHeight: 1.273,
-        color: '#263238',
+        color: theme.palette.iou.text,
       },
     },
   });
