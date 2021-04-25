@@ -13,6 +13,14 @@ const fakeData = { tokens: 7, issuers: 5, keywords: 11 };
 const HomePage = ({ classes }) => {
   const handleButtonClick = () => console.log('button clicked');
 
+  const buttons = [
+    { button: 'give iou', handler: handleButtonClick },
+    { button: 'payoff iou', handler: handleButtonClick },
+    { button: 'stake iou', handler: handleButtonClick },
+    { button: 'buy iou', handler: handleButtonClick },
+    { button: 'swap iou for iou', handler: handleButtonClick },
+  ];
+
   return (
     <PageLayout>
       <Box className={classes.top_tagline}>
@@ -25,22 +33,12 @@ const HomePage = ({ classes }) => {
       <TokensInfo data={fakeData} />
 
       <Box className={classes.button_group}>
-        <Grid container spacing={4}>
-          <Grid item xs={6}>
-            <Button onClick={handleButtonClick}>give iou</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button onClick={handleButtonClick}>payoff iou</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button onClick={handleButtonClick}>stake iou</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button onClick={handleButtonClick}>buy iou</Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button onClick={handleButtonClick}>swap iou for iou</Button>
-          </Grid>
+        <Grid className={classes.button_group_container} container spacing={4}>
+          {buttons.map(({ button, handler }) => (
+            <Grid key={button} className={classes.button_group_item} item xs={6}>
+              <Button onClick={handler}>{button}</Button>
+            </Grid>)
+          )}
         </Grid>
       </Box>
 

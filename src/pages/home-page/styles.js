@@ -19,13 +19,13 @@ const styles = (theme) =>
     },
     button_group: {
       padding: theme.spacing(2.5, 4.25, 0.5, 4.25),
-      '& > div': {
-        justifyContent: 'flex-end',
-      },
-      '& > div > div': {
-        display: 'flex',
-        justifyContent: 'center',
-      },
+    },
+    button_group_container: {
+      justifyContent: 'flex-end',
+    },
+    button_group_item: {
+      display: 'flex',
+      justifyContent: 'center',
       '& button': {
         width: theme.spacing(16),
         height: theme.spacing(11.5),
