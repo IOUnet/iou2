@@ -7,7 +7,7 @@ const customViewports = {
   'iou-mobile': {
     name: 'iou-mobile',
     styles: {
-      width: '360px',
+      width: '376px',
       height: '640px',
     },
     type: 'mobile',
@@ -34,7 +34,9 @@ export const parameters = {
 export const decorators = [
   (Story) => (
     <ThemeProvider theme={theme}>
-      <Story />
+      <div style={{ minWidth: '360px', margin: '0 auto' }}>
+        <Story />
+      </div>
     </ThemeProvider>
   ),
 ];

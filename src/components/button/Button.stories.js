@@ -4,6 +4,9 @@ import Button from './Button';
 export default {
   title: 'Components/Button',
   component: Button,
+  decorators: [
+    (Story) => <div style={{ margin: '3rem' }}><Story/></div>,
+  ],
   argTypes: {
     color: {
       control: {

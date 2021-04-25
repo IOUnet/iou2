@@ -4,6 +4,9 @@ import Input from './Input';
 export default {
   title: 'Components/Input',
   component: Input,
+  decorators: [
+    (Story) => <div style={{ margin: '3rem' }}><Story/></div>,
+  ],
   argTypes: {
     onChange: {
       action: 'input value changed',
@@ -19,12 +22,9 @@ const Template = (args) => (<Input {...args} />);
 export const Base = Template.bind({});
 Base.args = {
   id: 'base',
-};
-
-export const VeryLongLabel = Template.bind({});
-VeryLongLabel.args = {
-  id: 'varyLongLabel',
-  label: 'VeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVery',
+  inputProps: {
+    autoComplete: "off",
+  },
 };
 
 export const NumberInput = Template.bind({});

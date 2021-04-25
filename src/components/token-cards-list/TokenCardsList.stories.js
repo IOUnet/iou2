@@ -4,6 +4,9 @@ import TokenCardsList from './TokenCardsList';
 export default {
   title: 'Components/TokenCardsList',
   component: TokenCardsList,
+  decorators: [
+    (Story) => <div style={{ marginTop: '0.5rem' }}><Story/></div>,
+  ],
   argTypes: {
     onClick: {
       action: 'clicked',

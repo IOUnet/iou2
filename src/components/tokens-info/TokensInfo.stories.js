@@ -4,6 +4,9 @@ import TokensInfo from './TokensInfo';
 export default {
   title: 'Components/TokensInfo',
   component: TokensInfo,
+  decorators: [
+    (Story) => <div style={{ marginTop: '1rem' }}><Story/></div>,
+  ],
 };
 
 const Template = (args) => <TokensInfo {...args} />;

@@ -43,18 +43,18 @@ const fakeData = [
     rating: 60,
     units: 'hours',
   },
-  // {
-  //   id: 'id4',
-  //   title: 'SmbdIOUtoken4',
-  //   count: 1,
-  //   description: 'consulting in blockchain',
-  //   keys: 'blockchain, consulting',
-  //   address: '0x12345678ABCDF123456',
-  //   minted: 15,
-  //   payed: 8,
-  //   rating: 60,
-  //   units: 'hours',
-  // },
+  {
+    id: 'id4',
+    title: 'SmbdIOUtoken4',
+    count: 1,
+    description: 'consulting in blockchain',
+    keys: 'blockchain, consulting',
+    address: '0x12345678ABCDF123456',
+    minted: 15,
+    payed: 8,
+    rating: 60,
+    units: 'hours',
+  },
 ];
 // ------------------------------------------------------------
 

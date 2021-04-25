@@ -4,6 +4,9 @@ import TokenCard from './TokenCard';
 export default {
   title: 'Components/TokenCard',
   component: TokenCard,
+  decorators: [
+    (Story) => <div style={{ margin: '3rem 0.5rem' }}><Story/></div>,
+  ],
 };
 
 const Template = (args) => <TokenCard {...args} />;

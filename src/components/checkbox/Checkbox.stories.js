@@ -4,6 +4,9 @@ import Checkbox from './Checkbox';
 export default {
   title: 'Components/Checkbox',
   component: Checkbox,
+  decorators: [
+    (Story) => <div style={{ margin: '3rem' }}><Story/></div>,
+  ],
   argTypes: {
     labelPlacement: {
       control: {
