@@ -8,6 +8,7 @@ const styles = (theme) =>
       '& input': {
         padding: theme.spacing(1.75),
         lineHeight: 1.5,
+        // fontStyle: 'italic',
       },
       '& label': {
         top: '-4px',

@@ -10,7 +10,7 @@ import styles from './styles';
 
 const Checkbox = ({ classes, className, checked, onChange, ...props }) => {
   return (
-    <FormGroup row className={clsx(classes.root, className)}>
+    <FormGroup className={clsx(classes.root, className)} row>
       <FormControlLabel
         className={classes.label}
         control={

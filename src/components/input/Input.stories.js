@@ -21,10 +21,40 @@ const Template = (args) => (<Input {...args} />);
 
 export const Base = Template.bind({});
 Base.args = {
-  id: 'base',
+  id: 'Base',
+};
+
+export const WithHelperText = Template.bind({});
+WithHelperText.args = {
+  id: 'WithHelperText',
+  helperText: 'helperText',
+};
+
+export const WithoutAutoComplete = Template.bind({});
+WithoutAutoComplete.args = {
+  id: 'WithoutAutoComplete',
   inputProps: {
     autoComplete: "off",
   },
+};
+
+export const Required = Template.bind({});
+Required.args = {
+  id: 'Required',
+  required: true,
+};
+
+export const IfError = Template.bind({});
+IfError.args = {
+  id: 'IfError',
+  error: true,
+  helperText: 'errorDescription',
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  id: 'Disabled',
+  disabled: true,
 };
 
 export const NumberInput = Template.bind({});
