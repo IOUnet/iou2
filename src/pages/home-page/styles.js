@@ -22,6 +22,10 @@ const styles = (theme) =>
       '& > div': {
         justifyContent: 'flex-end',
       },
+      '& > div > div': {
+        display: 'flex',
+        justifyContent: 'center',
+      },
       '& button': {
         width: theme.spacing(16),
         height: theme.spacing(11.5),
