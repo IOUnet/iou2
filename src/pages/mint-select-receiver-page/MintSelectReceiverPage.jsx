@@ -66,6 +66,9 @@ const MintSelectReceiverPage = ({ classes }) => {
               onChange: (e) => setNumber(e.target.value),
               type: "number",
               value: number,
+              inputProps: {
+                min: 0,
+              },
             }}
           />
           <Typography>Units: hours</Typography>
