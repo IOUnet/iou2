@@ -8,6 +8,9 @@ const styles = (theme) =>
     },
     label: {
       top: '8px',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     },
     input: {
       height: 'unset',
