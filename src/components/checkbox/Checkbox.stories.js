@@ -47,3 +47,9 @@ LeftLabelPosition.args = {
   ...Checked.args,
   labelPlacement: "start",
 };
+
+export const LeftLabelPositionFullWidth = Template.bind({});
+LeftLabelPositionFullWidth.args = {
+  ...LeftLabelPosition.args,
+  labelFullWidth: true,
+};
