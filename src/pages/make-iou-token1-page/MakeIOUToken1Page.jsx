@@ -1,4 +1,4 @@
-import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
+import { Box, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
 import Button from '../../components/button/Button';

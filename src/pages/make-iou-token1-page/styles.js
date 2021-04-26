@@ -15,7 +15,11 @@ const styles = (theme) =>
     actionSection: {
       marginTop: 'auto',
       padding: theme.spacing(2, 2),
-      // flexGrow: 1,
+      display: 'flex',
+      justifyContent: 'flex-end',
+      '& > button': {
+        width: theme.spacing(15),
+      },
     },
   });
 
