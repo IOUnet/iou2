@@ -32,6 +32,7 @@ const styles = (theme) =>
       },
     },
     bottom_tagline: {
+      marginTop: 'auto',
       padding: theme.spacing(1, 4),
       '& > *': {
         fontSize: '1.5rem',

@@ -3,12 +3,7 @@ import React from 'react';
 import TokenCard from '../token-card/TokenCard';
 import styles from './styles';
 
-//-------------------------
-const disabledId = 'id2';
-const selectedId = 'id3';
-//-------------------------
-
-const TokenCardsList = ({ classes, title, data, onClick }) => {
+const TokenCardsList = ({ classes, title, data, onClick, ...others }) => {
   if (!data.length) {
     return (
       <Box className={classes.root}>
@@ -20,17 +15,17 @@ const TokenCardsList = ({ classes, title, data, onClick }) => {
     );
   }
 
-  const items = data.map(({ id, ...props }) => (
+  const items = data.map((tokenData) => (
     <ListItem
-      key={id}
+      key={tokenData.id}
       button
       className={classes.listItem}
-      disabled={id === disabledId}
-      id={id}
+      disabled={tokenData.id === others.disabledId}
+      id={tokenData.id}
       onClick={onClick}
-      selected={id === selectedId}
+      selected={tokenData.id === others.selectedId}
     >
-      <TokenCard data={props} />
+      <TokenCard data={tokenData} />
     </ListItem>
   ));
 

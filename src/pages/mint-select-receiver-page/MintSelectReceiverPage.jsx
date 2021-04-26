@@ -7,20 +7,7 @@ import Input from '../../components/input/Input';
 import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
 import styles from './styles';
 
-// ------------------------------------------------------------
-const fakeData = {
-    id: 'id1',
-    title: 'SmbdIOUtoken1',
-    count: 1,
-    description: 'consulting in blockchain',
-    keys: 'blockchain, consulting',
-    address: '0x12345678ABCDF123456',
-    minted: 10,
-    payed: 7,
-    rating: 80,
-    units: 'hours',
-};
-// ------------------------------------------------------------
+import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const MintSelectReceiverPage = ({ classes }) => {
   const [address, setAddress] = useState('');
@@ -35,7 +22,7 @@ const MintSelectReceiverPage = ({ classes }) => {
         <Typography className={classes.title} variant="subtitle1">
           Give your IOU:
         </Typography>
-        <TokenCard data={fakeData} />
+        <TokenCard data={cardListData[0]} />
       </Box>
 
       <Box className={classes.QRSection}>
@@ -74,6 +61,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           <Typography>Units: hours</Typography>
         </Box>
       </Box>
+
       <Box className={classes.actionSection}>
         <Button onClick={handleButtonClick}>send IOU</Button>
       </Box>

@@ -5,46 +5,7 @@ import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
 import Button from '../../components/button/Button';
 import styles from './styles';
 
-// ------------------------------------------------------------
-const fakeData = [
-  {
-    id: 'id1',
-    title: 'SmbdIOUtoken1',
-    count: 3,
-    description: 'consulting in blockchain',
-    keys: 'blockchain, consulting',
-    address: '0x12345678ABCDF123456',
-    minted: 10,
-    payed: 7,
-    rating: 80,
-    units: 'hours',
-  },
-  {
-    id: 'id2',
-    title: 'SmbdIOUtoken2',
-    count: 1,
-    description: 'consulting in blockchain',
-    keys: 'blockchain, consulting',
-    address: '0x12345678ABCDF123456',
-    minted: 15,
-    payed: 8,
-    rating: 60,
-    units: 'hours',
-  },
-  {
-    id: 'id3',
-    title: 'SmbdIOUtoken3',
-    count: 2,
-    description: 'consulting in blockchain',
-    keys: 'blockchain, consulting',
-    address: '0x12345678ABCDF123456',
-    minted: 15,
-    payed: 8,
-    rating: 60,
-    units: 'hours',
-  },
-];
-// ------------------------------------------------------------
+import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const MintSelectTokenPage = ({ classes }) => {
   const handleButtonClick = () => console.log('button clicked');
@@ -59,7 +20,11 @@ const MintSelectTokenPage = ({ classes }) => {
         <Button onClick={handleButtonClick}>make new IOU</Button>
       </Box>
       <Box className={classes.listSection}>
-        <TokenCardsList title={'Select IOU:'} data={fakeData} onClick={handleCardClick} />
+        <TokenCardsList
+          data={cardListData.slice(0, 3)}
+          onClick={handleCardClick}
+          title={'Select IOU:'}
+        />
       </Box>
     </PageLayout>
   );

@@ -52,6 +52,7 @@ const styles = (theme) =>
       },
     },
     actionSection: {
+      marginTop: 'auto',
       padding: theme.spacing(2, 2),
     },
   });

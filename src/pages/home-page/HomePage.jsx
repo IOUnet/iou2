@@ -6,9 +6,7 @@ import Button from '../../components/button/Button';
 import { ReactComponent as BrandIcon } from '../../assets/img/iou.svg';
 import styles from './styles';
 
-// ------------------------------------------------------------
-const fakeData = { tokens: 7, issuers: 5, keywords: 11 };
-// ------------------------------------------------------------
+import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
 
 const HomePage = ({ classes }) => {
   const handleButtonClick = () => console.log('button clicked');
@@ -30,7 +28,7 @@ const HomePage = ({ classes }) => {
         </Typography>
       </Box>
 
-      <TokensInfo data={fakeData} />
+      <TokensInfo data={tokenInfoData} />
 
       <Box className={classes.button_group}>
         <Grid className={classes.button_group_container} container spacing={4}>
