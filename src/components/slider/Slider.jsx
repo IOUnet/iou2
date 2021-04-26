@@ -10,9 +10,11 @@ const Slider = ({ classes, className, title, ...props }) => {
 
   return (
     <Box className={clsx(classes.root, className)}>
-      <Typography className={classes.title} color="primary" variant="caption" component="p">
-        {title}
-      </Typography>
+      {title && (
+        <Typography className={classes.title} color="primary" variant="caption" component="p">
+          {title}
+        </Typography>
+      )}
       <Grid container spacing={2}>
         <Grid item>
           <FavoriteIcon className={clsx(classes.icon, classes.icon_left)} />
@@ -25,8 +27,6 @@ const Slider = ({ classes, className, title, ...props }) => {
               rail: classes.slider_rail,
               valueLabel: classes.slider_valueLabel,
             }}
-            defaultValue={60}
-            min={-100}
             // value={value}
             // onChange={handleChange}
             valueLabelDisplay="on"

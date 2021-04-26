@@ -9,6 +9,8 @@ export default {
   ],
   args: {
     title: 'Slide to rate IOU',
+    defaultValue: 60,
+    min: -100,
   },
 };
 
