@@ -13,9 +13,6 @@ const MintSelectReceiverPage = ({ classes }) => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
 
-  const handleQRButtonClick = () => console.log('button clicked');
-  const handleButtonClick = () => console.log('button clicked');
-
   return (
     <PageLayout>
       <Box className={classes.selectSection}>
@@ -28,10 +25,10 @@ const MintSelectReceiverPage = ({ classes }) => {
       <Box className={classes.QRSection}>
         <CardHeader
           className={classes.QRSection_text}
-          title="To..."
           subheader="(paste address of receiver or scan their QR code)"
+          title="To..."
         />
-        <Button onClick={handleQRButtonClick}>
+        <Button onClick={() => console.log('button clicked')}>
           <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
       </Box>
@@ -39,31 +36,31 @@ const MintSelectReceiverPage = ({ classes }) => {
       <Box className={classes.dataSection}>
         <Input
           id={'EthereumAddress0x...'}
-          label={'Ethereum address 0x...'}
           inputProps={{
             onChange: (e) => setAddress(e.target.value),
             value: address,
           }}
+          label={'Ethereum address 0x...'}
         />
         <Box className={classes.numberInput}>
           <Input
             id={'NumberOfGivenIOUs'}
-            label={'Number of given IOUs'}
             inputProps={{
+              inputProps: { min: 0 },
               onChange: (e) => setNumber(e.target.value),
               type: "number",
               value: number,
-              inputProps: {
-                min: 0,
-              },
             }}
+            label={'Number of given IOUs'}
           />
           <Typography>Units: hours</Typography>
         </Box>
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={handleButtonClick}>send IOU</Button>
+        <Button onClick={() => console.log('button clicked')}>
+          send IOU
+        </Button>
       </Box>
     </PageLayout>
   );

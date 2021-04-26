@@ -9,14 +9,12 @@ import styles from './styles';
 import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
 
 const HomePage = ({ classes }) => {
-  const handleButtonClick = () => console.log('button clicked');
-
   const buttons = [
-    { button: 'give iou', handler: handleButtonClick },
-    { button: 'payoff iou', handler: handleButtonClick },
-    { button: 'stake iou', handler: handleButtonClick },
-    { button: 'buy iou', handler: handleButtonClick },
-    { button: 'swap iou for iou', handler: handleButtonClick },
+    { button: 'give iou', handler: () => console.log('button clicked') },
+    { button: 'payoff iou', handler: () => console.log('button clicked') },
+    { button: 'stake iou', handler: () => console.log('button clicked') },
+    { button: 'buy iou', handler: () => console.log('button clicked') },
+    { button: 'swap iou for iou', handler: () => console.log('button clicked') },
   ];
 
   return (

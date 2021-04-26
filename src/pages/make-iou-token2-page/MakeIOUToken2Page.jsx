@@ -7,7 +7,6 @@ import styles from './styles';
 
 const MakeIOUToken2Page = ({ classes }) => {
   const [input, setInput] = useState('India');
-  const handleButtonClick = () => console.log('button clicked');
 
   return (
     <PageLayout>
@@ -68,8 +67,12 @@ const MakeIOUToken2Page = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={handleButtonClick}>next 1/2</Button>
-        <Button onClick={handleButtonClick}>publish iou</Button>
+        <Button onClick={() => console.log('button clicked')}>
+          next 1/2
+        </Button>
+        <Button onClick={() => console.log('button clicked')}>
+          publish iou
+        </Button>
       </Box>
     </PageLayout>
   );

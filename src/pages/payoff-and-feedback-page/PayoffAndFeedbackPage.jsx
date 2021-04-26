@@ -38,6 +38,7 @@ const PayoffAndFeedbackPage = ({ classes }) => {
           />
           <Typography>Units: hours</Typography>
         </Box>
+
         <Slider
           id={'Slide to rate IOU'}
           min={-100}
@@ -45,6 +46,7 @@ const PayoffAndFeedbackPage = ({ classes }) => {
           title={'Slide to rate IOU'}
           value={rate}
         />
+
         <TextField
           id={'Feedback'}
           label={'Feedback'}

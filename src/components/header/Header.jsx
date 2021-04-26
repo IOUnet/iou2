@@ -17,29 +17,13 @@ const Header = ({ classes }) => {
   const [isNotifications, setIsNotifications] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
-  const handleCloseClick = () => {
-    console.log('close button clicked');
-  };
-
-  const handleShareClick = () => {
-    console.log('share button clicked');
-  };
-
-  const handleFavoriteClick = () => {
-    setIsFavorite((s) => !s);
-  };
-
-  const handleNotificationClick = () => {
-    setIsNotifications((s) => !s);
-  };
-
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar className={classes.toolbar}>
         <IconButton
           aria-label="close"
           className={classes.button}
-          onClick={handleCloseClick}
+          onClick={() => console.log('close button clicked')}
         >
           <CloseIcon />
         </IconButton>
@@ -51,7 +35,7 @@ const Header = ({ classes }) => {
         <IconButton
           aria-label="share"
           className={classes.button}
-          onClick={handleShareClick}
+          onClick={() => console.log('share button clicked')}
         >
           <ShareIcon />
         </IconButton>
@@ -59,7 +43,7 @@ const Header = ({ classes }) => {
         <IconButton
           aria-label="favorite"
           className={clsx(classes.button, isFavorite && classes.button_active)}
-          onClick={handleFavoriteClick}
+          onClick={() => setIsFavorite((s) => !s)}
         >
           <StarIcon/>
         </IconButton>
@@ -67,7 +51,7 @@ const Header = ({ classes }) => {
         <IconButton
           aria-label="notification"
           className={clsx(classes.button, isNotifications && classes.button_active)}
-          onClick={handleNotificationClick}
+          onClick={() => setIsNotifications((s) => !s)}
         >
           <NotificationsIcon/>
         </IconButton>

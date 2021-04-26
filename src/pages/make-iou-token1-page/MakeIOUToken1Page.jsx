@@ -7,7 +7,6 @@ import styles from './styles';
 
 const MakeIOUToken1Page = ({ classes }) => {
   const [input, setInput] = useState('Architect01');
-  const handleButtonClick = () => console.log('button clicked');
 
   return (
     <PageLayout>
@@ -87,7 +86,9 @@ const MakeIOUToken1Page = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={handleButtonClick}>next 2/2</Button>
+        <Button onClick={() => console.log('button clicked')}>
+          next 2/2
+        </Button>
       </Box>
     </PageLayout>
   );

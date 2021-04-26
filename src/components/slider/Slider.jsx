@@ -15,6 +15,7 @@ const Slider = ({ classes, className, title, ...props }) => {
           {title}
         </Typography>
       )}
+
       <Grid container spacing={2}>
         <Grid item>
           <FavoriteIcon className={clsx(classes.icon, classes.icon_left)} />

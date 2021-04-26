@@ -7,14 +7,12 @@ import styles from './styles';
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const PayoffSelectTokenPage = ({ classes }) => {
-  const handleCardClick = () => console.log('card clicked');
-
   return (
     <PageLayout>
       <Box className={classes.listSection}>
         <TokenCardsList
           data={cardListData.slice(0, 3)}
-          onClick={handleCardClick}
+          onClick={() => console.log('card clicked')}
           title={'Select IOU to payoff:'}
         />
       </Box>

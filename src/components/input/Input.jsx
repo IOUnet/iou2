@@ -19,11 +19,13 @@ const Input = ({ classes, className, inputProps, ...props }) => {
       >
         {props.label}
       </InputLabel>
+
       <MUIInput
         className={classes.input}
         id={props.id}
         {...inputProps}
       />
+
       <FormHelperText id={props.id}>{props.helperText}</FormHelperText>
     </FormControl>
   );
