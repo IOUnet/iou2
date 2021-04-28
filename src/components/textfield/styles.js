@@ -8,7 +8,6 @@ const styles = (theme) =>
       '& input': {
         padding: theme.spacing(1.75),
         lineHeight: 1.5,
-        // fontStyle: 'italic',
       },
       '& label': {
         top: '-4px',
@@ -16,14 +15,6 @@ const styles = (theme) =>
       '& .MuiInputLabel-outlined.MuiInputLabel-shrink': {
         transform: 'translate(14px, -1px) scale(0.75)',
       },
-      // '& label.Mui-focused': {
-      //   color: '#1BB55C',
-      // },
-      // '& .MuiOutlinedInput-root': {
-      //   '&.Mui-focused fieldset': {
-      //     borderColor: '#1BB55C',
-      //   },
-      // },
     },
   });
 
