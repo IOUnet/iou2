@@ -20,7 +20,7 @@ const StakeAddLiquidityPage = ({ classes }) => {
         <PageTitle>Send IOUs to IOUSwap</PageTitle>
       </Box>
 
-      <Box className={classes.selectSection}>
+      <Box className={classes.cardSection}>
         <TokenCard data={cardListData[0]} />
       </Box>
 

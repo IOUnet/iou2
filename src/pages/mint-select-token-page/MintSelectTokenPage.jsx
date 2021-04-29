@@ -1,6 +1,7 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, withStyles } from '@material-ui/core';
 import React from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
+import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
 import Button from '../../components/button/Button';
 import styles from './styles';
@@ -11,9 +12,7 @@ const MintSelectTokenPage = ({ classes }) => {
   return (
     <PageLayout>
       <Box className={classes.selectSection}>
-        <Typography className={classes.text} variant="subtitle1">
-          Give your IOU or
-        </Typography>
+        <PageTitle>Give your IOU or</PageTitle>
         <Button onClick={() => console.log('button clicked')}>
           make new IOU
         </Button>

@@ -1,6 +1,7 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
+import PageTitle from '../../components/page-title/PageTitle';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import styles from './styles';
@@ -10,11 +11,11 @@ const MakeIOUToken2Page = ({ classes }) => {
 
   return (
     <PageLayout>
-      <Box className={classes.descriptionSection}>
-        <Typography className={classes.title} variant="subtitle1">
-          Make new IOU: Address
-        </Typography>
+      <Box className={classes.pageTitle}>
+        <PageTitle>Make new IOU: Address</PageTitle>
+      </Box>
 
+      <Box className={classes.dataSection}>
         <Input
           id={'Country'}
           label={'Country'}

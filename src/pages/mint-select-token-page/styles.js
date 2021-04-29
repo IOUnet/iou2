@@ -15,12 +15,9 @@ const styles = (theme) =>
         paddingBottom: theme.spacing(4.125),
       },
     },
-    text: {
-      flexGrow: 1,
-      fontSize: '1.5rem',
-      lineHeight: 1.167,
+    listSection: {
+      padding: theme.spacing(1, 0.5),
     },
-    listSection: {},
   });
 
 export default styles;

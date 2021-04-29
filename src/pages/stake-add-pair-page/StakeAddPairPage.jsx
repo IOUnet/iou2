@@ -1,6 +1,7 @@
 import { Box, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
+import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
 import Checkbox from '../../components/checkbox/Checkbox';
@@ -18,18 +19,17 @@ const StakeAddPairPage = ({ classes }) => {
 
   return (
     <PageLayout>
+      <Box className={classes.pageTitle}>
+        <PageTitle>Add IOU to IOUSwap</PageTitle>
+      </Box>
+
       <Box className={classes.infoSection}>
-        <Typography className={classes.title} variant="subtitle1">
-          Add IOU to IOUSwap
+        <Typography className={classes.text} variant="subtitle1">
+          {descriptionText1}
         </Typography>
-        <Box>
-          <Typography className={classes.title} variant="subtitle1">
-            {descriptionText1}
-          </Typography>
-          <Typography className={classes.title} variant="subtitle1">
-            {descriptionText2}
-          </Typography>
-        </Box>
+        <Typography className={classes.text} variant="subtitle1">
+          {descriptionText2}
+        </Typography>
       </Box>
 
       <Box className={classes.selectSection}>
@@ -37,7 +37,7 @@ const StakeAddPairPage = ({ classes }) => {
           checked={agreement}
           id={agreementText}
           label={
-            <Typography className={classes.title} variant="subtitle1">{agreementText}</Typography>
+            <Typography className={classes.text} variant="subtitle1">{agreementText}</Typography>
           }
           labelFullWidth
           labelPlacement="start"

@@ -1,6 +1,7 @@
 import { Box, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
+import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Input from '../../components/input/Input';
 import Slider from '../../components/slider/Slider';
@@ -17,10 +18,11 @@ const PayoffAndFeedbackPage = ({ classes }) => {
 
   return (
     <PageLayout>
-      <Box className={classes.selectSection}>
-        <Typography className={classes.title} variant="subtitle1">
-          Payoff IOU:
-        </Typography>
+      <Box className={classes.pageTitle}>
+        <PageTitle>Payoff IOU:</PageTitle>
+      </Box>
+
+      <Box className={classes.cardSection}>
         <TokenCard data={cardListData[0]} />
       </Box>
 

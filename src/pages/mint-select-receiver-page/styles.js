@@ -2,14 +2,12 @@ import { createStyles } from '@material-ui/core/styles';
 
 const styles = (theme) =>
   createStyles({
-    selectSection: {
-      padding: theme.spacing(1, 0.5),
+    pageTitle: {
+      marginTop: theme.spacing(0.5),
+      padding: theme.spacing(0, 2),
     },
-    title: {
-      padding: theme.spacing(0, 1.5, 0.5),
-      flexGrow: 1,
-      fontSize: '1.5rem',
-      lineHeight: 1.167,
+    cardSection: {
+      padding: theme.spacing(1, 0.5),
     },
     QRSection: {
       display: 'flex',

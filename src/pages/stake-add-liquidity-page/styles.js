@@ -6,7 +6,7 @@ const styles = (theme) =>
       marginTop: theme.spacing(0.5),
       padding: theme.spacing(0, 2),
     },
-    selectSection: {
+    cardSection: {
       padding: theme.spacing(1, 0.5),
     },
     dataSection: {
