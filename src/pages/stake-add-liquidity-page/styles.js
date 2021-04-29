@@ -1,4 +1,4 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@material-ui/core/styles';
 
 const styles = (theme) =>
   createStyles({
@@ -15,23 +15,9 @@ const styles = (theme) =>
         marginTop: theme.spacing(2),
       },
     },
-    dataRow: {},
-    dataRow_text: {
-      flexShrink: 0,
-      marginLeft: theme.spacing(2),
-      width: theme.spacing(12),
-      paddingBottom: theme.spacing(0.5),
-      fontSize: '0.75rem',
-      lineHeight: 1.6,
-      color: fade(theme.palette.iou.text, 0.54),
-    },
-    dataRow_digit: {
-      flexShrink: 0,
-      minWidth: theme.spacing(5),
-      paddingBottom: theme.spacing(1),
-      fontSize: '1.375rem',
-      lineHeight: 1.5,
-      letterSpacing: '0.01em',
+    valueInfo: {
+      alignSelf: 'flex-end',
+      paddingBottom: theme.spacing(0.75),
     },
     actionSection: {
       marginTop: 'auto',

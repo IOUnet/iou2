@@ -1,8 +1,9 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
+import ValueInfo from '../../components/value-info/ValueInfo';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import styles from './styles';
@@ -24,43 +25,49 @@ const StakeAddLiquidityPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.dataSection}>
-        <Box display="flex" alignItems="flex-end" className={classes.dataRow}>
-          <Input
-            id={'Amount of IOUs to send'}
-            inputProps={{
-              inputProps: { min: 0 },
-              onChange: (e) => setNumber(e.target.value),
-              type: "number",
-              value: number,
-            }}
-            label={'Amount of IOUs to send'}
-          />
-          <Typography className={classes.dataRow_text} component="p">
-            Sum of deposit in IOUdollars:
-          </Typography>
-          <Typography className={classes.dataRow_digit} component="p">
-            100
-          </Typography>
-        </Box>
+        <Grid alignItems="flex-end" container spacing={2}>
+          <Grid item xs={6}>
+            <Input
+              id={'Amount of IOUs to send'}
+              inputProps={{
+                inputProps: { min: 0 },
+                onChange: (e) => setNumber(e.target.value),
+                type: "number",
+                value: number,
+              }}
+              label={'Amount of IOUs to send'}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <ValueInfo
+              className={classes.valueInfo}
+              label={'Sum of deposit in IOUdollars:'}
+              value={'100'}
+            />
+          </Grid>
+        </Grid>
 
-        <Box display="flex" alignItems="flex-end" className={classes.dataRow}>
-          <Input
-            id={'Your price 1 IOU in IOUdollars'}
-            inputProps={{
-              inputProps: { min: 0 },
-              onChange: (e) => setPrice(e.target.value),
-              type: "number",
-              value: price,
-            }}
-            label={'Your price 1 IOU in IOUdollars'}
-          />
-          <Typography className={classes.dataRow_text} component="p">
-            You have IOUDollars:
-          </Typography>
-          <Typography className={classes.dataRow_digit} component="p">
-            50
-          </Typography>
-        </Box>
+        <Grid alignItems="flex-end" container spacing={2}>
+          <Grid item xs={6}>
+            <Input
+              id={'Your price 1 IOU in IOUdollars'}
+              inputProps={{
+                inputProps: { min: 0 },
+                onChange: (e) => setPrice(e.target.value),
+                type: "number",
+                value: price,
+              }}
+              label={'Your price 1 IOU in IOUdollars'}
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <ValueInfo
+              className={classes.valueInfo}
+              label={'You have IOUDollars:'}
+              value={'50'}
+            />
+          </Grid>
+        </Grid>
       </Box>
 
       <Box className={classes.actionSection}>
