@@ -6,7 +6,7 @@ export default {
   title: 'Components/TokenCardsList',
   component: TokenCardsList,
   decorators: [
-    (Story) => <div style={{ marginTop: '0.5rem' }}><Story/></div>,
+    (Story) => <div style={{ margin: '0.5rem' }}><Story/></div>,
   ],
   argTypes: {
     onClick: {

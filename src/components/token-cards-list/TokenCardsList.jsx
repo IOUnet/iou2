@@ -1,13 +1,14 @@
 import { Box, List, ListItem, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
 import TokenCard from '../token-card/TokenCard';
+import PageTitle from '../page-title/PageTitle';
 import styles from './styles';
 
 const TokenCardsList = ({ classes, title, data, onClick, ...others }) => {
   if (!data.length) {
     return (
       <Box className={classes.root}>
-        <Typography className={classes.title} variant="subtitle1">{title}</Typography>
+        {title && <PageTitle className={classes.title}>{title}</PageTitle>}
         <List className={classes.list}>
           <Typography align="center">List is empty</Typography>
         </List>
@@ -31,10 +32,8 @@ const TokenCardsList = ({ classes, title, data, onClick, ...others }) => {
 
   return (
     <Box className={classes.root}>
-      <Typography className={classes.title} variant="subtitle1">{title}</Typography>
-      <List className={classes.list}>
-        {items}
-      </List>
+      {title && <PageTitle className={classes.title}>{title}</PageTitle>}
+      <List className={classes.list}>{items}</List>
     </Box>
   );
 };
