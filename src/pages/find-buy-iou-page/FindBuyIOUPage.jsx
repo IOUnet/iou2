@@ -1,15 +1,22 @@
 import { Box, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TextField from '../../components/textfield/TextField';
 import Checkbox from '../../components/checkbox/Checkbox';
 import Button from '../../components/button/Button';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 const FindBuyIOUPage = ({ classes }) => {
+  const history = useHistory();
   const [keyword, setKeyword] = useState('consulting');
   const [search, setSearch] = useState(true);
+
+  const handleFind = () => {
+    history.push(ROUTES.buyIOUSelect);
+  };
 
   const checkboxLabelText = 'Search in location';
 
@@ -61,7 +68,7 @@ const FindBuyIOUPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleFind}>
           find
         </Button>
       </Box>

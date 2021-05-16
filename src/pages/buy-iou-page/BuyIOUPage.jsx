@@ -1,17 +1,24 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import ValueInfo from '../../components/value-info/ValueInfo';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const BuyIOUPage = ({ classes }) => {
+  const history = useHistory();
   const [number, setNumber] = useState(100);
+
+  const handleBuy = () => {
+    history.push(ROUTES.main);
+  };
 
   return (
     <PageLayout>
@@ -61,13 +68,13 @@ const BuyIOUPage = ({ classes }) => {
           </Grid>
         </Grid>
 
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleBuy}>
           buy 50 IOU dollars
         </Button>
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleBuy}>
           buy 100 smbdIOUtoken1
         </Button>
       </Box>
