@@ -1,5 +1,6 @@
 import { Box, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -7,14 +8,20 @@ import Input from '../../components/input/Input';
 import Slider from '../../components/slider/Slider';
 import TextField from '../../components/textfield/TextField';
 import Button from '../../components/button/Button';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const PayoffAndFeedbackPage = ({ classes }) => {
+  const history = useHistory();
   const [number, setNumber] = useState('');
   const [rate, setRate] = useState(0);
   const [feedback, setFeedback] = useState('');
+
+  const handlePayoff = () => {
+    history.push(ROUTES.main);
+  };
 
   return (
     <PageLayout>
@@ -60,7 +67,7 @@ const PayoffAndFeedbackPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handlePayoff}>
           payoff IOU
         </Button>
       </Box>
