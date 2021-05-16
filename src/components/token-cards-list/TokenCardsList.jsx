@@ -5,6 +5,10 @@ import PageTitle from '../page-title/PageTitle';
 import styles from './styles';
 
 const TokenCardsList = ({ classes, title, data, onClick, ...others }) => {
+  const handleCardClick = (evt, id) => {
+    onClick(evt, id);
+  };
+
   if (!data.length) {
     return (
       <Box className={classes.root}>
@@ -23,7 +27,7 @@ const TokenCardsList = ({ classes, title, data, onClick, ...others }) => {
       className={classes.listItem}
       disabled={tokenData.id === others.disabledId}
       id={tokenData.id}
-      onClick={onClick}
+      onClick={(evt) => handleCardClick(evt, tokenData.id)}
       selected={tokenData.id === others.selectedId}
     >
       <TokenCard data={tokenData} />
