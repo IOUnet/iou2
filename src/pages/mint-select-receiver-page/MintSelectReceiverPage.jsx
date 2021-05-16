@@ -1,18 +1,29 @@
 import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const MintSelectReceiverPage = ({ classes }) => {
+  const history = useHistory();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
+
+  const handleSend = () => {
+    history.push(ROUTES.main);
+  };
+
+  const handleQR = () => {
+    console.log('QR button clicked');
+  };
 
   return (
     <PageLayout>
@@ -30,7 +41,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           subheader="(paste address of receiver or scan their QR code)"
           title="To..."
         />
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleQR}>
           <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
       </Box>
@@ -60,7 +71,7 @@ const MintSelectReceiverPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleSend}>
           send IOU
         </Button>
       </Box>

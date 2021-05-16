@@ -1,13 +1,24 @@
 import { Box, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 const MakeIOUToken2Page = ({ classes }) => {
+  const history = useHistory();
   const [input, setInput] = useState('India');
+
+  const handleNext = () => {
+    history.push(ROUTES.makeIOUToken1);
+  };
+
+  const handlePublish = () => {
+    history.push(ROUTES.mintSelectToken);
+  };
 
   return (
     <PageLayout>
@@ -68,10 +79,10 @@ const MakeIOUToken2Page = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleNext}>
           next 1/2
         </Button>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handlePublish}>
           publish iou
         </Button>
       </Box>

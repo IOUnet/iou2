@@ -1,13 +1,20 @@
 import { Box, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 const MakeIOUToken1Page = ({ classes }) => {
+  const history = useHistory();
   const [input, setInput] = useState('Architect01');
+
+  const handleNext = () => {
+    history.push(ROUTES.makeIOUToken2);
+  };
 
   return (
     <PageLayout>
@@ -87,7 +94,7 @@ const MakeIOUToken1Page = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleNext}>
           next 2/2
         </Button>
       </Box>
