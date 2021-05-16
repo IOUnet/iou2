@@ -1,20 +1,24 @@
 import { Box, Grid, SvgIcon, Typography, withStyles } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import React from 'react';
 import PageLayout from '../../components/page-layout/PageLayout';
 import TokensInfo from '../../components/tokens-info/TokensInfo';
 import Button from '../../components/button/Button';
 import { ReactComponent as BrandIcon } from '../../assets/img/iou.svg';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
 
 const HomePage = ({ classes }) => {
+  const history = useHistory();
+
   const buttons = [
-    { button: 'give iou', handler: () => console.log('button clicked') },
-    { button: 'payoff iou', handler: () => console.log('button clicked') },
-    { button: 'stake iou', handler: () => console.log('button clicked') },
-    { button: 'buy iou', handler: () => console.log('button clicked') },
-    { button: 'swap iou for iou', handler: () => console.log('button clicked') },
+    { button: 'give iou', handler: () => history.push(ROUTES.mintSelectToken) },
+    { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
+    { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },
+    { button: 'buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
+    { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) },
   ];
 
   return (
