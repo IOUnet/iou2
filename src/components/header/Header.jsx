@@ -1,6 +1,7 @@
 import {
   AppBar,
   IconButton,
+  Link,
   Toolbar,
   Typography,
   withStyles,
@@ -10,8 +11,14 @@ import StarIcon from '@material-ui/icons/Star';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShareIcon from '@material-ui/icons/Share';
 import CloseIcon from '@material-ui/icons/Close';
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { ROUTES } from '../../constants';
 import styles from './styles';
+
+const LinkBehavior = forwardRef((props, ref) => (
+  <RouterLink ref={ref} to={ROUTES.main} {...props} />
+));
 
 const Header = ({ classes }) => {
   const [isNotifications, setIsNotifications] = useState(false);
@@ -28,9 +35,11 @@ const Header = ({ classes }) => {
           <CloseIcon />
         </IconButton>
 
-        <Typography component="h1" className={classes.title}>
-          IOUnet
-        </Typography>
+        <Link component={LinkBehavior}  className={classes.mainLink}>
+          <Typography component="h1" className={classes.title}>
+              IOUnet
+          </Typography>
+        </Link>
 
         <IconButton
           aria-label="share"

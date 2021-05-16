@@ -5,8 +5,10 @@ const styles = (theme) =>
     root: {
       boxShadow: 'none',
     },
-    title: {
+    mainLink: {
       marginRight: 'auto',
+    },
+    title: {
       color: theme.palette.common.white,
       letterSpacing: '0.4px',
     },
