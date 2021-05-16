@@ -1,18 +1,33 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import ValueInfo from '../../components/value-info/ValueInfo';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
+import { ROUTES } from '../../constants';
 import styles from './styles';
 
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const StakeAddLiquidityPage = ({ classes }) => {
+  const history = useHistory();
   const [number, setNumber] = useState('');
   const [price, setPrice] = useState('');
+
+  const handleRequest = () => {
+    console.log('request button clicked');
+  };
+
+  const handleBuy = () => {
+    console.log('buy button clicked');
+  };
+
+  const handleSend = () => {
+    history.push(ROUTES.main);
+  };
 
   return (
     <PageLayout>
@@ -71,13 +86,13 @@ const StakeAddLiquidityPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleRequest}>
           Request loan of 50 IOU dollars
         </Button>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleBuy}>
           buy 50 IOU dollars
         </Button>
-        <Button onClick={() => console.log('button clicked')}>
+        <Button onClick={handleSend}>
           send amounts to swap
         </Button>
       </Box>
