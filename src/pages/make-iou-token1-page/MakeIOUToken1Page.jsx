@@ -1,5 +1,6 @@
 import { Box, withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
+import { useDispatch, connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -7,13 +8,33 @@ import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import { ROUTES } from '../../constants';
 import styles from './styles';
+import  makeIOUPageOne from '../../ethvtx_config/actions/makeIOUPageOne';
 
-const MakeIOUToken1Page = ({ classes }) => {
+var initialStateForm = {
+  //tokenName: 'Best token ever',
+  // symbol:'BTE',
+  // surname:'Smith',
+  // unit:'hours',
+  // social:'https://facebook.com/smith',
+  // description: 'Very good token for my job',
+  // keywords:'tokens, art, development'
+
+}
+
+const MakeIOUToken1Page = (props) => {
+  const classes = props.classes;
   const history = useHistory();
-  const [input, setInput] = useState('Architect01');
-
+  const [values, setFormValues] = useState({});
+  const dispatch = useDispatch()
+  
+  const onChangeHandler = useCallback(
+    (e) => {
+      setFormValues(values => ({...values, [e.target.id]:e.target.value}))
+    }, [],
+  );
   const handleNext = () => {
     history.push(ROUTES.makeIOUToken2);
+    dispatch(makeIOUPageOne(values));
   };
 
   return (
@@ -24,71 +45,72 @@ const MakeIOUToken1Page = ({ classes }) => {
 
       <Box className={classes.dataSection}>
         <Input
-          id={'ERC20 token name (12 char)'}
+          id='tokenName'
           label={'ERC20 token name (12 char)'}
+          name="tokenName"
           inputProps={{
-            onChange: (e) => setInput(e.target.value),
-            value: input,
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.tokenName,
           }}
         />
 
         <Input
-          id={'ERC20 token symbol (4 char)'}
+          id='symbol'
           label={'ERC20 token symbol (4 char)'}
+          name='symbol'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'Ar01',
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.symbol,
           }}
         />
 
         <Input
-          id={'You name, surname (up to 255 chr)'}
+          id='surname'
           label={'You name, surname (up to 255 chr)'}
+          name='surname'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'John Johnes',
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.surname,
           }}
         />
 
         <Input
-          id={'Your profile in social networks'}
+          id='social'
           label={'Your profile in social networks'}
+          name='social'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'www.linkedIn.com/JohnJones',
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.social,
           }}
         />
 
         <Input
-          id={'Description for IOU'}
+          id='description'
           label={'Description for IOU'}
+          name='description'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'software architect  15 years',
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.description,
           }}
         />
 
         <Input
-          id={'Keywords for IOU (max is 5 keys, separated by comma)'}
+          id='keywords'
           label={'Keywords for IOU (max is 5 keys, separated by comma)'}
+          name='keywords'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'software, architect, consulting',
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.keywords,
           }}
         />
 
         <Input
-          id={'Unit of measure for your product or service (f.e. hours)'}
+          id='unit'
           label={'Unit of measure for your product or service (f.e. hours)'}
+          name='unit'
           inputProps={{
-            // onChange: (e) => setInput(e.target.value),
-            // value: input,
-            defaultValue: 'hours',
+            onChange: (e) => onChangeHandler(e),
+            value: values.unit,
           }}
         />
       </Box>
@@ -102,4 +124,6 @@ const MakeIOUToken1Page = ({ classes }) => {
   );
 };
 
+
 export default withStyles(styles, { withTheme: true })(MakeIOUToken1Page);
+
