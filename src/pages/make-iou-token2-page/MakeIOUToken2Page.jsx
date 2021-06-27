@@ -1,5 +1,5 @@
 import { Box, withStyles } from '@material-ui/core';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -7,17 +7,15 @@ import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-import { useDispatch, useSelector,useStore } from 'react-redux';
-import { SAVE_PAGE_TWO_MAKE_IOU, MAKE_IOU_TOKEN } from '../../ethvtx_config/actions/types';
-import { getContract, getContractList } from 'ethvtx/lib/contracts/helpers/getters';
+import CreateIOUContext from '../../context/CreateIOUContext'
+import useCreateIOU from '../../hooks/useCreateIOU'
 
 const MakeIOUToken2Page = ({ classes }) => {
   const history = useHistory();
-  const current_state = useStore();
  // const getContractInstance = (current_state) => getContract(current_state, 'MakeIOU', '@makeiou')
-  const makeIOUContract = useSelector(state => getContract(current_state, 'MakeIOU', '@makeiou'))
-  const [values, setFormValues] = useState({}) 
-  const dispatch = useDispatch()
+  const createIOU = useContext(CreateIOUContext)
+  const [values, setFormValues] = useState(createIOU.values) 
+  const [approved, createIOUInContract] = useCreateIOU()
   const onChangeHandler = useCallback(
     (e) => {
       setFormValues(values => ({...values, [e.target.id]:e.target.value}))
@@ -25,12 +23,11 @@ const MakeIOUToken2Page = ({ classes }) => {
   );
   const handleNext = () => {
     history.push(ROUTES.makeIOUToken1);
-    dispatch({type: SAVE_PAGE_TWO_MAKE_IOU, payload: values})
   };
 
   const handlePublish = () => {
-    dispatch({type:MAKE_IOU_TOKEN,payload:{contract:makeIOUContract, data:values}})
     history.push(ROUTES.mintSelectToken);
+    createIOUInContract(values)
   };
 
   return (

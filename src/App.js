@@ -19,9 +19,20 @@ import SwapSelectDesiredTokenPage from './pages/swap-select-desired-token-page/S
 import SwapSelectAvailableTokenPage from './pages/swap-select-available-token-page/SwapSelectAvailableTokenPage';
 import { ROUTES } from './constants';
 import theme from './theme';
+import { Drizzle } from '@drizzle/store';
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+import drizzleOptions from './store/DrizzleOptions';
+import Loading from './components/loading/Loading'
+import CreateIOUProvider from './context/CreateIOUProvider'
+
+const drizzle = new Drizzle(drizzleOptions)
+const { DrizzleProvider } = drizzleReactHooks;
 
 function App() {
   return (
+    <DrizzleProvider drizzle={drizzle}>
+      <Loading>
+      <CreateIOUProvider>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Switch>
@@ -45,6 +56,9 @@ function App() {
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
+    </CreateIOUProvider>
+    </Loading>
+    </DrizzleProvider>
   );
 }
 

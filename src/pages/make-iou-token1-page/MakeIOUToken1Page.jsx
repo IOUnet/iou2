@@ -1,6 +1,5 @@
 import { Box, withStyles } from '@material-ui/core';
-import React, { useState, useCallback } from 'react';
-import { useDispatch, connect } from 'react-redux';
+import React, { useState, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -8,33 +7,29 @@ import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-import  makeIOUPageOne from '../../ethvtx_config/actions/makeIOUPageOne';
+import CreateIOUContext from '../../context/CreateIOUContext'
 
-var initialStateForm = {
-  //tokenName: 'Best token ever',
-  // symbol:'BTE',
-  // surname:'Smith',
-  // unit:'hours',
-  // social:'https://facebook.com/smith',
-  // description: 'Very good token for my job',
-  // keywords:'tokens, art, development'
 
-}
+
 
 const MakeIOUToken1Page = (props) => {
   const classes = props.classes;
   const history = useHistory();
   const [values, setFormValues] = useState({});
-  const dispatch = useDispatch()
-  
+  const createIOU = useContext(CreateIOUContext)
   const onChangeHandler = useCallback(
     (e) => {
-      setFormValues(values => ({...values, [e.target.id]:e.target.value}))
+      if (e.target.id === "keywords") {
+        setFormValues(values => ({...values, [e.target.id]:e.target.value.split(',')}))
+      } else {
+        setFormValues(values => ({...values, [e.target.id]:e.target.value}))
+      }
+      
     }, [],
   );
   const handleNext = () => {
     history.push(ROUTES.makeIOUToken2);
-    dispatch(makeIOUPageOne(values));
+    createIOU.setFormValues(values)
   };
 
   return (
@@ -45,7 +40,7 @@ const MakeIOUToken1Page = (props) => {
 
       <Box className={classes.dataSection}>
         <Input
-          id='tokenName'
+          id='name'
           label={'ERC20 token name (12 char)'}
           name="tokenName"
           inputProps={{
@@ -65,9 +60,9 @@ const MakeIOUToken1Page = (props) => {
         />
 
         <Input
-          id='surname'
+          id='username'
           label={'You name, surname (up to 255 chr)'}
-          name='surname'
+          name='username'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
             value: values.surname,
