@@ -24,7 +24,7 @@ import "./StoreIOUs.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is ERC20Mintable, ERC20Burnable {
+contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
 
     struct IOU {
         address receiver;
@@ -38,20 +38,8 @@ contract IOUtoken is ERC20Mintable, ERC20Burnable {
         int256 rating; // estimation of skills in 255 grades
         string text; //comment
     }
-    struct DescriptionIOU {
-        uint256 totalMinted;
-        uint256 totalBurned;
-        int256 avRate;
-        bytes32 units;        
-        address issuer;
-        string myName ; //name of emitter
-        string socialProfile ; //profile  of emitter in social nets
-        string description ; //description of bond IOU to  work
-        string location; //where is it             
-        bytes32[] keywords;
-    }
-    string public name;
-    string public symbol;
+
+
 
     StoreIOUs StoreIOU;
  //   string public name;
