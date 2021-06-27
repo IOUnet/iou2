@@ -1,5 +1,5 @@
 pragma solidity ^0.5.0;
-
+pragma experimental ABIEncoderV2;
 interface  iIOUtoken  {
 
     struct DescriptionIOU {
@@ -22,6 +22,8 @@ interface  iIOUtoken  {
         int256 rating; // estimation of skills in 255 grades
         string text; //comment
     }
-
-
+    
+    function name () external view returns  (string memory); 
+    function symbol () external view returns (string memory); 
+    function thisIOU () external view returns (DescriptionIOU memory);
 }

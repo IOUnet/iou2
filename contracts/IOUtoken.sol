@@ -3,6 +3,7 @@ pragma experimental ABIEncoderV2;
 import "./token/ERC20/ERC20Burnable.sol";
 import "./token/ERC20/ERC20Mintable.sol";
 import "./StoreIOUs.sol";
+import  "./interfaces/iIOUtoken.sol";
 
 /*** IOU ecosystem
 *   The aim of IOU ecosystem is to give people proved fiat-free mutual settlements by issuing personal IOU tokens on Ethereum.
@@ -32,14 +33,9 @@ contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
         string IOUDescr; //what IOU is
     }
 
-    struct FeedBack {
-        address sender;
-        uint256 time;
-        int256 rating; // estimation of skills in 255 grades
-        string text; //comment
-    }
 
-
+    string public name;
+    string public symbol;
 
     StoreIOUs StoreIOU;
  //   string public name;
