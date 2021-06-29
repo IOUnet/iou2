@@ -15,7 +15,16 @@ import CreateIOUContext from '../../context/CreateIOUContext'
 const MakeIOUToken1Page = (props) => {
   const classes = props.classes;
   const history = useHistory();
-  const [values, setFormValues] = useState({});
+  const [values, setFormValues] = useState({
+                                            name:'',
+                                            symbol:'',
+                                            username: '',
+                                            social: '',
+                                            description: '',
+                                            keywords:'',
+                                            unit:'',
+                                            country:''
+                                          });
   const createIOU = useContext(CreateIOUContext)
   const onChangeHandler = useCallback(
     (e) => {

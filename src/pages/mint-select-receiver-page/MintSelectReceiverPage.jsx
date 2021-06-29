@@ -1,5 +1,5 @@
 import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -9,18 +9,43 @@ import Input from '../../components/input/Input';
 import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-
-import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
+import TokensListContext from '../../context/TokensListContext'
+import useSendIOU from '../../hooks/useSendIOU'
 
 const MintSelectReceiverPage = ({ classes }) => {
   const history = useHistory();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
+  const [comment, setComment] = useState('')
+  const [cardTokenData, setCardTokenData] = useState({
+
+  })
+  const tokenList = useContext(TokensListContext)
+  const [approve, sendIOU] = useSendIOU()
+
+  const setCurrentTokenData = useCallback(() => {
+     if (tokenList.tokenList.length > 0) {
+      const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+      setCardTokenData(tokenData)
+     }
+  },[tokenList])
+
+  useEffect(() => {
+    setCurrentTokenData()
+  },[setCurrentTokenData, tokenList])
 
   const handleSend = () => {
-    history.push(ROUTES.main);
+    
+    sendIOU({
+      address:address,
+      amount:number,
+      comment:comment,
+      tokenAddress:cardTokenData.address
+    })
+    //sendIOU({address:address})
+   // history.push(ROUTES.main);
   };
-
+  
   const handleQR = () => {
     console.log('QR button clicked');
   };
@@ -32,8 +57,10 @@ const MintSelectReceiverPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.cardSection}>
-        <TokenCard data={cardListData[0]} />
+        <TokenCard data={cardTokenData} />
       </Box>
+      
+      
 
       <Box className={classes.QRSection}>
         <CardHeader
@@ -45,7 +72,16 @@ const MintSelectReceiverPage = ({ classes }) => {
           <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
       </Box>
-
+      <Box className={classes.dataSection}>
+        <Input
+          id={'Comments...'}
+          inputProps={{
+            onChange: (e) => setComment(e.target.value),
+            value: comment,
+          }}
+          label={'Comments:'}
+        />
+      </Box>
       <Box className={classes.dataSection}>
         <Input
           id={'EthereumAddress0x...'}
@@ -55,6 +91,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           }}
           label={'Ethereum address 0x...'}
         />
+        
         <Box className={classes.numberInput}>
           <Input
             id={'NumberOfGivenIOUs'}

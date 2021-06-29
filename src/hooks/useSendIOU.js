@@ -1,28 +1,63 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
+import IBEP20 from '../artifacts/IOUtoken.json' 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-
-
-export default function useCreateIOU() {
-    
+export default function useAproveToken () {
     const { drizzle } = useDrizzle()
+    //const amount = 100;
     const drizzleState = useDrizzleState(state => state)
+    const [mintTrx, setMintTrx] = useState();
+    const [mintParameters, setAmount] = useState()
+    
+    const { curIOU } = drizzleState.contracts;
     const approved = false;
-    const createIOU = (values) => {
-            const makeIOU = drizzle.contracts.MakeIOU
-            const location = values.country+' '
-            const keywords = values.keywords.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value)
-            })
-            const unit = drizzle.web3.utils.asciiToHex(values.unit)
-            const argumentsIOU = [values.name, values.symbol, values.username, values.social, values.description, location,unit,keywords]
-            const stackId = makeIOU.methods["makeIOU"].cacheSend(...argumentsIOU, {from: drizzleState.accounts[0]})
-            
-        
+
+    const mintTokens = useCallback((mintParameters) => {
+        if (mintParameters !== undefined) {
+            const contract = drizzle.contracts.curIOU
+            const tokenAmount = drizzle.web3.utils.toBN(parseInt(mintParameters.amount) * 10 ** 18)
+            const minttrx = contract.methods["mint"]
+            .cacheSend(mintParameters.address, tokenAmount, mintParameters.comment, {from: drizzleState.accounts[0]})
+            setMintTrx(minttrx)
         }
+            
+    }, [drizzle, drizzleState])
+
     
 
-    return [approved, createIOU]
+    useEffect(() => {
+        const { curIOU } = drizzleState.contracts;
+        if (curIOU === undefined && mintParameters !== undefined) {
+           // if (curIOU.address !== mintParameters.TokenAddress) {
+                const contractConfig = new drizzle.web3.eth.Contract(
+                    IBEP20.abi, 
+                    mintParameters.tokenAddress
+                  )
+                drizzle.addContract({
+                    contractName: 'curIOU', 
+                    web3Contract: contractConfig
+                 }, ['Approval'])
+           // }
+            
+
+        }
+        if (mintParameters !== undefined && mintTrx === undefined) {
+            mintTokens(mintParameters)
+        }
+        const { transactions, transactionStack } = drizzleState
+        var statusTrx = transactions[transactionStack[mintTrx]] 
+        if (statusTrx !== undefined) {
+           
+            if (statusTrx.status === "success") {
+                console.log('success')
+            }
+        }
+       
+    }, [drizzleState, mintTrx, mintTokens, mintParameters, setAmount, curIOU, drizzle])
+
+
+    
+    return [approved, setAmount]
 
 }

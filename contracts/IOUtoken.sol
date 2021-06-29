@@ -25,7 +25,7 @@ import  "./interfaces/iIOUtoken.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
+contract IOUtoken is  ERC20Mintable, ERC20Burnable {
 
     struct IOU {
         address receiver;
@@ -43,9 +43,9 @@ contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
     uint8 public decimals;
     bool registered;
 
-    DescriptionIOU public thisIOU;
+    iIOUtoken.DescriptionIOU public thisIOU;
 
-    FeedBack[] public allFeedbacks;
+    iIOUtoken.FeedBack[] public allFeedbacks;
     mapping (address => uint256[]) public feedBacksbySender; // feedback from tokenholders
 
     IOU[] public allIOUs;
@@ -94,7 +94,7 @@ contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
                 _keywords.length <=5 , 
                 "Too many symbs in parameter" );
 
-        thisIOU = DescriptionIOU (0,0,0,
+        thisIOU = iIOUtoken.DescriptionIOU (0,0,0,
             _units,
             _issuer,
             _myName,
@@ -107,6 +107,13 @@ contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
     symbol = _symbol;
     }
     
+
+    function getTokenInfo() public returns(string memory _name,
+                                           string memory _symbol,
+                                           iIOUtoken.DescriptionIOU memory _description) {
+        return(name, symbol, thisIOU);
+
+    }
 
     function setOwner (address _newOwner) public onlyOwner {
         _removeMinter(owner);
@@ -142,7 +149,7 @@ contract IOUtoken is iIOUtoken,  ERC20Mintable, ERC20Burnable {
     function burn (uint256 _amount, int256 _rating, string memory _feedback) public onlyHolder (_amount) {
         require (bytes(_feedback).length <256, "Feedback is long, must be < 256");
 
-        FeedBack memory feedback = FeedBack(msg.sender,now, _rating, _feedback);
+        iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,now, _rating, _feedback);
         allFeedbacks.push(feedback);
         feedBacksbySender[msg.sender].push(allFeedbacks.length-1);
         

@@ -1,5 +1,5 @@
 import { Box, withStyles } from '@material-ui/core';
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -7,15 +7,29 @@ import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
 import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-import { useDispatch, useSelector, useStore, connect } from 'react-redux';
-import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
-import { getContract, getContractList } from 'ethvtx/lib/contracts/helpers/getters';
+import useGetIOUs from '../../hooks/useGetIOUs'
+import TokensListContext from '../../context/TokensListContext'
 
 
 
 const MintSelectTokenPage = ({ classes }) => {
+  
+
+  const tokensList = useContext(TokensListContext)
+  const dataIOUsList = useGetIOUs()
+  const [listDataIOU, setListDataIOU] = useState([])
   const history = useHistory();
   
+  const changeIOUDataList = useCallback((dataIOUsList) => {
+    if (dataIOUsList != null) {
+      setListDataIOU(dataIOUsList)
+      tokensList.setTokenList(dataIOUsList)
+    }
+  }, [tokensList])
+
+  useEffect(() => {
+    changeIOUDataList(dataIOUsList)
+  }, [changeIOUDataList, dataIOUsList])
   
   const handleMakeNewIOU = () => {
     history.push(ROUTES.makeIOUToken1);
@@ -24,6 +38,7 @@ const MintSelectTokenPage = ({ classes }) => {
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
     history.push(ROUTES.mintSelectReceiver);
+    tokensList.setCurrentToken(id)
   };
 
   return (
@@ -37,7 +52,7 @@ const MintSelectTokenPage = ({ classes }) => {
 
       <Box className={classes.listSection}>
         <TokenCardsList
-          data={cardListData.slice(0, 3)}
+          data={listDataIOU}
           onClick={handleSelectIOU}
           title={'Select IOU:'}
         />
@@ -46,11 +61,6 @@ const MintSelectTokenPage = ({ classes }) => {
   );
 };
 
-const GetIOUList = async (state) => {
-  // const current_state = useStore();
-  const length = await getContract(state, 'StoreIOUs', '@storeious').fn.getIOUstotal()
-  console.log(length)
-  return length;
-}
+
 
 export default withStyles(styles, { withTheme: true })(MintSelectTokenPage);

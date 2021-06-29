@@ -5,19 +5,19 @@ const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 export default function useGetPools() {
     const { drizzle } = useDrizzle()
     const drizzleState = useDrizzleState(state => state)
-    const [depositIDs, setDepositIDs] = useState();
-    const [depositList, setDepositList] = useState(null)
+    const [IOUAddreses, setIOUAddreses] = useState();
+    const [IOUList, setIOUList] = useState()
+    
+    const { StoreIOUs, ProxyIOU } = drizzleState.contracts
 
-    const { investmentPools } = drizzleState.contracts
-
-    const changeDepositIDs = (depositResult) => {
-        setDepositIDs(depositResult);
+    const changeIOUListAddreses = (addressList) => {
+        setIOUAddreses(addressList);
     }
 
 
-   const changeDepositList = useCallback(
+   const changeIOUList = useCallback(
         (listItem) => {
-            setDepositList(listItem)
+            setIOUList(listItem)
         },
         [],
     )
@@ -25,44 +25,76 @@ export default function useGetPools() {
     
     useEffect( 
         () => {
-          const contract = drizzle.contracts.investmentPools
+          const storeIOU = drizzle.contracts.StoreIOUs
           
-          const depositTrx = contract.methods["getUser"].cacheCall(drizzleState.accounts[0])
-          if (depositTrx !== undefined) {
-            const result = investmentPools.getUser[depositTrx]
+          const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall(drizzleState.accounts[0])
+          if (getIOUsTrx !== undefined) {
+            const result = StoreIOUs.getIOUList[getIOUsTrx]
             if (result !== undefined) {
-                changeDepositIDs(result.value.deposits);
+                changeIOUListAddreses(result.value);
             }
           }
-        }, [investmentPools, drizzleState, drizzle.contracts.investmentPools])
+        }, [drizzleState, drizzle, StoreIOUs])
 
     
         
     useEffect( 
         () => {
-            const contract = drizzle.contracts.investmentPools
+            const proxyIOU = drizzle.contracts.ProxyIOU
             
-            if(depositIDs !== undefined) {
-                const depositListObjects = []
-                for(var i=0; i<depositIDs.length; i++) {
-                    const resultTrx = contract.methods["getDeposit"].cacheCall(depositIDs[i]);
+            if(IOUAddreses !== undefined && IOUAddreses != null) {
+                const IOUListObjects = []
+                for(var i=0; i<IOUAddreses.length; i++) {
+                    const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
                     if (resultTrx !== undefined) {
-                        const resultItem = investmentPools.getDeposit[resultTrx]
+                        const resultItem = ProxyIOU.getIOU[resultTrx]
                         if (resultItem !== undefined) {
-                        depositListObjects.push({date:resultItem.value.date,
-                                           amount:drizzle.web3.utils.fromWei(resultItem.value.amount,'ether'),
-                                           state:resultItem.value.state,
-                                           id: depositIDs[i],
-                                           tokens: drizzle.web3.utils.fromWei(resultItem.value.tokens, 'ether'),
-                                           poolID: resultItem.value.poolId})
+                            IOUListObjects.push( {
+                                    id: i,
+                                    title: resultItem.value.name,
+                                    count: i,
+                                    description: resultItem.value.descr.description,
+                                    keys: resultItem.value.descr.keywords.join(),
+                                    address: IOUAddreses[i],
+                                    minted: resultItem.value.descr.totalMinted,
+                                    payed: resultItem.value.descr.totalBurned,
+                                    rating: resultItem.value.descr.avRate,
+                                    units: drizzle.web3.utils.hexToAscii(resultItem.value.descr.units)
+                                })   
+                           
+                            
+                            // avRate: "0"
+                            // description: "test"
+                            // issuer: "0x8D67716DE05d313911A957077B91730D2C7e7c70"
+                            // keywords: []
+                            // location: "Eldorado "
+                            // myName: "test"
+                            // socialProfile: "test"
+                            // totalBurned: "0"
+                            // totalMinted: "0"
+                            // units: "0x686f757273000000000000000000000000000000000000000000000000000000"
+                            // avRate: "0"
+                            // description: "test"
+                            // issuer: "0x8D67716DE05d313911A957077B91730D2C7e7c70"
+                            // keywords: []
+                            // location: "Eldorado "
+                            // myName: "test"
+                            // socialProfile: "test"
+                            // totalBurned: "0"
+                            // totalMinted: "0"
+                            // units: "0x686f757273000000000000000000000000000000000000000000000000000000"
+                            // length: 10
+                            // name: "test"
+                            // symbol: "tt"
+                            console.log(resultItem)    
                         }
                     }
                 }
-                changeDepositList(depositListObjects)
+                changeIOUList(IOUListObjects)
             }    
             
-        }, [changeDepositList,depositIDs,investmentPools, drizzle])
+        }, [changeIOUList,IOUAddreses, drizzle, ProxyIOU])
 
 
-    return depositList;
+    return IOUList;
 }
