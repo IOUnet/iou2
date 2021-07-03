@@ -1,7 +1,6 @@
-pragma solidity ^0.5.0;
+pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
-import "./token/ERC20/ERC20Burnable.sol";
-import "./token/ERC20/ERC20Mintable.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "./StoreIOUs.sol";
 import  "./interfaces/iIOUtoken.sol";
 
@@ -25,7 +24,7 @@ import  "./interfaces/iIOUtoken.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is  ERC20Mintable, ERC20Burnable {
+contract IOUtoken is  ERC20 {
 
     struct IOU {
         address receiver;
@@ -34,13 +33,9 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
     }
 
 
-    string public name;
-    string public symbol;
-
+   
     StoreIOUs StoreIOU;
- //   string public name;
- //   string public  symbol;
-    uint8 public decimals;
+ 
     bool registered;
 
     iIOUtoken.DescriptionIOU public thisIOU;
@@ -55,7 +50,7 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
     address owner;
     //mapping (address => uint) Tokenholders;
 
-    constructor () public {
+    constructor (string memory name_, string memory symbol_)  ERC20 (name_, symbol_) {
         factory = msg.sender;
     }
     modifier onlyfactory() {
@@ -69,7 +64,7 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
     }
 
     function setIOU (string memory _name, 
-                 string memory _symbol, 
+                 string memory _symbol,  
                  string memory _myName, // of emitter
                  string memory _socialProfile, //profile  of emitter in social nets
                  string memory _description, //description of bond IOU to  work
@@ -79,12 +74,11 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
                  address _storeAddr,
                  address _issuer
                 ) public onlyfactory {
-        _removeMinter(msg.sender);
-        _addMinter (_issuer);
+/*         _removeMinter(msg.sender);
+        _addMinter (_issuer); */
         
         owner = _issuer;
         StoreIOU = StoreIOUs(_storeAddr);
-        decimals = 18;
         require (bytes(_name).length <16 || 
                 bytes(_symbol).length < 10 ||
                 bytes(_myName).length < 64 ||
@@ -103,22 +97,21 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
             _location,
             _keywords
         );
-    name = _name;
-    symbol = _symbol;
+
     }
     
 
-    function getTokenInfo() public returns(string memory _name,
-                                           string memory _symbol,
-                                           iIOUtoken.DescriptionIOU memory _description) {
-        return(name, symbol, thisIOU);
+    function getTokenInfo() public view returns(string memory,
+                                           string memory,
+                                           iIOUtoken.DescriptionIOU memory ) {
+        return(name(), symbol(), thisIOU);
 
     }
 
     function setOwner (address _newOwner) public onlyOwner {
-        _removeMinter(owner);
+   //     _removeMinter(owner);
         owner = _newOwner;
-        _addMinter(_newOwner);
+  //      _addMinter(_newOwner);
     }
 
     function setStore (address _newfactor) public onlyfactory {
@@ -137,10 +130,10 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
             registered = true; 
             }
         require (bytes(_descr).length <256, "IOU text is long, need < 256");
-        IOU memory bond = IOU (_who, now, _descr);
+        IOU memory bond = IOU (_who, block.timestamp, _descr);
         allIOUs.push(bond);
         IOUbyReceiver[_who].push(IOUbyReceiver[_who].length-1);
-        super.mint(_who, _amount);
+        _mint(_who, _amount);
         thisIOU.totalMinted += _amount;
         StoreIOU.addHolder(_who, address(this));
         
@@ -149,7 +142,7 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
     function burn (uint256 _amount, int256 _rating, string memory _feedback) public onlyHolder (_amount) {
         require (bytes(_feedback).length <256, "Feedback is long, must be < 256");
 
-        iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,now, _rating, _feedback);
+        iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,block.timestamp, _rating, _feedback);
         allFeedbacks.push(feedback);
         feedBacksbySender[msg.sender].push(allFeedbacks.length-1);
         
@@ -160,10 +153,10 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
                         
 
         thisIOU.totalBurned += _amount;
-        super.burn(_amount);
+        _burn(msg.sender, _amount);
     }
 
-    function transfer(address _recipient, uint256 _amount) public  returns (bool) {
+    function transfer(address _recipient, uint256 _amount) public override returns (bool) {
         StoreIOU.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
@@ -177,5 +170,6 @@ contract IOUtoken is  ERC20Mintable, ERC20Burnable {
     function getlen ()  public view returns (uint256, uint256) {
         return (allIOUs.length, allFeedbacks.length);
     } 
+
 
 }

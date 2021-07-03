@@ -1,4 +1,4 @@
-pragma solidity >=  0.5.0;
+pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./IOUtoken.sol";
 import "./StoreIOUs.sol";
@@ -36,9 +36,10 @@ contract MakeIOU {
                  bytes32[] memory _keywords
                         ) public returns (address) {
 
-        IOUtoken newIOU = new IOUtoken();
+        IOUtoken newIOU = new IOUtoken(_name, 
+                        _symbol);
         newIOU.setIOU(  _name, 
-                        _symbol,                          
+                        _symbol,                    
                         _myName, 
                         _socialProfile,  
                         _description,

@@ -51,15 +51,15 @@ export default function useGetPools() {
                         if (resultItem !== undefined) {
                             IOUListObjects.push( {
                                     id: i,
-                                    title: resultItem.value.name,
+                                    title: resultItem.value[0],
                                     count: i,
-                                    description: resultItem.value.descr.description,
-                                    keys: resultItem.value.descr.keywords.join(),
+                                    description: resultItem.value[9],
+                                    keys: resultItem.value[11],
                                     address: IOUAddreses[i],
-                                    minted: resultItem.value.descr.totalMinted,
-                                    payed: resultItem.value.descr.totalBurned,
-                                    rating: resultItem.value.descr.avRate,
-                                    units: drizzle.web3.utils.hexToAscii(resultItem.value.descr.units)
+                                    minted: resultItem.value[2],
+                                    payed: resultItem.value[3],
+                                    rating: resultItem.value[4],
+                                    units: drizzle.web3.utils.hexToAscii(resultItem.value[5])
                                 })   
                            
                             

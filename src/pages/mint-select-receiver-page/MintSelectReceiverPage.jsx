@@ -72,16 +72,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
       </Box>
-      <Box className={classes.dataSection}>
-        <Input
-          id={'Comments...'}
-          inputProps={{
-            onChange: (e) => setComment(e.target.value),
-            value: comment,
-          }}
-          label={'Comments:'}
-        />
-      </Box>
+
       <Box className={classes.dataSection}>
         <Input
           id={'EthereumAddress0x...'}
@@ -102,9 +93,19 @@ const MintSelectReceiverPage = ({ classes }) => {
               value: number,
             }}
             label={'Number of given IOUs'}
-          />
+          />          
           <Typography>Units: hours</Typography>
         </Box>
+        <Box className={classes.dataSection}>
+        <Input
+          id={'Comments...'}
+          inputProps={{
+            onChange: (e) => setComment(e.target.value),
+            value: comment,
+          }}
+          label={'Why you give this IOU...'}
+        />
+      </Box>
       </Box>
 
       <Box className={classes.actionSection}>
