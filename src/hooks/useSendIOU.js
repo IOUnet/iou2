@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
-import IBEP20 from '../artifacts/IOUtoken.json' 
+import IOUtoken from '../artifacts/IOUtoken.json' 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 export default function useAproveToken () {
@@ -31,7 +31,7 @@ export default function useAproveToken () {
         if (curIOU === undefined && mintParameters !== undefined) {
            // if (curIOU.address !== mintParameters.TokenAddress) {
                 const contractConfig = new drizzle.web3.eth.Contract(
-                    IBEP20.abi, 
+                    IOUtoken.abi, 
                     mintParameters.tokenAddress
                   )
                 drizzle.addContract({
