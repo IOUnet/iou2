@@ -16,6 +16,11 @@ interface  iIOUtoken  {
         bytes32[] keywords;
     }
 
+    struct IOU {
+        address receiver;
+        uint256 time;
+        string IOUDescr; //what IOU is
+    }
 
     struct FeedBack {
         address sender;
@@ -24,7 +29,7 @@ interface  iIOUtoken  {
         string text; //comment
     }
     
-    function name () external view returns  (string memory); 
-    function symbol () external view returns (string memory); 
-    function thisIOU () external view returns (DescriptionIOU memory);
+    function IOUname () external view returns  (string memory); 
+    function IOUsymbol () external view returns (string memory);  
+    function thisIOUDesc () external view returns (DescriptionIOU memory);
 }

@@ -3,12 +3,8 @@ pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
 
 contract ProxyIOU  { 
-    constructor  () public
-    {}
-    
-    
 
-    
+
     function getIOU (address _iou) public view returns (
         string memory  ,
         string  memory ,
@@ -26,9 +22,9 @@ contract ProxyIOU  {
     ) {
 
         iIOUtoken iouT = iIOUtoken(_iou);
-        iIOUtoken.DescriptionIOU memory descr = iouT.thisIOU();
-     return (iouT.name(),
-            iouT.symbol(),
+        iIOUtoken.DescriptionIOU memory descr = iouT.thisIOUDesc();
+     return (iouT.IOUname(),
+            iouT.IOUsymbol(),
             
             descr.totalMinted,
             descr.totalBurned,

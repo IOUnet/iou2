@@ -24,27 +24,20 @@ import  "./interfaces/iIOUtoken.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is  ERC20 {
+contract IOUtoken is iIOUtoken, ERC20 {
 
-    struct IOU {
-        address receiver;
-        uint256 time;
-        string IOUDescr; //what IOU is
-    }
-
-
-   
+  
     StoreIOUs StoreIOU;
  
     bool registered;
 
-    iIOUtoken.DescriptionIOU public thisIOU;
+    DescriptionIOU  thisIOU;
 
-    iIOUtoken.FeedBack[] public allFeedbacks;
+    FeedBack[] public allFeedbacks;
     mapping (address => uint256[]) public feedBacksbySender; // feedback from tokenholders
 
     IOU[] public allIOUs;
-    mapping (address => uint256[]) public IOUbyReceiver; // feedback from tokenholders
+    mapping (address => uint256[]) public IOUbyReceiver; // list of this IOUs by receiver
 
     address factory;
     address owner;
@@ -132,7 +125,7 @@ contract IOUtoken is  ERC20 {
         require (bytes(_descr).length <256, "IOU text is long, need < 256");
         IOU memory bond = IOU (_who, block.timestamp, _descr);
         allIOUs.push(bond);
-        IOUbyReceiver[_who].push(IOUbyReceiver[_who].length-1);
+        IOUbyReceiver[_who].push(allIOUs.length-1);
         _mint(_who, _amount);
         thisIOU.totalMinted += _amount;
         StoreIOU.addHolder(_who, address(this));
@@ -171,5 +164,13 @@ contract IOUtoken is  ERC20 {
         return (allIOUs.length, allFeedbacks.length);
     } 
 
-
+    function thisIOUDesc () public view override returns (DescriptionIOU memory)
+    {    return thisIOU;
+    }
+    function IOUname () public view override returns (string memory)
+    {    return name();
+    }
+    function IOUsymbol () public view override returns (string memory)
+    {    return symbol ();
+    }
 }
