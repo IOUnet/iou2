@@ -8,7 +8,7 @@ contract StoreIOUs {
     mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent
     mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile
     mapping (address => address[]) public listHoldersIOUs; //list of tokens by holder
-    mapping (address => bool) public isIOU; //security check is token emitted 
+    mapping (address => uint256) public isIOU; //security check is token emitted 
     mapping (address => mapping (address => bool)) isHolderthisIOU; //  check list of tokens by holder
     mapping (bytes32 => address[]) listbyKeys; //list of IOUs by keyword
     bytes32[] public allKeywords;  //list all keywords
@@ -35,7 +35,7 @@ contract StoreIOUs {
     }
 
     modifier isIOUtoken () {
-        require (makeFactory == msg.sender || isIOU[msg.sender], "Not IOU token calls" );
+        require (makeFactory == msg.sender || isIOU[msg.sender] > 0 , "Not IOU token calls" );
         _;
     }
 
@@ -49,8 +49,9 @@ contract StoreIOUs {
 
     function addIOU1 (address _newIOU, address _emitent) public onlyMake {
         
-        isIOU[_newIOU] = true;
         allIOU.push(_newIOU);
+        isIOU[_newIOU] = allIOU.length;
+
         if (listIOUs[_emitent].length == 0) {
             allIssuers.push(_emitent); 
         }
@@ -65,7 +66,6 @@ contract StoreIOUs {
 
         listIOUsSoc[_socialProfile].push(_newIOU);
         uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
-        uint lenkey;
         for (uint8 k=0 ; k < lenArr ; k++){
         
             if (_keywords[k] > 0 ){

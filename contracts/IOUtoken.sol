@@ -89,7 +89,8 @@ contract IOUtoken is iIOUtoken, ERC20 {
             _description,
             _location,
             _keywords
-        );
+           
+        );  //todo add visibility?
 
     }
     
