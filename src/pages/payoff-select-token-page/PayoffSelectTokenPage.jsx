@@ -1,34 +1,53 @@
 import { Box, withStyles } from '@material-ui/core';
-import React from 'react';
+import React, {useContext, useEffect, useState, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
 import { ROUTES } from '../../constants';
 import styles from './styles';
+import useGetIOUsPayof from '../../hooks/useGetIOUsPayof'
+import TokensListContext from '../../context/TokensListContext'
 
-import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const PayoffSelectTokenPage = ({ classes }) => {
   const history = useHistory();
+  const dataIOUsPayofListContext = useGetIOUsPayof()
+  const tokenList = useContext(TokensListContext)
+  const [dataIOUsPayofList, setDataIOUsPayofList] = useState(null)
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
+    if (dataIOUsPayofList != null && dataIOUsPayofList !== undefined) {
+      tokenList.setTokenList(dataIOUsPayofList)
+      tokenList.setCurrentToken(id)
+    }
     history.push(ROUTES.payoffAndFeedback);
   };
+
+  const setData = useCallback((data) => {
+    if(data !== null) {
+      setDataIOUsPayofList(data)
+    }
+  },[setDataIOUsPayofList])
+
+  useEffect(() => {
+      setData(dataIOUsPayofListContext)
+  },[setData, dataIOUsPayofListContext])
 
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
         <PageTitle>Select IOU to payoff:</PageTitle>
       </Box>
-
-      <Box className={classes.listSection}>
+      {dataIOUsPayofList && <Box className={classes.listSection}>
         <TokenCardsList
-          data={cardListData.slice(0, 3)}
+          data={dataIOUsPayofList}
           onClick={handleSelectIOU}
         />
-      </Box>
+      </Box>}
+      {!dataIOUsPayofList && "Loading..." }
+      
     </PageLayout>
   );
 };

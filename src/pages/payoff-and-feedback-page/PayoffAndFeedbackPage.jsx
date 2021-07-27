@@ -1,5 +1,5 @@
 import { Box, Typography, withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useState, useContext , useEffect, useCallback} from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -10,17 +10,37 @@ import TextField from '../../components/textfield/TextField';
 import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
+import TokensListContext from '../../context/TokensListContext'
+import usePayoffIOU from '../../hooks/usePayoffIOU';
 
-import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const PayoffAndFeedbackPage = ({ classes }) => {
   const history = useHistory();
+  const tokenList = useContext(TokensListContext)
   const [number, setNumber] = useState('');
   const [rate, setRate] = useState(0);
   const [feedback, setFeedback] = useState('');
+  const [burnstate, setParameters] = usePayoffIOU()
+  const [cardTokenData, setCardTokenData] = useState()
+
+  const setCurrentTokenData = useCallback(() => {
+    if (tokenList.tokenList.length > 0) {
+     const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+     setCardTokenData(tokenData)
+    }
+ },[tokenList])
+
+ useEffect(() => {
+   setCurrentTokenData()
+ },[setCurrentTokenData, tokenList])
 
   const handlePayoff = () => {
-    history.push(ROUTES.main);
+    console.log(number, rate, feedback)
+    setParameters({amount: number,
+                   rate, 
+                   feedback,
+                   tokenAddress:cardTokenData.address})
+    //history.push(ROUTES.main);
   };
 
   return (
@@ -30,7 +50,7 @@ const PayoffAndFeedbackPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.cardSection}>
-        <TokenCard data={cardListData[0]} />
+        <TokenCard data={tokenList.tokenList[tokenList.currentTokenID]} />
       </Box>
 
       <Box className={classes.dataSection}>

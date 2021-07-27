@@ -3,23 +3,22 @@ import { drizzleReactHooks } from '@drizzle/react-plugin';
 import IOUtoken from '../artifacts/IOUtoken.json' 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-export default function useAproveToken () {
+export default function usePayoffIOU () {
     const { drizzle } = useDrizzle()
     //const amount = 100;
     const drizzleState = useDrizzleState(state => state)
-    const [mintTrx, setMintTrx] = useState();
-    const [mintParameters, setAmount] = useState()
+    const [burntrx, setBurnTrx] = useState();
+    const [burnParameters, setParameters] = useState()
     
     const { curIOU } = drizzleState.contracts;
-    const approved = false;
 
-    const mintTokens = useCallback((mintParameters) => {
-        if (mintParameters !== undefined) {
+    const burnTokens = useCallback((burnParameters) => {
+        if (burnParameters !== undefined) {
             const contract = drizzle.contracts.curIOU
-            const tokenAmount = drizzle.web3.utils.toBN(parseInt(mintParameters.amount) * 10 ** 18)
-            const minttrx = contract.methods["mint"]
-            .cacheSend(mintParameters.address, tokenAmount, mintParameters.comment, {from: drizzleState.accounts[0]})
-            setMintTrx(minttrx)
+            const tokenAmount = drizzle.web3.utils.toBN(parseInt(burnParameters.amount) * 10 ** 18)
+            const burntrx = contract.methods["burn"]
+            .cacheSend(tokenAmount, burnParameters.rate, burnParameters.feedback, {from: drizzleState.accounts[0]})
+            setBurnTrx(burntrx)
         }
             
     }, [drizzle, drizzleState])
@@ -28,11 +27,11 @@ export default function useAproveToken () {
 
     useEffect(() => {
         const { curIOU } = drizzle.contracts;
-        if (curIOU === undefined && mintParameters !== undefined) {
-           // if (curIOU.address !== mintParameters.TokenAddress) {
+        if (curIOU === undefined && burnParameters !== undefined) {
+           // if (curIOU.address !== burnParameters.TokenAddress) {
                 const contractConfig = new drizzle.web3.eth.Contract(
                     IOUtoken.abi, 
-                    mintParameters.tokenAddress
+                    burnParameters.tokenAddress
                   )
                 drizzle.addContract({
                     contractName: 'curIOU', 
@@ -42,11 +41,11 @@ export default function useAproveToken () {
             
 
         }
-        if (mintParameters !== undefined && mintTrx === undefined) {
-            mintTokens(mintParameters)
+        if (burnParameters !== undefined && burntrx === undefined) {
+            burnTokens(burnParameters)
         }
         const { transactions, transactionStack } = drizzleState
-        var statusTrx = transactions[transactionStack[mintTrx]] 
+        var statusTrx = transactions[transactionStack[burntrx]] 
         if (statusTrx !== undefined) {
            
             if (statusTrx.status === "success") {
@@ -54,10 +53,10 @@ export default function useAproveToken () {
             }
         }
        
-    }, [drizzleState, mintTrx, mintTokens, mintParameters, setAmount, curIOU, drizzle])
+    }, [drizzleState, burntrx, burnTokens, setParameters, curIOU, drizzle, burnParameters])
 
 
     
-    return [approved, setAmount]
+    return [burnParameters, setParameters]
 
 }
