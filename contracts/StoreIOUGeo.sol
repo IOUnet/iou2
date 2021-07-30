@@ -1,26 +1,19 @@
 pragma solidity >=  0.8.0;
 import "./interfaces/iIOUtoken.sol";
+import "./interfaces/iStoreIOUGeo.sol";
+
+contract StoreIOUGeo is iStoreIOUGeo{
 
 
-contract StoreIOUGeo {
-
-    struct  geoIOU {
-        uint256 inCity;
-        uint256 onStreet;
-        string country;
-        string state;
-        string city;
-        string street;
-    }
 
     mapping (string => 
     mapping (string => 
-    mapping (string => address[]))) public listbyCity; // (country =>state =>city) => of IOUs
+    mapping (string => address[]))) internal  listbyCity_; // (country =>state =>city) => of IOUs
     
     mapping (string => 
     mapping (string => 
     mapping (string => 
-    mapping (string => address[])))) public listbyStreet; // (country=> state => city =>street) => IOU 
+    mapping (string => address[])))) internal listbyStreet_; // (country=> state => city =>street) => IOU 
 
     mapping (address => geoIOU ) posIOU;
     address issuer;
@@ -44,26 +37,26 @@ contract StoreIOUGeo {
                         string memory _country,
                         string memory _state,
                         string memory _city,
-                        string memory _street) public onlyissuer (_addrIOU) {
+                        string memory _street) public override onlyissuer (_addrIOU) {
         if (posIOU[_addrIOU].inCity == 0 && posIOU[_addrIOU].onStreet == 0)
             {  
-            listbyCity[_country][_state][_city].push(_addrIOU);
-            posIOU[_addrIOU].inCity = listbyCity[_country][_state][_city].length;
-            listbyStreet[_country][_state][_city][_street].push(_addrIOU);
-            posIOU[_addrIOU].onStreet = listbyStreet[_country][_state][_city][_street].length;
+            listbyCity_ [_country][_state][_city].push(_addrIOU);
+            posIOU[_addrIOU].inCity = listbyCity_ [_country][_state][_city].length;
+            listbyStreet_[_country][_state][_city][_street].push(_addrIOU);
+            posIOU[_addrIOU].onStreet = listbyStreet_[_country][_state][_city][_street].length;
             }
         else {
             geoIOU memory curr = posIOU[_addrIOU];
-            uint curlen = listbyCity[curr.country][curr.state][curr.city].length;
+            uint curlen = listbyCity_ [curr.country][curr.state][curr.city].length;
 
-            listbyCity[curr.country][curr.state][curr.city][curr.inCity -1] = 
-            listbyCity[curr.country][curr.state][curr.city][curlen-1];
-            delete (listbyCity[curr.country][curr.state][curr.city][curlen-1]);
+            listbyCity_ [curr.country][curr.state][curr.city][curr.inCity -1] = 
+            listbyCity_ [curr.country][curr.state][curr.city][curlen-1];
+            delete (listbyCity_ [curr.country][curr.state][curr.city][curlen-1]);
 
-            curlen = listbyStreet[curr.country][curr.state][curr.city][curr.street].length;
-            listbyStreet[curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
-            listbyStreet[curr.country][curr.state][curr.city][curr.street][curlen-1];
-            delete (listbyStreet[curr.country][curr.state][curr.city][curr.street][curlen-1]);
+            curlen = listbyStreet_[curr.country][curr.state][curr.city][curr.street].length;
+            listbyStreet_[curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
+            listbyStreet_[curr.country][curr.state][curr.city][curr.street][curlen-1];
+            delete (listbyStreet_[curr.country][curr.state][curr.city][curr.street][curlen-1]);
 
 
         }
@@ -74,15 +67,15 @@ contract StoreIOUGeo {
 
     function getIOUsbyCity(string memory _country,
                         string memory _state,
-                        string memory _city) public view returns (address[] memory) {
-            return listbyCity [_country][_state][_city];
+                        string memory _city) public override view returns (address[] memory) {
+            return listbyCity_  [_country][_state][_city];
         }
 
     function getIOUsbyStreet (string memory _country,
                         string memory _state,
                         string memory _city,
-                        string memory _street) public view returns (address[] memory) {
-            return listbyStreet[_country][_state][_city][_street];
+                        string memory _street) public override view returns (address[] memory) {
+            return listbyStreet_[_country][_state][_city][_street];
                 }
 
    

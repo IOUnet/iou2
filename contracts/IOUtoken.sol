@@ -1,7 +1,7 @@
 pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./StoreIOUs.sol";
+import "./interfaces/iStoreIOUs.sol";
 import  "./interfaces/iIOUtoken.sol";
 
 /*** IOU ecosystem
@@ -27,7 +27,7 @@ import  "./interfaces/iIOUtoken.sol";
 contract IOUtoken is iIOUtoken, ERC20 {
 
   
-    StoreIOUs StoreIOU;
+    iStoreIOUs StoreIOU;
  
     bool registered;
 
@@ -61,7 +61,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
                  string memory _myName, // of emitter
                  string memory _socialProfile, //profile  of emitter in social nets
                  string memory _description, //description of bond IOU to  work
-                 string memory _location, //where is 
+                 string memory _location, //where is ??abiencoded?
                  bytes32  _units, //units of deal
                  bytes32[] memory _keywords,
                  address _storeAddr,
@@ -71,13 +71,13 @@ contract IOUtoken is iIOUtoken, ERC20 {
         _addMinter (_issuer); */
         
         owner = _issuer;
-        StoreIOU = StoreIOUs(_storeAddr);
+        StoreIOU = iStoreIOUs(_storeAddr);
         require (bytes(_name).length <16 || 
                 bytes(_symbol).length < 10 ||
                 bytes(_myName).length < 64 ||
                 bytes(_socialProfile).length < 128 ||
-                bytes(_description).length < 128 ||
-                bytes(_location).length < 128 ||
+                bytes(_description).length < 256 ||
+                bytes(_location).length < 256 ||
                 _keywords.length <=5 , 
                 "Too many symbs in parameter" );
 
@@ -109,7 +109,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }
 
     function setStore (address _newfactor) public onlyfactory {
-        StoreIOU = StoreIOUs(_newfactor);
+        StoreIOU = iStoreIOUs(_newfactor);
         
     }   
     
@@ -154,6 +154,12 @@ contract IOUtoken is iIOUtoken, ERC20 {
         StoreIOU.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
+    }
+
+    function changeIOU (
+
+    ) public onlyOwner {
+
     }
 
     function thisIOUkeywords() public view returns (bytes32[] memory)

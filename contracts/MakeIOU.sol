@@ -1,19 +1,19 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./IOUtoken.sol";
-import "./StoreIOUs.sol";
+import "./interfaces/iStoreIOUs.sol";
 
 contract MakeIOU {
     
     address private owner;
-    StoreIOUs store;
+    iStoreIOUs store;
 
     function setOwner (address _newOwner) public onlyOwner {
         owner = _newOwner;
     }
 
     function setStore (address _newOwner) public onlyOwner {
-        store = StoreIOUs(_newOwner);
+        store = iStoreIOUs(_newOwner);
         
     }   
 
