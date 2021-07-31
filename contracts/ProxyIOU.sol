@@ -17,7 +17,7 @@ contract ProxyIOU  {
         string memory,// myName ; //name of emitter
         string memory,  //socialProfile ; //profile  of emitter in social nets
         string memory, //description ; //description of bond IOU to  work
-        string memory, //location; //where is it             
+        iIOUtoken.geo  memory, //location; //where is it             
         bytes32[] memory// keywords;
     ) {
 

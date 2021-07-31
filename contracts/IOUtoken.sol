@@ -61,7 +61,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
                  string memory _myName, // of emitter
                  string memory _socialProfile, //profile  of emitter in social nets
                  string memory _description, //description of bond IOU to  work
-                 string memory _location, //where is ??abiencoded?
+                 geo memory _location, //where is ??abiencoded?
                  bytes32  _units, //units of deal
                  bytes32[] memory _keywords,
                  address _storeAddr,
@@ -77,7 +77,6 @@ contract IOUtoken is iIOUtoken, ERC20 {
                 bytes(_myName).length < 64 ||
                 bytes(_socialProfile).length < 128 ||
                 bytes(_description).length < 256 ||
-                bytes(_location).length < 256 ||
                 _keywords.length <=5 , 
                 "Too many symbs in parameter" );
 

@@ -2,6 +2,7 @@ pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./IOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
+import "./interfaces/iIOUtoken.sol";
 
 contract MakeIOU {
     
@@ -17,7 +18,7 @@ contract MakeIOU {
         
     }   
 
-    constructor () public {
+    constructor ()  {
         owner = msg.sender;
     }
 
@@ -31,13 +32,13 @@ contract MakeIOU {
                  string memory _myName, //name of emitter
                  string memory _socialProfile, //profile  of emitter in social nets
                  string memory _description, //description of bond IOU to  work
-                 string  memory _location, //where is                  
+                 iIOUtoken.geo  memory _location, //where is                  
                  bytes32  _units, //units of deal
                  bytes32[] memory _keywords
                         ) public returns (address) {
 
         IOUtoken newIOU = new IOUtoken(_name, 
-                        _symbol);
+                                    _symbol);
         newIOU.setIOU(  _name, 
                         _symbol,                    
                         _myName, 
