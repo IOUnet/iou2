@@ -19,7 +19,13 @@ export default function useCreateIOU() {
     const approved = false;
     const createIOU = (values) => {
             const makeIOU = drizzle.contracts.MakeIOU
-            const location = values.country+' '
+            const location ={'inCity':0, 
+                            'onStreet':0,
+                            'country': values.country,
+                            'state': values.state,
+                            'city': values.city,
+                            'street': values.street
+                        };
             const keywords = values.keywords.map((value, key) => {
                 return drizzle.web3.utils.asciiToHex(value)
             })

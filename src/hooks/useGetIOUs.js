@@ -63,7 +63,8 @@ export default function useGetPools() {
                                     minted: drizzle.web3.utils.fromWei(resultItem.value[2]),
                                     payed: drizzle.web3.utils.fromWei(resultItem.value[3]),
                                     rating: resultItem.value[4],
-                                    units: drizzle.web3.utils.hexToAscii(resultItem.value[5])
+                                    units: drizzle.web3.utils.hexToAscii(resultItem.value[5]),
+                                    location: (resultItem.value[10])
                                 })   
                         }
                     }

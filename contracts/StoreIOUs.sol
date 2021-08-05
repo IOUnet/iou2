@@ -142,15 +142,15 @@ contract StoreIOUs is iStoreIOUs {
 
     function setIOUGeo (address _addrIOU, 
                         iIOUtoken.geo memory _loc,
-                        bytes32 _key) public  onlyissuer (_addrIOU) {
+                        bytes32 _key) internal { //public  onlyissuer (_addrIOU)
 
-        if (posIOU[_addrIOU].inCity == 0 && posIOU[_addrIOU].onStreet == 0)
-            {  
+  /*       if (posIOU[_addrIOU].inCity == 0 && posIOU[_addrIOU].onStreet == 0)
+            {   */
             listbyCity_[_key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
             posIOU[_addrIOU].inCity = listbyCity_[_key][_loc.country][_loc.state][_loc.city].length;
             listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
             posIOU[_addrIOU].onStreet = listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].length;
-            }
+/*             }
         else {
             geoIOU memory curr = posIOU[_addrIOU];
             uint curlen = listbyCity_[_key][curr.country][curr.state][curr.city].length;
@@ -165,7 +165,7 @@ contract StoreIOUs is iStoreIOUs {
             delete (listbyStreet_[_key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
 
 
-        }
+        } */
         
     }
 
