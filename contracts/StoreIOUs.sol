@@ -5,13 +5,16 @@ import "./interfaces/iIOUtoken.sol";
 
 
 contract StoreIOUs is iStoreIOUs {
-
+//todo : break this brick 
     mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent
     mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile
     mapping (address => address[]) public listHoldersIOUs; //list of tokens by holder
     mapping (address => uint256) public isIOU; //security check is token emitted 
     mapping (address => mapping (address => bool)) isHolderthisIOU; //  check list of tokens by holder
+
     mapping (bytes32 => address[]) listbyKeys; //list of IOUs by keyword
+    mapping (bytes32 => 
+    mapping (address => uint256))  keyByList; //reverse index for listbyKeys to editing keywords
     bytes32[] public allKeywords;  //list all keywords
     address[] public allIOU; //list all emitted IOus
     address[] public allIssuers; //list all issuers of  IOus
@@ -67,39 +70,120 @@ contract StoreIOUs is iStoreIOUs {
         _;
     }
 
-    function addIOU1 (address _newIOU, address _emitent) public override onlyMake {
+    function addIOU1 (address _addrIOU, address _emitent) public override onlyMake {
         
-        allIOU.push(_newIOU);
-        isIOU[_newIOU] = allIOU.length;
+        allIOU.push(_addrIOU);
+        isIOU[_addrIOU] = allIOU.length;
 
         if (listIOUs[_emitent].length == 0) {
             allIssuers.push(_emitent); 
         }
-        listIOUs[_emitent].push(_newIOU);
+        listIOUs[_emitent].push(_addrIOU);
     }
 
 
-    function addIOU2 (address _newIOU, 
+    function addIOU2 (address _addrIOU, 
                     string memory _socialProfile,                     
                     bytes32[] memory _keywords) 
                     public override isIOUtoken   {        
 
-        listIOUsSoc[_socialProfile].push(_newIOU);
+        listIOUsSoc[_socialProfile].push(_addrIOU);
+        _addKeys(_addrIOU, _keywords);
+    }
+
+
+    function addKeys (address _addrIOU, bytes32[] memory _keywords) public onlyissuer(_addrIOU) {
+        _addKeys(_addrIOU, _keywords);
+    }
+    function delKeys (address _addrIOU, bytes32[] memory _keywords) public onlyissuer(_addrIOU) {
+        _delKeys(_addrIOU, _keywords);
+    }
+
+    
+    /// when changed geolocation
+    function changeIOUGeoAllkeys  (address _addrIOU, 
+                            iIOUtoken.geo memory _loc 
+                            ) public onlyissuer(_addrIOU) {
+        bytes32[] memory keys = iIOUtoken(_addrIOU).thisIOUDesc().keywords;
+        for (uint8 k=0; k<keys.length; k++)  {  
+            bytes32 key = keys[k];
+            _delkeyIOUGeo(_addrIOU, key);
+            _setIOUGeo(_addrIOU, _loc, key);          
+
+            }
+    }
+    function _addKeys (address _addrIOU, bytes32[] memory _keywords) internal{
+
         uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
         for (uint8 k=0 ; k < lenArr ; k++){
-        
-            if (_keywords[k] > 0 ){
-                if  (listbyKeys[_keywords[k]].length == 0 ) {
-                    
-                    allKeywords.push(_keywords[k]);
-                    setIOUGeo(_newIOU,
-                             iIOUtoken(_newIOU).thisIOUDesc().location, 
-                             _keywords[k]);
+            bytes32 key = _keywords[k];
+                if (key > 0 ){
+                    if  (listbyKeys[key].length == 0 ) {
+                        
+                        allKeywords.push(key);
+
+                    }
+                    listbyKeys[key].push(_addrIOU);
+                    keyByList[key][_addrIOU] = listbyKeys[key].length;
+                    _setIOUGeo(_addrIOU,
+                            iIOUtoken(_addrIOU).thisIOUDesc().location, 
+                            key);
                 }
-                listbyKeys[_keywords[k]].push(address(_newIOU));
+            } 
+    }
+
+
+    function _delKeys (address _addrIOU, bytes32[] memory _keywords) internal{
+
+        uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
+        for (uint8 k=0 ; k < lenArr ; k++){
+            bytes32 key = _keywords[k];
+            if (key > 0 ){
+                uint keyNum = keyByList[key][_addrIOU];
+                if  (keyNum > 0 ) {
+                    listbyKeys[key][keyNum-1] = 
+                    listbyKeys[key][
+                    listbyKeys[key].length -1];
+                    delete (listbyKeys[key][
+                            listbyKeys[key].length -1]);
+                    _delkeyIOUGeo(_addrIOU, key);
+                }
+ 
             }
         } 
+    }
+
+
+    function _setIOUGeo (address _addrIOU, 
+                        iIOUtoken.geo memory _loc,
+                        bytes32 _key) internal { //public  onlyissuer (_addrIOU)
+
+        listbyCity_[_key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
+        posIOU[_addrIOU].inCity = listbyCity_[_key][_loc.country][_loc.state][_loc.city].length;
+        listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
+        posIOU[_addrIOU].onStreet = listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].length;
+
+    }
+
+    function _delkeyIOUGeo  (address _addrIOU, 
+                            bytes32 key) public onlyissuer(_addrIOU) {
+
+        geoIOU memory curr = posIOU[_addrIOU];
+
+        uint curlen = listbyCity_[key][curr.country][curr.state][curr.city].length;
+        // delete old key connection
+        listbyCity_[key][curr.country][curr.state][curr.city][curr.inCity -1] = 
+        listbyCity_[key][curr.country][curr.state][curr.city][curlen-1];
+        delete (listbyCity_[key][curr.country][curr.state][curr.city][curlen-1]);
+
+        curlen = listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].length;
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1];
+        delete (listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
+        
         }
+
+
 
     function getIOUList (address _owner) public override view returns (address[] memory) {
             return listIOUs[_owner];
@@ -140,50 +224,12 @@ contract StoreIOUs is iStoreIOUs {
         return allIssuers.length;
     }
 
-    function setIOUGeo (address _addrIOU, 
-                        iIOUtoken.geo memory _loc,
-                        bytes32 _key) internal { //public  onlyissuer (_addrIOU)
-
-  
-            listbyCity_[_key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
-            posIOU[_addrIOU].inCity = listbyCity_[_key][_loc.country][_loc.state][_loc.city].length;
-            listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
-            posIOU[_addrIOU].onStreet = listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].length;
-
-    }
-
-function changeIOUGeo  (address _addrIOU, iIOUtoken.geo memory _loc) public onlyissuer(_addrIOU) {
-
-    geoIOU memory curr = posIOU[_addrIOU];
-    bytes32[] memory keys = iIOUtoken(_addrIOU).thisIOUDesc().keywords;
-    for (uint8 k=0; k<keys.length; k++)  {  
-        bytes32 key = keys[k];
-        uint curlen = listbyCity_[key][curr.country][curr.state][curr.city].length;
-        // delete old key connection
-        listbyCity_[key][curr.country][curr.state][curr.city][curr.inCity -1] = 
-        listbyCity_[key][curr.country][curr.state][curr.city][curlen-1];
-        delete (listbyCity_[key][curr.country][curr.state][curr.city][curlen-1]);
-
-        curlen = listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].length;
-        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
-        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1];
-        delete (listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
-
-          
-        listbyCity_[key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
-        posIOU[_addrIOU].inCity = listbyCity_[key][_loc.country][_loc.state][_loc.city].length;
-        listbyStreet_[key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
-        posIOU[_addrIOU].onStreet = listbyStreet_[key][_loc.country][_loc.state][_loc.city][_loc.street].length;
-
-        }
-    }
-
     function getIOUsbyCity(bytes32 _key,
-                        string memory _country,
-                        string memory _state,
-                        string memory _city) public  view returns (address[] memory) {
-            return listbyCity_  [_key][_country][_state][_city];
-        }
+                            string memory _country,
+                            string memory _state,
+                            string memory _city) public  view returns (address[] memory) {
+                return listbyCity_  [_key][_country][_state][_city];
+            }
 
     function getIOUsbyStreet (bytes32 _key,
                         string memory _country,
@@ -194,4 +240,4 @@ function changeIOUGeo  (address _addrIOU, iIOUtoken.geo memory _loc) public only
                 }
 
 
-}
+    }
