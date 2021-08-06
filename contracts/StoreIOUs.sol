@@ -144,32 +144,39 @@ contract StoreIOUs is iStoreIOUs {
                         iIOUtoken.geo memory _loc,
                         bytes32 _key) internal { //public  onlyissuer (_addrIOU)
 
-  /*       if (posIOU[_addrIOU].inCity == 0 && posIOU[_addrIOU].onStreet == 0)
-            {   */
+  
             listbyCity_[_key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
             posIOU[_addrIOU].inCity = listbyCity_[_key][_loc.country][_loc.state][_loc.city].length;
             listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
             posIOU[_addrIOU].onStreet = listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].length;
-/*             }
-        else {
-            geoIOU memory curr = posIOU[_addrIOU];
-            uint curlen = listbyCity_[_key][curr.country][curr.state][curr.city].length;
 
-            listbyCity_[_key][curr.country][curr.state][curr.city][curr.inCity -1] = 
-            listbyCity_[_key][curr.country][curr.state][curr.city][curlen-1];
-            delete (listbyCity_[_key][curr.country][curr.state][curr.city][curlen-1]);
-
-            curlen = listbyStreet_[_key][curr.country][curr.state][curr.city][curr.street].length;
-            listbyStreet_[_key][curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
-            listbyStreet_[_key][curr.country][curr.state][curr.city][curr.street][curlen-1];
-            delete (listbyStreet_[_key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
-
-
-        } */
-        
     }
 
+function changeIOUGeo  (address _addrIOU, iIOUtoken.geo memory _loc) public onlyissuer(_addrIOU) {
 
+    geoIOU memory curr = posIOU[_addrIOU];
+    bytes32[] memory keys = iIOUtoken(_addrIOU).thisIOUDesc().keywords;
+    for (uint8 k=0; k<keys.length; k++)  {  
+        bytes32 key = keys[k];
+        uint curlen = listbyCity_[key][curr.country][curr.state][curr.city].length;
+        // delete old key connection
+        listbyCity_[key][curr.country][curr.state][curr.city][curr.inCity -1] = 
+        listbyCity_[key][curr.country][curr.state][curr.city][curlen-1];
+        delete (listbyCity_[key][curr.country][curr.state][curr.city][curlen-1]);
+
+        curlen = listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].length;
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curr.onStreet -1] = 
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1];
+        delete (listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
+
+          
+        listbyCity_[key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
+        posIOU[_addrIOU].inCity = listbyCity_[key][_loc.country][_loc.state][_loc.city].length;
+        listbyStreet_[key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
+        posIOU[_addrIOU].onStreet = listbyStreet_[key][_loc.country][_loc.state][_loc.city][_loc.street].length;
+
+        }
+    }
 
     function getIOUsbyCity(bytes32 _key,
                         string memory _country,
