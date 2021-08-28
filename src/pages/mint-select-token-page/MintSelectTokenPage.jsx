@@ -17,6 +17,7 @@ const MintSelectTokenPage = ({ classes }) => {
 
   const tokensList = useContext(TokensListContext)
   const dataIOUsList = useGetIOUs()
+  
   const [listDataIOU, setListDataIOU] = useState([])
   const history = useHistory();
   
