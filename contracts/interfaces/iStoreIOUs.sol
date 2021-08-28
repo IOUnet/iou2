@@ -32,7 +32,7 @@ interface  iStoreIOUs {
 
     function getIOUstotal () external view  returns (uint256);    
 
-    function getKeystotal () external view returns (uint256); 
+    function getKeystotal () external view returns (bytes32[] memory); 
 
     function getIssuerstotal () external view returns (uint256);
 

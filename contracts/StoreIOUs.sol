@@ -214,9 +214,9 @@ contract StoreIOUs is iStoreIOUs {
         return allIOU.length;
     }    
 
-    function getKeystotal () public view override returns (uint256)
+    function getKeystotal () public view override returns (bytes32[] memory) 
     {
-        return allKeywords.length;
+        return allKeywords;
     }    
 
     function getIssuerstotal () public view override returns (uint256)
