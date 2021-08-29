@@ -30,7 +30,16 @@ export default function useCreateIOU() {
                 return drizzle.web3.utils.asciiToHex(value)
             })
             const unit = drizzle.web3.utils.asciiToHex(values.unit)
-            const argumentsIOU = [values.name, values.symbol, values.username, values.social, values.description, location,unit,keywords]
+            const phone = drizzle.web3.utils.asciiToHex(values.phone)
+            const argumentsIOU = [values.name,
+                                 values.symbol, 
+                                 values.username, 
+                                 values.social, 
+                                 values.description, 
+                                 location,
+                                 unit,
+                                 keywords,
+                                 phone]
             const stackId = makeIOU.methods["makeIOU"].cacheSend(...argumentsIOU, {from: drizzleState.accounts[0]})
             
         

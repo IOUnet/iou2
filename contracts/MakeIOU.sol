@@ -34,7 +34,8 @@ contract MakeIOU {
                  string memory _description, //description of bond IOU to  work
                  iIOUtoken.geo  memory _location, //where is                  
                  bytes32  _units, //units of deal
-                 bytes32[] memory _keywords
+                 bytes32[] memory _keywords,
+                 bytes32 _phone
                         ) public returns (address) {
 
         IOUtoken newIOU = new IOUtoken(_name, 
@@ -48,7 +49,8 @@ contract MakeIOU {
                         _units, 
                         _keywords,
                         address(store),
-                        msg.sender
+                        msg.sender, 
+                        _phone
             );
         //store.addIOU2(address(newIOU), _socialProfile, msg.sender, _keywords);
         require (address(store) != address(0x0), "No store address");

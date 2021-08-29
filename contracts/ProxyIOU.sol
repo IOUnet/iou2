@@ -3,9 +3,13 @@ pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
 
 contract ProxyIOU  { 
+    struct IOUdescr {
+        string name;
+        string symbol;
+        iIOUtoken.DescriptionIOU description;
+    }
 
-
-    function getIOU (address _iou) public view returns (
+    /* function getIOU (address _iou) public view returns (
         string memory  ,
         string  memory ,
 //        iIOUtoken.DescriptionIOU memory descr
@@ -18,7 +22,8 @@ contract ProxyIOU  {
         string memory,  //socialProfile ; //profile  of emitter in social nets
         string memory, //description ; //description of bond IOU to  work
         iIOUtoken.geo  memory, //location; //where is it             
-        bytes32[] memory// keywords;
+        bytes32[] memory, // keywords;
+        bytes32 //phone
     ) {
 
         iIOUtoken iouT = iIOUtoken(_iou);
@@ -35,8 +40,15 @@ contract ProxyIOU  {
             descr.socialProfile,  //profile  of emitter in social nets
             descr.description,//description of bond IOU to  work
             descr.location, //where is it             
-            descr.keywords
+            descr.keywords,
+            descr.phone
             );
-    }
+    } */
+
+function getIOU (address _iou) public view returns ( IOUdescr memory) {
+    iIOUtoken iouT = iIOUtoken(_iou);
+    IOUdescr memory iouD = IOUdescr (iouT.IOUname(), iouT.IOUsymbol(), iouT.thisIOUDesc()  );
+    return iouD;
+}
 
 }

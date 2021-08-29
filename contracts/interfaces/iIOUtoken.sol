@@ -21,6 +21,7 @@ interface  iIOUtoken  {
         string description ; //description of bond IOU to  work
         geo location; //where is it             
         bytes32[] keywords;
+        bytes32 phone;
     }
 
     struct IOU {

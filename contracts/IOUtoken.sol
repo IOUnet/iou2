@@ -65,10 +65,10 @@ contract IOUtoken is iIOUtoken, ERC20 {
                  bytes32  _units, //units of deal
                  bytes32[] memory _keywords,
                  address _storeAddr,
-                 address _issuer
+                 address _issuer,
+                 bytes32 _phone
                 ) public onlyfactory {
-/*         _removeMinter(msg.sender);
-        _addMinter (_issuer); */
+
         
         owner = _issuer;
         StoreIOU = iStoreIOUs(_storeAddr);
@@ -87,8 +87,8 @@ contract IOUtoken is iIOUtoken, ERC20 {
             _socialProfile,
             _description,
             _location,
-            _keywords
-           
+            _keywords,
+           _phone
         );  //todo add visibility?
 
     }

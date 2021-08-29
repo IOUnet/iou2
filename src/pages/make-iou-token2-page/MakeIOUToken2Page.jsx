@@ -90,7 +90,7 @@ const MakeIOUToken2Page = ({ classes }) => {
 
       <Box className={classes.actionSection}>
         <Button onClick={handleNext}>
-          next 1/2
+          prev 1/2
         </Button>
         <Button onClick={handlePublish}>
           publish iou

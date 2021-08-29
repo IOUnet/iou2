@@ -4,7 +4,7 @@ import styles from './styles';
 
 const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
   const {
-    title, count, description, keys, address, minted, payed, rating, units, location
+    title, count, description, keys, address, minted, payed, rating, units, location, phone
   } = data;
 
   return (
@@ -20,6 +20,7 @@ const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
             <Typography>{keys && `Keys: ${keys}`}</Typography>
             <Typography>{address && `Address: ${address}`}</Typography>
             <Typography>{location && `Location: ${location}`}</Typography>
+            <Typography>{phone && `Location: ${phone}`}</Typography>
           </Box>
           {isFullMode && (
             <Box className={classes.data}>

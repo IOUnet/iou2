@@ -49,22 +49,23 @@ export default function useGetPools() {
                     if (resultTrx !== undefined) {
                         const resultItem = ProxyIOU.getIOU[resultTrx]
                         if (resultItem !== undefined) {
-
-                            let keys = resultItem.value[11].map((value,key) => {
+                            
+                            let keys = resultItem.value.description.keywords.map((value,key) => {
                                 return drizzle.web3.utils.hexToAscii(value)
                             })
                             IOUListObjects.push( {
                                     id: i,
-                                    title: resultItem.value[0],
+                                    title: resultItem.value.name,
                                     count: i,
-                                    description: resultItem.value[9],
+                                    description: resultItem.value.description.description,
                                     keys: keys.join(','),
                                     address: IOUAddreses[i],
-                                    minted: drizzle.web3.utils.fromWei(resultItem.value[2]),
-                                    payed: drizzle.web3.utils.fromWei(resultItem.value[3]),
-                                    rating: resultItem.value[4],
-                                    units: drizzle.web3.utils.hexToAscii(resultItem.value[5]),
-                                    location: (resultItem.value[10])
+                                    minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
+                                    payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
+                                    rating: resultItem.value.description.avRate,
+                                    units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
+                                    location: (resultItem.value.description.location),
+                                    phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
                                 })   
                         }
                     }
