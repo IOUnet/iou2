@@ -16,9 +16,9 @@ const HomePage = ({ classes }) => {
   const buttons = [
     { button: 'give iou', handler: () => history.push(ROUTES.mintSelectToken) },
     { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
-   /*  { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },
+   { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },
     { button: 'buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
-    { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) }, */
+    { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) }, 
   ];
 
   return (

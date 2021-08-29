@@ -6,14 +6,14 @@ export default function useGetKeys() {
     const { drizzle } = useDrizzle()
     const drizzleState = useDrizzleState(state => state)
 
-    const [IOUKeys, setIOUKeys] = useState()
+    const [IssuersStat, setIssuersStat] = useState()
     
     const { StoreIOUs } = drizzleState.contracts
 
 
-   const changeIOUKeys = useCallback(
+   const changeIssuersStat = useCallback(
         (listItem) => {
-            setIOUKeys(listItem)
+            setIssuersStat(listItem)
         },
         []
     )
@@ -24,19 +24,19 @@ export default function useGetKeys() {
         () => {
           const storeIOU = drizzle.contracts.StoreIOUs
           
-          const getIOUsTrx = storeIOU.methods["getKeystotal"].cacheCall({from: drizzleState.accounts[0]})
+          const getIOUsTrx = storeIOU.methods["getIOUstotal"].cacheCall({from: drizzleState.accounts[0]})
           
           if (getIOUsTrx !== undefined) {
-            const result = StoreIOUs.getKeystotal[getIOUsTrx]
+            const result = StoreIOUs.getIOUstotal[getIOUsTrx]
             if (result !== undefined) {
                 
-                changeIOUKeys(result.value);
+                changeIssuersStat(result.value);
                     
             }
           }
-        }, [changeIOUKeys, drizzleState, drizzle, StoreIOUs])
+        }, [changeIssuersStat, drizzleState, drizzle, StoreIOUs])
 
   
 
-    return IOUKeys;
+    return IssuersStat;
 }

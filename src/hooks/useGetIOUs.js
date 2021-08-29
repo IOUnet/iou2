@@ -27,14 +27,14 @@ export default function useGetPools() {
         () => {
           const storeIOU = drizzle.contracts.StoreIOUs
           
-          const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall(drizzleState.accounts[0])
+          const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall( drizzleState.accounts[0])
           if (getIOUsTrx !== undefined) {
             const result = StoreIOUs.getIOUList[getIOUsTrx]
             if (result !== undefined) {
                 changeIOUListAddreses(result.value);
             }
           }
-        }, [drizzleState, drizzle, StoreIOUs])
+        }, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs])
 
     
         

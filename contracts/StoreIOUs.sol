@@ -185,6 +185,13 @@ contract StoreIOUs is iStoreIOUs {
 
 
 
+    function addHolder(address _holder, address _IOUtoken) public override isIOUtoken {
+        if (!isHolderthisIOU[_holder][_IOUtoken] ) {
+            listHoldersIOUs [_holder].push(_IOUtoken);
+            isHolderthisIOU[_holder][_IOUtoken] = true;
+        }
+    }
+
     function getIOUList (address _owner) public override view returns (address[] memory) {
             return listIOUs[_owner];
         }
@@ -197,13 +204,6 @@ contract StoreIOUs is iStoreIOUs {
             return listbyKeys[_key];
                 }
 
-
-    function addHolder(address _holder, address _IOUtoken) public override isIOUtoken {
-        if (!isHolderthisIOU[_holder][_IOUtoken] ) {
-            listHoldersIOUs [_holder].push(_IOUtoken);
-            isHolderthisIOU[_holder][_IOUtoken] = true;
-        }
-    }
 
     function getIOUListHold (address _holder) public view override returns (address[] memory) {
             return listHoldersIOUs [_holder];
