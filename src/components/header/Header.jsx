@@ -27,7 +27,18 @@ const Header = ({ classes }) => {
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar className={classes.toolbar}>
-        <IconButton
+      <Link component={LinkBehavior}  className={classes.mainLink}>
+          <Typography component="h1" className={classes.title}>
+              IOU dApp home
+          </Typography>
+        </Link>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+/**
+ *  <IconButton
           aria-label="close"
           className={classes.button}
           onClick={() => console.log('close button clicked')}
@@ -35,11 +46,7 @@ const Header = ({ classes }) => {
           <CloseIcon />
         </IconButton>
 
-        <Link component={LinkBehavior}  className={classes.mainLink}>
-          <Typography component="h1" className={classes.title}>
-              IOUnet
-          </Typography>
-        </Link>
+   
 
         <IconButton
           aria-label="share"
@@ -64,9 +71,5 @@ const Header = ({ classes }) => {
         >
           <NotificationsIcon/>
         </IconButton>
-      </Toolbar>
-    </AppBar>
-  );
-};
-
+ */
 export default withStyles(styles, { withTheme: true })(Header);
