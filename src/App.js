@@ -24,7 +24,7 @@ import { drizzleReactHooks } from '@drizzle/react-plugin';
 import drizzleOptions from './store/DrizzleOptions';
 import Loading from './components/loading/Loading'
 import CreateIOUProvider from './context/CreateIOUProvider'
-import TokensListProvider from './context/TekensListProvider'
+import TokensListProvider from './context/TokensListProvider'
 
 const drizzle = new Drizzle(drizzleOptions)
 const { DrizzleProvider } = drizzleReactHooks;

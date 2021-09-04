@@ -20,7 +20,7 @@ const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
             <Typography>{keys && `Keys: ${keys}`}</Typography>
             <Typography>{address && `Address: ${address}`}</Typography>
             <Typography>{location && `Location: ${location}`}</Typography>
-            <Typography>{phone && `Location: ${phone}`}</Typography>
+            <Typography>{phone && `Phone: ${phone}`}</Typography>
           </Box>
           {isFullMode && (
             <Box className={classes.data}>

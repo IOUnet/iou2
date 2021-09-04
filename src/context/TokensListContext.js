@@ -4,7 +4,9 @@ const TokensListContext = createContext({
     setTokensList: () => {},
     setCurrentToken: () => {},
     tokenList: [],
-    currentTokenID:''
+    currentTokenID:'',
+    values: {}
+
 })
 
 export default TokensListContext;
