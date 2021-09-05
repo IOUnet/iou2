@@ -12,21 +12,21 @@ import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 
 import { FindInPageOutlined } from '@material-ui/icons';
+import useFindIOU from '../../hooks/useFindIOU';
 
 const FindBuyIOUPage = ({ classes }) => {
   const history = useHistory();
   //const searchIOU = useContext(TokensListContext)
   const tokenList = useContext(TokensListContext)
 
-   
+  const [FindIOU] = useFindIOU();
   const [values, setFormValues] = useState(tokenList.values) 
-  //const [keyword, setKeyword] = useState(values.keyword);
-  const [searchLocation, setsearchLocation] = useState(values.searchLocation);
-  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
+  // const [searchLocation, setsearchLocation] = useState();
+  //  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
   const handleFind = () => {
     history.push(ROUTES.buyIOUSelect);
     tokenList.setFormValues(values)
-  //  IOUAddreses(values)
+    FindIOU(values);
   };
 
   const onChangeHandler = useCallback(
@@ -58,17 +58,18 @@ const FindBuyIOUPage = ({ classes }) => {
 
         <Checkbox
           checked={values.searchLocation}
-          id={checkboxLabelText}
+          id={values.searchLocation}
           label={
             <Typography className={classes.checkbox_label}>{checkboxLabelText}</Typography>
           }
+          name='searchLocation'
           inputProps ={{
             onChange: (e) => onChangeHandler(e) ,
             value: values.searchLocation,
           }}
         />
 
-        {values.searchLocation&&<TextField
+        {<TextField
           className={classes.textField_italic}
           id='country'
           label={'Country'}
@@ -79,7 +80,7 @@ const FindBuyIOUPage = ({ classes }) => {
           }}
         />}
 
-      {searchLocation&&<TextField
+      {<TextField
           id='region'
           label={'State/Region'}
           name='region'
@@ -89,7 +90,7 @@ const FindBuyIOUPage = ({ classes }) => {
           }}
         />}
 
-      {searchLocation&&<TextField
+      {<TextField
             id='city'
             label={'City/Town'}
             name='city'
@@ -99,8 +100,8 @@ const FindBuyIOUPage = ({ classes }) => {
             }}
         />}
       </Box>
-      {searchLocation&&<Checkbox
-          checked={searchStreet}
+      {<Checkbox
+          checked={values.searchStreet}
           id={checkboxLabelStreet}
           label={
             <Typography className={classes.checkbox_label}>{checkboxLabelStreet}</Typography>
@@ -109,7 +110,7 @@ const FindBuyIOUPage = ({ classes }) => {
             onChange: (e) => onChangeHandler(e) ,
             value: values.searchStreet,
           }}        />}
-      {searchLocation&&searchStreet&&<TextField
+      {<TextField
           id='street'
           label={'Street/Block'}
           name='street'

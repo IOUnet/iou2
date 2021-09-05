@@ -8,7 +8,7 @@ const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 
-export default function useFindIOU() {
+export default function FindIOU() {
     
     const { drizzle } = useDrizzle() ;
     const drizzleState = useDrizzleState(state => state);
@@ -36,9 +36,21 @@ export default function useFindIOU() {
             () => {
                 const storeIOU = drizzle.contracts.StoreIOUs
             if (values.searchStreet) {
-
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city, values.street);
+                if (getIOUsTrx !== undefined) {
+                const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
+                if (result !== undefined) {
+                    changeIOUListAddreses(result.value);
+                }
+                }
             } else if (values.searchLocation) {
-
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city);
+                if (getIOUsTrx !== undefined) {
+                const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
+                if (result !== undefined) {
+                    changeIOUListAddreses(result.value);
+                }
+                }
             } else {
                 const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword));
                 if (getIOUsTrx !== undefined) {
