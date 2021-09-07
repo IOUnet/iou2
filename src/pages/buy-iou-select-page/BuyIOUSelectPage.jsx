@@ -15,6 +15,8 @@ const BuyIOUSelectPage = ({ classes }) => {
   const history = useHistory();
   const dataIOUsBuyListContext = useFindIOU()
   const tokenList = useContext(TokensListContext)
+  const [values, setFormValues] = useState(tokenList.values) 
+
   const [dataIOUsBuyList, setDataIOUsBuyList] = useState(null)
   const [dataIOUsList] = useFindIOU()
   const [listDataIOU, setListDataIOU] = useState([])
@@ -45,11 +47,11 @@ const BuyIOUSelectPage = ({ classes }) => {
     if(data !== null) {
       setDataIOUsBuyList(data)
     }
-  },[setDataIOUsBuyList])
+  },[]) /**setDataIOUsBuyList, dataIOUsBuyListContext */
 
   useEffect(() => {
       setData(dataIOUsBuyListContext)
-  },[setData, dataIOUsBuyListContext])
+  },[setData, dataIOUsBuyListContext]) /**setData, dataIOUsBuyListContext */
 
 
   return (

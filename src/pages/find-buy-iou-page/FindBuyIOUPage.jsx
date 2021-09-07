@@ -19,15 +19,15 @@ const FindBuyIOUPage = ({ classes }) => {
   //const searchIOU = useContext(TokensListContext)
   const tokenList = useContext(TokensListContext)
 
-  const [FindIOU] = useFindIOU();
   const [values, setFormValues] = useState(tokenList.values) 
  // const [searchLocation, setsearchLocation] = useState();
   var searchLocation, searchStreet ;
   //  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
   const handleFind = () => {
     history.push(ROUTES.buyIOUSelect);
-    tokenList.setFormValues(values)
-    FindIOU(values);
+    tokenList.setFormValues(values);
+    
+  //  findIOU(values);
   };
 
   const onChangeHandler = useCallback(

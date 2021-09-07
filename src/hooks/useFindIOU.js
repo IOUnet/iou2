@@ -8,7 +8,7 @@ const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 
-export default function FindIOU() {
+export default function useFindIOU() {
     
     const { drizzle } = useDrizzle() ;
     const drizzleState = useDrizzleState(state => state);
@@ -20,16 +20,16 @@ export default function FindIOU() {
     const [values, setFormValues] = useState(tokenList.values) 
 
 
-        const changeIOUListAddreses = (addressList) => {
+        const changeIOUListAddreses = useCallback((addressList) => {
             setIOUAddreses(addressList);
-        }
+        }, [setIOUAddreses]);
     
     
        const changeIOUList = useCallback(
             (listItem) => {
                 setIOUList(listItem)
             },
-            [],
+            [setIOUList],
         );
 
         useEffect( 
@@ -59,10 +59,43 @@ export default function FindIOU() {
                     changeIOUListAddreses(result.value);
                 }
                 }
-            }}, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs]);
-    
-    
-            useEffect( 
+            }}, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs, values]);
+     
+    /* 
+          const findIOU = (values) => {
+                const storeIOU = drizzle.contracts.StoreIOUs
+            if (values.searchStreet) {
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city, values.street);
+                if (getIOUsTrx !== undefined) {
+                const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
+                if (result !== undefined) {
+                  //  changeIOUListAddreses( result.value);
+                  return  result.value;
+                }
+                }
+            } else if (values.searchLocation) {
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city);
+                if (getIOUsTrx !== undefined) {
+                const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
+                if (result !== undefined) {
+                 //   changeIOUListAddreses( result.value);               
+                 return  result.value;
+
+                 }
+                }
+            } else {
+                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword), {from: drizzleState.accounts[0]});
+                if (getIOUsTrx !== undefined) {
+                const result = StoreIOUs.getIOUListKey[getIOUsTrx];
+                if (result !== undefined) {
+                  //  changeIOUListAddreses( result.value);              
+                  return  result.value;
+
+                  }
+                }
+            }
+        } */
+             useEffect( 
                 () => {
                     const proxyIOU = drizzle.contracts.ProxyIOU
                     
@@ -123,9 +156,9 @@ export default function FindIOU() {
                     }    
                     
                 }, [changeIOUList,IOUAddreses, drizzle, ProxyIOU])
-        
+         
     
 
     return [ IOUList]
-
+// IOUList, IOUAddreses, 
 }

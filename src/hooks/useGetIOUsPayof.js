@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-export default function useGetPools() {
+export default function useGetIOUsPayof() {
     const { drizzle } = useDrizzle()
     const drizzleState = useDrizzleState(state => state)
     const [IOUAddreses, setIOUAddreses] = useState();
