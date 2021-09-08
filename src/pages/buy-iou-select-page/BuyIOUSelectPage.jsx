@@ -43,16 +43,25 @@ const BuyIOUSelectPage = ({ classes }) => {
     history.push(ROUTES.buyIOU);
   };
 
+/*   const setData = useCallback((data) => {
+    if(data !== null) {
+      setDataIOUsBuyList(data)
+    }
+  },[]) /**setDataIOUsBuyList, dataIOUsBuyListContext 
+
+  useEffect(() => {
+      setData(dataIOUsBuyListContext)
+  },[setData, dataIOUsBuyListContext]) /**setData, dataIOUsBuyListContext 
+ */
+
   const setData = useCallback((data) => {
     if(data !== null) {
       setDataIOUsBuyList(data)
     }
-  },[]) /**setDataIOUsBuyList, dataIOUsBuyListContext */
-
+  },[setDataIOUsBuyList]) 
   useEffect(() => {
       setData(dataIOUsBuyListContext)
-  },[setData, dataIOUsBuyListContext]) /**setData, dataIOUsBuyListContext */
-
+  },[setData]) 
 
   return (
     <PageLayout>
