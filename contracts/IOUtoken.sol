@@ -29,7 +29,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
   
     iStoreIOUs StoreIOU;
  
-    bool registered;
+   // bool registered;
 
     DescriptionIOU  thisIOU;
 
@@ -118,10 +118,10 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }
 
     function mint (address _who, uint256 _amount, string memory _descr) public onlyOwner { 
-        if (!registered) {
+/*         if (!registered) {
             StoreIOU.addIOU2(address(this), thisIOU.socialProfile, thisIOU.keywords);
             registered = true; 
-            }
+            } */
         require (bytes(_descr).length <256, "IOU text is long, need < 256");
         IOU memory bond = IOU (_who, block.timestamp, _descr);
         allIOUs.push(bond);

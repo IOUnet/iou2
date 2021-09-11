@@ -24,10 +24,10 @@ export default function useGetKeys() {
         () => {
           const storeIOU = drizzle.contracts.StoreIOUs
           
-          const getIOUsTrx = storeIOU.methods["getIOUstotal"].cacheCall({from: drizzleState.accounts[0]})
+          const getIOUsTrx = storeIOU.methods["getIssuerstotal"].cacheCall({from: drizzleState.accounts[0]})
           
           if (getIOUsTrx !== undefined) {
-            const result = StoreIOUs.getIOUstotal[getIOUsTrx]
+            const result = StoreIOUs.getIssuerstotal[getIOUsTrx]
             if (result !== undefined) {
                 
                 changeIssuersStat(result.value);

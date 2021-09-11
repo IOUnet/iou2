@@ -91,9 +91,9 @@ const FindBuyIOUPage = ({ classes }) => {
         />}
 
       {values.searchLocation&&<TextField
-          id='region'
+          id='state'
           label={'State/Region'}
-          name='region'
+          name='state'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
             value: values.state,

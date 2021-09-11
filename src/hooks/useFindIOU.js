@@ -36,15 +36,22 @@ export default function useFindIOU() {
             () => {
                 const storeIOU = drizzle.contracts.StoreIOUs
             if (values.searchStreet) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city, values.street);
+                const getIOUsTrx = storeIOU.methods["getIOUsbyStreet"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()), 
+                    values.country.trim(), 
+                    values.state.trim(), 
+                    values.city.trim(), 
+                    values.street.trim());
                 if (getIOUsTrx !== undefined) {
-                const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
+                const result = StoreIOUs.getIOUsbyStreet[getIOUsTrx];
                 if (result !== undefined) {
                     changeIOUListAddreses(result.value);
                 }
                 }
             } else if (values.searchLocation) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city);
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()), 
+                    values.country.trim(), 
+                    values.state.trim(), 
+                    values.city.trim());
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
                 if (result !== undefined) {
@@ -52,7 +59,7 @@ export default function useFindIOU() {
                 }
                 }
             } else {
-                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword));
+                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()));
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUListKey[getIOUsTrx];
                 if (result !== undefined) {

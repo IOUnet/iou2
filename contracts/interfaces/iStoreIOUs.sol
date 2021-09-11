@@ -3,12 +3,12 @@ pragma solidity >=  0.8.0;
 
 interface  iStoreIOUs {
     struct  geoIOU {
-        uint256 inCity;
-        uint256 onStreet;
-        string country;
-        string state;
-        string city;
-        string street;
+        uint64 inCity;
+        uint64 onStreet;
+        // string country;
+        // string state;
+        // string city;
+        // string street;
     }
 
     function addIOU1 (address _newIOU, address _emitent) external;

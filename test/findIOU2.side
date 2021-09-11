@@ -5,7 +5,7 @@
   "url": "http://localhost:3000",
   "tests": [{
     "id": "80bdcaf0-e2ec-4f17-b7c8-6bcd894f3a45",
-    "name": "mint_give",
+    "name": "mint",
     "commands": [{
       "id": "838936e2-ce13-4639-9aec-71aa7bc6434a",
       "comment": "",
@@ -480,6 +480,18 @@
       ],
       "value": ""
     }, {
+      "id": "9cf44ab7-af80-4627-b692-2cc6d8279d78",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiBox-root-61 > .MuiTypography-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiBox-root-61 > .MuiTypography-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='0']/div/div/div/div/p[3]", "xpath:idRelative"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Address: 0x733399057e8341804C3367072205B42d2cA0b168')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
       "id": "9dd6dc14-25e0-4b0e-90c2-fa76ad87f06a",
       "comment": "",
       "command": "click",
@@ -675,6 +687,18 @@
       ],
       "value": ""
     }, {
+      "id": "2f155334-4dde-447c-9566-21929b35acaf",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiBox-root-140 > .MuiTypography-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiBox-root-140 > .MuiTypography-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='0']/div/div/div/div/p[3]", "xpath:idRelative"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Address: 0x733399057e8341804C3367072205B42d2cA0b168')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
       "id": "c46fcd64-3327-4df3-9e3e-c84c98bfdd91",
       "comment": "",
       "command": "click",
@@ -756,6 +780,30 @@
         ["css=.MuiButton-label", "css:finder"],
         ["xpath=//div[@id='root']/div/main/div[4]/button/span", "xpath:idRelative"],
         ["xpath=//button/span", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "c77704fe-0c63-4a42-a1d6-e0fb1d1a66eb",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiBox-root-219 > .MuiTypography-root:nth-child(3)",
+      "targets": [
+        ["css=.MuiBox-root-219 > .MuiTypography-root:nth-child(3)", "css:finder"],
+        ["xpath=//div[@id='0']/div/div/div/div/p[3]", "xpath:idRelative"],
+        ["xpath=//p[3]", "xpath:position"],
+        ["xpath=//p[contains(.,'Address: 0x733399057e8341804C3367072205B42d2cA0b168')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "ef5221df-d63c-4525-8255-34c3bfa0162f",
+      "comment": "",
+      "command": "click",
+      "target": "css=.Header-title-11",
+      "targets": [
+        ["css=.Header-title-11", "css:finder"],
+        ["xpath=//div[@id='root']/div/header/div/a/h1", "xpath:idRelative"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'IOU dApp')]", "xpath:innerText"]
       ],
       "value": ""
     }]
