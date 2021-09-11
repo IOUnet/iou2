@@ -41,12 +41,12 @@ const MakeIOUToken1Page = (props) => {
 
       <Box className={classes.dataSection}>
         <Input
-          id='tokenName'
+          id='name'
           label={'ERC20 token name (12 char)'}
-          name="tokenName"
+          name="name"
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
-            value: values.tokenName,
+            value: values.name,
           }}
         />
 
