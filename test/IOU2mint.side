@@ -57,7 +57,7 @@
       "id": "6a095ab6-ae6f-43d5-a56f-6e8414a8456e",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiInputBase-root > #name",
+      "target": "css=.MuiInputBase-root > #tokenName",
       "targets": [
         ["css=.MuiInputBase-root > #name", "css:finder"],
         ["xpath=//input[@id='name']", "xpath:attributes"],
@@ -69,7 +69,7 @@
       "id": "325f5fd3-e6b4-4d6b-a502-c20bda87dc1e",
       "comment": "",
       "command": "type",
-      "target": "css=.MuiInputBase-root > #name",
+      "target": "css=.MuiInputBase-root > #tokenName",
       "targets": [
         ["css=.MuiInputBase-root > #name", "css:finder"],
         ["xpath=//input[@id='name']", "xpath:attributes"],
@@ -249,7 +249,7 @@
       "id": "74ef876b-6573-4501-9355-2606b1f84ff3",
       "comment": "",
       "command": "click",
-      "target": "css=.MuiBox-root-49",
+      "target": "css=.MuiInputBase-root > #country",
       "targets": [
         ["css=.MuiBox-root-49", "css:finder"],
         ["xpath=//div[@id='root']/div/main/div[2]", "xpath:idRelative"],

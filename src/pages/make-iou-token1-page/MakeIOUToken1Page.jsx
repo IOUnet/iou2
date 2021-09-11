@@ -15,17 +15,9 @@ import CreateIOUContext from '../../context/CreateIOUContext'
 const MakeIOUToken1Page = (props) => {
   const classes = props.classes;
   const history = useHistory();
-  const [values, setFormValues] = useState({
-                                            name:'',
-                                            symbol:'',
-                                            username: '',
-                                            social: '',
-                                            description: '',
-                                            keywords:'',
-                                            unit:'',
-                                            country:''
-                                          });
+  
   const createIOU = useContext(CreateIOUContext)
+  const [values, setFormValues] = useState(createIOU.values)
   const onChangeHandler = useCallback(
     (e) => {
       if (e.target.id === "keywords") {
@@ -49,7 +41,7 @@ const MakeIOUToken1Page = (props) => {
 
       <Box className={classes.dataSection}>
         <Input
-          id='name'
+          id='tokenName'
           label={'ERC20 token name (12 char)'}
           name="tokenName"
           inputProps={{
@@ -74,7 +66,7 @@ const MakeIOUToken1Page = (props) => {
           name='username'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
-            value: values.surname,
+            value: values.username,
           }}
         />
 

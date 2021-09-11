@@ -21,8 +21,10 @@ const MakeIOUToken2Page = ({ classes }) => {
       setFormValues(values => ({...values, [e.target.id]:e.target.value}))
     }, [],
   );
-  const handleNext = () => {
+  const handlePrev = () => {
     history.push(ROUTES.makeIOUToken1);
+    createIOU.setFormValues(values)
+
   };
 
   const handlePublish = () => {
@@ -89,7 +91,7 @@ const MakeIOUToken2Page = ({ classes }) => {
       </Box>
 
       <Box className={classes.actionSection}>
-        <Button onClick={handleNext}>
+        <Button onClick={handlePrev}>
           prev 1/2
         </Button>
         <Button onClick={handlePublish}>
