@@ -34,6 +34,7 @@ interface  iIOUtoken  {
         address sender;
         uint256 time;
         int256 rating; // estimation of skills in 255 grades
+        uint256 amount;
         string text; //comment
     }
     

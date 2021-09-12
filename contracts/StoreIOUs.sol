@@ -173,7 +173,7 @@ contract StoreIOUs is iStoreIOUs {
     }
 
     function _delkeyIOUGeo  (address _addrIOU, 
-                            bytes32 key) public onlyissuer(_addrIOU) {
+                            bytes32 key) internal {
 
         iIOUtoken.geo memory curr = iIOUtoken(_addrIOU).thisIOUDesc().location;
 
