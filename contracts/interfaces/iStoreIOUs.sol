@@ -1,4 +1,5 @@
 pragma solidity >=  0.8.0;
+import "./iIOUtoken.sol";
 
 
 interface  iStoreIOUs {
@@ -11,17 +12,14 @@ interface  iStoreIOUs {
         // string street;
     }
 
-    function addIOU1 (address _newIOU, address _emitent) external;
-
-    function addIOU2 (address _newIOU, 
-                    string memory _socialProfile,                     
-                    bytes32[] memory _keywords) 
-                    external ;
-        
+    function addIOU1 (address _newIOU, address _emitent) external;  
+    function addKeys (bytes32[] calldata _keys, address _IOUtok)  external; 
+    function delKeys (bytes32[] calldata _keywords, address _addrIOU ) external;
+    function changeIOUGeoAllkeys  (iIOUtoken.geo calldata _loc, address _addrIOU ) external;
 
     function getIOUList (address _owner) external view returns (address[] memory) ;
 
-    function getIOUListSoc (string memory _profile) external view returns (address[] memory);
+    function getIOUListSoc (string calldata _profile) external view returns (address[] memory);
 
     function getIOUListKey (bytes32 _key) external view returns (address[] memory) ;
 

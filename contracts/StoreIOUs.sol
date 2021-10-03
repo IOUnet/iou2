@@ -47,7 +47,7 @@ contract StoreIOUs is iStoreIOUs {
         _;
     }
 
-    modifier onlyMake() {
+    modifier onlyFactory() {
         require (makeFactory != address(0x0), "No makeFactory address");
         require (makeFactory == msg.sender, "Only makeFactory can do this");
         _;
@@ -72,7 +72,7 @@ contract StoreIOUs is iStoreIOUs {
         _;
     }
 
-    function addIOU1 (address _addrIOU, address _emitent) public override onlyMake {
+    function addIOU1 (address _addrIOU, address _emitent) public override onlyFactory {
         
         allIOU.push(_addrIOU);
         isIOU[_addrIOU] = allIOU.length;
@@ -88,28 +88,16 @@ contract StoreIOUs is iStoreIOUs {
     }
 
 
-    function addIOU2 (address _addrIOU, 
-                    string memory _socialProfile,                     
-                    bytes32[] memory _keywords) 
-                    public override isIOUtoken   {        
-
- /*        listIOUsSoc[_socialProfile].push(_addrIOU);
-        _addKeys(_addrIOU, _keywords); */
-    }
-
-
-    function addKeys (address _addrIOU, bytes32[] memory _keywords) public onlyissuer(_addrIOU) {
+    function addKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlyFactory override {
         _addKeys(_addrIOU, _keywords);
     }
-    function delKeys (address _addrIOU, bytes32[] memory _keywords) public onlyissuer(_addrIOU) {
+    function delKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlyFactory override {
         _delKeys(_addrIOU, _keywords);
     }
 
     
     /// when changed geolocation
-    function changeIOUGeoAllkeys  (address _addrIOU, 
-                            iIOUtoken.geo memory _loc 
-                            ) public onlyissuer(_addrIOU) {
+       function changeIOUGeoAllkeys  (iIOUtoken.geo calldata _loc, address _addrIOU ) external override onlyFactory {
         bytes32[] memory keys = iIOUtoken(_addrIOU).thisIOUDesc().keywords;
         for (uint8 k=0; k<keys.length; k++)  {  
             bytes32 key = keys[k];

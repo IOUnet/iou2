@@ -1,8 +1,9 @@
 pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "./interfaces/iStoreIOUs.sol";
 import  "./interfaces/iIOUtoken.sol";
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+import "./MakeIOU.sol";
 
 /*** IOU ecosystem
 *   The aim of IOU ecosystem is to give people proved fiat-free mutual settlements by issuing personal IOU tokens on Ethereum.
@@ -27,7 +28,6 @@ import  "./interfaces/iIOUtoken.sol";
 contract IOUtoken is iIOUtoken, ERC20 {
 
   
-    iStoreIOUs StoreIOU;
  
    // bool registered;
 
@@ -64,14 +64,12 @@ contract IOUtoken is iIOUtoken, ERC20 {
                  geo memory _location, //where is ??abiencoded?
                  bytes32  _units, //units of deal
                  bytes32[] memory _keywords,
-                 address _storeAddr,
                  address _issuer,
                  bytes32 _phone
                 ) public onlyfactory {
 
         
         owner = _issuer;
-        StoreIOU = iStoreIOUs(_storeAddr);
         require (bytes(_name).length <16 || 
                 bytes(_symbol).length < 10 ||
                 bytes(_myName).length < 64 ||
@@ -107,11 +105,6 @@ contract IOUtoken is iIOUtoken, ERC20 {
   //      _addMinter(_newOwner);
     }
 
-    function setStore (address _newfactor) public onlyfactory {
-        StoreIOU = iStoreIOUs(_newfactor);
-        
-    }   
-    
     modifier onlyHolder (uint256 _amount) {
         require (balanceOf(msg.sender) > _amount, "No amount token holder has" );
     _;
@@ -128,7 +121,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
         IOUbyReceiver[_who].push(allIOUs.length-1);
         _mint(_who, _amount);
         thisIOU.totalMinted += _amount;
-        StoreIOU.addHolder(_who, address(this));
+        MakeIOU(factory).addHolder(_who, address(this)); 
         
     }
 
@@ -150,16 +143,57 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }
 
     function transfer(address _recipient, uint256 _amount) public override returns (bool) {
-        StoreIOU.addHolder(_recipient, address(this));
+        MakeIOU(factory).addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
     }
 
-    function changeIOU (
-
-    ) public onlyOwner {
-
+    function editDescr (string calldata _descr)  public onlyOwner {
+        thisIOU.description = _descr;
     }
+
+    function editPhone (bytes32 _phone)  public onlyOwner {
+        thisIOU.phone = _phone;
+    }
+
+    function editGeo (geo calldata _location, address _sender)  public onlyfactory {
+        require(_sender == owner, "Only owner can edit");
+        thisIOU.location = _location;
+    }
+
+
+    function addKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
+        require(_sender == owner, "Only owner can edit");
+        uint addKeyLen = _keys.length;
+        require(addKeyLen < 5, "Only 5 keys can add once");
+        for (uint k=0; k<addKeyLen; k++) {
+            thisIOU.keywords.push(_keys[k]);
+        }
+    }
+    function delKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
+        require(_sender == owner, "Only owner can edit");
+        uint addKeyLen = _keys.length;       
+        require(addKeyLen < 5, "Only 5 keys can remove once");
+        // mark removing keys
+        uint[5] memory keyMap;
+        uint km = 0;
+        for (uint dk=0; dk<addKeyLen; dk++) {
+            for (uint kk=0; kk<thisIOU.keywords.length; kk++) {                
+                    if (thisIOU.keywords[kk] == _keys[dk]) {
+                        keyMap[km] = kk;
+                        km=km+1;
+                    }
+            }
+        }
+        // catch array 
+        for (uint k=0; k<km; k++) {   
+            thisIOU.keywords[keyMap[k]] = thisIOU.keywords[thisIOU.keywords.length-1-k] ;
+        }
+        for (uint k=0; k<km; k++) {   
+            delete thisIOU.keywords[thisIOU.keywords.length-1-k] ;
+        }   
+    }
+
 
     function thisIOUkeywords() public view returns (bytes32[] memory)
     {
