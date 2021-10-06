@@ -59,18 +59,18 @@ contract MakeIOU {
         }
 
     function addHolder(address _holder, address _IOUtoken) public  {
-          store.addHolder(_holder, _IOUtoken);
+        store.addHolder(_holder, _IOUtoken);
       }
 
 
    function addKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
-            IOUtoken (_IOUtok).addKeys(_keys, msg.sender);
-            store.addKeys( _keys, _IOUtok);  
+        IOUtoken (_IOUtok).addKeys(_keys, msg.sender);
+        store.addKeys( _keys, _IOUtok);  
         } 
 
    function delKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
-            IOUtoken (_IOUtok).delKeys(_keys, msg.sender);
-            store.delKeys( _keys, _IOUtok);
+        IOUtoken (_IOUtok).delKeys(_keys, msg.sender);
+        store.delKeys( _keys, _IOUtok);
         }
 
     function editGeo (iIOUtoken.geo calldata _location, address _IOUtok)  public  {
