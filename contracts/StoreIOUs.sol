@@ -2,6 +2,7 @@ pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./interfaces/iStoreIOUs.sol";
 import "./interfaces/iIOUtoken.sol";
+import "./Initializable.sol";
 
 
 contract StoreIOUs is iStoreIOUs {
@@ -38,7 +39,8 @@ contract StoreIOUs is iStoreIOUs {
     address owner;
     address makeFactory;
 
-    constructor ()  {
+    //constructor ()  {
+    function initialize () public {
         owner = msg.sender;
     }
 
