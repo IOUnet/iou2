@@ -46,10 +46,13 @@ const MintSelectReceiverPage = ({ classes }) => {
    // history.push(ROUTES.main);
   };
   
-  const handleQR = () => {
+ /*  const handleQR = () => {
     console.log('QR button clicked');
   };
-
+        <Button onClick={handleQR}>
+          <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
+        </Button>
+ */
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
@@ -68,9 +71,7 @@ const MintSelectReceiverPage = ({ classes }) => {
           subheader="(paste address of receiver or scan their QR code)"
           title="To..."
         />
-        <Button onClick={handleQR}>
-          <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
-        </Button>
+
       </Box>
 
       <Box className={classes.dataSection}>

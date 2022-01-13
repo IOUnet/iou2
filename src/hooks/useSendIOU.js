@@ -3,7 +3,7 @@ import { drizzleReactHooks } from '@drizzle/react-plugin';
 import IOUtoken from '../artifacts/IOUtoken.json' 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
-export default function useAproveToken () {
+export default function useSendIOU () {
     const { drizzle } = useDrizzle()
     //const amount = 100;
     const drizzleState = useDrizzleState(state => state)

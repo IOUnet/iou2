@@ -3,6 +3,13 @@ pragma solidity >= 0.8.0;
 pragma experimental ABIEncoderV2;
 interface  iIOUtoken  {
 
+    struct geo {
+        string country;
+        string state;
+        string city;
+        string street;
+    }
+
     struct DescriptionIOU {
         uint256 totalMinted;
         uint256 totalBurned;
@@ -12,8 +19,9 @@ interface  iIOUtoken  {
         string myName ; //name of emitter
         string socialProfile ; //profile  of emitter in social nets
         string description ; //description of bond IOU to  work
-        string location; //where is it             
+        geo location; //where is it             
         bytes32[] keywords;
+        bytes32 phone;
     }
 
     struct IOU {
@@ -26,6 +34,7 @@ interface  iIOUtoken  {
         address sender;
         uint256 time;
         int256 rating; // estimation of skills in 255 grades
+        uint256 amount;
         string text; //comment
     }
     

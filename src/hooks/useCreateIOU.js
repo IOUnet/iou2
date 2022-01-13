@@ -19,12 +19,27 @@ export default function useCreateIOU() {
     const approved = false;
     const createIOU = (values) => {
             const makeIOU = drizzle.contracts.MakeIOU
-            const location = values.country+' '
+            const location ={'inCity':0, 
+                            'onStreet':0,
+                            'country': values.country.trim(),
+                            'state': values.state.trim(),
+                            'city': values.city.trim(),
+                            'street': values.street.trim()
+                        };
             const keywords = values.keywords.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value)
+                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
             })
             const unit = drizzle.web3.utils.asciiToHex(values.unit)
-            const argumentsIOU = [values.name, values.symbol, values.username, values.social, values.description, location,unit,keywords]
+            const phone = drizzle.web3.utils.asciiToHex(values.phone)
+            const argumentsIOU = [values.name.trim(),
+                                 values.symbol.trim(), 
+                                 values.username, 
+                                 values.social.trim(), 
+                                 values.description, 
+                                 location,
+                                 unit,
+                                 keywords,
+                                 phone]
             const stackId = makeIOU.methods["makeIOU"].cacheSend(...argumentsIOU, {from: drizzleState.accounts[0]})
             
         

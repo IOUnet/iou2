@@ -16,9 +16,11 @@ const HomePage = ({ classes }) => {
   const buttons = [
     { button: 'give iou', handler: () => history.push(ROUTES.mintSelectToken) },
     { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
-    { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },
-    { button: 'buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
-    { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) },
+    { button: 'find & buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
+   
+  /* { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },  ,
+    { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) },  */
+    //    <TokensInfo data={tokenInfoData} />`
   ];
 
   return (
@@ -30,7 +32,7 @@ const HomePage = ({ classes }) => {
         </Typography>
       </Box>
 
-      <TokensInfo data={tokenInfoData} />
+   
 
       <Box className={classes.button_group}>
         <Grid className={classes.button_group_container} container spacing={4}>

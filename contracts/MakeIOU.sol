@@ -1,23 +1,24 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./IOUtoken.sol";
-import "./StoreIOUs.sol";
+import "./interfaces/iStoreIOUs.sol";
+import "./interfaces/iIOUtoken.sol";
 
 contract MakeIOU {
     
     address private owner;
-    StoreIOUs store;
+    iStoreIOUs store;
 
     function setOwner (address _newOwner) public onlyOwner {
         owner = _newOwner;
     }
 
     function setStore (address _newOwner) public onlyOwner {
-        store = StoreIOUs(_newOwner);
+        store = iStoreIOUs(_newOwner);
         
     }   
 
-    constructor () public {
+    constructor ()  {
         owner = msg.sender;
     }
 
@@ -31,13 +32,14 @@ contract MakeIOU {
                  string memory _myName, //name of emitter
                  string memory _socialProfile, //profile  of emitter in social nets
                  string memory _description, //description of bond IOU to  work
-                 string  memory _location, //where is                  
+                 iIOUtoken.geo  memory _location, //where is                  
                  bytes32  _units, //units of deal
-                 bytes32[] memory _keywords
+                 bytes32[] memory _keywords,
+                 bytes32 _phone
                         ) public returns (address) {
 
         IOUtoken newIOU = new IOUtoken(_name, 
-                        _symbol);
+                                    _symbol);
         newIOU.setIOU(  _name, 
                         _symbol,                    
                         _myName, 
@@ -46,8 +48,8 @@ contract MakeIOU {
                         _location,
                         _units, 
                         _keywords,
-                        address(store),
-                        msg.sender
+                        msg.sender, 
+                        _phone
             );
         //store.addIOU2(address(newIOU), _socialProfile, msg.sender, _keywords);
         require (address(store) != address(0x0), "No store address");
@@ -56,5 +58,23 @@ contract MakeIOU {
         return address (newIOU);
         }
 
-  
+    function addHolder(address _holder, address _IOUtoken) public  {
+        store.addHolder(_holder, _IOUtoken);
+      }
+
+
+   function addKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
+        IOUtoken (_IOUtok).addKeys(_keys, msg.sender);
+        store.addKeys( _keys, _IOUtok);  
+        } 
+
+   function delKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
+        IOUtoken (_IOUtok).delKeys(_keys, msg.sender);
+        store.delKeys( _keys, _IOUtok);
+        }
+
+    function editGeo (iIOUtoken.geo calldata _location, address _IOUtok)  public  {
+        IOUtoken (_IOUtok).editGeo(_location, msg.sender);
+        store.changeIOUGeoAllkeys(_location, _IOUtok);
+    }
 }

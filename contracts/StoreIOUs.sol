@@ -1,25 +1,46 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
+import "./interfaces/iStoreIOUs.sol";
+import "./interfaces/iIOUtoken.sol";
+import "./Initializable.sol";
 
 
-
-contract StoreIOUs {
-
+contract StoreIOUs is iStoreIOUs {
+//todo : break this brick 
     mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent
     mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile
     mapping (address => address[]) public listHoldersIOUs; //list of tokens by holder
     mapping (address => uint256) public isIOU; //security check is token emitted 
     mapping (address => mapping (address => bool)) isHolderthisIOU; //  check list of tokens by holder
+
     mapping (bytes32 => address[]) listbyKeys; //list of IOUs by keyword
+    mapping (bytes32 => 
+     mapping (address => uint256))  keyByList; //reverse index for listbyKeys to editing keywords
     bytes32[] public allKeywords;  //list all keywords
     address[] public allIOU; //list all emitted IOus
     address[] public allIssuers; //list all issuers of  IOus
+
+    mapping (bytes32 => // keyword
+     mapping (string =>  // (country
+      mapping (string =>  //  state 
+       mapping (string =>  //street
+        address[])))) internal  listbyCity_; // (keyword => country =>state =>city) => of IOUs
+    
+    mapping (bytes32 => // keyword
+     mapping (string =>  // country
+      mapping (string =>  //  state 
+       mapping (string =>  //  city 
+        mapping (string =>  //street
+          address[]))))) internal listbyStreet_; // (keyword=>country=> state => city =>street) => IOU 
+
+    mapping (address => geoIOU ) posIOU;
 
 
     address owner;
     address makeFactory;
 
-    constructor () public {
+    //constructor ()  {
+    function initialize () public {
         owner = msg.sender;
     }
 
@@ -28,7 +49,7 @@ contract StoreIOUs {
         _;
     }
 
-    modifier onlyMake() {
+    modifier onlyFactory() {
         require (makeFactory != address(0x0), "No makeFactory address");
         require (makeFactory == msg.sender, "Only makeFactory can do this");
         _;
@@ -47,74 +68,173 @@ contract StoreIOUs {
         makeFactory = _newFact;
     }
 
-    function addIOU1 (address _newIOU, address _emitent) public onlyMake {
+    modifier onlyissuer(address _addrIOU) {
+        iIOUtoken.DescriptionIOU memory desc = iIOUtoken(_addrIOU).thisIOUDesc();
+        require (desc.issuer == msg.sender, "Only issuer can do this");
+        _;
+    }
+
+    function addIOU1 (address _addrIOU, address _emitent) public override onlyFactory {
         
-        allIOU.push(_newIOU);
-        isIOU[_newIOU] = allIOU.length;
+        allIOU.push(_addrIOU);
+        isIOU[_addrIOU] = allIOU.length;
 
         if (listIOUs[_emitent].length == 0) {
             allIssuers.push(_emitent); 
         }
-        listIOUs[_emitent].push(_newIOU);
+        listIOUs[_emitent].push(_addrIOU);
+        iIOUtoken curIOU =  iIOUtoken(_addrIOU);
+        iIOUtoken.DescriptionIOU memory thisIOU = curIOU.thisIOUDesc();
+        listIOUsSoc[thisIOU.socialProfile].push(_addrIOU);
+        _addKeys(_addrIOU, thisIOU.keywords);
     }
 
 
-    function addIOU2 (address _newIOU, 
-                    string memory _socialProfile,                     
-                    bytes32[] memory _keywords) 
-                    public  isIOUtoken   {        
+    function addKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlyFactory override {
+        _addKeys(_addrIOU, _keywords);
+    }
+    function delKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlyFactory override {
+        _delKeys(_addrIOU, _keywords);
+    }
 
-        listIOUsSoc[_socialProfile].push(_newIOU);
+    
+    /// when changed geolocation
+       function changeIOUGeoAllkeys  (iIOUtoken.geo calldata _loc, address _addrIOU ) external override onlyFactory {
+        bytes32[] memory keys = iIOUtoken(_addrIOU).thisIOUDesc().keywords;
+        for (uint8 k=0; k<keys.length; k++)  {  
+            bytes32 key = keys[k];
+            _delkeyIOUGeo(_addrIOU, key);
+            _setIOUGeo(_addrIOU, _loc, key);          
+
+            }
+    }
+    function _addKeys (address _addrIOU, bytes32[] memory _keywords) internal{
+
         uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
         for (uint8 k=0 ; k < lenArr ; k++){
-        
-            if (_keywords[k] > 0 ){
-                if  (listbyKeys[_keywords[k]].length == 0 ) {
-                    
-                    allKeywords.push(_keywords[k]);
+            bytes32 key = _keywords[k];
+                if (key > 0 ){
+                    address[] memory lbk = listbyKeys[key];
+                    if  (lbk.length == 0 ) { // new keyword, never used in IOUs before
+                        allKeywords.push(key);
+                    }
+                    if (keyByList[key][_addrIOU] == 0) {
+                        listbyKeys[key].push(_addrIOU);
+                        keyByList[key][_addrIOU] = listbyKeys[key].length;
+                    }
+                    _setIOUGeo(_addrIOU,
+                            iIOUtoken(_addrIOU).thisIOUDesc().location, 
+                            key);
                 }
-                listbyKeys[_keywords[k]].push(address(_newIOU));
+            } 
+    }
+
+
+    function _delKeys (address _addrIOU, bytes32[] memory _keywords) internal{
+
+        uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
+        for (uint8 k=0 ; k < lenArr ; k++){
+            bytes32 key = _keywords[k];
+            if (key > 0 ){
+                uint keyNum = keyByList[key][_addrIOU];
+                if  (keyNum > 0 ) {
+                    listbyKeys[key][keyNum-1] = 
+                    listbyKeys[key][
+                      listbyKeys[key].length -1];
+                    delete (listbyKeys[key][
+                            listbyKeys[key].length -1]);
+                    _delkeyIOUGeo(_addrIOU, key);
+                }
+ 
             }
         } 
+    }
+
+
+    function _setIOUGeo (address _addrIOU, 
+                        iIOUtoken.geo memory _loc,
+                        bytes32 _key) internal { //public  onlyissuer (_addrIOU)
+
+        listbyCity_[_key] [_loc.country][_loc.state][_loc.city].push(_addrIOU);
+        posIOU[_addrIOU].inCity = uint64(listbyCity_[_key][_loc.country][_loc.state][_loc.city].length);
+        listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].push(_addrIOU);
+        posIOU[_addrIOU].onStreet = uint64(listbyStreet_[_key][_loc.country][_loc.state][_loc.city][_loc.street].length);
+
+    }
+
+    function _delkeyIOUGeo  (address _addrIOU, 
+                            bytes32 key) internal {
+
+        iIOUtoken.geo memory curr = iIOUtoken(_addrIOU).thisIOUDesc().location;
+
+        uint curlen = listbyCity_[key][curr.country][curr.state][curr.city].length;
+        // delete old key connection
+        listbyCity_[key][curr.country][curr.state][curr.city][posIOU[_addrIOU].inCity -1] = 
+        listbyCity_[key][curr.country][curr.state][curr.city][curlen-1];
+        delete (listbyCity_[key][curr.country][curr.state][curr.city][curlen-1]);
+
+        curlen = listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].length;
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][posIOU[_addrIOU].onStreet -1] = 
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1];
+        delete (listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
+        
         }
 
-    function getIOUList (address _owner) public view returns (address[] memory) {
-            return listIOUs[_owner];
-        }
-
-    function getIOUListSoc (string memory _profile) public view returns (address[] memory) {
-            return listIOUsSoc[_profile];
-                }
-
-    function getIOUListKey (bytes32 _key) public view returns (address[] memory) {
-            return listbyKeys[_key];
-                }
 
 
-    function addHolder(address _holder, address _IOUtoken) public isIOUtoken {
+    function addHolder(address _holder, address _IOUtoken) public override isIOUtoken {
         if (!isHolderthisIOU[_holder][_IOUtoken] ) {
             listHoldersIOUs [_holder].push(_IOUtoken);
             isHolderthisIOU[_holder][_IOUtoken] = true;
         }
     }
 
-    function getIOUListHold (address _holder) public view returns (address[] memory) {
+    function getIOUList (address _owner) public override view returns (address[] memory) {
+            return listIOUs[_owner];
+        }
+
+    function getIOUListSoc (string memory _profile) public override view returns (address[] memory) {
+            return listIOUsSoc[_profile];
+                }
+
+    function getIOUListKey (bytes32 _key) public override view returns (address[] memory) {
+            return listbyKeys[_key];
+                }
+
+
+    function getIOUListHold (address _holder) public view override returns (address[] memory) {
             return listHoldersIOUs [_holder];
         }
 
-    function getIOUstotal () public view  returns (uint256)
+    function getIOUstotal () public view override  returns (uint256)
     {
         return allIOU.length;
     }    
 
-    function getKeystotal () public view returns (uint256)
+    function getKeystotal () public view override returns (bytes32[] memory) 
     {
-        return allKeywords.length;
+        return allKeywords;
     }    
 
-    function getIssuerstotal () public view returns (uint256)
+    function getIssuerstotal () public view override returns (uint256)
     {
         return allIssuers.length;
     }
 
-}
+    function getIOUsbyCity(bytes32 _key,
+                            string memory _country,
+                            string memory _state,
+                            string memory _city) public  view returns (address[] memory) {
+                return listbyCity_  [_key][_country][_state][_city];
+            }
+
+    function getIOUsbyStreet (bytes32 _key,
+                        string memory _country,
+                        string memory _state,
+                        string memory _city,
+                        string memory _street) public view returns (address[] memory) {
+            return listbyStreet_[_key][_country][_state][_city][_street];
+                }
+
+
+    }

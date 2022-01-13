@@ -4,7 +4,17 @@ const TokensListContext = createContext({
     setTokensList: () => {},
     setCurrentToken: () => {},
     tokenList: [],
-    currentTokenID:''
+    currentTokenID:'',
+    setFormValues: () => {},
+
+/*     keyword:'',
+    country:'',
+    state:'',
+    city:'',
+    street:'',
+    searchLocation: false,
+    searchStreet: false, */
+    values: {}
 })
 
 export default TokensListContext;
