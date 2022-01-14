@@ -32,9 +32,6 @@ const MintSelectTokenPage = ({ classes }) => {
     changeIOUDataList(dataIOUsList)
   }, [changeIOUDataList, dataIOUsList])
   
-  const handleMakeNewIOU = () => {
-    history.push(ROUTES.makeIOUToken1);
-  };
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);

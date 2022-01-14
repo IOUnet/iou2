@@ -3,7 +3,7 @@ import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
-import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
+import TokenCardsEdit from '../../components/token-cards-edit/TokenCardsEdit';
 import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
@@ -52,7 +52,7 @@ const MintEditTokenPage = ({ classes }) => {
       </Box>
 
       <Box className={classes.listSection}>
-        <TokenCardsList
+        <TokenCardsEdit
           data={listDataIOU}
           onClick={handleSelectIOU}
           title={'Select IOU:'}
