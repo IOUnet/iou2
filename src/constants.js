@@ -1,5 +1,6 @@
 export const ROUTES = {
   main: '/',
+  mintEditToken: '/mint-edit-token',
   mintSelectToken: '/mint-select-token',
   mintSelectReceiver: '/mint-select-receiver',
   makeIOUToken1: '/make-iou-token-1',

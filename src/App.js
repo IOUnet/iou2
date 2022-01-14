@@ -3,6 +3,8 @@ import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import HomePage from './pages/home-page/HomePage';
 import MintSelectTokenPage from './pages/mint-select-token-page/MintSelectTokenPage';
+import MintEditTokenPage from './pages/mint-edit-token-page/MintEditTokenPage';
+
 import MintSelectReceiverPage from './pages/mint-select-receiver-page/MintSelectReceiverPage';
 import MakeIOUToken1Page from './pages/make-iou-token1-page/MakeIOUToken1Page';
 import MakeIOUToken2Page from './pages/make-iou-token2-page/MakeIOUToken2Page';
@@ -39,6 +41,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route component={HomePage} exact path={ROUTES.main} />
+          <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
           <Route component={MintSelectTokenPage} exact path={ROUTES.mintSelectToken} />
           <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver} />
           <Route component={MakeIOUToken1Page} exact path={ROUTES.makeIOUToken1} />

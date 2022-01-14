@@ -12,7 +12,7 @@ import TokensListContext from '../../context/TokensListContext'
 
 
 
-const MintSelectTokenPage = ({ classes }) => {
+const MintEditTokenPage = ({ classes }) => {
   
 
   const tokensList = useContext(TokensListContext)
@@ -45,8 +45,10 @@ const MintSelectTokenPage = ({ classes }) => {
   return (
     <PageLayout>
       <Box className={classes.selectSection}>
-        <PageTitle>Select IOU that you plan to give</PageTitle>
-  
+        <PageTitle>Edit your IOUs or</PageTitle>
+        <Button onClick={handleMakeNewIOU}>
+          make new IOU
+        </Button>
       </Box>
 
       <Box className={classes.listSection}>
@@ -62,4 +64,4 @@ const MintSelectTokenPage = ({ classes }) => {
 
 
 
-export default withStyles(styles, { withTheme: true })(MintSelectTokenPage);
+export default withStyles(styles, { withTheme: true })(MintEditTokenPage);
