@@ -8,7 +8,7 @@ import { ReactComponent as BrandIcon } from '../../assets/img/iou.svg';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 
-import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
+//import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
 
 const HomePage = ({ classes }) => {
   const history = useHistory();

@@ -1,6 +1,6 @@
 import MakeIOU from '../artifacts/MakeIOU.json';
 import StoreIOUs from '../artifacts/StoreIOUs.json'
-import IOUToken from '../artifacts/IOUtoken.json'
+//import IOUToken from '../artifacts/IOUtoken.json'
 import ProxyIOU from '../artifacts/ProxyIOU.json';
 
 

@@ -77,4 +77,12 @@ contract MakeIOU {
         IOUtoken (_IOUtok).editGeo(_location, msg.sender);
         store.changeIOUGeoAllkeys(_location, _IOUtok);
     }
+
+     function editDescr (string calldata _descr,  address _IOUtok)  public onlyOwner {
+        IOUtoken (_IOUtok).editDescr( _descr);
+    }
+
+    function editPhone (bytes32 _phone,  address _IOUtok)  public onlyOwner {
+        IOUtoken (_IOUtok).editPhone (_phone);
+    }
 }

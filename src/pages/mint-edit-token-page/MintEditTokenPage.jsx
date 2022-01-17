@@ -38,7 +38,7 @@ const MintEditTokenPage = ({ classes }) => {
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
-    history.push(ROUTES.mintSelectReceiver);
+    history.push(ROUTES.editorIOU);
     tokensList.setCurrentToken(id)
   };
 
