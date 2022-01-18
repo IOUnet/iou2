@@ -23,7 +23,7 @@ const EditorIOUPage = ({ classes }) => {
 
   })
   const tokenList = useContext(TokensListContext)
-  const [editIOUaddr, editIOUPhone] = useEditIOU()
+  const [ editIOUPhone, editIOUDescr] = useEditIOU()
   const editIOU = useContext(EditIOUContext)
 
   const [values, setFormValues] = useState(editIOU.values) 
@@ -48,16 +48,13 @@ const EditorIOUPage = ({ classes }) => {
   const handleSendPhone = () => {
     const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUPhone(values, tokenData.address)
-/*     sendIOU({
-      address:address,
-      amount:number,
-      comment:comment,
-      tokenAddress:cardTokenData.address
-    }) */
-    //sendIOU({address:address})
-   // history.push(ROUTES.main);
+
   };
-  
+  const handleSendDescr = () => {
+    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    editIOUDescr(values, tokenData.address)
+
+  };
  /*  const handleQR = () => {
     console.log('QR button clicked');
   };
@@ -92,6 +89,26 @@ const EditorIOUPage = ({ classes }) => {
         </Button>
      
       </Box>
+
+      <Box className={classes.dataSection}>
+     
+
+     <Input
+       id='description'
+       label={'Enter new description for IOU'}
+       name='description'
+       inputProps={{
+         onChange: (e) => onChangeHandler(e) ,
+         value: values.description,
+       }}
+     />
+        <Button onClick={handleSendDescr}>
+          Save new description
+        </Button>
+     
+
+    
+   </Box>
 
       <Box className={classes.actionSection}>
 

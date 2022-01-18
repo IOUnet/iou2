@@ -46,13 +46,14 @@ export default function useEditIOU() {
     const editIOUPhone = (values, _addressIOU) => {
                 const makeIOU = drizzle.contracts[_addressIOU]
                 const newphone = drizzle.web3.utils.asciiToHex(values.phone)
-                const addressIOU = drizzle.web3.utils.toChecksumAddress(_addressIOU.trim())
-
                 const stackId = makeIOU.methods["editPhone"].cacheSend(newphone, {from: drizzleState.accounts[0]})
-                
-            
+        }
+    const editIOUDescr = (values, _addressIOU) => {
+            const makeIOU = drizzle.contracts[_addressIOU]
+            const newdescription = values.description
+            const stackId = makeIOU.methods["editDescr"].cacheSend(newdescription, {from: drizzleState.accounts[0]})
         }
 
-    return [approved, /* editIOUaddr, */ editIOUPhone]
+    return [ editIOUPhone, editIOUDescr]
 
 }

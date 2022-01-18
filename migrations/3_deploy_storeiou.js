@@ -1,4 +1,4 @@
-const upgradeFlag= false; // change to true when upgrading
+const upgradeFlag= true; // change to true when upgrading
 
 const StoreIOUs = artifacts.require("StoreIOUs");
 

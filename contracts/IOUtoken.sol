@@ -1,6 +1,7 @@
 pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
+import "./interfaces/iStoreIOUs.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 import "./MakeIOU.sol";
@@ -39,58 +40,41 @@ contract IOUtoken is iIOUtoken, ERC20 {
     IOU[] public allIOUs;
     mapping (address => uint256[]) public IOUbyReceiver; // list of this IOUs by receiver
 
-    address factory;
     address owner;
+    iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
 
-    constructor (string memory name_, string memory symbol_)  ERC20 (name_, symbol_) {
-        factory = msg.sender;
+    constructor (string memory name_, 
+                string memory symbol_, 
+                iIOUtoken.DescriptionIOU memory _thisIOU,
+                 address _store)  ERC20 (name_, symbol_) {
+       thisIOU = _thisIOU;
+       owner = _thisIOU.issuer;
+        require (bytes(name_).length <16 || 
+                bytes(symbol_).length < 10 ||
+                bytes(_thisIOU.myName).length < 64 ||
+                bytes(_thisIOU.socialProfile).length < 128 ||
+                bytes(_thisIOU.description).length < 256 ||
+                _thisIOU.keywords.length <=5 , 
+                "Too many symbs in parameter" );
+  //todo add visibility?
+        store = iStoreIOUs(_store);
+            
+     //   store.addIOU1(address(this), owner);//, _socialProfile, msg.sender, _keywords);
     }
-    modifier onlyfactory() {
-        require (factory == msg.sender, "Only factory can do this");
-        _;
-    }
+
 
     modifier onlyOwner() {
         require (owner == msg.sender, "Only owner can do this");
         _;
     }
 
-    function setIOU (string memory _name, 
-                 string memory _symbol,  
-                 string memory _myName, // of emitter
-                 string memory _socialProfile, //profile  of emitter in social nets
-                 string memory _description, //description of bond IOU to  work
-                 geo memory _location, //where is ??abiencoded?
-                 bytes32  _units, //units of deal
-                 bytes32[] memory _keywords,
-                 address _issuer,
-                 bytes32 _phone
-                ) public onlyfactory {
 
+    function setStore (address _newOwner) public onlyOwner {
+        store = iStoreIOUs(_newOwner);
         
-        owner = _issuer;
-        require (bytes(_name).length <16 || 
-                bytes(_symbol).length < 10 ||
-                bytes(_myName).length < 64 ||
-                bytes(_socialProfile).length < 128 ||
-                bytes(_description).length < 256 ||
-                _keywords.length <=5 , 
-                "Too many symbs in parameter" );
+    }   
 
-        thisIOU = iIOUtoken.DescriptionIOU (0,0,0,
-            _units,
-            _issuer,
-            _myName,
-            _socialProfile,
-            _description,
-            _location,
-            _keywords,
-           _phone
-        );  //todo add visibility?
-
-    }
-    
 
     function getTokenInfo() public view returns(string memory,
                                            string memory,
@@ -121,7 +105,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
         IOUbyReceiver[_who].push(allIOUs.length-1);
         _mint(_who, _amount);
         thisIOU.totalMinted += _amount;
-        MakeIOU(factory).addHolder(_who, address(this)); 
+        store.addHolder(_who, address(this)); 
         
     }
 
@@ -143,7 +127,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }
 
     function transfer(address _recipient, uint256 _amount) public override returns (bool) {
-        MakeIOU(factory).addHolder(_recipient, address(this));
+        store.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
     }
@@ -156,21 +140,23 @@ contract IOUtoken is iIOUtoken, ERC20 {
         thisIOU.phone = _phone;
     }
 
-    function editGeo (geo calldata _location, address _sender)  public onlyfactory {
+    function editGeo (geo calldata _location, address _sender)  public onlyOwner {
         require(_sender == owner, "Only owner can edit");
         thisIOU.location = _location;
+        store.changeIOUGeoAllkeys(_location, address(this));
     }
 
 
-    function addKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
+    function addKeys (bytes32[] calldata _keys, address _sender)  public onlyOwner {
         require(_sender == owner, "Only owner can edit");
         uint addKeyLen = _keys.length;
         require(addKeyLen < 5, "Only 5 keys can add once");
         for (uint k=0; k<addKeyLen; k++) {
             thisIOU.keywords.push(_keys[k]);
         }
+        store.addKeys( _keys, address(this));  
     }
-    function delKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
+    function delKeys (bytes32[] calldata _keys, address _sender)  public onlyOwner {
         require(_sender == owner, "Only owner can edit");
         uint addKeyLen = _keys.length;       
         require(addKeyLen < 5, "Only 5 keys can remove once");
@@ -191,7 +177,8 @@ contract IOUtoken is iIOUtoken, ERC20 {
         }
         for (uint k=0; k<km; k++) {   
             delete thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }   
+        }  
+        store.delKeys( _keys, address(this)); 
     }
 
 
