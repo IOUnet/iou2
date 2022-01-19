@@ -1,4 +1,4 @@
-const upgradeFlag= true; // change to true when upgrading
+const upgradeFlag= false; // change to true when upgrading
 
 const StoreIOUs = artifacts.require("StoreIOUs");
 
@@ -11,7 +11,10 @@ module.exports = async function (deployer, _network, addresses) {
   var Curaddresses = require ("../addresses.json");
   const networkId = await web3.eth.net.getId();     
   if (!upgradeFlag) {
+    //await deployer.deploy(StoreIOUs); //old-style  no-upgradable  deploy for debugging
+    //instanceStore = await StoreIOUs.deployed();   
      instanceStore = await deployProxy(StoreIOUs, { deployer });
+
     }
   else {
     const newStoreIOUs = artifacts.require("newStoreIOUs");

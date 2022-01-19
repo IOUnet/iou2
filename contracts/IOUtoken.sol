@@ -4,7 +4,7 @@ import  "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-import "./MakeIOU.sol";
+//import "./MakeIOU.sol";
 
 /*** IOU ecosystem
 *   The aim of IOU ecosystem is to give people proved fiat-free mutual settlements by issuing personal IOU tokens on Ethereum.
@@ -140,15 +140,24 @@ contract IOUtoken is iIOUtoken, ERC20 {
         thisIOU.phone = _phone;
     }
 
-    function editGeo (geo calldata _location, address _sender)  public onlyOwner {
-        require(_sender == owner, "Only owner can edit");
-        thisIOU.location = _location;
-        store.changeIOUGeoAllkeys(_location, address(this));
+    function editGeo (string calldata _country,
+                    string calldata _state,
+                    string calldata _city,
+                    string calldata _street)  public onlyOwner {
+        iIOUtoken.geo memory newloc;
+        newloc.country = _country;
+        newloc.state = _state;
+        newloc.city = _city;
+        newloc.street = _street;
+        store.changeIOUGeoAllkeys(newloc, address(this));
+        thisIOU.location.country = _country;
+        thisIOU.location.state = _state;
+        thisIOU.location.city = _city;
+        thisIOU.location.street = _street;
     }
 
 
-    function addKeys (bytes32[] calldata _keys, address _sender)  public onlyOwner {
-        require(_sender == owner, "Only owner can edit");
+    function addKeys (bytes32[] calldata _keys)  public onlyOwner {
         uint addKeyLen = _keys.length;
         require(addKeyLen < 5, "Only 5 keys can add once");
         for (uint k=0; k<addKeyLen; k++) {
@@ -156,8 +165,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
         }
         store.addKeys( _keys, address(this));  
     }
-    function delKeys (bytes32[] calldata _keys, address _sender)  public onlyOwner {
-        require(_sender == owner, "Only owner can edit");
+    function delKeys (bytes32[] calldata _keys)  public onlyOwner {
         uint addKeyLen = _keys.length;       
         require(addKeyLen < 5, "Only 5 keys can remove once");
         // mark removing keys

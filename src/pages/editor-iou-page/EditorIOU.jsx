@@ -23,7 +23,7 @@ const EditorIOUPage = ({ classes }) => {
 
   })
   const tokenList = useContext(TokensListContext)
-  const [ editIOUPhone, editIOUDescr] = useEditIOU()
+  const [ editIOUPhone, editIOUDescr, editIOUGeo] = useEditIOU()
   const editIOU = useContext(EditIOUContext)
 
   const [values, setFormValues] = useState(editIOU.values) 
@@ -53,6 +53,12 @@ const EditorIOUPage = ({ classes }) => {
   const handleSendDescr = () => {
     const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUDescr(values, tokenData.address)
+
+  };
+
+  const handleSendGeo = () => {
+    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    editIOUGeo(values, tokenData.address)
 
   };
  /*  const handleQR = () => {
@@ -109,7 +115,55 @@ const EditorIOUPage = ({ classes }) => {
 
     
    </Box>
+   <Box className={classes.pageTitle}>
+        <PageTitle>Edit IOU: Address</PageTitle>
+      </Box>
 
+      <Box className={classes.dataSection}>
+        <Input
+          id='country'
+          label={'Country'}
+          name='country'
+          inputProps ={{
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.country,
+          }}
+        />
+
+        <Input
+          id='state'
+          label={'State/Region'}
+          name='region'
+          inputProps={{
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.state,
+          }}
+        />
+
+        <Input
+          id='city'
+          label={'City/Town'}
+          name='city'
+          inputProps={{
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.city,
+          }}
+        />
+
+        <Input
+          id='street'
+          label={'Street/Block'}
+          name='street'
+          inputProps={{
+            onChange: (e) => onChangeHandler(e) ,
+            value: values.street,
+          }}
+        />
+
+    <Button onClick={handleSendGeo}>
+          Save new geo address
+        </Button>       
+      </Box>
       <Box className={classes.actionSection}>
 
       </Box>

@@ -69,8 +69,8 @@ contract newStoreIOUs is iStoreIOUs {
     }
 
     modifier onlyissuer(address _addrIOU) {
-        iIOUtoken.DescriptionIOU memory desc = iIOUtoken(_addrIOU).thisIOUDesc();
-        require (desc.issuer == msg.sender, "Only issuer can do this");
+       // iIOUtoken.DescriptionIOU memory desc = iIOUtoken(_addrIOU).thisIOUDesc();
+        require (_addrIOU == msg.sender, "Only own data can be changed");
         _;
     }
 

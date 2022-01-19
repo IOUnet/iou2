@@ -6,7 +6,7 @@ const setStoreAddress = async () => {
     const makeiouInstance = await MakeIOU.deployed();
     console.log('STORE INSTANCE:', storeInstance.address)
     await makeiouInstance.setStore(storeInstance.address)
-    await storeInstance.setFactory(makeiouInstance.address)
+    //await storeInstance.setFactory(makeiouInstance.address)
 
 }
 

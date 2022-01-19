@@ -3,8 +3,8 @@ const MakeIOU = artifacts.require("MakeIOU");
 const ProxyIOU = artifacts.require("ProxyIOU");
 /** */
 module.exports = async  function (deployer) {
-   deployer.deploy(MakeIOU);
-   deployer.deploy(ProxyIOU);
+  await  deployer.deploy(MakeIOU);
+  await deployer.deploy(ProxyIOU);
   //const instanceMake = await deployProxy(MakeIOU, { deployer });
   //const instanceProxy = await deployProxy(ProxyIOU,  { deployer });
   const networkId = await web3.eth.net.getId();     

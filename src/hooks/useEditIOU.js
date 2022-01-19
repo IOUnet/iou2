@@ -54,6 +54,21 @@ export default function useEditIOU() {
             const stackId = makeIOU.methods["editDescr"].cacheSend(newdescription, {from: drizzleState.accounts[0]})
         }
 
-    return [ editIOUPhone, editIOUDescr]
+    const editIOUGeo = (values, _addressIOU) => {
+            const makeIOU = drizzle.contracts[_addressIOU]
+            /* const location ={ 'country': values.country.trim(),
+                            'state': values.state.trim(),
+                            'city': values.city.trim(),
+                            'street': values.street.trim()
+                         };*/
+            const stackId = makeIOU.methods["editGeo"].cacheSend(
+                values.country.trim(),
+                values.state.trim(),
+                values.city.trim(),
+                values.street.trim(),
+                {from: drizzleState.accounts[0]})
+        }
+
+    return [ editIOUPhone, editIOUDescr, editIOUGeo]
 
 }
