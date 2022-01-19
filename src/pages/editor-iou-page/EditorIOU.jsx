@@ -23,7 +23,7 @@ const EditorIOUPage = ({ classes }) => {
 
   })
   const tokenList = useContext(TokensListContext)
-  const [ editIOUPhone, editIOUDescr, editIOUGeo] = useEditIOU()
+  const [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys] = useEditIOU()
   const editIOU = useContext(EditIOUContext)
 
   const [values, setFormValues] = useState(editIOU.values) 
@@ -37,8 +37,11 @@ const EditorIOUPage = ({ classes }) => {
 
   const onChangeHandler = useCallback(
     (e) => {
-      setFormValues(values => ({...values, [e.target.id]:e.target.value}))
-    }, [],
+      if (e.target.id === "keywords") {
+        setFormValues(values => ({...values, [e.target.id]:e.target.value.split(',')}))
+      } else {
+        setFormValues(values => ({...values, [e.target.id]:e.target.value}))
+      }    }, [],
   );
 
   useEffect(() => {
@@ -59,6 +62,12 @@ const EditorIOUPage = ({ classes }) => {
   const handleSendGeo = () => {
     const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUGeo(values, tokenData.address)
+
+  };
+
+  const handleSendAddKeys = () => {
+    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    editAddKeys(values, tokenData.address)
 
   };
  /*  const handleQR = () => {
@@ -164,6 +173,27 @@ const EditorIOUPage = ({ classes }) => {
           Save new geo address
         </Button>       
       </Box>
+
+      <Box className={classes.dataSection}>
+     
+      <PageTitle>Edit your IOU keywords:</PageTitle>
+
+     <Input
+       id='keywords'
+       label={'New keywords for IOU (max is 5 keys, separated by comma)'}
+       name='keywords'
+       inputProps={{
+         onChange: (e) => onChangeHandler(e) ,
+         value: values.keywords,
+       }}
+     />
+
+    <Button onClick={handleSendAddKeys}>
+          Save new keywords
+        </Button>  
+
+   </Box>
+
       <Box className={classes.actionSection}>
 
       </Box>

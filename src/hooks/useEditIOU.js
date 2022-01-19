@@ -68,7 +68,14 @@ export default function useEditIOU() {
                 values.street.trim(),
                 {from: drizzleState.accounts[0]})
         }
-
-    return [ editIOUPhone, editIOUDescr, editIOUGeo]
+    //editAddKeys
+   const editAddKeys = (values, _addressIOU) => {
+            const makeIOU = drizzle.contracts[_addressIOU]
+            const newkeywords = values.keywords.map((value, key) => {
+                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+            });
+             const stackId = makeIOU.methods["addKeys"].cacheSend(newkeywords, {from: drizzleState.accounts[0]})
+        }
+    return [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys]
 
 }
