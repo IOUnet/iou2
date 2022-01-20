@@ -76,6 +76,13 @@ export default function useEditIOU() {
             });
              const stackId = makeIOU.methods["addKeys"].cacheSend(newkeywords, {from: drizzleState.accounts[0]})
         }
-    return [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys]
+    const editDelKeys = (values, _addressIOU) => {
+            const makeIOU = drizzle.contracts[_addressIOU]
+            const delkeywords = values.keyList.map((value, key) => {
+                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+            });
+             const stackId = makeIOU.methods["delKeys"].cacheSend(delkeywords, {from: drizzleState.accounts[0]})
+        }
+    return [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys, editDelKeys]
 
 }

@@ -166,26 +166,30 @@ contract IOUtoken is iIOUtoken, ERC20 {
         store.addKeys( _keys, address(this));  
     }
     function delKeys (bytes32[] calldata _keys)  public onlyOwner {
-        uint addKeyLen = _keys.length;       
-        require(addKeyLen < 5, "Only 5 keys can remove once");
+        uint delKeyLen = _keys.length;       
+        require(delKeyLen < 5, "Only 5 keys can remove once");
         // mark removing keys
-        uint[5] memory keyMap;
-        uint km = 0;
-        for (uint dk=0; dk<addKeyLen; dk++) {
+       // uint[5] memory keyMap;
+       
+       // uint km = 0;
+        for (uint dk=0; dk<delKeyLen; dk++) {
+            uint delkey;
             for (uint kk=0; kk<thisIOU.keywords.length; kk++) {                
                     if (thisIOU.keywords[kk] == _keys[dk]) {
-                        keyMap[km] = kk;
-                        km=km+1;
+                        delkey = kk;                        
                     }
             }
+            // catch array 
+            thisIOU.keywords[delkey] = thisIOU.keywords[thisIOU.keywords.length-1] ;
+            delete thisIOU.keywords[thisIOU.keywords.length-1] ;
         }
-        // catch array 
-        for (uint k=0; k<km; k++) {   
+        
+/*         for (uint k=0; k<km; k++) {   
             thisIOU.keywords[keyMap[k]] = thisIOU.keywords[thisIOU.keywords.length-1-k] ;
         }
         for (uint k=0; k<km; k++) {   
             delete thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }  
+        }   */
         store.delKeys( _keys, address(this)); 
     }
 

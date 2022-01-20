@@ -1,4 +1,4 @@
-import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
+import { Box, CheckBox, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
@@ -19,11 +19,14 @@ const EditorIOUPage = ({ classes }) => {
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')
+  const [checked, setChecked] = useState([]);
   const [cardTokenData, setCardTokenData] = useState({
 
   })
   const tokenList = useContext(TokensListContext)
-  const [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys] = useEditIOU()
+  const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+
+  const [ editIOUPhone, editIOUDescr, editIOUGeo, editAddKeys, editDelKeys]  = useEditIOU()
   const editIOU = useContext(EditIOUContext)
 
   const [values, setFormValues] = useState(editIOU.values) 
@@ -49,27 +52,53 @@ const EditorIOUPage = ({ classes }) => {
   },[setCurrentTokenData, tokenList])
 
   const handleSendPhone = () => {
-    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUPhone(values, tokenData.address)
 
   };
   const handleSendDescr = () => {
-    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUDescr(values, tokenData.address)
 
   };
 
   const handleSendGeo = () => {
-    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editIOUGeo(values, tokenData.address)
 
   };
 
   const handleSendAddKeys = () => {
-    const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+    // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
     editAddKeys(values, tokenData.address)
 
   };
+  const handleCheck = (e) => {
+    var updatedList = [...checked];
+    if (e.target.checked) {
+      updatedList = [...checked, e.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(e.target.value), 1);
+    }
+    setChecked(updatedList);
+    setFormValues(values => ({...values, [e.target.id]:updatedList}))
+
+  };
+
+  const checkedItems = checked.length
+    ? checked.reduce((total, item) => {
+        return total + ", " + item;
+      })
+    : "";
+
+  // Return classes based on whether item is checked
+  var isChecked = (item) =>
+    checked.includes(item) ? "checked-item" : "not-checked-item";
+
+    const handleSendDelKeys = () => {
+      // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+      editDelKeys(values, tokenData.address)
+  
+    };
  /*  const handleQR = () => {
     console.log('QR button clicked');
   };
@@ -176,7 +205,7 @@ const EditorIOUPage = ({ classes }) => {
 
       <Box className={classes.dataSection}>
      
-      <PageTitle>Edit your IOU keywords:</PageTitle>
+      <PageTitle>Add your IOU keywords:</PageTitle>
 
      <Input
        id='keywords'
@@ -195,7 +224,28 @@ const EditorIOUPage = ({ classes }) => {
    </Box>
 
       <Box className={classes.actionSection}>
+      <PageTitle>Delete your IOU keywords:</PageTitle>
+    <div className="checkList">
+        
+        <div className="list-container">
+          {tokenData.keys.split(',').map((item, index) => (
+            <div key={index}>
+              <input   
+                id='keyList'        
+                name='keyList'
+                value={item} 
+                type="checkbox" 
+                onChange={handleCheck} />
+              <span className={isChecked(item)}>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <Button onClick={handleSendDelKeys}>
+        {`Delete selected keywords: ${checkedItems}`}
+        </Button>  
+    
       </Box>
     </PageLayout>
   );
