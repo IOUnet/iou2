@@ -141,8 +141,7 @@ contract StoreIOUs is iStoreIOUs {
                     listbyKeys[key][keyNum-1] = 
                     listbyKeys[key][
                       listbyKeys[key].length -1];
-                    delete (listbyKeys[key][
-                            listbyKeys[key].length -1]);
+                    listbyKeys[key].pop();
                     _delkeyIOUGeo(_addrIOU, key);
                 }
  
@@ -171,12 +170,12 @@ contract StoreIOUs is iStoreIOUs {
         // delete old key connection
         listbyCity_[key][curr.country][curr.state][curr.city][posIOU[_addrIOU].inCity -1] = 
         listbyCity_[key][curr.country][curr.state][curr.city][curlen-1];
-        delete (listbyCity_[key][curr.country][curr.state][curr.city][curlen-1]);
+        listbyCity_[key][curr.country][curr.state][curr.city].pop();
 
         curlen = listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].length;
         listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][posIOU[_addrIOU].onStreet -1] = 
         listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1];
-        delete (listbyStreet_[key][curr.country][curr.state][curr.city][curr.street][curlen-1]);
+        listbyStreet_[key][curr.country][curr.state][curr.city][curr.street].pop();
         
         }
 

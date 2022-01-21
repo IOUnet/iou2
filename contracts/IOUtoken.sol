@@ -181,15 +181,10 @@ contract IOUtoken is iIOUtoken, ERC20 {
             }
             // catch array 
             thisIOU.keywords[delkey] = thisIOU.keywords[thisIOU.keywords.length-1] ;
-            delete thisIOU.keywords[thisIOU.keywords.length-1] ;
+            thisIOU.keywords.pop();
+    
         }
         
-/*         for (uint k=0; k<km; k++) {   
-            thisIOU.keywords[keyMap[k]] = thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }
-        for (uint k=0; k<km; k++) {   
-            delete thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }   */
         store.delKeys( _keys, address(this)); 
     }
 

@@ -387,6 +387,40 @@
       "target": "css=.MuiButtonBase-root:nth-child(1) .MuiSvgIcon-root",
       "targets": [],
       "value": ""
+    }, {
+      "id": "9b62756a-bc95-4a98-8633-969f1952088c",
+      "comment": "",
+      "command": "click",
+      "target": "css=#phone > .MuiInputBase-root",
+      "targets": [
+        ["css=#phone > .MuiInputBase-root", "css:finder"],
+        ["xpath=//div[@id='phone']/div", "xpath:idRelative"],
+        ["xpath=//div[5]/div", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "bc349b85-769d-4af7-987b-fa4488e59026",
+      "comment": "",
+      "command": "type",
+      "target": "css=.MuiInputBase-root > #phone",
+      "targets": [
+        ["css=.MuiInputBase-root > #phone", "css:finder"],
+        ["xpath=//input[@id='phone']", "xpath:attributes"],
+        ["xpath=//div[@id='phone']/div/input", "xpath:idRelative"],
+        ["xpath=//div[5]/div/input", "xpath:position"]
+      ],
+      "value": "+3333333333"
+    }, {
+      "id": "928f9962-4d59-4d2c-a859-111ae21297fc",
+      "comment": "",
+      "command": "click",
+      "target": "css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label",
+      "targets": [
+        ["css=.MuiButtonBase-root:nth-child(2) > .MuiButton-label", "css:finder"],
+        ["xpath=//div[@id='root']/div/main/div[3]/button[2]/span", "xpath:idRelative"],
+        ["xpath=//button[2]/span", "xpath:position"]
+      ],
+      "value": ""
     }]
   }, {
     "id": "9d2c7959-e053-49d7-87bb-bd4563541f34",
