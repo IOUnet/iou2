@@ -1,11 +1,14 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
-import "./IOUtoken.sol";
+import "@openzeppelin/contracts/proxy/Clones.sol";
+import "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
+
 
 contract MakeIOU {
     
     address private owner;
+    address private instIOU;
     iStoreIOUs store;
 
     function setOwner (address _newOwner) public onlyOwner {
@@ -14,6 +17,11 @@ contract MakeIOU {
 
     function setStore (address _new) public onlyOwner {
         store = iStoreIOUs(_new);
+        
+    }   
+
+    function setIOU (address _new) public onlyOwner {
+        instIOU = _new;
         
     }   
 
@@ -49,14 +57,10 @@ contract MakeIOU {
            _phone
         );
 
-        IOUtoken newIOU = new IOUtoken(_name, 
-                                    _symbol,   
-                                    thisIOU,                                                    
-                                    address(store)
-            );
-        //store.addIOU2(address(newIOU), _socialProfile, msg.sender, _keywords);
-        require (address(store) != address(0x0), "No store address");
-        store.addIOU1(address(newIOU), msg.sender);//, _socialProfile, msg.sender, _keywords);
+    iIOUtoken newIOU =  iIOUtoken(Clones.clone(instIOU));
+    newIOU.setIOU (_name, _symbol, thisIOU,address(store));
+    require (address(store) != address(0x0), "No store address");
+    store.addIOU1(address(newIOU), msg.sender);//, _socialProfile, msg.sender, _keywords);
      //   newIOU.setStore(address(store));
 
         return address (newIOU);

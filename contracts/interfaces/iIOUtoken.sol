@@ -41,4 +41,11 @@ interface  iIOUtoken  {
     function IOUname () external view returns  (string memory); 
     function IOUsymbol () external view returns (string memory);  
     function thisIOUDesc () external view returns (DescriptionIOU memory);
+    function setIOU (//    constructor (
+                string memory name_, 
+                string memory symbol_, 
+                iIOUtoken.DescriptionIOU memory _thisIOU,
+                 address _store)  external;
+
+    function initialize() external;
 }

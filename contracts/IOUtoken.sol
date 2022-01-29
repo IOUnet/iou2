@@ -2,7 +2,7 @@ pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./ERC20.sol";
 
 //import "./MakeIOU.sol";
 
@@ -26,7 +26,16 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is iIOUtoken, ERC20 {
+contract IOUtoken is iIOUtoken, ERC20  {
+    //ERC20 
+    mapping(address => uint256) private _balances;
+
+    mapping(address => mapping(address => uint256)) private _allowances;
+
+    uint256 private _totalSupply;
+
+    string private _name;
+    string private _symbol;
 
   
  
@@ -41,16 +50,26 @@ contract IOUtoken is iIOUtoken, ERC20 {
     mapping (address => uint256[]) public IOUbyReceiver; // list of this IOUs by receiver
 
     address owner;
+    bool configured;
     iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
 
-    constructor (string memory name_, 
+function initialize()  public override
+{
+    owner = msg.sender;
+    configured = false;
+}
+function setIOU  (
+//    constructor (
+                string memory name_, 
                 string memory symbol_, 
                 iIOUtoken.DescriptionIOU memory _thisIOU,
-                 address _store)  ERC20 (name_, symbol_) {
+                 address _store)  public  onlyOwner nonConfed override {
        thisIOU = _thisIOU;
        owner = _thisIOU.issuer;
-        require (bytes(name_).length <16 || 
+       _name = name_;
+       _symbol = symbol_;
+       require (bytes(name_).length <16 || 
                 bytes(symbol_).length < 10 ||
                 bytes(_thisIOU.myName).length < 64 ||
                 bytes(_thisIOU.socialProfile).length < 128 ||
@@ -59,7 +78,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
                 "Too many symbs in parameter" );
   //todo add visibility?
         store = iStoreIOUs(_store);
-            
+        
      //   store.addIOU1(address(this), owner);//, _socialProfile, msg.sender, _keywords);
     }
 
@@ -67,6 +86,13 @@ contract IOUtoken is iIOUtoken, ERC20 {
     modifier onlyOwner() {
         require (owner == msg.sender, "Only owner can do this");
         _;
+    }
+
+    modifier nonConfed () {
+        require(!configured, "Already configured");
+        _;
+        configured = true;
+
     }
 
 

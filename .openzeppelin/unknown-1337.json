@@ -1,8 +1,8 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0xB6F469a8930dd5111c0EA76571c7E86298A171f7",
-    "txHash": "0x811e829ed4513bb59da6ad9bad963f6233a45d4f581d7e8a5ad4e2d760c9ceaa"
+    "address": "0x8736d5567DAF02CDcdB9890716bC28f363b8807a",
+    "txHash": "0xf639966f824ddf5e60c4ae2c0f0ec7183f8df13d22b42c76eb048c4d3d37a436"
   },
   "proxies": [
     {
@@ -33,6 +33,41 @@
     {
       "address": "0x2B1283924Fe571F56472Efb04E6F1D7d1E698EcB",
       "txHash": "0x28d451c09c77a3e971edc2c6e84781f9dcd284e932472ed22a17b0e303f0852b",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xE8a6f04DEF6d9fa9F02982b8E1d8Eea835fB7668",
+      "txHash": "0x7d471406088d4b8fa00fbc7ae096e2dfd0020642ede3b4e35d5665f57dd01dcd",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x1ef054b912A720498893eC85AD0a1CfAa5E95219",
+      "txHash": "0x55771d83db8acf08da4d89b7d6fbe6d3a0c03483d9106a41ba2bebf49b4e5189",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x004251E2642c3D135FbE822D692d13d1cebC38b9",
+      "txHash": "0x6676ffb28b60c3c94defb27d8c3645082a549e30fd48df5ee1c65323fce8cdb5",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x958Eb4058a813daC20d875d3990cbb044B826ED8",
+      "txHash": "0xed6c24e3e18bebc57d5e742fbc81a2cee96591cf4ec703b4b6cb1f523da2c49e",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
+      "txHash": "0x5facc774af14e186d2165cfd416e942f6aea81798357887229aa674953ee5500",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x9441F6db4e3C390ed6AF35f5B0556e14DA4Ffc6E",
+      "txHash": "0xbf3d9f1c13b809321ad018475cf61ced69d81598e9d1d80904ca3b4738a8e585",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x8a8Ed88695996c0455D0A3D15fF0e9921cDdaae7",
+      "txHash": "0x27f448df3106164809b2bc5fa744a59de0e2d1439c63b1b3eb9a875e2915967f",
       "kind": "transparent"
     }
   ],
@@ -566,8 +601,8 @@
       }
     },
     "52addf450c117e5cb0889658a85514b2989232ae99975fa87ad947e20865da3c": {
-      "address": "0x1eAbFF5db64f7224371dc80811BdE9ab3d9ae728",
-      "txHash": "0x2a6d4f91a6e93d5f27598aa91dc327e00a9b5e458d1d017bee047eaf290c67c3",
+      "address": "0x283C31A85980233764997390BD32377eE7170CF4",
+      "txHash": "0xc71d1edf1d76febda0569553a9f6f19dc239f43d2d808914b4a75569ec8cf746",
       "layout": {
         "storage": [
           {
@@ -723,6 +758,989 @@
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
           "t_struct(geoIOU)2716_storage": {
+            "label": "struct iStoreIOUs.geoIOU",
+            "members": [
+              {
+                "label": "inCity",
+                "type": "t_uint64"
+              },
+              {
+                "label": "onStreet",
+                "type": "t_uint64"
+              }
+            ]
+          },
+          "t_uint64": {
+            "label": "uint64"
+          }
+        }
+      }
+    },
+    "7fab3efd1ab53bbb5e7b55da3733df47123da8fff57b327a28f442e863555a77": {
+      "address": "0x016c54e7ABCafb723DD96e9fB720194c49e39569",
+      "txHash": "0x4628871184880cb9a5affccb72f8c5dd6265ead411b74d9170383e8481ff4b4d",
+      "layout": {
+        "storage": [
+          {
+            "contract": "ERC20",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/ERC20.sol:36"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/ERC20.sol:38"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/ERC20.sol:40"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:42"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:43"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/IOUtoken.sol:31"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/IOUtoken.sol:33"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/IOUtoken.sol:35"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:37"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:38"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "thisIOU",
+            "type": "t_struct(DescriptionIOU)2779_storage",
+            "src": "../project:/contracts/IOUtoken.sol:44"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allFeedbacks",
+            "type": "t_array(t_struct(FeedBack)2797_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:46"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "feedBacksbySender",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:47"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allIOUs",
+            "type": "t_array(t_struct(IOU)2786_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:49"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "IOUbyReceiver",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:50"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/IOUtoken.sol:52"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "store",
+            "type": "t_contract(iStoreIOUs)2921",
+            "src": "../project:/contracts/IOUtoken.sol:53"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_struct(DescriptionIOU)2779_storage": {
+            "label": "struct iIOUtoken.DescriptionIOU",
+            "members": [
+              {
+                "label": "totalMinted",
+                "type": "t_uint256"
+              },
+              {
+                "label": "totalBurned",
+                "type": "t_uint256"
+              },
+              {
+                "label": "avRate",
+                "type": "t_int256"
+              },
+              {
+                "label": "units",
+                "type": "t_bytes32"
+              },
+              {
+                "label": "issuer",
+                "type": "t_address"
+              },
+              {
+                "label": "myName",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "socialProfile",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "location",
+                "type": "t_struct(geo)2754_storage"
+              },
+              {
+                "label": "keywords",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "phone",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_int256": {
+            "label": "int256"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(geo)2754_storage": {
+            "label": "struct iIOUtoken.geo",
+            "members": [
+              {
+                "label": "country",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "state",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "city",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "street",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_array(t_struct(FeedBack)2797_storage)dyn_storage": {
+            "label": "struct iIOUtoken.FeedBack[]"
+          },
+          "t_struct(FeedBack)2797_storage": {
+            "label": "struct iIOUtoken.FeedBack",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "rating",
+                "type": "t_int256"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]"
+          },
+          "t_array(t_struct(IOU)2786_storage)dyn_storage": {
+            "label": "struct iIOUtoken.IOU[]"
+          },
+          "t_struct(IOU)2786_storage": {
+            "label": "struct iIOUtoken.IOU",
+            "members": [
+              {
+                "label": "receiver",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "IOUDescr",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_contract(iStoreIOUs)2921": {
+            "label": "contract iStoreIOUs"
+          }
+        }
+      }
+    },
+    "a3b4482e19c7690e5b2cb3eb38689b9bda574558be24e030e2b4b6d05909f648": {
+      "address": "0xe9251c435295bA9b2b4b7921934a0a8B9bC91859",
+      "txHash": "0x3ea712afa10ec5207fe94f17843379e12391e05667a452346cf6e2ea57e072ed",
+      "layout": {
+        "storage": [
+          {
+            "contract": "ERC20",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/ERC20.sol:36"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/ERC20.sol:38"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/ERC20.sol:40"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:42"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:43"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/IOUtoken.sol:31"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/IOUtoken.sol:33"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/IOUtoken.sol:35"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:37"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:38"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "thisIOU",
+            "type": "t_struct(DescriptionIOU)2813_storage",
+            "src": "../project:/contracts/IOUtoken.sol:44"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allFeedbacks",
+            "type": "t_array(t_struct(FeedBack)2831_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:46"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "feedBacksbySender",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:47"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allIOUs",
+            "type": "t_array(t_struct(IOU)2820_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:49"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "IOUbyReceiver",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:50"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/IOUtoken.sol:52"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "configured",
+            "type": "t_bool",
+            "src": "../project:/contracts/IOUtoken.sol:53"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "store",
+            "type": "t_contract(iStoreIOUs)2958",
+            "src": "../project:/contracts/IOUtoken.sol:54"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_struct(DescriptionIOU)2813_storage": {
+            "label": "struct iIOUtoken.DescriptionIOU",
+            "members": [
+              {
+                "label": "totalMinted",
+                "type": "t_uint256"
+              },
+              {
+                "label": "totalBurned",
+                "type": "t_uint256"
+              },
+              {
+                "label": "avRate",
+                "type": "t_int256"
+              },
+              {
+                "label": "units",
+                "type": "t_bytes32"
+              },
+              {
+                "label": "issuer",
+                "type": "t_address"
+              },
+              {
+                "label": "myName",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "socialProfile",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "location",
+                "type": "t_struct(geo)2788_storage"
+              },
+              {
+                "label": "keywords",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "phone",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_int256": {
+            "label": "int256"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(geo)2788_storage": {
+            "label": "struct iIOUtoken.geo",
+            "members": [
+              {
+                "label": "country",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "state",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "city",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "street",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_array(t_struct(FeedBack)2831_storage)dyn_storage": {
+            "label": "struct iIOUtoken.FeedBack[]"
+          },
+          "t_struct(FeedBack)2831_storage": {
+            "label": "struct iIOUtoken.FeedBack",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "rating",
+                "type": "t_int256"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]"
+          },
+          "t_array(t_struct(IOU)2820_storage)dyn_storage": {
+            "label": "struct iIOUtoken.IOU[]"
+          },
+          "t_struct(IOU)2820_storage": {
+            "label": "struct iIOUtoken.IOU",
+            "members": [
+              {
+                "label": "receiver",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "IOUDescr",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_contract(iStoreIOUs)2958": {
+            "label": "contract iStoreIOUs"
+          }
+        }
+      }
+    },
+    "58e4975e9d3618b44f7c8a52e73ac9f365f25e4dbc5de40463922ad5adcabc95": {
+      "address": "0xb9e750aE9fD8B2f47e3523941C26669E4F67f84E",
+      "txHash": "0x3bc72b7dab7bcfcec1549823eb2922bf274417be608c58a38a7e0e0d4181eb32",
+      "layout": {
+        "storage": [
+          {
+            "contract": "ERC20",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/ERC20.sol:36"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/ERC20.sol:38"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/ERC20.sol:40"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:42"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:43"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/IOUtoken.sol:31"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/IOUtoken.sol:33"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/IOUtoken.sol:35"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:37"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:38"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "thisIOU",
+            "type": "t_struct(DescriptionIOU)2813_storage",
+            "src": "../project:/contracts/IOUtoken.sol:44"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allFeedbacks",
+            "type": "t_array(t_struct(FeedBack)2831_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:46"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "feedBacksbySender",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:47"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allIOUs",
+            "type": "t_array(t_struct(IOU)2820_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:49"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "IOUbyReceiver",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:50"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/IOUtoken.sol:52"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "configured",
+            "type": "t_bool",
+            "src": "../project:/contracts/IOUtoken.sol:53"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "store",
+            "type": "t_contract(iStoreIOUs)2958",
+            "src": "../project:/contracts/IOUtoken.sol:54"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_struct(DescriptionIOU)2813_storage": {
+            "label": "struct iIOUtoken.DescriptionIOU",
+            "members": [
+              {
+                "label": "totalMinted",
+                "type": "t_uint256"
+              },
+              {
+                "label": "totalBurned",
+                "type": "t_uint256"
+              },
+              {
+                "label": "avRate",
+                "type": "t_int256"
+              },
+              {
+                "label": "units",
+                "type": "t_bytes32"
+              },
+              {
+                "label": "issuer",
+                "type": "t_address"
+              },
+              {
+                "label": "myName",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "socialProfile",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "location",
+                "type": "t_struct(geo)2788_storage"
+              },
+              {
+                "label": "keywords",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "phone",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_int256": {
+            "label": "int256"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(geo)2788_storage": {
+            "label": "struct iIOUtoken.geo",
+            "members": [
+              {
+                "label": "country",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "state",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "city",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "street",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_array(t_struct(FeedBack)2831_storage)dyn_storage": {
+            "label": "struct iIOUtoken.FeedBack[]"
+          },
+          "t_struct(FeedBack)2831_storage": {
+            "label": "struct iIOUtoken.FeedBack",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "rating",
+                "type": "t_int256"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]"
+          },
+          "t_array(t_struct(IOU)2820_storage)dyn_storage": {
+            "label": "struct iIOUtoken.IOU[]"
+          },
+          "t_struct(IOU)2820_storage": {
+            "label": "struct iIOUtoken.IOU",
+            "members": [
+              {
+                "label": "receiver",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "IOUDescr",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_contract(iStoreIOUs)2958": {
+            "label": "contract iStoreIOUs"
+          }
+        }
+      }
+    },
+    "ed1f51fde7a65e154dfc3e46a6db22019993fed3fcef4850b48e18fa49bf426d": {
+      "address": "0x2323b2CDeFF8285E763f886754b3981CBd24FE4D",
+      "txHash": "0x0d89a9564edfaa49edbbdc86e208aa889c389109ee3dfde9d935d3c301105734",
+      "layout": {
+        "storage": [
+          {
+            "contract": "StoreIOUs",
+            "label": "listIOUs",
+            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUs.sol:10"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "listIOUsSoc",
+            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUs.sol:11"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "listHoldersIOUs",
+            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUs.sol:12"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "isIOU",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/StoreIOUs.sol:13"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "isHolderthisIOU",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "src": "../project:/contracts/StoreIOUs.sol:14"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "listbyKeys",
+            "type": "t_mapping(t_bytes32,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUs.sol:16"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "keyByList",
+            "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/StoreIOUs.sol:17"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "allKeywords",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "src": "../project:/contracts/StoreIOUs.sol:19"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "allIOU",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "../project:/contracts/StoreIOUs.sol:20"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "allIssuers",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "../project:/contracts/StoreIOUs.sol:21"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "listbyCity_",
+            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))",
+            "src": "../project:/contracts/StoreIOUs.sol:23"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "listbyStreet_",
+            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))",
+            "src": "../project:/contracts/StoreIOUs.sol:29"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "posIOU",
+            "type": "t_mapping(t_address,t_struct(geoIOU)2871_storage)",
+            "src": "../project:/contracts/StoreIOUs.sol:36"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/StoreIOUs.sol:39"
+          },
+          {
+            "contract": "StoreIOUs",
+            "label": "makeFactory",
+            "type": "t_address",
+            "src": "../project:/contracts/StoreIOUs.sol:40"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_array(t_address)dyn_storage)": {
+            "label": "mapping(address => address[])"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
+            "label": "mapping(string => address[])"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_bytes32,t_array(t_address)dyn_storage)": {
+            "label": "mapping(bytes32 => address[])"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(bytes32 => mapping(address => uint256))"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
+            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))": {
+            "label": "mapping(string => mapping(string => mapping(string => address[])))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))": {
+            "label": "mapping(string => mapping(string => address[]))"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))": {
+            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
+            "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
+          },
+          "t_mapping(t_address,t_struct(geoIOU)2871_storage)": {
+            "label": "mapping(address => struct iStoreIOUs.geoIOU)"
+          },
+          "t_struct(geoIOU)2871_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {
