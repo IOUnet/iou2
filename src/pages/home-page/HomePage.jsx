@@ -8,13 +8,15 @@ import { ReactComponent as BrandIcon } from '../../assets/img/iou.svg';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 
-import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
+//import { tokenInfoData } from '../../storybook-fake-data/storybook-fake-data';
 
 const HomePage = ({ classes }) => {
   const history = useHistory();
 
   const buttons = [
+    { button: 'make & edit iou', handler: () => history.push(ROUTES.mintEditToken) },
     { button: 'give iou', handler: () => history.push(ROUTES.mintSelectToken) },
+    
     { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
     { button: 'find & buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
    

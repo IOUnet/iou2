@@ -5,7 +5,7 @@ import "./interfaces/iIOUtoken.sol";
 import "./Initializable.sol";
 
 
-contract StoreIOUs is iStoreIOUs {
+contract newStoreIOUs is iStoreIOUs {
 //todo : break this brick 
     mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent
     mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile

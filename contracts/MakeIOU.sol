@@ -2,7 +2,6 @@ pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
 import "./IOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
-import "./interfaces/iIOUtoken.sol";
 
 contract MakeIOU {
     
@@ -13,8 +12,8 @@ contract MakeIOU {
         owner = _newOwner;
     }
 
-    function setStore (address _newOwner) public onlyOwner {
-        store = iStoreIOUs(_newOwner);
+    function setStore (address _new) public onlyOwner {
+        store = iStoreIOUs(_new);
         
     }   
 
@@ -37,27 +36,32 @@ contract MakeIOU {
                  bytes32[] memory _keywords,
                  bytes32 _phone
                         ) public returns (address) {
+        
+
+    iIOUtoken.DescriptionIOU memory thisIOU = iIOUtoken.DescriptionIOU (0,0,0,
+            _units,
+            msg.sender, 
+            _myName,
+            _socialProfile,
+            _description,
+            _location,
+            _keywords,
+           _phone
+        );
 
         IOUtoken newIOU = new IOUtoken(_name, 
-                                    _symbol);
-        newIOU.setIOU(  _name, 
-                        _symbol,                    
-                        _myName, 
-                        _socialProfile,  
-                        _description,
-                        _location,
-                        _units, 
-                        _keywords,
-                        msg.sender, 
-                        _phone
+                                    _symbol,   
+                                    thisIOU,                                                    
+                                    address(store)
             );
         //store.addIOU2(address(newIOU), _socialProfile, msg.sender, _keywords);
         require (address(store) != address(0x0), "No store address");
         store.addIOU1(address(newIOU), msg.sender);//, _socialProfile, msg.sender, _keywords);
+     //   newIOU.setStore(address(store));
 
         return address (newIOU);
         }
-
+/* 
     function addHolder(address _holder, address _IOUtoken) public  {
         store.addHolder(_holder, _IOUtoken);
       }
@@ -65,16 +69,24 @@ contract MakeIOU {
 
    function addKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
         IOUtoken (_IOUtok).addKeys(_keys, msg.sender);
-        store.addKeys( _keys, _IOUtok);  
+        
         } 
 
    function delKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
         IOUtoken (_IOUtok).delKeys(_keys, msg.sender);
-        store.delKeys( _keys, _IOUtok);
+        
         }
 
     function editGeo (iIOUtoken.geo calldata _location, address _IOUtok)  public  {
         IOUtoken (_IOUtok).editGeo(_location, msg.sender);
-        store.changeIOUGeoAllkeys(_location, _IOUtok);
+        
     }
+
+     function editDescr (string calldata _descr,  address _IOUtok)  public onlyOwner {
+        IOUtoken (_IOUtok).editDescr( _descr);
+    }
+
+    function editPhone (bytes32 _phone,  address _IOUtok)  public onlyOwner {
+        IOUtoken (_IOUtok).editPhone (_phone);
+    } */
 }

@@ -1,9 +1,10 @@
 pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
+import "./interfaces/iStoreIOUs.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-import "./MakeIOU.sol";
+//import "./MakeIOU.sol";
 
 /*** IOU ecosystem
 *   The aim of IOU ecosystem is to give people proved fiat-free mutual settlements by issuing personal IOU tokens on Ethereum.
@@ -39,58 +40,41 @@ contract IOUtoken is iIOUtoken, ERC20 {
     IOU[] public allIOUs;
     mapping (address => uint256[]) public IOUbyReceiver; // list of this IOUs by receiver
 
-    address factory;
     address owner;
+    iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
 
-    constructor (string memory name_, string memory symbol_)  ERC20 (name_, symbol_) {
-        factory = msg.sender;
+    constructor (string memory name_, 
+                string memory symbol_, 
+                iIOUtoken.DescriptionIOU memory _thisIOU,
+                 address _store)  ERC20 (name_, symbol_) {
+       thisIOU = _thisIOU;
+       owner = _thisIOU.issuer;
+        require (bytes(name_).length <16 || 
+                bytes(symbol_).length < 10 ||
+                bytes(_thisIOU.myName).length < 64 ||
+                bytes(_thisIOU.socialProfile).length < 128 ||
+                bytes(_thisIOU.description).length < 256 ||
+                _thisIOU.keywords.length <=5 , 
+                "Too many symbs in parameter" );
+  //todo add visibility?
+        store = iStoreIOUs(_store);
+            
+     //   store.addIOU1(address(this), owner);//, _socialProfile, msg.sender, _keywords);
     }
-    modifier onlyfactory() {
-        require (factory == msg.sender, "Only factory can do this");
-        _;
-    }
+
 
     modifier onlyOwner() {
         require (owner == msg.sender, "Only owner can do this");
         _;
     }
 
-    function setIOU (string memory _name, 
-                 string memory _symbol,  
-                 string memory _myName, // of emitter
-                 string memory _socialProfile, //profile  of emitter in social nets
-                 string memory _description, //description of bond IOU to  work
-                 geo memory _location, //where is ??abiencoded?
-                 bytes32  _units, //units of deal
-                 bytes32[] memory _keywords,
-                 address _issuer,
-                 bytes32 _phone
-                ) public onlyfactory {
 
+    function setStore (address _newOwner) public onlyOwner {
+        store = iStoreIOUs(_newOwner);
         
-        owner = _issuer;
-        require (bytes(_name).length <16 || 
-                bytes(_symbol).length < 10 ||
-                bytes(_myName).length < 64 ||
-                bytes(_socialProfile).length < 128 ||
-                bytes(_description).length < 256 ||
-                _keywords.length <=5 , 
-                "Too many symbs in parameter" );
+    }   
 
-        thisIOU = iIOUtoken.DescriptionIOU (0,0,0,
-            _units,
-            _issuer,
-            _myName,
-            _socialProfile,
-            _description,
-            _location,
-            _keywords,
-           _phone
-        );  //todo add visibility?
-
-    }
-    
 
     function getTokenInfo() public view returns(string memory,
                                            string memory,
@@ -121,7 +105,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
         IOUbyReceiver[_who].push(allIOUs.length-1);
         _mint(_who, _amount);
         thisIOU.totalMinted += _amount;
-        MakeIOU(factory).addHolder(_who, address(this)); 
+        store.addHolder(_who, address(this)); 
         
     }
 
@@ -143,7 +127,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }
 
     function transfer(address _recipient, uint256 _amount) public override returns (bool) {
-        MakeIOU(factory).addHolder(_recipient, address(this));
+        store.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
     }
@@ -156,42 +140,52 @@ contract IOUtoken is iIOUtoken, ERC20 {
         thisIOU.phone = _phone;
     }
 
-    function editGeo (geo calldata _location, address _sender)  public onlyfactory {
-        require(_sender == owner, "Only owner can edit");
-        thisIOU.location = _location;
+    function editGeo (string calldata _country,
+                    string calldata _state,
+                    string calldata _city,
+                    string calldata _street)  public onlyOwner {
+        iIOUtoken.geo memory newloc;
+        newloc.country = _country;
+        newloc.state = _state;
+        newloc.city = _city;
+        newloc.street = _street;
+        store.changeIOUGeoAllkeys(newloc, address(this));
+        thisIOU.location.country = _country;
+        thisIOU.location.state = _state;
+        thisIOU.location.city = _city;
+        thisIOU.location.street = _street;
     }
 
 
-    function addKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
-        require(_sender == owner, "Only owner can edit");
+    function addKeys (bytes32[] calldata _keys)  public onlyOwner {
         uint addKeyLen = _keys.length;
         require(addKeyLen < 5, "Only 5 keys can add once");
         for (uint k=0; k<addKeyLen; k++) {
             thisIOU.keywords.push(_keys[k]);
         }
+        store.addKeys( _keys, address(this));  
     }
-    function delKeys (bytes32[] calldata _keys, address _sender)  public onlyfactory {
-        require(_sender == owner, "Only owner can edit");
-        uint addKeyLen = _keys.length;       
-        require(addKeyLen < 5, "Only 5 keys can remove once");
+    function delKeys (bytes32[] calldata _keys)  public onlyOwner {
+        uint delKeyLen = _keys.length;       
+        require(delKeyLen < 5, "Only 5 keys can remove once");
         // mark removing keys
-        uint[5] memory keyMap;
-        uint km = 0;
-        for (uint dk=0; dk<addKeyLen; dk++) {
+       // uint[5] memory keyMap;
+       
+       // uint km = 0;
+        for (uint dk=0; dk<delKeyLen; dk++) {
+            uint delkey;
             for (uint kk=0; kk<thisIOU.keywords.length; kk++) {                
                     if (thisIOU.keywords[kk] == _keys[dk]) {
-                        keyMap[km] = kk;
-                        km=km+1;
+                        delkey = kk;                        
                     }
             }
+            // catch array 
+            thisIOU.keywords[delkey] = thisIOU.keywords[thisIOU.keywords.length-1] ;
+            thisIOU.keywords.pop();
+    
         }
-        // catch array 
-        for (uint k=0; k<km; k++) {   
-            thisIOU.keywords[keyMap[k]] = thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }
-        for (uint k=0; k<km; k++) {   
-            delete thisIOU.keywords[thisIOU.keywords.length-1-k] ;
-        }   
+        
+        store.delKeys( _keys, address(this)); 
     }
 
 

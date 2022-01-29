@@ -3,7 +3,7 @@ import React, { useEffect, useCallback, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
-import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
+import TokenCardsEdit from '../../components/token-cards-edit/TokenCardsEdit';
 import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
@@ -12,7 +12,7 @@ import TokensListContext from '../../context/TokensListContext'
 
 
 
-const MintSelectTokenPage = ({ classes }) => {
+const MintEditTokenPage = ({ classes }) => {
   
 
   const tokensList = useContext(TokensListContext)
@@ -32,22 +32,27 @@ const MintSelectTokenPage = ({ classes }) => {
     changeIOUDataList(dataIOUsList)
   }, [changeIOUDataList, dataIOUsList])
   
+  const handleMakeNewIOU = () => {
+    history.push(ROUTES.makeIOUToken1);
+  };
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
-    history.push(ROUTES.mintSelectReceiver);
+    history.push(ROUTES.editorIOU);
     tokensList.setCurrentToken(id)
   };
 
   return (
     <PageLayout>
       <Box className={classes.selectSection}>
-        <PageTitle>Select IOU that you plan to give</PageTitle>
-  
+        <PageTitle>Edit your IOUs or</PageTitle>
+        <Button onClick={handleMakeNewIOU}>
+          make new IOU
+        </Button>
       </Box>
 
       <Box className={classes.listSection}>
-        <TokenCardsList
+        <TokenCardsEdit
           data={listDataIOU}
           onClick={handleSelectIOU}
           title={'Select IOU:'}
@@ -59,4 +64,4 @@ const MintSelectTokenPage = ({ classes }) => {
 
 
 
-export default withStyles(styles, { withTheme: true })(MintSelectTokenPage);
+export default withStyles(styles, { withTheme: true })(MintEditTokenPage);
