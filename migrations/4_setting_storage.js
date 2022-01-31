@@ -9,7 +9,7 @@ const setStoreAddress = async () => {
     const instIOU = await IOUtoken.deployed();
     console.log('STORE INSTANCE:', storeInstance.address)
     await makeiouInstance.setStore(storeInstance.address)
-    await makeiouInstance.setIOU(instIOU.address)
+    await makeiouInstance.setinstIOU(instIOU.address)
     //await storeInstance.setFactory(makeiouInstance.address)
 
 }

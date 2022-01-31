@@ -20,7 +20,7 @@ contract MakeIOU {
         
     }   
 
-    function setIOU (address _new) public onlyOwner {
+    function setinstIOU (address _new) public onlyOwner {
         instIOU = _new;
         
     }   
