@@ -83,7 +83,7 @@ contract StoreIOUs is iStoreIOUs {
             allIssuers.push(_emitent); 
         }
         listIOUs[_emitent].push(_addrIOU);
-        iIOUtoken curIOU =  iIOUtoken(_addrIOU);
+        //iIOUtoken curIOU =  iIOUtoken(_addrIOU);
         listIOUsSoc[_thisIOU.socialProfile].push(_addrIOU);
         _addKeys(_addrIOU, _thisIOU.keywords, _thisIOU.location);
     }

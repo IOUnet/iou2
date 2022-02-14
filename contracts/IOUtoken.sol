@@ -64,7 +64,7 @@ function setIOU  (
                 string memory name_, 
                 string memory symbol_, 
                 iIOUtoken.DescriptionIOU memory _thisIOU,
-                 address _store)  public  nonConfiged override {
+                 address _store)  public  nonConfiged /* override */ {
        thisIOU = _thisIOU;
        owner = _thisIOU.issuer;
        _name = name_;
