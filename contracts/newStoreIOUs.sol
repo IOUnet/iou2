@@ -74,7 +74,7 @@ contract newStoreIOUs is iStoreIOUs {
         _;
     }
 
-    function addIOU1 (address _addrIOU, address _emitent) public override  {
+    function addIOU1 (address _addrIOU, address _emitent,  iIOUtoken.DescriptionIOU calldata _thisIOU ) public override  {
         
         allIOU.push(_addrIOU);
         isIOU[_addrIOU] = allIOU.length;
@@ -86,12 +86,13 @@ contract newStoreIOUs is iStoreIOUs {
         iIOUtoken curIOU =  iIOUtoken(_addrIOU);
         iIOUtoken.DescriptionIOU memory thisIOU = curIOU.thisIOUDesc();
         listIOUsSoc[thisIOU.socialProfile].push(_addrIOU);
-        _addKeys(_addrIOU, thisIOU.keywords);
+        _addKeys(_addrIOU, _thisIOU.keywords, _thisIOU.location);
     }
 
 
     function addKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlySelf (_addrIOU) override {
-        _addKeys(_addrIOU, _keywords);
+
+        _addKeys(_addrIOU, _keywords, iIOUtoken(_addrIOU).thisIOUDesc().location);
     }
     function delKeys (bytes32[] calldata _keywords, address _addrIOU ) public onlySelf (_addrIOU) override {
         _delKeys(_addrIOU, _keywords);
@@ -108,7 +109,7 @@ contract newStoreIOUs is iStoreIOUs {
 
             }
     }
-    function _addKeys (address _addrIOU, bytes32[] memory _keywords) internal{
+    function _addKeys (address _addrIOU, bytes32[] memory _keywords, iIOUtoken.geo  memory _location) internal{
 
         uint lenArr = _keywords.length > 5 ? 5: _keywords.length;
         for (uint8 k=0 ; k < lenArr ; k++){
@@ -123,7 +124,7 @@ contract newStoreIOUs is iStoreIOUs {
                         keyByList[key][_addrIOU] = listbyKeys[key].length;
                     }
                     _setIOUGeo(_addrIOU,
-                            iIOUtoken(_addrIOU).thisIOUDesc().location, 
+                            _location, 
                             key);
                 }
             } 

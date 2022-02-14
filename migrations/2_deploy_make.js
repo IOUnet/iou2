@@ -8,9 +8,9 @@ module.exports = async  function (deployer) {
   await deployer.deploy(ProxyIOU);
   const mk = await MakeIOU.deployed();
   const prx =  await ProxyIOU.deployed()
-  //const iIOU = await deployProxy(IOUtoken, { deployer });
-  await deployer.deploy(IOUtoken);
-  const iIOU = await IOUtoken.deployed();
+  const iIOU = await deployProxy(IOUtoken, { deployer });
+  //await deployer.deploy(IOUtoken);
+  //const iIOU = await IOUtoken.deployed();
   await iIOU.initialize();
   await iIOU.setOwner(mk.address);
 

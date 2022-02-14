@@ -60,37 +60,10 @@ contract MakeIOU {
     iIOUtoken newIOU =  iIOUtoken(Clones.clone(instIOU));
     newIOU.setIOU (_name, _symbol, thisIOU,address(store));
     require (address(store) != address(0x0), "No store address");
-    store.addIOU1(address(newIOU), msg.sender);//, _socialProfile, msg.sender, _keywords);
+    store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);
      //   newIOU.setStore(address(store));
 
         return address (newIOU);
         }
-/* 
-    function addHolder(address _holder, address _IOUtoken) public  {
-        store.addHolder(_holder, _IOUtoken);
-      }
 
-
-   function addKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
-        IOUtoken (_IOUtok).addKeys(_keys, msg.sender);
-        
-        } 
-
-   function delKeys (bytes32[] calldata _keys, address _IOUtok)  public  {
-        IOUtoken (_IOUtok).delKeys(_keys, msg.sender);
-        
-        }
-
-    function editGeo (iIOUtoken.geo calldata _location, address _IOUtok)  public  {
-        IOUtoken (_IOUtok).editGeo(_location, msg.sender);
-        
-    }
-
-     function editDescr (string calldata _descr,  address _IOUtok)  public onlyOwner {
-        IOUtoken (_IOUtok).editDescr( _descr);
-    }
-
-    function editPhone (bytes32 _phone,  address _IOUtok)  public onlyOwner {
-        IOUtoken (_IOUtok).editPhone (_phone);
-    } */
 }
