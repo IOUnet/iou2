@@ -3,16 +3,19 @@ const MakeIOU = artifacts.require("MakeIOU");
 const ProxyIOU = artifacts.require("ProxyIOU");
 const IOUtoken = artifacts.require("IOUtoken");
 /** */
-module.exports = async  function (deployer) {
+module.exports = async  function (deployer,  _network, addresses) {
   await  deployer.deploy(MakeIOU);
-  await deployer.deploy(ProxyIOU);
+  
   const mk = await MakeIOU.deployed();
-  const prx =  await ProxyIOU.deployed()
-  const iIOU = await deployProxy(IOUtoken, { deployer });
-  //await deployer.deploy(IOUtoken);
-  //const iIOU = await IOUtoken.deployed();
+  
+  //const iIOU = await deployProxy(IOUtoken, { deployer });
+  await deployer.deploy(IOUtoken);
+  const iIOU = await IOUtoken.deployed();
   await iIOU.initialize();
   await iIOU.setOwner(mk.address);
+  await deployer.deploy(ProxyIOU, iIOU.address, addresses[0]);
+
+  const prx =  await ProxyIOU.deployed()
 
   //const instanceMake = await deployProxy(MakeIOU, { deployer });
   //const instanceProxy = await deployProxy(ProxyIOU,  { deployer });
