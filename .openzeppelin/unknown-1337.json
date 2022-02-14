@@ -1,45 +1,297 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0xB6F469a8930dd5111c0EA76571c7E86298A171f7",
-    "txHash": "0x811e829ed4513bb59da6ad9bad963f6233a45d4f581d7e8a5ad4e2d760c9ceaa"
+    "address": "0xD507D3Dea5fA64fFF91976C2D2dA0b7Fa4572BC6",
+    "txHash": "0xc81dc7e6709c4171f7445af370292933b199436ec15b4a539a985e8b9c94ed34"
   },
   "proxies": [
     {
-      "address": "0x5504723d27c908fC6155414461134DcdA7A96951",
-      "txHash": "0x58b2582b50680206486e461968516a92e26c55e942cda5302c322d474388f692",
+      "address": "0x0c97B98464f22BeE7FfBAeb622789cD43828da8D",
+      "txHash": "0x9aca2f75225641021ed03833b96e29254143af2554a23a73756e38e90320dbd7",
       "kind": "transparent"
     },
     {
-      "address": "0xe9251c435295bA9b2b4b7921934a0a8B9bC91859",
-      "txHash": "0xeeaa8cd9d082484fe521da74f66dd9e621e2c9126a5c7a3183089464bf39a0c5",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x734AA85423FB4Aa285eDE8f4673117FE95E29DF4",
-      "txHash": "0xa0582210b6a195f2ee4e8a713751cac6f6c46dcb37982c0bcbd201eea0f9cd45",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xd9bC40eA42c8B20F8Cbe086C7BeA4f45aE0bA9A5",
-      "txHash": "0x90f3d0355a1a012589bd73bb285efe1883caa91ab49b3985e7783e3c9652ab82",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xfBbFd94B57c44eb8F3373C6Cf91582D582ebcDAe",
-      "txHash": "0xfbe977d1b4c013fafb55cb70aebc58d25aeeea6e0e2baf0457dffb26fe087a76",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x2B1283924Fe571F56472Efb04E6F1D7d1E698EcB",
-      "txHash": "0x28d451c09c77a3e971edc2c6e84781f9dcd284e932472ed22a17b0e303f0852b",
+      "address": "0x0B496e2B227041076fb881cf47C00B3415B0b881",
+      "txHash": "0x3df22b5d9607946e0532502869c6a18568e01c26df4519654ce77fd2fd647f89",
       "kind": "transparent"
     }
   ],
   "impls": {
-    "3b1a9919705bdc975d25fd462626f0fb38bf155945f9f953196512a1eb11e55b": {
-      "address": "0xc96E34C891c6f4f6fcD5dC870cA04f1c3A895378",
-      "txHash": "0xc00cccdfbe9fe07dc159e92e8059baadf3f6eaba9bf7d05109f76cbcd466b3e4",
+    "d25faac2c9d053f1f0e0e86765133ad05962eb3816f1aa63f164e2aea2fc30b4": {
+      "address": "0xa48296620E0F09D712736b95d6F09Ad9A116E272",
+      "txHash": "0x2f0a94d9aabdb0afa3cb6e1769514daf9690bb79ab070a11470864a2180f9289",
+      "layout": {
+        "storage": [
+          {
+            "contract": "ERC20",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/ERC20.sol:36"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/ERC20.sol:38"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/ERC20.sol:40"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:42"
+          },
+          {
+            "contract": "ERC20",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/ERC20.sol:43"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_balances",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/IOUtoken.sol:31"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_allowances",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/IOUtoken.sol:33"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_totalSupply",
+            "type": "t_uint256",
+            "src": "../project:/contracts/IOUtoken.sol:35"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_name",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:37"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "_symbol",
+            "type": "t_string_storage",
+            "src": "../project:/contracts/IOUtoken.sol:38"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "thisIOU",
+            "type": "t_struct(DescriptionIOU)2812_storage",
+            "src": "../project:/contracts/IOUtoken.sol:44"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allFeedbacks",
+            "type": "t_array(t_struct(FeedBack)2830_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:46"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "feedBacksbySender",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:47"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "allIOUs",
+            "type": "t_array(t_struct(IOU)2819_storage)dyn_storage",
+            "src": "../project:/contracts/IOUtoken.sol:49"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "IOUbyReceiver",
+            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
+            "src": "../project:/contracts/IOUtoken.sol:50"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/IOUtoken.sol:52"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "configured",
+            "type": "t_bool",
+            "src": "../project:/contracts/IOUtoken.sol:53"
+          },
+          {
+            "contract": "IOUtoken",
+            "label": "store",
+            "type": "t_contract(iStoreIOUs)2960",
+            "src": "../project:/contracts/IOUtoken.sol:54"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(address => mapping(address => uint256))"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_struct(DescriptionIOU)2812_storage": {
+            "label": "struct iIOUtoken.DescriptionIOU",
+            "members": [
+              {
+                "label": "totalMinted",
+                "type": "t_uint256"
+              },
+              {
+                "label": "totalBurned",
+                "type": "t_uint256"
+              },
+              {
+                "label": "avRate",
+                "type": "t_int256"
+              },
+              {
+                "label": "units",
+                "type": "t_bytes32"
+              },
+              {
+                "label": "issuer",
+                "type": "t_address"
+              },
+              {
+                "label": "myName",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "socialProfile",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "location",
+                "type": "t_struct(geo)2787_storage"
+              },
+              {
+                "label": "keywords",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "phone",
+                "type": "t_bytes32"
+              }
+            ]
+          },
+          "t_int256": {
+            "label": "int256"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_struct(geo)2787_storage": {
+            "label": "struct iIOUtoken.geo",
+            "members": [
+              {
+                "label": "country",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "state",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "city",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "street",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_array(t_struct(FeedBack)2830_storage)dyn_storage": {
+            "label": "struct iIOUtoken.FeedBack[]"
+          },
+          "t_struct(FeedBack)2830_storage": {
+            "label": "struct iIOUtoken.FeedBack",
+            "members": [
+              {
+                "label": "sender",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "rating",
+                "type": "t_int256"
+              },
+              {
+                "label": "amount",
+                "type": "t_uint256"
+              },
+              {
+                "label": "text",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
+            "label": "mapping(address => uint256[])"
+          },
+          "t_array(t_uint256)dyn_storage": {
+            "label": "uint256[]"
+          },
+          "t_array(t_struct(IOU)2819_storage)dyn_storage": {
+            "label": "struct iIOUtoken.IOU[]"
+          },
+          "t_struct(IOU)2819_storage": {
+            "label": "struct iIOUtoken.IOU",
+            "members": [
+              {
+                "label": "receiver",
+                "type": "t_address"
+              },
+              {
+                "label": "time",
+                "type": "t_uint256"
+              },
+              {
+                "label": "IOUDescr",
+                "type": "t_string_storage"
+              }
+            ]
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_contract(iStoreIOUs)2960": {
+            "label": "contract iStoreIOUs"
+          }
+        }
+      }
+    },
+    "db30a4f9df27fa6f54f12360b99c5ddec374f9820a956bbf2f6febee5b671f88": {
+      "address": "0x935BdA8379968Febb137Ab101002B1aD167FeD74",
+      "txHash": "0xffdc7457d6d9c488492b354b65cdf026c0573ecbe179daa389b854248d3225df",
       "layout": {
         "storage": [
           {
@@ -117,7 +369,7 @@
           {
             "contract": "StoreIOUs",
             "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)2805_storage)",
+            "type": "t_mapping(t_address,t_struct(geoIOU)2870_storage)",
             "src": "../project:/contracts/StoreIOUs.sol:36"
           },
           {
@@ -191,538 +443,10 @@
           "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
             "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
           },
-          "t_mapping(t_address,t_struct(geoIOU)2805_storage)": {
+          "t_mapping(t_address,t_struct(geoIOU)2870_storage)": {
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
-          "t_struct(geoIOU)2805_storage": {
-            "label": "struct iStoreIOUs.geoIOU",
-            "members": [
-              {
-                "label": "inCity",
-                "type": "t_uint64"
-              },
-              {
-                "label": "onStreet",
-                "type": "t_uint64"
-              }
-            ]
-          },
-          "t_uint64": {
-            "label": "uint64"
-          }
-        }
-      }
-    },
-    "a7d0de65474e7d9773627a1086db24957b2a6dec0588bd39ff06f93e40d92660": {
-      "address": "0xeB320d1844759eC69CbdB2C1a90289B0eD9Cd300",
-      "txHash": "0x74ec35e93b6fd8a43b903d6d37311121d2735f81f70e39c41e3398204fbfa87e",
-      "layout": {
-        "storage": [
-          {
-            "contract": "newStoreIOUs",
-            "label": "listIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/newStoreIOUs.sol:10"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "listIOUsSoc",
-            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/newStoreIOUs.sol:11"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "listHoldersIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/newStoreIOUs.sol:12"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "isIOU",
-            "type": "t_mapping(t_address,t_uint256)",
-            "src": "../project:/contracts/newStoreIOUs.sol:13"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "isHolderthisIOU",
-            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
-            "src": "../project:/contracts/newStoreIOUs.sol:14"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "listbyKeys",
-            "type": "t_mapping(t_bytes32,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/newStoreIOUs.sol:16"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "keyByList",
-            "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
-            "src": "../project:/contracts/newStoreIOUs.sol:17"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "allKeywords",
-            "type": "t_array(t_bytes32)dyn_storage",
-            "src": "../project:/contracts/newStoreIOUs.sol:19"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "allIOU",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/newStoreIOUs.sol:20"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "allIssuers",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/newStoreIOUs.sol:21"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "listbyCity_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))",
-            "src": "../project:/contracts/newStoreIOUs.sol:23"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "listbyStreet_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))",
-            "src": "../project:/contracts/newStoreIOUs.sol:29"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)2793_storage)",
-            "src": "../project:/contracts/newStoreIOUs.sol:36"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "owner",
-            "type": "t_address",
-            "src": "../project:/contracts/newStoreIOUs.sol:39"
-          },
-          {
-            "contract": "newStoreIOUs",
-            "label": "makeFactory",
-            "type": "t_address",
-            "src": "../project:/contracts/newStoreIOUs.sol:40"
-          }
-        ],
-        "types": {
-          "t_mapping(t_address,t_array(t_address)dyn_storage)": {
-            "label": "mapping(address => address[])"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_array(t_address)dyn_storage": {
-            "label": "address[]"
-          },
-          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
-            "label": "mapping(string => address[])"
-          },
-          "t_string_storage": {
-            "label": "string"
-          },
-          "t_mapping(t_address,t_uint256)": {
-            "label": "mapping(address => uint256)"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
-            "label": "mapping(address => mapping(address => bool))"
-          },
-          "t_mapping(t_address,t_bool)": {
-            "label": "mapping(address => bool)"
-          },
-          "t_bool": {
-            "label": "bool"
-          },
-          "t_mapping(t_bytes32,t_array(t_address)dyn_storage)": {
-            "label": "mapping(bytes32 => address[])"
-          },
-          "t_bytes32": {
-            "label": "bytes32"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
-            "label": "mapping(bytes32 => mapping(address => uint256))"
-          },
-          "t_array(t_bytes32)dyn_storage": {
-            "label": "bytes32[]"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))": {
-            "label": "mapping(string => mapping(string => mapping(string => address[])))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))": {
-            "label": "mapping(string => mapping(string => address[]))"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_address,t_struct(geoIOU)2793_storage)": {
-            "label": "mapping(address => struct iStoreIOUs.geoIOU)"
-          },
-          "t_struct(geoIOU)2793_storage": {
-            "label": "struct iStoreIOUs.geoIOU",
-            "members": [
-              {
-                "label": "inCity",
-                "type": "t_uint64"
-              },
-              {
-                "label": "onStreet",
-                "type": "t_uint64"
-              }
-            ]
-          },
-          "t_uint64": {
-            "label": "uint64"
-          }
-        }
-      }
-    },
-    "4aa2ce8881f177745315fd243696d49719e2897224710fe02047f816053eaa81": {
-      "address": "0x6bAC9f2870F79a7D4Dc0d2973947f3762f80b73e",
-      "txHash": "0x13b5c6374325716fec5b62d541e4b444900e75882ec8d6d1ea310d2778f25a27",
-      "layout": {
-        "storage": [
-          {
-            "contract": "StoreIOUs",
-            "label": "listIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:10"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listIOUsSoc",
-            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:11"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listHoldersIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:12"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "isIOU",
-            "type": "t_mapping(t_address,t_uint256)",
-            "src": "../project:/contracts/StoreIOUs.sol:13"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "isHolderthisIOU",
-            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
-            "src": "../project:/contracts/StoreIOUs.sol:14"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyKeys",
-            "type": "t_mapping(t_bytes32,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:16"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "keyByList",
-            "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
-            "src": "../project:/contracts/StoreIOUs.sol:17"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allKeywords",
-            "type": "t_array(t_bytes32)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:19"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allIOU",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:20"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allIssuers",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:21"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyCity_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))",
-            "src": "../project:/contracts/StoreIOUs.sol:23"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyStreet_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))",
-            "src": "../project:/contracts/StoreIOUs.sol:29"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)2780_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:36"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "owner",
-            "type": "t_address",
-            "src": "../project:/contracts/StoreIOUs.sol:39"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "makeFactory",
-            "type": "t_address",
-            "src": "../project:/contracts/StoreIOUs.sol:40"
-          }
-        ],
-        "types": {
-          "t_mapping(t_address,t_array(t_address)dyn_storage)": {
-            "label": "mapping(address => address[])"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_array(t_address)dyn_storage": {
-            "label": "address[]"
-          },
-          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
-            "label": "mapping(string => address[])"
-          },
-          "t_string_storage": {
-            "label": "string"
-          },
-          "t_mapping(t_address,t_uint256)": {
-            "label": "mapping(address => uint256)"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
-            "label": "mapping(address => mapping(address => bool))"
-          },
-          "t_mapping(t_address,t_bool)": {
-            "label": "mapping(address => bool)"
-          },
-          "t_bool": {
-            "label": "bool"
-          },
-          "t_mapping(t_bytes32,t_array(t_address)dyn_storage)": {
-            "label": "mapping(bytes32 => address[])"
-          },
-          "t_bytes32": {
-            "label": "bytes32"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
-            "label": "mapping(bytes32 => mapping(address => uint256))"
-          },
-          "t_array(t_bytes32)dyn_storage": {
-            "label": "bytes32[]"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))": {
-            "label": "mapping(string => mapping(string => mapping(string => address[])))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))": {
-            "label": "mapping(string => mapping(string => address[]))"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_address,t_struct(geoIOU)2780_storage)": {
-            "label": "mapping(address => struct iStoreIOUs.geoIOU)"
-          },
-          "t_struct(geoIOU)2780_storage": {
-            "label": "struct iStoreIOUs.geoIOU",
-            "members": [
-              {
-                "label": "inCity",
-                "type": "t_uint64"
-              },
-              {
-                "label": "onStreet",
-                "type": "t_uint64"
-              }
-            ]
-          },
-          "t_uint64": {
-            "label": "uint64"
-          }
-        }
-      }
-    },
-    "52addf450c117e5cb0889658a85514b2989232ae99975fa87ad947e20865da3c": {
-      "address": "0x1eAbFF5db64f7224371dc80811BdE9ab3d9ae728",
-      "txHash": "0x2a6d4f91a6e93d5f27598aa91dc327e00a9b5e458d1d017bee047eaf290c67c3",
-      "layout": {
-        "storage": [
-          {
-            "contract": "StoreIOUs",
-            "label": "listIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:10"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listIOUsSoc",
-            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:11"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listHoldersIOUs",
-            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:12"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "isIOU",
-            "type": "t_mapping(t_address,t_uint256)",
-            "src": "../project:/contracts/StoreIOUs.sol:13"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "isHolderthisIOU",
-            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
-            "src": "../project:/contracts/StoreIOUs.sol:14"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyKeys",
-            "type": "t_mapping(t_bytes32,t_array(t_address)dyn_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:16"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "keyByList",
-            "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
-            "src": "../project:/contracts/StoreIOUs.sol:17"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allKeywords",
-            "type": "t_array(t_bytes32)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:19"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allIOU",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:20"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "allIssuers",
-            "type": "t_array(t_address)dyn_storage",
-            "src": "../project:/contracts/StoreIOUs.sol:21"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyCity_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))",
-            "src": "../project:/contracts/StoreIOUs.sol:23"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "listbyStreet_",
-            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))",
-            "src": "../project:/contracts/StoreIOUs.sol:29"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)2716_storage)",
-            "src": "../project:/contracts/StoreIOUs.sol:36"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "owner",
-            "type": "t_address",
-            "src": "../project:/contracts/StoreIOUs.sol:39"
-          },
-          {
-            "contract": "StoreIOUs",
-            "label": "makeFactory",
-            "type": "t_address",
-            "src": "../project:/contracts/StoreIOUs.sol:40"
-          }
-        ],
-        "types": {
-          "t_mapping(t_address,t_array(t_address)dyn_storage)": {
-            "label": "mapping(address => address[])"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_array(t_address)dyn_storage": {
-            "label": "address[]"
-          },
-          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
-            "label": "mapping(string => address[])"
-          },
-          "t_string_storage": {
-            "label": "string"
-          },
-          "t_mapping(t_address,t_uint256)": {
-            "label": "mapping(address => uint256)"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
-            "label": "mapping(address => mapping(address => bool))"
-          },
-          "t_mapping(t_address,t_bool)": {
-            "label": "mapping(address => bool)"
-          },
-          "t_bool": {
-            "label": "bool"
-          },
-          "t_mapping(t_bytes32,t_array(t_address)dyn_storage)": {
-            "label": "mapping(bytes32 => address[])"
-          },
-          "t_bytes32": {
-            "label": "bytes32"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
-            "label": "mapping(bytes32 => mapping(address => uint256))"
-          },
-          "t_array(t_bytes32)dyn_storage": {
-            "label": "bytes32[]"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))": {
-            "label": "mapping(string => mapping(string => mapping(string => address[])))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))": {
-            "label": "mapping(string => mapping(string => address[]))"
-          },
-          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))": {
-            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
-          },
-          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
-            "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
-          },
-          "t_mapping(t_address,t_struct(geoIOU)2716_storage)": {
-            "label": "mapping(address => struct iStoreIOUs.geoIOU)"
-          },
-          "t_struct(geoIOU)2716_storage": {
+          "t_struct(geoIOU)2870_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {
