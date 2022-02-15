@@ -1,6 +1,9 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
-import "@openzeppelin/contracts/proxy/Clones.sol";
+//import "@openzeppelin/contracts/proxy/Clones.sol";
+// import "./ProxySimple.sol";
+//import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
+import  "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
 
@@ -56,8 +59,8 @@ contract MakeIOU {
             _keywords,
            _phone
         );
-
-    iIOUtoken newIOU =  iIOUtoken(Clones.clone(instIOU));
+    ERC1967Proxy proxIOU = new ERC1967Proxy(instIOU, "");
+    iIOUtoken newIOU =  iIOUtoken(address (proxIOU)/* Clones.clone(instIOU) */);
     newIOU.setIOU (_name, _symbol, thisIOU,address(store));
     require (address(store) != address(0x0), "No store address");
     store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);

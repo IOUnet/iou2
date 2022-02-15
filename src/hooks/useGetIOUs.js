@@ -59,11 +59,11 @@ export default function useGetIOUs() {
                         }, ['Approval'])
                     }
                     const  tokenIOU = drizzle.contracts[IOUAddreses[i]]
-                  //  const resultTrx1 =  /* drizzle.contracts[IOUAddreses[i]] */tokenIOU.methods["thisIOUDesc"].cacheCall();
+                   // const resultTrx =  tokenIOU.methods["thisIOUDesc"].cacheCall();
                     const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
                     if (resultTrx !== undefined && resultTrx !== "0x0") {
-                        const resultItem = ProxyIOU.getIOU[resultTrx]
-                  //      const resultItem1 =  drizzle.contracts[IOUAddreses[i]].thisIOUDesc[resultTrx]
+                   //    const resultItem = ProxyIOU.getIOU[resultTrx]
+                       const resultItem =  tokenIOU.thisIOUDesc[resultTrx]
                         if (resultItem !== undefined ) {
                             console.log (resultItem)
                             let keys = resultItem.value.description.keywords.map((value,key) => {
