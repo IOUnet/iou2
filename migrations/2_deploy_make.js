@@ -1,27 +1,10 @@
 const { deployProxy } = require('@openzeppelin/truffle-upgrades');
 const MakeIOU = artifacts.require("MakeIOU");
-const ProxyIOU = artifacts.require("ProxyIOU");
-const IOUtoken = artifacts.require("IOUtoken");
 /** */
-module.exports = async  function (deployer,  _network, addresses) {
+module.exports = async  function (deployer,  _network) {
   await  deployer.deploy(MakeIOU);
   
-  const mk = await MakeIOU.deployed();
-  
-  //const iIOU = await deployProxy(IOUtoken, { deployer });
-  await deployer.deploy(IOUtoken);
-  const iIOU = await IOUtoken.deployed();
-  await iIOU.initialize();
-  await iIOU.setOwner(mk.address);
-  await deployer.deploy(ProxyIOU, iIOU.address, addresses[0]);
-
-  const prx =  await ProxyIOU.deployed()
-
-  //const instanceMake = await deployProxy(MakeIOU, { deployer });
-  //const instanceProxy = await deployProxy(ProxyIOU,  { deployer });
-  const networkId = await web3.eth.net.getId();     
-
-  var Curaddresses = require ("../addresses.json");
+  /* var Curaddresses = require ("../addresses.json");
 
   Curaddresses[networkId].MakeIOU = mk.address
   Curaddresses[networkId].ProxyIOU =prx.address
@@ -31,7 +14,7 @@ module.exports = async  function (deployer,  _network, addresses) {
           if (err) {
               console.log(err);
           }
-    });
+    }); */
 };
 /**
  *  upgradable deploys 
