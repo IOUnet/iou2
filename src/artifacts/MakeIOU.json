@@ -13157,11 +13157,23 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {
+    "56": {
+      "events": {},
+      "links": {},
+      "address": "0x4a81cff73f1b8c6d94f50EDC08A4DEe7fbC109C6",
+      "transactionHash": "0xf42b869b4f8d7e06b5333a8b374b68491f9cb43985a3c54e01da1edcc124ab7d"
+    },
+    "97": {
+      "events": {},
+      "links": {},
+      "address": "0x459bD4c08937CF43337e71859E0349dc7C420E7F",
+      "transactionHash": "0x182265b4c6a6e9079072caa0dfa2bd44265cc34974fff50d6511ce83f68a42c7"
+    },
     "999": {
       "events": {},
       "links": {},
-      "address": "0xff71AFe63C4bC1DBaD84C196779005A42042Fab2",
-      "transactionHash": "0x8ac25bb67bf3cbc5064d75b81a310183c950638ae63e320a17ec080e1dff4917"
+      "address": "0x4a81cff73f1b8c6d94f50EDC08A4DEe7fbC109C6",
+      "transactionHash": "0xe61c8833811f45d7b1d0de9643a11ef9353f156ed0436848a930777285777109"
     }
   },
   "schemaVersion": "3.4.4",

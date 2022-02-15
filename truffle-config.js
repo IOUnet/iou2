@@ -111,6 +111,20 @@ module.exports = {
 // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
 
   },
+  bsctestnet: {  provider: () => new HDWalletProvider({ //BSC local fork
+    privateKeys: [`622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd`],
+    providerOrUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+  }),
+  network_id: 97,       // Ropsten's id
+ // gas: 5500000,        // Ropsten has a lower block limit than mainnet
+  //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+  //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
+ // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
+  // fork from Polygon mainnet, needs start ganache as
+// rm -r ../ganache_BSC && 
+// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
+
+},
   },
 
   // Set default mocha options here, use special reporters etc.
