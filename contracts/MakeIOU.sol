@@ -60,7 +60,7 @@ contract MakeIOU {
            _phone
         );
     ERC1967Proxy proxIOU = new ERC1967Proxy(instIOU, "");
-    iIOUtoken newIOU =  iIOUtoken(address (proxIOU)/* Clones.clone(instIOU) */);
+    iIOUtoken newIOU =  iIOUtoken(address ( proxIOU/* Clones.clone(instIOU) */));
     newIOU.setIOU (_name, _symbol, thisIOU,address(store));
     require (address(store) != address(0x0), "No store address");
     store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);

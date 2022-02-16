@@ -53,13 +53,14 @@ contract IOUData is ERC20 {
     bool inited;
     iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
+    address implementation;
 
 }
 
 contract IOUtoken is IOUData, iIOUtoken  {
 
      modifier onlyOwner() {
-        require (owner == msg.sender, "Only owner can do this");
+        require (owner == msg.sender, string(abi.encode("Only owner can do this", owner, msg.sender)));
         _;
     }
 

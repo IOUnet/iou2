@@ -38,6 +38,11 @@ interface  iIOUtoken  {
         string text; //comment
     }
     
+    struct IOUdescr {
+        string name;
+        string symbol;
+        iIOUtoken.DescriptionIOU description;
+    }
     function IOUname () external view returns  (string memory); 
     function IOUsymbol () external view returns (string memory);  
     function thisIOUDesc () external view returns (DescriptionIOU memory);

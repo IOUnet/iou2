@@ -14,7 +14,7 @@ const setStoreAddress = async () => {
     await iIOU.setOwner(makeiouInstance.address);
     
     await makeiouInstance.setStore(storeInstance.address)
-    await makeiouInstance.setinstIOU(iIOU.address)
+    await makeiouInstance.setinstIOU(ProxyIOUinstance.address)
     //await storeInstance.setFactory(makeiouInstance.address)
     var Curaddresses = require ("../addresses.json");
     const networkId = await web3.eth.net.getId();     
