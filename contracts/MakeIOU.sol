@@ -1,9 +1,9 @@
 pragma solidity >=  0.8.0;
 pragma experimental ABIEncoderV2;
-//import "@openzeppelin/contracts/proxy/Clones.sol";
+import "@openzeppelin/contracts/proxy/Clones.sol";
 // import "./ProxySimple.sol";
 //import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
-import  "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
+//import  "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 import "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
 
@@ -11,7 +11,8 @@ import "./interfaces/iStoreIOUs.sol";
 contract MakeIOU {
     
     address private owner;
-    address private instIOU;
+    address private implement;
+    address private proxy;
     iStoreIOUs store;
 
     function setOwner (address _newOwner) public onlyOwner {
@@ -23,8 +24,9 @@ contract MakeIOU {
         
     }   
 
-    function setinstIOU (address _new) public onlyOwner {
-        instIOU = _new;
+    function setimplement (address _proxy, address _implement ) public onlyOwner {
+        implement = _implement;
+        proxy = _proxy;
         
     }   
 
@@ -59,11 +61,12 @@ contract MakeIOU {
             _keywords,
            _phone
         );
-    ERC1967Proxy proxIOU = new ERC1967Proxy(instIOU, "");
-    iIOUtoken newIOU =  iIOUtoken(address ( proxIOU/* Clones.clone(instIOU) */));
-    newIOU.setIOU (_name, _symbol, thisIOU,address(store));
+  //  ERC1967Proxy proxIOU = new ERC1967Proxy(proxy, "");
+    iIOUtoken newIOU =  iIOUtoken(address ( /* proxIOU */   Clones.clone(proxy)  ));
+    
+    newIOU.setIOU (_name, _symbol, thisIOU,address(store), implement ); 
     require (address(store) != address(0x0), "No store address");
-    store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);
+    //store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);
      //   newIOU.setStore(address(store));
 
         return address (newIOU);

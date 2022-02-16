@@ -49,8 +49,10 @@ interface  iIOUtoken  {
     function setIOU (//    constructor (
                 string memory name_, 
                 string memory symbol_, 
-                iIOUtoken.DescriptionIOU memory _thisIOU,
-                 address _store)  external;
+                DescriptionIOU memory _thisIOU,
+                 address _store, 
+                address _implementation
+            )  external;
 
     function initialize() external;
 }

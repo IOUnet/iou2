@@ -65,7 +65,7 @@ export default function useGetIOUs() {
                        const resultItem = ProxyIOU.getIOU[resultTrx]
                    //    const resultItem =  tokenIOU.thisIOUDesc[resultTrx]
                         if (resultItem !== undefined ) {
-                            console.log (resultItem)
+                       
                             let keys = resultItem.value.description.keywords.map((value,key) => {
                                 return drizzle.web3.utils.hexToAscii(value)
                             })

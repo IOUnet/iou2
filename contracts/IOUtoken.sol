@@ -57,7 +57,7 @@ contract IOUData is ERC20 {
 
 }
 
-contract IOUtoken is IOUData, iIOUtoken  {
+contract IOUtoken is IOUData, iIOUtoken  { 
 
      modifier onlyOwner() {
         require (owner == msg.sender, string(abi.encode("Only owner can do this", owner, msg.sender)));
@@ -92,23 +92,25 @@ contract IOUtoken is IOUData, iIOUtoken  {
     //    constructor (
                     string memory name_, 
                     string memory symbol_, 
-                    iIOUtoken.DescriptionIOU memory _thisIOU,
-                    address _store)  public  nonConfiged /* override */ {
+                    DescriptionIOU memory _thisIOU,
+                    address _store, 
+                    address _implementation
+)  public  nonConfiged /* override */ {
         thisIOU = _thisIOU;
         owner = _thisIOU.issuer;
         _name = name_; 
         _symbol = symbol_;
-        require (bytes(name_).length <16 || 
+         require (bytes(name_).length <16 || 
                     bytes(symbol_).length < 10 ||
                     bytes(_thisIOU.myName).length < 64 ||
                     bytes(_thisIOU.socialProfile).length < 128 ||
                     bytes(_thisIOU.description).length < 256 ||
                     _thisIOU.keywords.length <=5 , 
-                    "Too many symbs in parameter" );
+                    "Too many symbs in parameter" ); 
     //todo add visibility?
-            store = iStoreIOUs(_store);
+    store = iStoreIOUs(_store);
             
-        //   store.addIOU1(address(this), owner);//, _socialProfile, msg.sender, _keywords);
+    store.addIOU1(address(this), _thisIOU.issuer, _thisIOU); //, _socialProfile, msg.sender, _keywords);
         }
 
     function setStore (address _newOwner) public onlyOwner {

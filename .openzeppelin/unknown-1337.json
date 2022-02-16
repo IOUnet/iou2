@@ -1,60 +1,135 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0x8736d5567DAF02CDcdB9890716bC28f363b8807a",
-    "txHash": "0xf639966f824ddf5e60c4ae2c0f0ec7183f8df13d22b42c76eb048c4d3d37a436"
+    "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
+    "txHash": "0x6a8da1fc47443a7b246b54ec6ae163e9d8c5f88a7340f7439610fbb8102bb525"
   },
   "proxies": [
     {
-      "address": "0x958Eb4058a813daC20d875d3990cbb044B826ED8",
-      "txHash": "0xdb7b68f7d925c6428c837200598122645d6aaec035d7235db7cb406c7f92cdad",
-      "kind": "transparent"
-    },
-    {
       "address": "0x283C31A85980233764997390BD32377eE7170CF4",
-      "txHash": "0xa1e3fe3b8242215fbf7a23dd9c626ee67cb43861e30c0086001dbfba69254c78",
+      "txHash": "0x8ca60ed5075884a722a1b2da56d7954e3de0c2e582a64860cb732eeefc711d2c",
       "kind": "transparent"
     },
     {
-      "address": "0xfdB25c520D44b0276D1F5eC6812068Fc78D95989",
-      "txHash": "0xdd88564a32ee504f951de423cacbe85ef07f9cbadcee31623345e8c1a7f0102f",
+      "address": "0x5504723d27c908fC6155414461134DcdA7A96951",
+      "txHash": "0x95f3ca3aa851210ed83ea22df6be47a18d18c59da0804901f2de7f19ffa425f2",
       "kind": "transparent"
     },
     {
-      "address": "0x1BFDDf6079c257dD4C41917EC4ec66bC2E667477",
-      "txHash": "0x484332306af6b6e86bf954730ba8041dc368d2f7b0c2edb3b6f170d5518e8b09",
+      "address": "0x227407BB590bC92F656dD0537C541e12788370Aa",
+      "txHash": "0xc7cafac257fd905f2f04e5fd05dc7250a1144ea889279dec05efb47f3ed64014",
       "kind": "transparent"
     },
     {
-      "address": "0xf1C010f4D51eADcBDbb96ac9eb3263d73447AC67",
-      "txHash": "0x81578f61d5a544f84f9911cd37c0a6524732bc65ea1f9617cc6215b1a562269f",
+      "address": "0x74Fe3CA11746DA7c16A20D50cb60F93A6720d095",
+      "txHash": "0xdf7c5fa26c4815a15ce14c5ac511f6838b6b6d5c61fc43ba59506ee92f2e5793",
       "kind": "transparent"
     },
     {
-      "address": "0xB9cd4128ED40C02a7c02ae04F2d43eB47196a5a0",
-      "txHash": "0x304c58e9aa7f7dc8c8aabe79dc274e1ed4ef88ae79a1d2b672e68e020ebf9e81",
+      "address": "0x66061A3cA6dC08F67eAa8fb2132d48Afe1c4fce2",
+      "txHash": "0xa1e0501ad78996ba029161f2c207b98ab5c41247c57510113ccb0c925db6855a",
       "kind": "transparent"
     },
     {
-      "address": "0xd9bC40eA42c8B20F8Cbe086C7BeA4f45aE0bA9A5",
-      "txHash": "0x63b7101e89f9a033dd0d8300681d6895034aaaf14f359eab92016091cc3380ad",
+      "address": "0x4E1d337e0A3c31633FBcc1EDb76856014978C5f3",
+      "txHash": "0x5f49e9aae477e33d3221c69392acad675fd3fd17c7924b55372695ef51296157",
       "kind": "transparent"
     },
     {
-      "address": "0x9999c88F31DC3BAeECc6F0d66db98D22e844f661",
-      "txHash": "0xba174de1a4dce105c64fd0fe5e6d564fbc0241775cac2663fce466a5c079c8cc",
+      "address": "0x7F24e0Db827c1175514946Aa75b5adE01a339121",
+      "txHash": "0x4655af897ffa1f33612779c944cd5c00f087a6c8bc2cef5231cadc021aebb2d8",
       "kind": "transparent"
     },
     {
-      "address": "0xadf995Aa82425aB33fe42e2f13d998889435843E",
-      "txHash": "0x52ceec78182d7ed2646f8e3af0a796b2b5609887786aaf2f56f6c88023800bc3",
+      "address": "0x601802087F9058cd5c246fc8B20f3e1fdFA70F4A",
+      "txHash": "0x90a18c8377cd8ef5636d7a886d382d63c9d4c6508acd467e42cd9b736ad0beda",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x6254399B6dd7BA72fFeEbfb8B7C559a32B39cB15",
+      "txHash": "0x9941e240455d31a250c50395a0e1c0c9669e1a4711e45426b45b6a18a59d2b9a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB71ec643549a6064d9721f7C508252727fe6DC5B",
+      "txHash": "0xd0c8efd099ef4442e023e2e0a9a86134b916d018f7f603b5681a552ae18155b8",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xD507D3Dea5fA64fFF91976C2D2dA0b7Fa4572BC6",
+      "txHash": "0xdd9666e3b0d93fe2b0c19e72b6586964f1eb8e886991ae3164c74dd7aedbaa48",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x461DaE69CE6D20bFa4Ea6fe201eA7c4cF2a225C3",
+      "txHash": "0x2b9e8f4e984b6f918aef23c38647cf61fb84bee932d0f19f891d1a3bacba788a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x3e3C3Bf523486B645aAb5677267a3309A71F4623",
+      "txHash": "0x0c9b04ddb3c70b1d6ad9c36c5d59df18278d8f96662eb20e49a9b459cf62590d",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xbcEb8565bA1b88adA79cCD93b9c992e07601929d",
+      "txHash": "0xb32e720bd86583750b4f02815a175dedcf9608546784433cf3921d5790c22a62",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x685913cFD05Fb4E9c14aeCBE6EB933C349F6aa69",
+      "txHash": "0x0a6bcd5c45608ebf86e08209e907cac4c4749b0213a1de542a71bef465f158e2",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x0bfD36411c1844915Ea32840dBb6Ef12d122367C",
+      "txHash": "0x7ca768f059a36e54e0243b7a94c7a5afe36bb9c2e9850511f0fb18bf3bbfd0ba",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x4e439ad146ABcD7f1F45E9b931820eAd4EFF359d",
+      "txHash": "0xb04dbd646e0cd391a768a3a85d846bd80e7c345afbbb1f480621c129f07e1055",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xF0daDaCC4A8d4f02A396A8Dc2d0B7403B16CC8f2",
+      "txHash": "0x623685a5f578e6c88a4993798e86a42e0e77310d05f6611b10a2a56a20527133",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xcC6D89B7dD4957A8A8B17db2AB6bEc39c7bf0Fa1",
+      "txHash": "0x17ddd3bb797b7a0c007fb30b66ad349f4cd823a69e0fcdf968cf5cf85a8eb3a7",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x083e8789d5E8FFEF32bcB4E6cd46FbAd12be6acA",
+      "txHash": "0xbd73b88e42c11319863a736608ef227da6420bb2bd81c2aab94ae9b1360e6ca9",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x2fbf6AdF0BA19c68003446edfC685a37E1b60839",
+      "txHash": "0x2653be94738b52ccfb1ea294204ae3f58d47024a9dede16b73a3c87445a145ae",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x1F59276f4fEA07CcCC5F2F6B618676F2F83218E7",
+      "txHash": "0x52d47f552831cfdf2266efa0f4250c3af952380b633aa5a05bb79523dc82b71a",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xf63BA24F1a814D5A19D83d57588EDE4EA5DaC1e2",
+      "txHash": "0x06e5d65997b426516260345d454a0be3cff4e9fae229646e0597cb34dedec233",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x0120c37e48830200eB5E2c695BD38e572FDB3bc7",
+      "txHash": "0xbb9edc2f780ee6cb903ae0ee7558cafc0586f0098feadafe6089119902b745f7",
       "kind": "transparent"
     }
   ],
   "impls": {
     "c6b09cc56f8486bf318dbd333bf8fb2521346b472764da3f6071828646495df7": {
-      "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
-      "txHash": "0x4e0b51be19dbb5d38c3126d0e4b4963377a6c64ed374c9dff0ac0bba843b0e71",
+      "address": "0xCa551016676D0d88A2edeaF3E9Cb9cB2205F3f86",
+      "txHash": "0x487134c4b3da537c3eaa2a98a37f3df654b2af29ff1fe6ad1280ad87f5506af8",
       "layout": {
         "storage": [
           {
@@ -132,7 +207,7 @@
           {
             "contract": "StoreIOUs",
             "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)4471_storage)",
+            "type": "t_mapping(t_address,t_struct(geoIOU)4429_storage)",
             "src": "../project:/contracts/StoreIOUs.sol:36"
           },
           {
@@ -206,10 +281,10 @@
           "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
             "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
           },
-          "t_mapping(t_address,t_struct(geoIOU)4471_storage)": {
+          "t_mapping(t_address,t_struct(geoIOU)4429_storage)": {
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
-          "t_struct(geoIOU)4471_storage": {
+          "t_struct(geoIOU)4429_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {
@@ -224,284 +299,6 @@
           },
           "t_uint64": {
             "label": "uint64"
-          }
-        }
-      }
-    },
-    "b963099ad027440790509cc4517156ebde33bb8dd80b87665b4e519698123c82": {
-      "address": "0xb9e750aE9fD8B2f47e3523941C26669E4F67f84E",
-      "txHash": "0x81a25df112794ba655773b5edb18e2f6f021a661229b3e38d195e0010b64945c",
-      "layout": {
-        "storage": [
-          {
-            "contract": "ERC20",
-            "label": "_balances",
-            "type": "t_mapping(t_address,t_uint256)",
-            "src": "../project:/contracts/ERC20.sol:36"
-          },
-          {
-            "contract": "ERC20",
-            "label": "_allowances",
-            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
-            "src": "../project:/contracts/ERC20.sol:38"
-          },
-          {
-            "contract": "ERC20",
-            "label": "_totalSupply",
-            "type": "t_uint256",
-            "src": "../project:/contracts/ERC20.sol:40"
-          },
-          {
-            "contract": "ERC20",
-            "label": "_name",
-            "type": "t_string_storage",
-            "src": "../project:/contracts/ERC20.sol:42"
-          },
-          {
-            "contract": "ERC20",
-            "label": "_symbol",
-            "type": "t_string_storage",
-            "src": "../project:/contracts/ERC20.sol:43"
-          },
-          {
-            "contract": "IOUData",
-            "label": "_balances",
-            "type": "t_mapping(t_address,t_uint256)",
-            "src": "../project:/contracts/IOUtoken.sol:31"
-          },
-          {
-            "contract": "IOUData",
-            "label": "_allowances",
-            "type": "t_mapping(t_address,t_mapping(t_address,t_uint256))",
-            "src": "../project:/contracts/IOUtoken.sol:33"
-          },
-          {
-            "contract": "IOUData",
-            "label": "_totalSupply",
-            "type": "t_uint256",
-            "src": "../project:/contracts/IOUtoken.sol:35"
-          },
-          {
-            "contract": "IOUData",
-            "label": "_name",
-            "type": "t_string_storage",
-            "src": "../project:/contracts/IOUtoken.sol:37"
-          },
-          {
-            "contract": "IOUData",
-            "label": "_symbol",
-            "type": "t_string_storage",
-            "src": "../project:/contracts/IOUtoken.sol:38"
-          },
-          {
-            "contract": "IOUData",
-            "label": "thisIOU",
-            "type": "t_struct(DescriptionIOU)4413_storage",
-            "src": "../project:/contracts/IOUtoken.sol:43"
-          },
-          {
-            "contract": "IOUData",
-            "label": "allFeedbacks",
-            "type": "t_array(t_struct(FeedBack)4431_storage)dyn_storage",
-            "src": "../project:/contracts/IOUtoken.sol:45"
-          },
-          {
-            "contract": "IOUData",
-            "label": "feedBacksbySender",
-            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
-            "src": "../project:/contracts/IOUtoken.sol:46"
-          },
-          {
-            "contract": "IOUData",
-            "label": "allIOUs",
-            "type": "t_array(t_struct(IOU)4420_storage)dyn_storage",
-            "src": "../project:/contracts/IOUtoken.sol:48"
-          },
-          {
-            "contract": "IOUData",
-            "label": "IOUbyReceiver",
-            "type": "t_mapping(t_address,t_array(t_uint256)dyn_storage)",
-            "src": "../project:/contracts/IOUtoken.sol:49"
-          },
-          {
-            "contract": "IOUData",
-            "label": "owner",
-            "type": "t_address",
-            "src": "../project:/contracts/IOUtoken.sol:51"
-          },
-          {
-            "contract": "IOUData",
-            "label": "configured",
-            "type": "t_bool",
-            "src": "../project:/contracts/IOUtoken.sol:52"
-          },
-          {
-            "contract": "IOUData",
-            "label": "inited",
-            "type": "t_bool",
-            "src": "../project:/contracts/IOUtoken.sol:54"
-          },
-          {
-            "contract": "IOUData",
-            "label": "store",
-            "type": "t_contract(iStoreIOUs)4561",
-            "src": "../project:/contracts/IOUtoken.sol:54"
-          }
-        ],
-        "types": {
-          "t_mapping(t_address,t_uint256)": {
-            "label": "mapping(address => uint256)"
-          },
-          "t_address": {
-            "label": "address"
-          },
-          "t_uint256": {
-            "label": "uint256"
-          },
-          "t_mapping(t_address,t_mapping(t_address,t_uint256))": {
-            "label": "mapping(address => mapping(address => uint256))"
-          },
-          "t_string_storage": {
-            "label": "string"
-          },
-          "t_struct(DescriptionIOU)4413_storage": {
-            "label": "struct iIOUtoken.DescriptionIOU",
-            "members": [
-              {
-                "label": "totalMinted",
-                "type": "t_uint256"
-              },
-              {
-                "label": "totalBurned",
-                "type": "t_uint256"
-              },
-              {
-                "label": "avRate",
-                "type": "t_int256"
-              },
-              {
-                "label": "units",
-                "type": "t_bytes32"
-              },
-              {
-                "label": "issuer",
-                "type": "t_address"
-              },
-              {
-                "label": "myName",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "socialProfile",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "description",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "location",
-                "type": "t_struct(geo)4388_storage"
-              },
-              {
-                "label": "keywords",
-                "type": "t_array(t_bytes32)dyn_storage"
-              },
-              {
-                "label": "phone",
-                "type": "t_bytes32"
-              }
-            ]
-          },
-          "t_int256": {
-            "label": "int256"
-          },
-          "t_bytes32": {
-            "label": "bytes32"
-          },
-          "t_struct(geo)4388_storage": {
-            "label": "struct iIOUtoken.geo",
-            "members": [
-              {
-                "label": "country",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "state",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "city",
-                "type": "t_string_storage"
-              },
-              {
-                "label": "street",
-                "type": "t_string_storage"
-              }
-            ]
-          },
-          "t_array(t_bytes32)dyn_storage": {
-            "label": "bytes32[]"
-          },
-          "t_array(t_struct(FeedBack)4431_storage)dyn_storage": {
-            "label": "struct iIOUtoken.FeedBack[]"
-          },
-          "t_struct(FeedBack)4431_storage": {
-            "label": "struct iIOUtoken.FeedBack",
-            "members": [
-              {
-                "label": "sender",
-                "type": "t_address"
-              },
-              {
-                "label": "time",
-                "type": "t_uint256"
-              },
-              {
-                "label": "rating",
-                "type": "t_int256"
-              },
-              {
-                "label": "amount",
-                "type": "t_uint256"
-              },
-              {
-                "label": "text",
-                "type": "t_string_storage"
-              }
-            ]
-          },
-          "t_mapping(t_address,t_array(t_uint256)dyn_storage)": {
-            "label": "mapping(address => uint256[])"
-          },
-          "t_array(t_uint256)dyn_storage": {
-            "label": "uint256[]"
-          },
-          "t_array(t_struct(IOU)4420_storage)dyn_storage": {
-            "label": "struct iIOUtoken.IOU[]"
-          },
-          "t_struct(IOU)4420_storage": {
-            "label": "struct iIOUtoken.IOU",
-            "members": [
-              {
-                "label": "receiver",
-                "type": "t_address"
-              },
-              {
-                "label": "time",
-                "type": "t_uint256"
-              },
-              {
-                "label": "IOUDescr",
-                "type": "t_string_storage"
-              }
-            ]
-          },
-          "t_bool": {
-            "label": "bool"
-          },
-          "t_contract(iStoreIOUs)4561": {
-            "label": "contract iStoreIOUs"
           }
         }
       }

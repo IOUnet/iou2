@@ -11,7 +11,6 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
     ) payable TransparentUpgradeableProxy(_logic, admin_, "") {
         assert(_ADMIN_SLOT == bytes32(uint256(keccak256("eip1967.proxy.admin")) - 1));
         _changeAdmin(admin_);
-        implementation = _logic;
     }
     
      modifier onlyOwner() {
@@ -21,16 +20,16 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
 
 
     modifier nonInited () {
-        require(!inited, "Already inited (proxy)");
+     //   require(!inited, "Already inited (proxy)");
         _;
-        inited = true;
+  //      inited = true;
 
     }
 
     modifier nonConfiged () {
-        require(!configured, "Already configured (proxy)");
+  //      require(!configured, "Already configured (proxy)");
         _;
-        configured = true;
+    //    configured = true;
 
     }
 
@@ -38,30 +37,66 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
    //     require (balanceOf(msg.sender) > _amount, "No amount token holder has (proxy)" );
     _;
     }
-   
+/*    function _getRevertMsg(bytes memory _res) internal pure returns (string memory) {
+    // If the _res length is less than 68, then the transaction failed silently (without a revert message)
+    if (_res.length < 68) return 'Transaction reverted silently';
+    bytes memory revertData = _res.slice(4, _res.length - 4); // Remove the selector which is the first 4 bytes
+    return abi.decode(revertData, (string)); // All that remains is the revert string
+} */
      function setIOU (//    constructor (
                 string memory name_, 
                 string memory symbol_, 
                 iIOUtoken.DescriptionIOU memory _thisIOU,
-                 address _store) nonConfiged external {
+                 address _store, 
+                 address _implementation
+                 ) /* nonConfiged */ external {
+        implementation = _implementation;
+//        initialize();
         (bool success, bytes memory returnedData) = implementation.delegatecall(abi.encodeWithSignature(
-            (("setIOU(string,string,iIOUtoken.DescriptionIOU,address)")),
+        (("initialize()"))
+    ));
+        require(success, string (returnedData));
+        /* 
+    struct geo {
+        string country;
+        string state;
+        string city;
+        string street;
+    }
+
+    struct DescriptionIOU {
+        uint256 totalMinted;
+        uint256 totalBurned;
+        int256 avRate;
+        bytes32 units;        
+        address issuer;
+        string myName ; //name of emitter
+        string socialProfile ; //profile  of emitter in social nets
+        string description ; //description of bond IOU to  work
+        geo location; //where is it             
+        bytes32[] keywords;
+        bytes32 phone;
+    }
+ */
+        ( success,  returnedData) = implementation.delegatecall(abi.encodeWithSignature( //"0x90c29670"
+            "setIOU(string,string,(uint256,uint256,int256,bytes32,address,string,string,string,(string,string,string,string),bytes32[],bytes32),address,address)",
             name_,
             symbol_,
             _thisIOU,
-            _store
+            _store,
+            _implementation
             ));
 
     require(success, string (returnedData));
     } 
  
-    function initialize() nonInited external {
+/*     function initialize() nonInited public {
         (bool success, bytes memory returnedData) = implementation.delegatecall(abi.encodeWithSignature(
         (("initialize()"))
     ));
         require(success, string (returnedData));
 
-    }
+    } */
 
     function setStore (address _newOwner) public  ifAdmin {
         //store = iStoreIOUs(_newOwner);
@@ -88,7 +123,7 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
     function burn (uint256 _amount, int256 _rating, string memory _feedback) onlyHolder  (_amount) public {
         
         (bool success, bytes memory returnedData) = implementation.delegatecall(abi.encodeWithSignature(
-        (("burn(uint256,uint256,string)")), 
+        (("burn(uint256,int256,string)")), 
          _amount, _rating, _feedback));
         require(success, string (returnedData));
         }

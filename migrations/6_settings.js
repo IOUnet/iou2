@@ -10,11 +10,11 @@ const setStoreAddress = async () => {
     const makeiouInstance = await MakeIOU.deployed();
     const ProxyIOUinstance = await ProxyIOU.deployed();
     const iIOU = await IOUtoken.deployed();
-    await iIOU.initialize();
+    
     await iIOU.setOwner(makeiouInstance.address);
     
     await makeiouInstance.setStore(storeInstance.address)
-    await makeiouInstance.setinstIOU(ProxyIOUinstance.address)
+    await makeiouInstance.setimplement(ProxyIOUinstance.address, iIOU.address)
     //await storeInstance.setFactory(makeiouInstance.address)
     var Curaddresses = require ("../addresses.json");
     const networkId = await web3.eth.net.getId();     

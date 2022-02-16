@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback, useContext} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
 import Web3 from 'web3';
 import TokensListContext from '../context/TokensListContext';
-
+import IOUToken from '../artifacts/IOUtoken.json' 
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
@@ -114,7 +114,7 @@ export default function useFindIOU() {
 
                             if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
                                 const contractConfig = new drizzle.web3.eth.Contract(
-                                    IOUtoken.abi, 
+                                    IOUToken.abi, 
                                     IOUAddreses[i]
                                 )
                                 drizzle.addContract({

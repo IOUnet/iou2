@@ -8,7 +8,7 @@ module.exports = async  function (deployer,  _network, addresses) {
   const iIOU = await IOUtoken.deployed();
 
   await deployer.deploy(ProxyIOU, iIOU.address, addresses[0]);
-
+  //.log (await ProxyIOU.deployed());
 };
 /**
  *  upgradable deploys 
