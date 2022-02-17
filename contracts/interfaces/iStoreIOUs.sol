@@ -12,7 +12,7 @@ interface  iStoreIOUs {
         // string street;
     }
 
-    function addIOU1 (address _newIOU, address _emitent) external;  
+    function addIOU1 (address _newIOU, address _emitent, iIOUtoken.DescriptionIOU calldata _thisIOU) external;  
     function addKeys (bytes32[] calldata _keys, address _IOUtok)  external; 
     function delKeys (bytes32[] calldata _keywords, address _addrIOU ) external;
     function changeIOUGeoAllkeys  (iIOUtoken.geo calldata _loc, address _addrIOU ) external;
@@ -33,5 +33,5 @@ interface  iStoreIOUs {
     function getKeystotal () external view returns (bytes32[] memory); 
 
     function getIssuerstotal () external view returns (uint256);
-
+    function implIOU() external view returns (address);
 }

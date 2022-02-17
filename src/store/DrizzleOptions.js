@@ -1,11 +1,11 @@
 import MakeIOU from '../artifacts/MakeIOU.json';
 import StoreIOUs from '../artifacts/StoreIOUs.json'
-//import IOUToken from '../artifacts/IOUtoken.json'
+import IOUtoken from '../artifacts/IOUtoken.json'
 import ProxyIOU from '../artifacts/ProxyIOU.json';
 
 
 const options = {
-    contracts:[MakeIOU, StoreIOUs, ProxyIOU],
+    contracts:[MakeIOU, StoreIOUs, ProxyIOU, IOUtoken],
     web3: {
         fallback: {
             type: "ws",

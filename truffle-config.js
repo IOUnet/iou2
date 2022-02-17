@@ -81,7 +81,7 @@ module.exports = {
           network_id: 80001
       // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       },
-    pl: {  provider: () => new HDWalletProvider({
+    pl: {  provider: () => new HDWalletProvider({ //poligon local fork
         privateKeys: [`b8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329`],
         providerOrUrl: `http://localhost:8555`,
         // https://ropsten.infura.io/v3/3362483b5eab409ea69e99f99aefd67a", // Endpoint of an node to connect to. Can be on localhost or on the internet
@@ -96,6 +96,35 @@ module.exports = {
   // rm -r ../ganache_poly && ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://polygon-mainnet.infura.io/v3/753a98a2eb6c4d64918829f47d069440' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_poly  -p 8555 -g 20 -e 1000
   
     },
+
+    bscl: {  provider: () => new HDWalletProvider({ //BSC local fork
+      privateKeys: [`b8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329`],
+      providerOrUrl: `http://localhost:8555`,
+    }),
+    network_id: 56,       // Ropsten's id
+   // gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+    //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
+   // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
+    // fork from Polygon mainnet, needs start ganache as
+// rm -r ../ganache_BSC && 
+// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
+
+  },
+  bsctestnet: {  provider: () => new HDWalletProvider({ //BSC local fork
+    privateKeys: [`622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd`],
+    providerOrUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+  }),
+  network_id: 97,       // Ropsten's id
+ // gas: 5500000,        // Ropsten has a lower block limit than mainnet
+  //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+  //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
+ // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
+  // fork from Polygon mainnet, needs start ganache as
+// rm -r ../ganache_BSC && 
+// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
+
+},
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -106,7 +135,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-       version: "0.8.4",    // Fetch exact version from solc-bin (default: truffle's version)
+       version: "0.8.10",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
        settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {

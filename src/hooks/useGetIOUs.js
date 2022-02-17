@@ -9,8 +9,9 @@ export default function useGetIOUs() {
     const drizzleState = useDrizzleState(state => state)
     const [IOUAddreses, setIOUAddreses] = useState();
     const [IOUList, setIOUList] = useState()
-    
-    const { StoreIOUs, ProxyIOU } = drizzleState.contracts
+    var state = drizzle.store.getState()
+
+    const { StoreIOUs, ProxyIOU, IOUtoken } = drizzleState.contracts
 
     const changeIOUListAddreses = (addressList) => {
         setIOUAddreses(addressList);
@@ -47,11 +48,24 @@ export default function useGetIOUs() {
             if(IOUAddreses !== undefined && IOUAddreses != null) {
                 const IOUListObjects = []
                 for(var i=0; i<IOUAddreses.length; i++) {
+                    if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
+                        const contractConfig = new drizzle.web3.eth.Contract(
+                            IOUToken.abi, 
+                            IOUAddreses[i]
+                        )
+                        drizzle.addContract({
+                            contractName: IOUAddreses[i], 
+                            web3Contract: contractConfig
+                        }, ['Approval'])
+                    }
+                    const  tokenIOU = drizzle.contracts[IOUAddreses[i]]
+                   // const resultTrx =  tokenIOU.methods["thisIOUDesc"].cacheCall();
                     const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
-                    if (resultTrx !== undefined) {
-                        const resultItem = ProxyIOU.getIOU[resultTrx]
-                        if (resultItem !== undefined) {
-                            
+                    if (resultTrx !== undefined && resultTrx !== "0x0") {
+                       const resultItem = ProxyIOU.getIOU[resultTrx]
+                   //    const resultItem =  tokenIOU.thisIOUDesc[resultTrx]
+                        if (resultItem !== undefined ) {
+                       
                             let keys = resultItem.value.description.keywords.map((value,key) => {
                                 return drizzle.web3.utils.hexToAscii(value)
                             })
@@ -69,16 +83,7 @@ export default function useGetIOUs() {
                                     location: (resultItem.value.description.location),
                                     phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
                                 })   
-                                if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
-                                    const contractConfig = new drizzle.web3.eth.Contract(
-                                        IOUToken.abi, 
-                                        IOUAddreses[i]
-                                    )
-                                    drizzle.addContract({
-                                        contractName: IOUAddreses[i], 
-                                        web3Contract: contractConfig
-                                    }, ['Approval'])
-                                }
+                                
                         
                         }
                     }

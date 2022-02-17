@@ -2,7 +2,7 @@ pragma solidity>= 0.8.0;
 pragma experimental ABIEncoderV2;
 import  "./interfaces/iIOUtoken.sol";
 import "./interfaces/iStoreIOUs.sol";
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import "./ERC20.sol";
 
 //import "./MakeIOU.sol";
 
@@ -26,49 +26,91 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 */
 /// @author stanta
 /// @title IOUtoken
-contract IOUtoken is iIOUtoken, ERC20 {
+contract IOUData is ERC20 {
+     //ERC20 
+    mapping(address => uint256) private _balances;
 
+    mapping(address => mapping(address => uint256)) private _allowances;
+
+    uint256  _totalSupply;
+
+    string  _name;
+    string  _symbol;
   
  
    // bool registered;
 
-    DescriptionIOU  thisIOU;
+    iIOUtoken.DescriptionIOU  thisIOU;
 
-    FeedBack[] public allFeedbacks;
+    iIOUtoken.FeedBack[] public allFeedbacks;
     mapping (address => uint256[]) public feedBacksbySender; // feedback from tokenholders
 
-    IOU[] public allIOUs;
+    iIOUtoken.IOU[] public allIOUs;
     mapping (address => uint256[]) public IOUbyReceiver; // list of this IOUs by receiver
 
     address owner;
+    bool configured;
+    bool inited;
     iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
+ //   address implementation;
 
-    constructor (string memory name_, 
-                string memory symbol_, 
-                iIOUtoken.DescriptionIOU memory _thisIOU,
-                 address _store)  ERC20 (name_, symbol_) {
-       thisIOU = _thisIOU;
-       owner = _thisIOU.issuer;
-        require (bytes(name_).length <16 || 
-                bytes(symbol_).length < 10 ||
-                bytes(_thisIOU.myName).length < 64 ||
-                bytes(_thisIOU.socialProfile).length < 128 ||
-                bytes(_thisIOU.description).length < 256 ||
-                _thisIOU.keywords.length <=5 , 
-                "Too many symbs in parameter" );
-  //todo add visibility?
-        store = iStoreIOUs(_store);
-            
-     //   store.addIOU1(address(this), owner);//, _socialProfile, msg.sender, _keywords);
-    }
+}
 
+contract IOUtoken is IOUData, iIOUtoken  { 
 
-    modifier onlyOwner() {
-        require (owner == msg.sender, "Only owner can do this");
+     modifier onlyOwner() {
+        require (owner == msg.sender, string(abi.encode("Only owner can do this", owner, msg.sender)));
         _;
     }
 
+    modifier nonConfiged () {
+        require(!configured, "Already configured");
+        _;
+        configured = true;
+
+    }
+
+    modifier nonInited () {
+        require(!inited, "Already inited");
+        _;
+        inited = true;
+
+    }
+
+    modifier onlyHolder (uint256 _amount) {
+        require (balanceOf(msg.sender) > _amount, "No amount token holder has" );
+    _;
+    }
+   
+    function initialize()  public nonInited override
+    {
+        owner = msg.sender;
+        configured = false;
+    }
+    function setIOU  (
+    //    constructor (
+                    string memory name_, 
+                    string memory symbol_, 
+                    DescriptionIOU memory _thisIOU,
+                    address _store
+)  public  nonConfiged /* override */ {
+        thisIOU = _thisIOU;
+        owner = _thisIOU.issuer;
+        _name = name_; 
+        _symbol = symbol_;
+         require (bytes(name_).length <16 &&
+                    bytes(symbol_).length < 5 &&
+                    bytes(_thisIOU.myName).length < 64 &&
+                    bytes(_thisIOU.socialProfile).length < 128 &&
+                    bytes(_thisIOU.description).length < 256 &&
+                    _thisIOU.keywords.length <=5 , 
+                    "Too many symbs in parameter(s)" ); 
+    //todo add visibility?
+    store = iStoreIOUs(_store);
+            
+    store.addIOU1(address(this), _thisIOU.issuer, _thisIOU); //, _socialProfile, msg.sender, _keywords);
+        }
 
     function setStore (address _newOwner) public onlyOwner {
         store = iStoreIOUs(_newOwner);
@@ -76,23 +118,12 @@ contract IOUtoken is iIOUtoken, ERC20 {
     }   
 
 
-    function getTokenInfo() public view returns(string memory,
-                                           string memory,
-                                           iIOUtoken.DescriptionIOU memory ) {
-        return(name(), symbol(), thisIOU);
-
-    }
-
     function setOwner (address _newOwner) public onlyOwner {
    //     _removeMinter(owner);
         owner = _newOwner;
   //      _addMinter(_newOwner);
     }
-
-    modifier onlyHolder (uint256 _amount) {
-        require (balanceOf(msg.sender) > _amount, "No amount token holder has" );
-    _;
-    }
+    
 
     function mint (address _who, uint256 _amount, string memory _descr) public onlyOwner { 
 /*         if (!registered) {
@@ -126,7 +157,7 @@ contract IOUtoken is iIOUtoken, ERC20 {
         _burn(msg.sender, _amount);
     }
 
-    function transfer(address _recipient, uint256 _amount) public override returns (bool) {
+    function transfer(address _recipient, uint256 _amount) public override onlyHolder(_amount) returns (bool) {
         store.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
@@ -207,4 +238,13 @@ contract IOUtoken is iIOUtoken, ERC20 {
     function IOUsymbol () public view override returns (string memory)
     {    return symbol ();
     }
+
+
+    function getTokenInfo() public view returns(string memory,
+                                           string memory,
+                                           iIOUtoken.DescriptionIOU memory ) {
+        return(name(), symbol(), thisIOU);
+
+    }
+
 }
