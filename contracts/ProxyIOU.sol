@@ -14,27 +14,27 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
     }
     
      modifier onlyOwner() {
-    //    require (owner == msg.sender, string(abi.encode("Only owner can do this (proxy)", owner, msg.sender)));
+        require (owner == msg.sender, string(abi.encode("Only owner can do this (proxy)", owner, msg.sender)));
         _;
     }
 
 
     modifier nonInited () {
-     //   require(!inited, "Already inited (proxy)");
+        require(!inited, "Already inited (proxy)");
         _;
-  //      inited = true;
+        inited = true;
 
     }
 
     modifier nonConfiged () {
-  //      require(!configured, "Already configured (proxy)");
+        require(!configured, "Already configured (proxy)");
         _;
-    //    configured = true;
+        configured = true;
 
     }
 
     modifier onlyHolder (uint256 _amount) {
-   //     require (balanceOf(msg.sender) > _amount, "No amount token holder has (proxy)" );
+        require (balanceOf(msg.sender) > _amount, "No amount token holder has (proxy)" );
     _;
     }
 /*    function _getRevertMsg(bytes memory _res) internal pure returns (string memory) {
@@ -56,7 +56,16 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
         (("initialize()"))
     ));
         require(success, string (returnedData));
-        /* 
+        /*  info for encodeWithSignature for function setIOU
+         (//  as a  constructor (
+        
+                string memory name_, 
+                string memory symbol_, 
+                DescriptionIOU memory _thisIOU,
+                 address _store, 
+                address _implementation
+            )  external;
+
     struct geo {
         string country;
         string state;
@@ -106,7 +115,7 @@ contract ProxyIOU  is IOUData,TransparentUpgradeableProxy  {
 
     }   
 
-    function setOwner (address _newOwner) public  onlyOwner {
+    function setOwner (address _newOwner) public  ifAdmin {
 
         (bool success, bytes memory returnedData) = implementation.delegatecall(abi.encodeWithSignature(
         (("setOwner(address)")), _newOwner));
