@@ -3,42 +3,9 @@ pragma experimental ABIEncoderV2;
 import "./interfaces/iStoreIOUs.sol";
 import "./interfaces/iIOUtoken.sol";
 import "./Initializable.sol";
+import "./StoreIOUData.sol";
 
-
-contract newStoreIOUs is iStoreIOUs {
-//todo : break this brick 
-    mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent
-    mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile
-    mapping (address => address[]) public listHoldersIOUs; //list of tokens by holder
-    mapping (address => uint256) public isIOU; //security check is token emitted 
-    mapping (address => mapping (address => bool)) isHolderthisIOU; //  check list of tokens by holder
-
-    mapping (bytes32 => address[]) listbyKeys; //list of IOUs by keyword
-    mapping (bytes32 => 
-     mapping (address => uint256))  keyByList; //reverse index for listbyKeys to editing keywords
-    bytes32[] public allKeywords;  //list all keywords
-    address[] public allIOU; //list all emitted IOus
-    address[] public allIssuers; //list all issuers of  IOus
-
-    mapping (bytes32 => // keyword
-     mapping (string =>  // (country
-      mapping (string =>  //  state 
-       mapping (string =>  //street
-        address[])))) internal  listbyCity_; // (keyword => country =>state =>city) => of IOUs
-    
-    mapping (bytes32 => // keyword
-     mapping (string =>  // country
-      mapping (string =>  //  state 
-       mapping (string =>  //  city 
-        mapping (string =>  //street
-          address[]))))) internal listbyStreet_; // (keyword=>country=> state => city =>street) => IOU 
-
-    mapping (address => geoIOU ) posIOU;
-
-
-    address owner;
-    address makeFactory;
-
+contract newStoreIOUs is StoreIOUData,  iStoreIOUs {
     //constructor ()  {
     function initialize () public {
         owner = msg.sender;
@@ -63,9 +30,13 @@ contract newStoreIOUs is iStoreIOUs {
     function setOwner (address _newOwner) public onlyOwner {
         owner = _newOwner;
     }
-
+/* 
     function setFactory (address _newFact) public onlyOwner {
         makeFactory = _newFact;
+    }
+ */
+    function setimplIOU (address _newImpl) public onlyOwner {
+        implementIOU = _newImpl;
     }
 
     modifier onlySelf(address _addrIOU) {
@@ -83,9 +54,8 @@ contract newStoreIOUs is iStoreIOUs {
             allIssuers.push(_emitent); 
         }
         listIOUs[_emitent].push(_addrIOU);
-        iIOUtoken curIOU =  iIOUtoken(_addrIOU);
-        iIOUtoken.DescriptionIOU memory thisIOU = curIOU.thisIOUDesc();
-        listIOUsSoc[thisIOU.socialProfile].push(_addrIOU);
+        //iIOUtoken curIOU =  iIOUtoken(_addrIOU);
+        listIOUsSoc[_thisIOU.socialProfile].push(_addrIOU);
         _addKeys(_addrIOU, _thisIOU.keywords, _thisIOU.location);
     }
 
@@ -225,7 +195,7 @@ contract newStoreIOUs is iStoreIOUs {
                             string memory _country,
                             string memory _state,
                             string memory _city) public  view returns (address[] memory) {
-                return listbyCity_  [_key][_country][_state][_city];
+        return listbyCity_  [_key][_country][_state][_city];
             }
 
     function getIOUsbyStreet (bytes32 _key,
@@ -233,8 +203,9 @@ contract newStoreIOUs is iStoreIOUs {
                         string memory _state,
                         string memory _city,
                         string memory _street) public view returns (address[] memory) {
-            return listbyStreet_[_key][_country][_state][_city][_street];
+        return listbyStreet_[_key][_country][_state][_city][_street];
                 }
-
-
+    function implIOU() external view returns (address) {
+        return implementIOU;
+    }
     }

@@ -50,9 +50,8 @@ interface  iIOUtoken  {
                 string memory name_, 
                 string memory symbol_, 
                 DescriptionIOU memory _thisIOU,
-                 address _store, 
-                address _implementation
-            )  external;
+                 address _store
+                )  external;
 
     function initialize() external;
 }

@@ -33,5 +33,5 @@ interface  iStoreIOUs {
     function getKeystotal () external view returns (bytes32[] memory); 
 
     function getIssuerstotal () external view returns (uint256);
-
+    function implIOU() external view returns (address);
 }

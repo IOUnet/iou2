@@ -1,135 +1,40 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
-    "txHash": "0x6a8da1fc47443a7b246b54ec6ae163e9d8c5f88a7340f7439610fbb8102bb525"
+    "address": "0x017F3f2EB0c55DDF49B95ad38Cd2737ACf64AB4d",
+    "txHash": "0x986a1a7bb0805936f6727076a8cf2926e02806aa5c3fd5f8c84bb77dd969e17b"
   },
   "proxies": [
     {
-      "address": "0x283C31A85980233764997390BD32377eE7170CF4",
-      "txHash": "0x8ca60ed5075884a722a1b2da56d7954e3de0c2e582a64860cb732eeefc711d2c",
+      "address": "0xD59A76827B35397D4eCa37294Ee674A4149a5C1B",
+      "txHash": "0xe6b74f41bdcb1f8368ff33abd2f17f05544868653d1d53ad5135288597cb8a33",
       "kind": "transparent"
     },
     {
-      "address": "0x5504723d27c908fC6155414461134DcdA7A96951",
-      "txHash": "0x95f3ca3aa851210ed83ea22df6be47a18d18c59da0804901f2de7f19ffa425f2",
+      "address": "0xe7cde196a09c62Dea1041AC7fde8721A9F446fA4",
+      "txHash": "0x6ff06e5e77c076303c7691981aab9178330625e0e6ce68a195f7c62b349ef250",
       "kind": "transparent"
     },
     {
-      "address": "0x227407BB590bC92F656dD0537C541e12788370Aa",
-      "txHash": "0xc7cafac257fd905f2f04e5fd05dc7250a1144ea889279dec05efb47f3ed64014",
+      "address": "0x0137b833D2E0e94c3c2A9Bf03EaB0680241Ed431",
+      "txHash": "0xfd5c20b196dbf8c83b05a17a277f9ba9f449b4abb303c77774deebc79b8c7078",
       "kind": "transparent"
     },
     {
-      "address": "0x74Fe3CA11746DA7c16A20D50cb60F93A6720d095",
-      "txHash": "0xdf7c5fa26c4815a15ce14c5ac511f6838b6b6d5c61fc43ba59506ee92f2e5793",
+      "address": "0xb6Fd343a7118F425E9e55F7E5d5BBb4e78706903",
+      "txHash": "0x66a08a7f84f8878434523994dfa1d3cc56c2b613614ff27dae0d71015bec59fe",
       "kind": "transparent"
     },
     {
-      "address": "0x66061A3cA6dC08F67eAa8fb2132d48Afe1c4fce2",
-      "txHash": "0xa1e0501ad78996ba029161f2c207b98ab5c41247c57510113ccb0c925db6855a",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x4E1d337e0A3c31633FBcc1EDb76856014978C5f3",
-      "txHash": "0x5f49e9aae477e33d3221c69392acad675fd3fd17c7924b55372695ef51296157",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x7F24e0Db827c1175514946Aa75b5adE01a339121",
-      "txHash": "0x4655af897ffa1f33612779c944cd5c00f087a6c8bc2cef5231cadc021aebb2d8",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x601802087F9058cd5c246fc8B20f3e1fdFA70F4A",
-      "txHash": "0x90a18c8377cd8ef5636d7a886d382d63c9d4c6508acd467e42cd9b736ad0beda",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x6254399B6dd7BA72fFeEbfb8B7C559a32B39cB15",
-      "txHash": "0x9941e240455d31a250c50395a0e1c0c9669e1a4711e45426b45b6a18a59d2b9a",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xB71ec643549a6064d9721f7C508252727fe6DC5B",
-      "txHash": "0xd0c8efd099ef4442e023e2e0a9a86134b916d018f7f603b5681a552ae18155b8",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xD507D3Dea5fA64fFF91976C2D2dA0b7Fa4572BC6",
-      "txHash": "0xdd9666e3b0d93fe2b0c19e72b6586964f1eb8e886991ae3164c74dd7aedbaa48",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x461DaE69CE6D20bFa4Ea6fe201eA7c4cF2a225C3",
-      "txHash": "0x2b9e8f4e984b6f918aef23c38647cf61fb84bee932d0f19f891d1a3bacba788a",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x3e3C3Bf523486B645aAb5677267a3309A71F4623",
-      "txHash": "0x0c9b04ddb3c70b1d6ad9c36c5d59df18278d8f96662eb20e49a9b459cf62590d",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xbcEb8565bA1b88adA79cCD93b9c992e07601929d",
-      "txHash": "0xb32e720bd86583750b4f02815a175dedcf9608546784433cf3921d5790c22a62",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x685913cFD05Fb4E9c14aeCBE6EB933C349F6aa69",
-      "txHash": "0x0a6bcd5c45608ebf86e08209e907cac4c4749b0213a1de542a71bef465f158e2",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x0bfD36411c1844915Ea32840dBb6Ef12d122367C",
-      "txHash": "0x7ca768f059a36e54e0243b7a94c7a5afe36bb9c2e9850511f0fb18bf3bbfd0ba",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x4e439ad146ABcD7f1F45E9b931820eAd4EFF359d",
-      "txHash": "0xb04dbd646e0cd391a768a3a85d846bd80e7c345afbbb1f480621c129f07e1055",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xF0daDaCC4A8d4f02A396A8Dc2d0B7403B16CC8f2",
-      "txHash": "0x623685a5f578e6c88a4993798e86a42e0e77310d05f6611b10a2a56a20527133",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xcC6D89B7dD4957A8A8B17db2AB6bEc39c7bf0Fa1",
-      "txHash": "0x17ddd3bb797b7a0c007fb30b66ad349f4cd823a69e0fcdf968cf5cf85a8eb3a7",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x083e8789d5E8FFEF32bcB4E6cd46FbAd12be6acA",
-      "txHash": "0xbd73b88e42c11319863a736608ef227da6420bb2bd81c2aab94ae9b1360e6ca9",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x2fbf6AdF0BA19c68003446edfC685a37E1b60839",
-      "txHash": "0x2653be94738b52ccfb1ea294204ae3f58d47024a9dede16b73a3c87445a145ae",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x1F59276f4fEA07CcCC5F2F6B618676F2F83218E7",
-      "txHash": "0x52d47f552831cfdf2266efa0f4250c3af952380b633aa5a05bb79523dc82b71a",
-      "kind": "transparent"
-    },
-    {
-      "address": "0xf63BA24F1a814D5A19D83d57588EDE4EA5DaC1e2",
-      "txHash": "0x06e5d65997b426516260345d454a0be3cff4e9fae229646e0597cb34dedec233",
-      "kind": "transparent"
-    },
-    {
-      "address": "0x0120c37e48830200eB5E2c695BD38e572FDB3bc7",
-      "txHash": "0xbb9edc2f780ee6cb903ae0ee7558cafc0586f0098feadafe6089119902b745f7",
+      "address": "0xAEf45c9A84643be802b48b84D112595a7301c2D1",
+      "txHash": "0x3509a4a3c9d7813c743170af8e68a771224231e3d720d983d6babf6be81ade65",
       "kind": "transparent"
     }
   ],
   "impls": {
     "c6b09cc56f8486bf318dbd333bf8fb2521346b472764da3f6071828646495df7": {
-      "address": "0xCa551016676D0d88A2edeaF3E9Cb9cB2205F3f86",
-      "txHash": "0x487134c4b3da537c3eaa2a98a37f3df654b2af29ff1fe6ad1280ad87f5506af8",
+      "address": "0xA7977D840645D3AEa0C30F53ECCA3E66da4A5C88",
+      "txHash": "0x6a750eb010e0f096c5a152bcac330a2b88069d086b4bf7c056a67396b7868ae4",
       "layout": {
         "storage": [
           {
@@ -207,7 +112,7 @@
           {
             "contract": "StoreIOUs",
             "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)4429_storage)",
+            "type": "t_mapping(t_address,t_struct(geoIOU)4390_storage)",
             "src": "../project:/contracts/StoreIOUs.sol:36"
           },
           {
@@ -281,10 +186,186 @@
           "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
             "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
           },
-          "t_mapping(t_address,t_struct(geoIOU)4429_storage)": {
+          "t_mapping(t_address,t_struct(geoIOU)4390_storage)": {
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
-          "t_struct(geoIOU)4429_storage": {
+          "t_struct(geoIOU)4390_storage": {
+            "label": "struct iStoreIOUs.geoIOU",
+            "members": [
+              {
+                "label": "inCity",
+                "type": "t_uint64"
+              },
+              {
+                "label": "onStreet",
+                "type": "t_uint64"
+              }
+            ]
+          },
+          "t_uint64": {
+            "label": "uint64"
+          }
+        }
+      }
+    },
+    "6818d54ecd87ca8cb81543178fa561e3792a019bbf3958afa156244cde0b0275": {
+      "address": "0x9e5E2d209869eC8D6AaDcb31A0fE181c71eBf0ef",
+      "txHash": "0x75b549f22271831a7559865acfe2a95a9a7847257a20b883edc941ba5c41c561",
+      "layout": {
+        "storage": [
+          {
+            "contract": "StoreIOUData",
+            "label": "listIOUs",
+            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUData.sol:10"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "listIOUsSoc",
+            "type": "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUData.sol:11"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "listHoldersIOUs",
+            "type": "t_mapping(t_address,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUData.sol:12"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "isIOU",
+            "type": "t_mapping(t_address,t_uint256)",
+            "src": "../project:/contracts/StoreIOUData.sol:13"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "isHolderthisIOU",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "src": "../project:/contracts/StoreIOUData.sol:14"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "listbyKeys",
+            "type": "t_mapping(t_bytes32,t_array(t_address)dyn_storage)",
+            "src": "../project:/contracts/StoreIOUData.sol:16"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "keyByList",
+            "type": "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))",
+            "src": "../project:/contracts/StoreIOUData.sol:17"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "allKeywords",
+            "type": "t_array(t_bytes32)dyn_storage",
+            "src": "../project:/contracts/StoreIOUData.sol:19"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "allIOU",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "../project:/contracts/StoreIOUData.sol:20"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "allIssuers",
+            "type": "t_array(t_address)dyn_storage",
+            "src": "../project:/contracts/StoreIOUData.sol:21"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "listbyCity_",
+            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))",
+            "src": "../project:/contracts/StoreIOUData.sol:23"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "listbyStreet_",
+            "type": "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))",
+            "src": "../project:/contracts/StoreIOUData.sol:29"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "posIOU",
+            "type": "t_mapping(t_address,t_struct(geoIOU)4432_storage)",
+            "src": "../project:/contracts/StoreIOUData.sol:36"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "owner",
+            "type": "t_address",
+            "src": "../project:/contracts/StoreIOUData.sol:39"
+          },
+          {
+            "contract": "StoreIOUData",
+            "label": "implementIOU",
+            "type": "t_address",
+            "src": "../project:/contracts/StoreIOUData.sol:41"
+          }
+        ],
+        "types": {
+          "t_mapping(t_address,t_array(t_address)dyn_storage)": {
+            "label": "mapping(address => address[])"
+          },
+          "t_address": {
+            "label": "address"
+          },
+          "t_array(t_address)dyn_storage": {
+            "label": "address[]"
+          },
+          "t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)": {
+            "label": "mapping(string => address[])"
+          },
+          "t_string_storage": {
+            "label": "string"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)"
+          },
+          "t_uint256": {
+            "label": "uint256"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)"
+          },
+          "t_bool": {
+            "label": "bool"
+          },
+          "t_mapping(t_bytes32,t_array(t_address)dyn_storage)": {
+            "label": "mapping(bytes32 => address[])"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(bytes32 => mapping(address => uint256))"
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
+            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))": {
+            "label": "mapping(string => mapping(string => mapping(string => address[])))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))": {
+            "label": "mapping(string => mapping(string => address[]))"
+          },
+          "t_mapping(t_bytes32,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage)))))": {
+            "label": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
+          },
+          "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
+            "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
+          },
+          "t_mapping(t_address,t_struct(geoIOU)4432_storage)": {
+            "label": "mapping(address => struct iStoreIOUs.geoIOU)"
+          },
+          "t_struct(geoIOU)4432_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {

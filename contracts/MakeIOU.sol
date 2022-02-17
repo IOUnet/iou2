@@ -24,8 +24,7 @@ contract MakeIOU {
         
     }   
 
-    function setimplement (address _proxy, address _implement ) public onlyOwner {
-        implement = _implement;
+    function setimplement (address _proxy ) public onlyOwner {
         proxy = _proxy;
         
     }   
@@ -61,15 +60,15 @@ contract MakeIOU {
             _keywords,
            _phone
         );
-  //  ERC1967Proxy proxIOU = new ERC1967Proxy(proxy, "");
-    iIOUtoken newIOU =  iIOUtoken(address ( /* proxIOU */   Clones.clone(proxy)  ));
+    //TransparentUpgradeableProxy proxIOU = new TransparentUpgradeableProxy(proxy, owner, "");
+    iIOUtoken newIOU =  iIOUtoken(address ( /* proxIOU */   Clones.clone(proxy) ));
     
-    newIOU.setIOU (_name, _symbol, thisIOU,address(store), implement ); 
+    newIOU.setIOU (_name, _symbol, thisIOU,address(store)); 
     require (address(store) != address(0x0), "No store address");
     //store.addIOU1(address(newIOU), msg.sender, thisIOU); //, _socialProfile, msg.sender, _keywords);
      //   newIOU.setStore(address(store));
 
-        return address (newIOU);
+    return address (newIOU);
         }
 
 }

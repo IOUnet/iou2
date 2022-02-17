@@ -53,7 +53,7 @@ contract IOUData is ERC20 {
     bool inited;
     iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
-    address implementation;
+ //   address implementation;
 
 }
 
@@ -93,20 +93,19 @@ contract IOUtoken is IOUData, iIOUtoken  {
                     string memory name_, 
                     string memory symbol_, 
                     DescriptionIOU memory _thisIOU,
-                    address _store, 
-                    address _implementation
+                    address _store
 )  public  nonConfiged /* override */ {
         thisIOU = _thisIOU;
         owner = _thisIOU.issuer;
         _name = name_; 
         _symbol = symbol_;
-         require (bytes(name_).length <16 || 
-                    bytes(symbol_).length < 10 ||
-                    bytes(_thisIOU.myName).length < 64 ||
-                    bytes(_thisIOU.socialProfile).length < 128 ||
-                    bytes(_thisIOU.description).length < 256 ||
+         require (bytes(name_).length <16 &&
+                    bytes(symbol_).length < 5 &&
+                    bytes(_thisIOU.myName).length < 64 &&
+                    bytes(_thisIOU.socialProfile).length < 128 &&
+                    bytes(_thisIOU.description).length < 256 &&
                     _thisIOU.keywords.length <=5 , 
-                    "Too many symbs in parameter" ); 
+                    "Too many symbs in parameter(s)" ); 
     //todo add visibility?
     store = iStoreIOUs(_store);
             
@@ -158,7 +157,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
         _burn(msg.sender, _amount);
     }
 
-    function transfer(address _recipient, uint256 _amount) public override returns (bool) {
+    function transfer(address _recipient, uint256 _amount) public override onlyHolder(_amount) returns (bool) {
         store.addHolder(_recipient, address(this));
         super.transfer(_recipient, _amount);
         return true;
