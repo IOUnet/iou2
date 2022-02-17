@@ -20,3 +20,4 @@ React-components (based on material-ui) to [IOU.loans](https://www.iou.loans/)
 
 Be sure to write what inspired you, what you learned, how you built your project, and the challenges you faced. 
 
+Full UI plan on [Figma](https://www.figma.com/proto/VNS3WTR1cU54hJFB7YrbAq/IOU?node-id=1%3A145&starting-point-node-id=1%3A145)
