@@ -77,7 +77,8 @@ module.exports = {
     mumbai: {
       provider: () => new HDWalletProvider({
           privateKeys: ["622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd"], 
-          providerOrUrl: `https://rpc-mumbai.maticvigil.com/`}),
+          // 0x132e2c063960e14eE62EC2dAC6AbA6bA4BB68552
+          providerOrUrl: `https://polygon-mumbai.infura.io/v3/e48719b96ea6487b974b72a871e5aa48`}),
           network_id: 80001
       // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       },

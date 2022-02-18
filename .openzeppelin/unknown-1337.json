@@ -1,8 +1,8 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0x017F3f2EB0c55DDF49B95ad38Cd2737ACf64AB4d",
-    "txHash": "0x986a1a7bb0805936f6727076a8cf2926e02806aa5c3fd5f8c84bb77dd969e17b"
+    "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
+    "txHash": "0x5dd447bd5c7d545ae217a87891a7e85f4ff38e9917ab48384bc1dfad68ad7cdb"
   },
   "proxies": [
     {
@@ -28,6 +28,11 @@
     {
       "address": "0xAEf45c9A84643be802b48b84D112595a7301c2D1",
       "txHash": "0x3509a4a3c9d7813c743170af8e68a771224231e3d720d983d6babf6be81ade65",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x283C31A85980233764997390BD32377eE7170CF4",
+      "txHash": "0x071685e6d5b0c911f0dcf1294390ddf096314b122201e2e5b70b9ab7957c904d",
       "kind": "transparent"
     }
   ],
@@ -209,8 +214,8 @@
       }
     },
     "6818d54ecd87ca8cb81543178fa561e3792a019bbf3958afa156244cde0b0275": {
-      "address": "0x9e5E2d209869eC8D6AaDcb31A0fE181c71eBf0ef",
-      "txHash": "0x75b549f22271831a7559865acfe2a95a9a7847257a20b883edc941ba5c41c561",
+      "address": "0xCa551016676D0d88A2edeaF3E9Cb9cB2205F3f86",
+      "txHash": "0x49aa3779c1ed08e239362d7dbfea46bdfbff6890675638e0ebbe938b19407407",
       "layout": {
         "storage": [
           {
@@ -288,7 +293,7 @@
           {
             "contract": "StoreIOUData",
             "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)4432_storage)",
+            "type": "t_mapping(t_address,t_struct(geoIOU)3491_storage)",
             "src": "../project:/contracts/StoreIOUData.sol:36"
           },
           {
@@ -362,10 +367,10 @@
           "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
             "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
           },
-          "t_mapping(t_address,t_struct(geoIOU)4432_storage)": {
+          "t_mapping(t_address,t_struct(geoIOU)3491_storage)": {
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
-          "t_struct(geoIOU)4432_storage": {
+          "t_struct(geoIOU)3491_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {
