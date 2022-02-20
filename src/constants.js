@@ -17,4 +17,5 @@ export const ROUTES = {
   selectDesiredIOUSwap: '/select-desired-iou-swap',
   swapSelectDesiredToken: '/swap-select-desired-token',
   swapSelectAvailableToken: '/swap-select-available-token',
+  exchange: 'https://quickswap.exchange/#/swap?outputCurrency='
 };

@@ -1,12 +1,12 @@
 import { Box, Card, CardContent, Typography, withStyles } from '@material-ui/core';
-import React from 'react';
+import React, {Link} from 'react';
 import styles from './styles';
 
 const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
   const {
-    title, count, description, keys, address, minted, payed, rating, units, location, phone
+    title, symbol, count, description, issuerName, socialProfile, issuerAddr, keys, address, minted, payed, rating, units, location, phone, portfolio
   } = data;
-
+/* <Link to= {socialProfile} activeClassName="active" > {socialProfile}</Link> */
   return (
     <Card className={classes.root} {...props}>
       <CardContent className={classes.content}>
@@ -17,6 +17,11 @@ const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
         <Box className={classes.token_data}>
           <Box className={classes.description}>
             <Typography>{description && `Description: ${description}`}</Typography>
+            <Typography>{issuerName && `Issuer's Name: ${issuerName}`}</Typography>
+            <Typography to = {socialProfile} >
+             {socialProfile && `Social Profile: ${socialProfile}`} </Typography>
+            
+            <Typography to = {issuerAddr} title = {portfolio}> {issuerAddr}</Typography>
             <Typography>{keys && `Keys: ${keys}`}</Typography>
             <Typography>{address && `Address: ${address}`}</Typography>
             <Typography>{location && `Location: ${location}`}</Typography>

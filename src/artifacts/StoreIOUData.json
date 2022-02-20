@@ -1132,23 +1132,23 @@
     "absolutePath": "project:/contracts/StoreIOUData.sol",
     "exportedSymbols": {
       "Initializable": [
-        1633
+        1651
       ],
       "StoreIOUData": [
-        2527
+        2563
       ],
       "iIOUtoken": [
-        3483
+        3519
       ],
       "iStoreIOUs": [
-        3586
+        3622
       ]
     },
-    "id": 2528,
+    "id": 2564,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2444,
+        "id": 2480,
         "literals": [
           "solidity",
           ">=",
@@ -1159,7 +1159,7 @@
         "src": "0:26:10"
       },
       {
-        "id": 2445,
+        "id": 2481,
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -1170,11 +1170,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/iStoreIOUs.sol",
         "file": "./interfaces/iStoreIOUs.sol",
-        "id": 2446,
+        "id": 2482,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 3587,
+        "scope": 2564,
+        "sourceUnit": 3623,
         "src": "61:37:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1182,11 +1182,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/iIOUtoken.sol",
         "file": "./interfaces/iIOUtoken.sol",
-        "id": 2447,
+        "id": 2483,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 3484,
+        "scope": 2564,
+        "sourceUnit": 3520,
         "src": "99:36:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1194,11 +1194,11 @@
       {
         "absolutePath": "project:/contracts/Initializable.sol",
         "file": "./Initializable.sol",
-        "id": 2448,
+        "id": 2484,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 1634,
+        "scope": 2564,
+        "sourceUnit": 1652,
         "src": "136:29:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -1210,9 +1210,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2527,
+        "id": 2563,
         "linearizedBaseContracts": [
-          2527
+          2563
         ],
         "name": "StoreIOUData",
         "nameLocation": "177:12:10",
@@ -1221,12 +1221,12 @@
           {
             "constant": false,
             "functionSelector": "00a50d81",
-            "id": 2453,
+            "id": 2489,
             "mutability": "mutable",
             "name": "listIOUs",
             "nameLocation": "261:8:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "223:46:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1235,9 +1235,9 @@
               "typeString": "mapping(address => address[])"
             },
             "typeName": {
-              "id": 2452,
+              "id": 2488,
               "keyType": {
-                "id": 2449,
+                "id": 2485,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "232:7:10",
@@ -1254,7 +1254,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2450,
+                  "id": 2486,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "243:7:10",
@@ -1264,7 +1264,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2451,
+                "id": 2487,
                 "nodeType": "ArrayTypeName",
                 "src": "243:9:10",
                 "typeDescriptions": {
@@ -1277,12 +1277,12 @@
           },
           {
             "constant": false,
-            "id": 2458,
+            "id": 2494,
             "mutability": "mutable",
             "name": "listIOUsSoc",
             "nameLocation": "344:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "312:43:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1291,9 +1291,9 @@
               "typeString": "mapping(string => address[])"
             },
             "typeName": {
-              "id": 2457,
+              "id": 2493,
               "keyType": {
-                "id": 2454,
+                "id": 2490,
                 "name": "string",
                 "nodeType": "ElementaryTypeName",
                 "src": "321:6:10",
@@ -1310,7 +1310,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2455,
+                  "id": 2491,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "331:7:10",
@@ -1320,7 +1320,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2456,
+                "id": 2492,
                 "nodeType": "ArrayTypeName",
                 "src": "331:9:10",
                 "typeDescriptions": {
@@ -1334,12 +1334,12 @@
           {
             "constant": false,
             "functionSelector": "f466013d",
-            "id": 2463,
+            "id": 2499,
             "mutability": "mutable",
             "name": "listHoldersIOUs",
             "nameLocation": "441:15:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "403:53:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1348,9 +1348,9 @@
               "typeString": "mapping(address => address[])"
             },
             "typeName": {
-              "id": 2462,
+              "id": 2498,
               "keyType": {
-                "id": 2459,
+                "id": 2495,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "412:7:10",
@@ -1367,7 +1367,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2460,
+                  "id": 2496,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "423:7:10",
@@ -1377,7 +1377,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2461,
+                "id": 2497,
                 "nodeType": "ArrayTypeName",
                 "src": "423:9:10",
                 "typeDescriptions": {
@@ -1391,12 +1391,12 @@
           {
             "constant": false,
             "functionSelector": "b21b4451",
-            "id": 2467,
+            "id": 2503,
             "mutability": "mutable",
             "name": "isIOU",
             "nameLocation": "525:5:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "489:41:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1405,9 +1405,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 2466,
+              "id": 2502,
               "keyType": {
-                "id": 2464,
+                "id": 2500,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "498:7:10",
@@ -1423,7 +1423,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 2465,
+                "id": 2501,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "509:7:10",
@@ -1437,12 +1437,12 @@
           },
           {
             "constant": false,
-            "id": 2473,
+            "id": 2509,
             "mutability": "mutable",
             "name": "isHolderthisIOU",
             "nameLocation": "618:15:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "571:62:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1451,9 +1451,9 @@
               "typeString": "mapping(address => mapping(address => bool))"
             },
             "typeName": {
-              "id": 2472,
+              "id": 2508,
               "keyType": {
-                "id": 2468,
+                "id": 2504,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "580:7:10",
@@ -1469,9 +1469,9 @@
                 "typeString": "mapping(address => mapping(address => bool))"
               },
               "valueType": {
-                "id": 2471,
+                "id": 2507,
                 "keyType": {
-                  "id": 2469,
+                  "id": 2505,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "600:7:10",
@@ -1487,7 +1487,7 @@
                   "typeString": "mapping(address => bool)"
                 },
                 "valueType": {
-                  "id": 2470,
+                  "id": 2506,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "611:4:10",
@@ -1502,12 +1502,12 @@
           },
           {
             "constant": false,
-            "id": 2478,
+            "id": 2514,
             "mutability": "mutable",
             "name": "listbyKeys",
             "nameLocation": "706:10:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "675:41:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1516,9 +1516,9 @@
               "typeString": "mapping(bytes32 => address[])"
             },
             "typeName": {
-              "id": 2477,
+              "id": 2513,
               "keyType": {
-                "id": 2474,
+                "id": 2510,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "684:7:10",
@@ -1535,7 +1535,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2475,
+                  "id": 2511,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "695:7:10",
@@ -1545,7 +1545,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2476,
+                "id": 2512,
                 "nodeType": "ArrayTypeName",
                 "src": "695:9:10",
                 "typeDescriptions": {
@@ -1558,12 +1558,12 @@
           },
           {
             "constant": false,
-            "id": 2484,
+            "id": 2520,
             "mutability": "mutable",
             "name": "keyByList",
             "nameLocation": "805:9:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "748:66:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1572,9 +1572,9 @@
               "typeString": "mapping(bytes32 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 2483,
+              "id": 2519,
               "keyType": {
-                "id": 2479,
+                "id": 2515,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "757:7:10",
@@ -1590,9 +1590,9 @@
                 "typeString": "mapping(bytes32 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 2482,
+                "id": 2518,
                 "keyType": {
-                  "id": 2480,
+                  "id": 2516,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "783:7:10",
@@ -1608,7 +1608,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 2481,
+                  "id": 2517,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "794:7:10",
@@ -1624,12 +1624,12 @@
           {
             "constant": false,
             "functionSelector": "52fae04e",
-            "id": 2487,
+            "id": 2523,
             "mutability": "mutable",
             "name": "allKeywords",
             "nameLocation": "888:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "871:28:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1639,7 +1639,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2485,
+                "id": 2521,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "871:7:10",
@@ -1648,7 +1648,7 @@
                   "typeString": "bytes32"
                 }
               },
-              "id": 2486,
+              "id": 2522,
               "nodeType": "ArrayTypeName",
               "src": "871:9:10",
               "typeDescriptions": {
@@ -1661,12 +1661,12 @@
           {
             "constant": false,
             "functionSelector": "c5ab1529",
-            "id": 2490,
+            "id": 2526,
             "mutability": "mutable",
             "name": "allIOU",
             "nameLocation": "943:6:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "926:23:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1676,7 +1676,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2488,
+                "id": 2524,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "926:7:10",
@@ -1686,7 +1686,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 2489,
+              "id": 2525,
               "nodeType": "ArrayTypeName",
               "src": "926:9:10",
               "typeDescriptions": {
@@ -1699,12 +1699,12 @@
           {
             "constant": false,
             "functionSelector": "b442fc61",
-            "id": 2493,
+            "id": 2529,
             "mutability": "mutable",
             "name": "allIssuers",
             "nameLocation": "996:10:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "979:27:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1714,7 +1714,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2491,
+                "id": 2527,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "979:7:10",
@@ -1724,7 +1724,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 2492,
+              "id": 2528,
               "nodeType": "ArrayTypeName",
               "src": "979:9:10",
               "typeDescriptions": {
@@ -1736,12 +1736,12 @@
           },
           {
             "constant": false,
-            "id": 2504,
+            "id": 2540,
             "mutability": "mutable",
             "name": "listbyCity_",
             "nameLocation": "1214:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1041:184:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1750,9 +1750,9 @@
               "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
             },
             "typeName": {
-              "id": 2503,
+              "id": 2539,
               "keyType": {
-                "id": 2494,
+                "id": 2530,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1050:7:10",
@@ -1768,9 +1768,9 @@
                 "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
               },
               "valueType": {
-                "id": 2502,
+                "id": 2538,
                 "keyType": {
-                  "id": 2495,
+                  "id": 2531,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1086:6:10",
@@ -1786,9 +1786,9 @@
                   "typeString": "mapping(string => mapping(string => mapping(string => address[])))"
                 },
                 "valueType": {
-                  "id": 2501,
+                  "id": 2537,
                   "keyType": {
-                    "id": 2496,
+                    "id": 2532,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1124:6:10",
@@ -1804,9 +1804,9 @@
                     "typeString": "mapping(string => mapping(string => address[]))"
                   },
                   "valueType": {
-                    "id": 2500,
+                    "id": 2536,
                     "keyType": {
-                      "id": 2497,
+                      "id": 2533,
                       "name": "string",
                       "nodeType": "ElementaryTypeName",
                       "src": "1162:6:10",
@@ -1823,7 +1823,7 @@
                     },
                     "valueType": {
                       "baseType": {
-                        "id": 2498,
+                        "id": 2534,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "1190:7:10",
@@ -1833,7 +1833,7 @@
                           "typeString": "address"
                         }
                       },
-                      "id": 2499,
+                      "id": 2535,
                       "nodeType": "ArrayTypeName",
                       "src": "1190:9:10",
                       "typeDescriptions": {
@@ -1849,12 +1849,12 @@
           },
           {
             "constant": false,
-            "id": 2517,
+            "id": 2553,
             "mutability": "mutable",
             "name": "listbyStreet_",
             "nameLocation": "1498:13:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1286:225:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -1863,9 +1863,9 @@
               "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
             },
             "typeName": {
-              "id": 2516,
+              "id": 2552,
               "keyType": {
-                "id": 2505,
+                "id": 2541,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1295:7:10",
@@ -1881,9 +1881,9 @@
                 "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
               },
               "valueType": {
-                "id": 2515,
+                "id": 2551,
                 "keyType": {
-                  "id": 2506,
+                  "id": 2542,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1331:6:10",
@@ -1899,9 +1899,9 @@
                   "typeString": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
                 },
                 "valueType": {
-                  "id": 2514,
+                  "id": 2550,
                   "keyType": {
-                    "id": 2507,
+                    "id": 2543,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1368:6:10",
@@ -1917,9 +1917,9 @@
                     "typeString": "mapping(string => mapping(string => mapping(string => address[])))"
                   },
                   "valueType": {
-                    "id": 2513,
+                    "id": 2549,
                     "keyType": {
-                      "id": 2508,
+                      "id": 2544,
                       "name": "string",
                       "nodeType": "ElementaryTypeName",
                       "src": "1406:6:10",
@@ -1935,9 +1935,9 @@
                       "typeString": "mapping(string => mapping(string => address[]))"
                     },
                     "valueType": {
-                      "id": 2512,
+                      "id": 2548,
                       "keyType": {
-                        "id": 2509,
+                        "id": 2545,
                         "name": "string",
                         "nodeType": "ElementaryTypeName",
                         "src": "1444:6:10",
@@ -1954,7 +1954,7 @@
                       },
                       "valueType": {
                         "baseType": {
-                          "id": 2510,
+                          "id": 2546,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
                           "src": "1474:7:10",
@@ -1964,7 +1964,7 @@
                             "typeString": "address"
                           }
                         },
-                        "id": 2511,
+                        "id": 2547,
                         "nodeType": "ArrayTypeName",
                         "src": "1474:9:10",
                         "typeDescriptions": {
@@ -1981,23 +1981,23 @@
           },
           {
             "constant": false,
-            "id": 2522,
+            "id": 2558,
             "mutability": "mutable",
             "name": "posIOU",
             "nameLocation": "1613:6:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1573:46:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3491_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3527_storage_$",
               "typeString": "mapping(address => struct iStoreIOUs.geoIOU)"
             },
             "typeName": {
-              "id": 2521,
+              "id": 2557,
               "keyType": {
-                "id": 2518,
+                "id": 2554,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1582:7:10",
@@ -2009,23 +2009,23 @@
               "nodeType": "Mapping",
               "src": "1573:39:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3491_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3527_storage_$",
                 "typeString": "mapping(address => struct iStoreIOUs.geoIOU)"
               },
               "valueType": {
-                "id": 2520,
+                "id": 2556,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 2519,
+                  "id": 2555,
                   "name": "iStoreIOUs.geoIOU",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 3491,
+                  "referencedDeclaration": 3527,
                   "src": "1593:17:10"
                 },
-                "referencedDeclaration": 3491,
+                "referencedDeclaration": 3527,
                 "src": "1593:17:10",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_geoIOU_$3491_storage_ptr",
+                  "typeIdentifier": "t_struct$_geoIOU_$3527_storage_ptr",
                   "typeString": "struct iStoreIOUs.geoIOU"
                 }
               }
@@ -2034,12 +2034,12 @@
           },
           {
             "constant": false,
-            "id": 2524,
+            "id": 2560,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "1635:5:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1627:13:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2048,7 +2048,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2523,
+              "id": 2559,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "1627:7:10",
@@ -2062,12 +2062,12 @@
           },
           {
             "constant": false,
-            "id": 2526,
+            "id": 2562,
             "mutability": "mutable",
             "name": "implementIOU",
             "nameLocation": "1682:12:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1673:21:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2076,7 +2076,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2525,
+              "id": 2561,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "1673:7:10",
@@ -2089,7 +2089,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 2528,
+        "scope": 2564,
         "src": "168:1533:10",
         "usedErrors": []
       }
@@ -2100,23 +2100,23 @@
     "absolutePath": "project:/contracts/StoreIOUData.sol",
     "exportedSymbols": {
       "Initializable": [
-        1633
+        1651
       ],
       "StoreIOUData": [
-        2527
+        2563
       ],
       "iIOUtoken": [
-        3483
+        3519
       ],
       "iStoreIOUs": [
-        3586
+        3622
       ]
     },
-    "id": 2528,
+    "id": 2564,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 2444,
+        "id": 2480,
         "literals": [
           "solidity",
           ">=",
@@ -2127,7 +2127,7 @@
         "src": "0:26:10"
       },
       {
-        "id": 2445,
+        "id": 2481,
         "literals": [
           "experimental",
           "ABIEncoderV2"
@@ -2138,11 +2138,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/iStoreIOUs.sol",
         "file": "./interfaces/iStoreIOUs.sol",
-        "id": 2446,
+        "id": 2482,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 3587,
+        "scope": 2564,
+        "sourceUnit": 3623,
         "src": "61:37:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2150,11 +2150,11 @@
       {
         "absolutePath": "project:/contracts/interfaces/iIOUtoken.sol",
         "file": "./interfaces/iIOUtoken.sol",
-        "id": 2447,
+        "id": 2483,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 3484,
+        "scope": 2564,
+        "sourceUnit": 3520,
         "src": "99:36:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2162,11 +2162,11 @@
       {
         "absolutePath": "project:/contracts/Initializable.sol",
         "file": "./Initializable.sol",
-        "id": 2448,
+        "id": 2484,
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
-        "scope": 2528,
-        "sourceUnit": 1634,
+        "scope": 2564,
+        "sourceUnit": 1652,
         "src": "136:29:10",
         "symbolAliases": [],
         "unitAlias": ""
@@ -2178,9 +2178,9 @@
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 2527,
+        "id": 2563,
         "linearizedBaseContracts": [
-          2527
+          2563
         ],
         "name": "StoreIOUData",
         "nameLocation": "177:12:10",
@@ -2189,12 +2189,12 @@
           {
             "constant": false,
             "functionSelector": "00a50d81",
-            "id": 2453,
+            "id": 2489,
             "mutability": "mutable",
             "name": "listIOUs",
             "nameLocation": "261:8:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "223:46:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2203,9 +2203,9 @@
               "typeString": "mapping(address => address[])"
             },
             "typeName": {
-              "id": 2452,
+              "id": 2488,
               "keyType": {
-                "id": 2449,
+                "id": 2485,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "232:7:10",
@@ -2222,7 +2222,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2450,
+                  "id": 2486,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "243:7:10",
@@ -2232,7 +2232,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2451,
+                "id": 2487,
                 "nodeType": "ArrayTypeName",
                 "src": "243:9:10",
                 "typeDescriptions": {
@@ -2245,12 +2245,12 @@
           },
           {
             "constant": false,
-            "id": 2458,
+            "id": 2494,
             "mutability": "mutable",
             "name": "listIOUsSoc",
             "nameLocation": "344:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "312:43:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2259,9 +2259,9 @@
               "typeString": "mapping(string => address[])"
             },
             "typeName": {
-              "id": 2457,
+              "id": 2493,
               "keyType": {
-                "id": 2454,
+                "id": 2490,
                 "name": "string",
                 "nodeType": "ElementaryTypeName",
                 "src": "321:6:10",
@@ -2278,7 +2278,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2455,
+                  "id": 2491,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "331:7:10",
@@ -2288,7 +2288,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2456,
+                "id": 2492,
                 "nodeType": "ArrayTypeName",
                 "src": "331:9:10",
                 "typeDescriptions": {
@@ -2302,12 +2302,12 @@
           {
             "constant": false,
             "functionSelector": "f466013d",
-            "id": 2463,
+            "id": 2499,
             "mutability": "mutable",
             "name": "listHoldersIOUs",
             "nameLocation": "441:15:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "403:53:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2316,9 +2316,9 @@
               "typeString": "mapping(address => address[])"
             },
             "typeName": {
-              "id": 2462,
+              "id": 2498,
               "keyType": {
-                "id": 2459,
+                "id": 2495,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "412:7:10",
@@ -2335,7 +2335,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2460,
+                  "id": 2496,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "423:7:10",
@@ -2345,7 +2345,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2461,
+                "id": 2497,
                 "nodeType": "ArrayTypeName",
                 "src": "423:9:10",
                 "typeDescriptions": {
@@ -2359,12 +2359,12 @@
           {
             "constant": false,
             "functionSelector": "b21b4451",
-            "id": 2467,
+            "id": 2503,
             "mutability": "mutable",
             "name": "isIOU",
             "nameLocation": "525:5:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "489:41:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2373,9 +2373,9 @@
               "typeString": "mapping(address => uint256)"
             },
             "typeName": {
-              "id": 2466,
+              "id": 2502,
               "keyType": {
-                "id": 2464,
+                "id": 2500,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "498:7:10",
@@ -2391,7 +2391,7 @@
                 "typeString": "mapping(address => uint256)"
               },
               "valueType": {
-                "id": 2465,
+                "id": 2501,
                 "name": "uint256",
                 "nodeType": "ElementaryTypeName",
                 "src": "509:7:10",
@@ -2405,12 +2405,12 @@
           },
           {
             "constant": false,
-            "id": 2473,
+            "id": 2509,
             "mutability": "mutable",
             "name": "isHolderthisIOU",
             "nameLocation": "618:15:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "571:62:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2419,9 +2419,9 @@
               "typeString": "mapping(address => mapping(address => bool))"
             },
             "typeName": {
-              "id": 2472,
+              "id": 2508,
               "keyType": {
-                "id": 2468,
+                "id": 2504,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "580:7:10",
@@ -2437,9 +2437,9 @@
                 "typeString": "mapping(address => mapping(address => bool))"
               },
               "valueType": {
-                "id": 2471,
+                "id": 2507,
                 "keyType": {
-                  "id": 2469,
+                  "id": 2505,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "600:7:10",
@@ -2455,7 +2455,7 @@
                   "typeString": "mapping(address => bool)"
                 },
                 "valueType": {
-                  "id": 2470,
+                  "id": 2506,
                   "name": "bool",
                   "nodeType": "ElementaryTypeName",
                   "src": "611:4:10",
@@ -2470,12 +2470,12 @@
           },
           {
             "constant": false,
-            "id": 2478,
+            "id": 2514,
             "mutability": "mutable",
             "name": "listbyKeys",
             "nameLocation": "706:10:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "675:41:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2484,9 +2484,9 @@
               "typeString": "mapping(bytes32 => address[])"
             },
             "typeName": {
-              "id": 2477,
+              "id": 2513,
               "keyType": {
-                "id": 2474,
+                "id": 2510,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "684:7:10",
@@ -2503,7 +2503,7 @@
               },
               "valueType": {
                 "baseType": {
-                  "id": 2475,
+                  "id": 2511,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "695:7:10",
@@ -2513,7 +2513,7 @@
                     "typeString": "address"
                   }
                 },
-                "id": 2476,
+                "id": 2512,
                 "nodeType": "ArrayTypeName",
                 "src": "695:9:10",
                 "typeDescriptions": {
@@ -2526,12 +2526,12 @@
           },
           {
             "constant": false,
-            "id": 2484,
+            "id": 2520,
             "mutability": "mutable",
             "name": "keyByList",
             "nameLocation": "805:9:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "748:66:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2540,9 +2540,9 @@
               "typeString": "mapping(bytes32 => mapping(address => uint256))"
             },
             "typeName": {
-              "id": 2483,
+              "id": 2519,
               "keyType": {
-                "id": 2479,
+                "id": 2515,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "757:7:10",
@@ -2558,9 +2558,9 @@
                 "typeString": "mapping(bytes32 => mapping(address => uint256))"
               },
               "valueType": {
-                "id": 2482,
+                "id": 2518,
                 "keyType": {
-                  "id": 2480,
+                  "id": 2516,
                   "name": "address",
                   "nodeType": "ElementaryTypeName",
                   "src": "783:7:10",
@@ -2576,7 +2576,7 @@
                   "typeString": "mapping(address => uint256)"
                 },
                 "valueType": {
-                  "id": 2481,
+                  "id": 2517,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
                   "src": "794:7:10",
@@ -2592,12 +2592,12 @@
           {
             "constant": false,
             "functionSelector": "52fae04e",
-            "id": 2487,
+            "id": 2523,
             "mutability": "mutable",
             "name": "allKeywords",
             "nameLocation": "888:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "871:28:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2607,7 +2607,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2485,
+                "id": 2521,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "871:7:10",
@@ -2616,7 +2616,7 @@
                   "typeString": "bytes32"
                 }
               },
-              "id": 2486,
+              "id": 2522,
               "nodeType": "ArrayTypeName",
               "src": "871:9:10",
               "typeDescriptions": {
@@ -2629,12 +2629,12 @@
           {
             "constant": false,
             "functionSelector": "c5ab1529",
-            "id": 2490,
+            "id": 2526,
             "mutability": "mutable",
             "name": "allIOU",
             "nameLocation": "943:6:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "926:23:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2644,7 +2644,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2488,
+                "id": 2524,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "926:7:10",
@@ -2654,7 +2654,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 2489,
+              "id": 2525,
               "nodeType": "ArrayTypeName",
               "src": "926:9:10",
               "typeDescriptions": {
@@ -2667,12 +2667,12 @@
           {
             "constant": false,
             "functionSelector": "b442fc61",
-            "id": 2493,
+            "id": 2529,
             "mutability": "mutable",
             "name": "allIssuers",
             "nameLocation": "996:10:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "979:27:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2682,7 +2682,7 @@
             },
             "typeName": {
               "baseType": {
-                "id": 2491,
+                "id": 2527,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "979:7:10",
@@ -2692,7 +2692,7 @@
                   "typeString": "address"
                 }
               },
-              "id": 2492,
+              "id": 2528,
               "nodeType": "ArrayTypeName",
               "src": "979:9:10",
               "typeDescriptions": {
@@ -2704,12 +2704,12 @@
           },
           {
             "constant": false,
-            "id": 2504,
+            "id": 2540,
             "mutability": "mutable",
             "name": "listbyCity_",
             "nameLocation": "1214:11:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1041:184:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2718,9 +2718,9 @@
               "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
             },
             "typeName": {
-              "id": 2503,
+              "id": 2539,
               "keyType": {
-                "id": 2494,
+                "id": 2530,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1050:7:10",
@@ -2736,9 +2736,9 @@
                 "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => address[]))))"
               },
               "valueType": {
-                "id": 2502,
+                "id": 2538,
                 "keyType": {
-                  "id": 2495,
+                  "id": 2531,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1086:6:10",
@@ -2754,9 +2754,9 @@
                   "typeString": "mapping(string => mapping(string => mapping(string => address[])))"
                 },
                 "valueType": {
-                  "id": 2501,
+                  "id": 2537,
                   "keyType": {
-                    "id": 2496,
+                    "id": 2532,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1124:6:10",
@@ -2772,9 +2772,9 @@
                     "typeString": "mapping(string => mapping(string => address[]))"
                   },
                   "valueType": {
-                    "id": 2500,
+                    "id": 2536,
                     "keyType": {
-                      "id": 2497,
+                      "id": 2533,
                       "name": "string",
                       "nodeType": "ElementaryTypeName",
                       "src": "1162:6:10",
@@ -2791,7 +2791,7 @@
                     },
                     "valueType": {
                       "baseType": {
-                        "id": 2498,
+                        "id": 2534,
                         "name": "address",
                         "nodeType": "ElementaryTypeName",
                         "src": "1190:7:10",
@@ -2801,7 +2801,7 @@
                           "typeString": "address"
                         }
                       },
-                      "id": 2499,
+                      "id": 2535,
                       "nodeType": "ArrayTypeName",
                       "src": "1190:9:10",
                       "typeDescriptions": {
@@ -2817,12 +2817,12 @@
           },
           {
             "constant": false,
-            "id": 2517,
+            "id": 2553,
             "mutability": "mutable",
             "name": "listbyStreet_",
             "nameLocation": "1498:13:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1286:225:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -2831,9 +2831,9 @@
               "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
             },
             "typeName": {
-              "id": 2516,
+              "id": 2552,
               "keyType": {
-                "id": 2505,
+                "id": 2541,
                 "name": "bytes32",
                 "nodeType": "ElementaryTypeName",
                 "src": "1295:7:10",
@@ -2849,9 +2849,9 @@
                 "typeString": "mapping(bytes32 => mapping(string => mapping(string => mapping(string => mapping(string => address[])))))"
               },
               "valueType": {
-                "id": 2515,
+                "id": 2551,
                 "keyType": {
-                  "id": 2506,
+                  "id": 2542,
                   "name": "string",
                   "nodeType": "ElementaryTypeName",
                   "src": "1331:6:10",
@@ -2867,9 +2867,9 @@
                   "typeString": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
                 },
                 "valueType": {
-                  "id": 2514,
+                  "id": 2550,
                   "keyType": {
-                    "id": 2507,
+                    "id": 2543,
                     "name": "string",
                     "nodeType": "ElementaryTypeName",
                     "src": "1368:6:10",
@@ -2885,9 +2885,9 @@
                     "typeString": "mapping(string => mapping(string => mapping(string => address[])))"
                   },
                   "valueType": {
-                    "id": 2513,
+                    "id": 2549,
                     "keyType": {
-                      "id": 2508,
+                      "id": 2544,
                       "name": "string",
                       "nodeType": "ElementaryTypeName",
                       "src": "1406:6:10",
@@ -2903,9 +2903,9 @@
                       "typeString": "mapping(string => mapping(string => address[]))"
                     },
                     "valueType": {
-                      "id": 2512,
+                      "id": 2548,
                       "keyType": {
-                        "id": 2509,
+                        "id": 2545,
                         "name": "string",
                         "nodeType": "ElementaryTypeName",
                         "src": "1444:6:10",
@@ -2922,7 +2922,7 @@
                       },
                       "valueType": {
                         "baseType": {
-                          "id": 2510,
+                          "id": 2546,
                           "name": "address",
                           "nodeType": "ElementaryTypeName",
                           "src": "1474:7:10",
@@ -2932,7 +2932,7 @@
                             "typeString": "address"
                           }
                         },
-                        "id": 2511,
+                        "id": 2547,
                         "nodeType": "ArrayTypeName",
                         "src": "1474:9:10",
                         "typeDescriptions": {
@@ -2949,23 +2949,23 @@
           },
           {
             "constant": false,
-            "id": 2522,
+            "id": 2558,
             "mutability": "mutable",
             "name": "posIOU",
             "nameLocation": "1613:6:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1573:46:10",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3491_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3527_storage_$",
               "typeString": "mapping(address => struct iStoreIOUs.geoIOU)"
             },
             "typeName": {
-              "id": 2521,
+              "id": 2557,
               "keyType": {
-                "id": 2518,
+                "id": 2554,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
                 "src": "1582:7:10",
@@ -2977,23 +2977,23 @@
               "nodeType": "Mapping",
               "src": "1573:39:10",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3491_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_geoIOU_$3527_storage_$",
                 "typeString": "mapping(address => struct iStoreIOUs.geoIOU)"
               },
               "valueType": {
-                "id": 2520,
+                "id": 2556,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 2519,
+                  "id": 2555,
                   "name": "iStoreIOUs.geoIOU",
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 3491,
+                  "referencedDeclaration": 3527,
                   "src": "1593:17:10"
                 },
-                "referencedDeclaration": 3491,
+                "referencedDeclaration": 3527,
                 "src": "1593:17:10",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_geoIOU_$3491_storage_ptr",
+                  "typeIdentifier": "t_struct$_geoIOU_$3527_storage_ptr",
                   "typeString": "struct iStoreIOUs.geoIOU"
                 }
               }
@@ -3002,12 +3002,12 @@
           },
           {
             "constant": false,
-            "id": 2524,
+            "id": 2560,
             "mutability": "mutable",
             "name": "owner",
             "nameLocation": "1635:5:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1627:13:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3016,7 +3016,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2523,
+              "id": 2559,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "1627:7:10",
@@ -3030,12 +3030,12 @@
           },
           {
             "constant": false,
-            "id": 2526,
+            "id": 2562,
             "mutability": "mutable",
             "name": "implementIOU",
             "nameLocation": "1682:12:10",
             "nodeType": "VariableDeclaration",
-            "scope": 2527,
+            "scope": 2563,
             "src": "1673:21:10",
             "stateVariable": true,
             "storageLocation": "default",
@@ -3044,7 +3044,7 @@
               "typeString": "address"
             },
             "typeName": {
-              "id": 2525,
+              "id": 2561,
               "name": "address",
               "nodeType": "ElementaryTypeName",
               "src": "1673:7:10",
@@ -3057,7 +3057,7 @@
             "visibility": "internal"
           }
         ],
-        "scope": 2528,
+        "scope": 2564,
         "src": "168:1533:10",
         "usedErrors": []
       }
@@ -3070,7 +3070,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-18T17:10:51.764Z",
+  "updatedAt": "2022-02-20T07:35:31.319Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

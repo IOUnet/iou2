@@ -88,7 +88,7 @@ module.exports = {
         // https://ropsten.infura.io/v3/3362483b5eab409ea69e99f99aefd67a", // Endpoint of an node to connect to. Can be on localhost or on the internet
         // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       }),
-      network_id: 137,       // Ropsten's id
+      network_id: "*",       // Ropsten's id
      // gas: 5500000,        // Ropsten has a lower block limit than mainnet
       //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
       //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)

@@ -1,6 +1,6 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useContext, useCallback, useEffect } from 'react';
+import { useHistory, Redirect } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -9,25 +9,40 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-
+import TokensListContext from '../../context/TokensListContext'
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const BuyIOUPage = ({ classes }) => {
   const history = useHistory();
-  const [number, setNumber] = useState(100);
+  const [number, setNumber] = useState(10);
+  const tokenList = useContext(TokensListContext)
+  const [cardTokenData, setCardTokenData] = useState({})
+ // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+  const setCurrentTokenData = useCallback(() => {
+    if (tokenList.tokenList.length > 0) {
+     const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+     if (tokenData !== undefined) {
+       setCardTokenData(tokenData)
+      }
+    }
+ },[tokenList])
+ useEffect(() => {
+  setCurrentTokenData()
+},[setCurrentTokenData, tokenList])
 
   const handleBuy = () => {
-    history.push(ROUTES.main);
+  //  history.push(ROUTES.exchange);
+    window.location.href = "https://quickswap.exchange/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
+    
   };
-
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
-        <PageTitle>Buy IOUs on IOUSwap</PageTitle>
+        <PageTitle>Buy IOUs on Swap</PageTitle>
       </Box>
 
       <Box className={classes.cardSection}>
-        <TokenCard data={cardListData[0]} />
+        <TokenCard data={cardTokenData} />
       </Box>
 
       <Box className={classes.dataSection}>
@@ -69,13 +84,13 @@ const BuyIOUPage = ({ classes }) => {
         </Grid>
 
         <Button onClick={handleBuy}>
-          buy 50 IOU dollars
+          buy  IOU dollars
         </Button>
       </Box>
 
       <Box className={classes.actionSection}>
         <Button onClick={handleBuy}>
-          buy 100 smbdIOUtoken1
+          buy {number} IOUs
         </Button>
       </Box>
     </PageLayout>

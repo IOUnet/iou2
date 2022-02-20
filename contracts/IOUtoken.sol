@@ -247,4 +247,12 @@ contract IOUtoken is IOUData, iIOUtoken  {
 
     }
 
+    function name() public view override returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view override returns (string memory) {
+        return _symbol;
+    }
+
 }
