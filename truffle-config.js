@@ -47,6 +47,7 @@ module.exports = {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
+     // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache  -p 8555 -e 1000
     },
     // Another network with more advanced options...
     // advanced: {

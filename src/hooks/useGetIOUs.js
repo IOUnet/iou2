@@ -66,46 +66,44 @@ export default function useGetIOUs() {
                        const resultItem = ProxyIOU.getIOU[resultTrx]
          //              const resultItemT =  tokenIOU.getTokenInfo[resultTrxT]
                         if (resultItem !== undefined ) {
-                            var response =  get(addressSocket, {
+                            get(addressSocket, {
                                 scope: ['portfolio'],
                                 payload: {
                                     address: resultItem.value.description.issuer,
                                     currency: 'usd',
                                     portfolio_fields: 'all'
                                 },
+                                }).then ( response =>{ 
+                                let keys = resultItem.value.description.keywords.map((value,key) => {
+                                    return drizzle.web3.utils.hexToAscii(value)
                                 })
-                            if (response === undefined) {
-                                response.payload.portfolio = ""
-                            };
-                            let keys = resultItem.value.description.keywords.map((value,key) => {
-                                return drizzle.web3.utils.hexToAscii(value)
-                            })
-                            IOUListObjects.push( {
-                                    id: i,
-                                    title: resultItem.value.name,
-                                    symbol: resultItem.value.symbol,
-                                    count: i,
-                                    description: resultItem.value.description.description,
-                                    issuerName: resultItem.value.description.myName,
-                                    issuerAddr: resultItem.value.description.issuer,
-                                    socialProfile: resultItem.value.description.socialProfile,
-                                    keys: keys.join(','),
-                                    portfolio: response.payload.portfolio,
-                                
-                                    address: IOUAddreses[i],
-                                    minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
-                                    payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
-                                    rating: resultItem.value.description.avRate,
-                                    units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
-                                    location: (resultItem.value.description.location),
-                                    phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
-                                })   
-                                
+                                IOUListObjects.push( {
+                                        id: i,
+                                        title: resultItem.value.name,
+                                        symbol: resultItem.value.symbol,
+                                        count: i,
+                                        description: resultItem.value.description.description,
+                                        issuerName: resultItem.value.description.myName,
+                                        issuerAddr: resultItem.value.description.issuer,
+                                        socialProfile: resultItem.value.description.socialProfile,
+                                        keys: keys.join(','),
+                                        portfolio: JSON.stringify( response.payload.portfolio),
+                                    
+                                        address: IOUAddreses[i],
+                                        minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
+                                        payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
+                                        rating: resultItem.value.description.avRate,
+                                        units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
+                                        location: (resultItem.value.description.location),
+                                        phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
+                                    })   
+                                    changeIOUList(IOUListObjects)
+                                })
                         
                         }
                     }
                 }
-                changeIOUList(IOUListObjects)
+//                changeIOUList(IOUListObjects)
             }    
         
         }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU])
@@ -142,10 +140,11 @@ export default function useGetIOUs() {
         return new Promise(resolve => {
             const { socket, namespace } = socketNamespace;
             function handleReceive(data) {
-            if (verify(requestBody, data)) {
+            /* if (verify(requestBody, data)) {
                 unsubscribe();
                 resolve(data);
-            }
+            } */
+            resolve (data); 
             }
             const model = requestBody.scope[0];
             function unsubscribe() {

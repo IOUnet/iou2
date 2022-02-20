@@ -11,7 +11,8 @@ const TokenCard = ({ classes, data, isFullMode = true, ...props }) => {
     <Card className={classes.root} {...props}>
       <CardContent className={classes.content}>
         <Typography className={classes.title} variant="subtitle1">
-          {title}
+          {title} <br />
+          {symbol} <br />
           {count && ` (I have: ${count})`}
         </Typography>
         <Box className={classes.token_data}>

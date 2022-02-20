@@ -243,7 +243,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "\npragma solidity >= 0.8.0;\npragma experimental ABIEncoderV2;\ninterface  iIOUtoken  {\n\n    struct geo {\n        string country;\n        string state;\n        string city;\n        string street;\n    }\n\n    struct DescriptionIOU {\n        uint256 totalMinted;\n        uint256 totalBurned;\n        int256 avRate;\n        bytes32 units;        \n        address issuer;\n        string myName ; //name of emitter\n        string socialProfile ; //profile  of emitter in social nets\n        string description ; //description of bond IOU to  work\n        geo location; //where is it             \n        bytes32[] keywords;\n        bytes32 phone;\n    }\n\n    struct IOU {\n        address receiver;\n        uint256 time;\n        string IOUDescr; //what IOU is\n    }\n\n    struct FeedBack {\n        address sender;\n        uint256 time;\n        int256 rating; // estimation of skills in 255 grades\n        uint256 amount;\n        string text; //comment\n    }\n    \n    struct IOUdescr {\n        string name;\n        string symbol;\n        iIOUtoken.DescriptionIOU description;\n    }\n    function IOUname () external view returns  (string memory); \n    function IOUsymbol () external view returns (string memory);  \n    function thisIOUDesc () external view returns (DescriptionIOU memory);\n    function setIOU (//    constructor (\n                string memory name_, \n                string memory symbol_, \n                DescriptionIOU memory _thisIOU,\n                 address _store\n                )  external;\n\n    function initialize() external;\n}",
-  "sourcePath": "/mnt/512-2/dfd/iou2/contracts/interfaces/iIOUtoken.sol",
+  "sourcePath": "/home/st/Documents/work/iou2/contracts/interfaces/iIOUtoken.sol",
   "ast": {
     "absolutePath": "project:/contracts/interfaces/iIOUtoken.sol",
     "exportedSymbols": {
@@ -2617,8 +2617,8 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-20T07:35:31.344Z",
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-02-20T10:17:06.201Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

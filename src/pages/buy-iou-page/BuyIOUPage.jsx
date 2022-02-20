@@ -68,7 +68,7 @@ const BuyIOUPage = ({ classes }) => {
           </Grid>
         </Grid>
 
-        <Grid container spacing={2}>
+   {/*      <Grid container spacing={2}>
           <Grid item xs={7}>
             <ValueInfo
               label={'Sum of purchasing:'}
@@ -81,11 +81,11 @@ const BuyIOUPage = ({ classes }) => {
               value={'50'}
             />
           </Grid>
-        </Grid>
+        </Grid> 
 
         <Button onClick={handleBuy}>
           buy  IOU dollars
-        </Button>
+        </Button> */}
       </Box>
 
       <Box className={classes.actionSection}>

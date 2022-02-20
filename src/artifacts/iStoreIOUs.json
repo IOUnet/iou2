@@ -335,7 +335,7 @@
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "pragma solidity >=  0.8.0;\nimport \"./iIOUtoken.sol\";\n\n\ninterface  iStoreIOUs {\n    struct  geoIOU {\n        uint64 inCity;\n        uint64 onStreet;\n        // string country;\n        // string state;\n        // string city;\n        // string street;\n    }\n\n    function addIOU1 (address _newIOU, address _emitent, iIOUtoken.DescriptionIOU calldata _thisIOU) external;  \n    function addKeys (bytes32[] calldata _keys, address _IOUtok)  external; \n    function delKeys (bytes32[] calldata _keywords, address _addrIOU ) external;\n    function changeIOUGeoAllkeys  (iIOUtoken.geo calldata _loc, address _addrIOU ) external;\n\n    function getIOUList (address _owner) external view returns (address[] memory) ;\n\n    function getIOUListSoc (string calldata _profile) external view returns (address[] memory);\n\n    function getIOUListKey (bytes32 _key) external view returns (address[] memory) ;\n\n\n    function addHolder(address _holder, address _IOUtoken) external ;\n\n    function getIOUListHold (address _holder) external view returns (address[] memory) ;\n\n    function getIOUstotal () external view  returns (uint256);    \n\n    function getKeystotal () external view returns (bytes32[] memory); \n\n    function getIssuerstotal () external view returns (uint256);\n    function implIOU() external view returns (address);\n}",
-  "sourcePath": "/mnt/512-2/dfd/iou2/contracts/interfaces/iStoreIOUs.sol",
+  "sourcePath": "/home/st/Documents/work/iou2/contracts/interfaces/iStoreIOUs.sol",
   "ast": {
     "absolutePath": "project:/contracts/interfaces/iStoreIOUs.sol",
     "exportedSymbols": {
@@ -2751,8 +2751,8 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-20T07:35:31.346Z",
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-02-20T10:17:06.208Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},
