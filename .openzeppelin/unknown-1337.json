@@ -1,8 +1,8 @@
 {
   "manifestVersion": "3.2",
   "admin": {
-    "address": "0x017F3f2EB0c55DDF49B95ad38Cd2737ACf64AB4d",
-    "txHash": "0x986a1a7bb0805936f6727076a8cf2926e02806aa5c3fd5f8c84bb77dd969e17b"
+    "address": "0x7C7698593eb574535ef5F89e7541A9FC2CfF9B37",
+    "txHash": "0x6a8da1fc47443a7b246b54ec6ae163e9d8c5f88a7340f7439610fbb8102bb525"
   },
   "proxies": [
     {
@@ -28,6 +28,26 @@
     {
       "address": "0xAEf45c9A84643be802b48b84D112595a7301c2D1",
       "txHash": "0x3509a4a3c9d7813c743170af8e68a771224231e3d720d983d6babf6be81ade65",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB6F469a8930dd5111c0EA76571c7E86298A171f7",
+      "txHash": "0x7d8e00736185da63ada972e129423fa939e1356df464fc8c147044dc12b6b73f",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xB0fCB7a7b8c1f936254DB0AA48F27e724Be01e86",
+      "txHash": "0xe969bcf61d7a2cb38fd95f7a5b0e3cbc92a68214c2710496ec15c2a0953369b0",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xF855fe5f00d82d58Fd6bf31A882B281A461A077E",
+      "txHash": "0xacf9ce0a9cf1b8e9e69a8f963cdad41824a43075b01ce41ffe447077bbdd2152",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x283C31A85980233764997390BD32377eE7170CF4",
+      "txHash": "0xaa6bc40ecd249924b344ed21f0f6a45b2593e5b2dfcd634542fdfc942b099503",
       "kind": "transparent"
     }
   ],
@@ -209,8 +229,8 @@
       }
     },
     "6818d54ecd87ca8cb81543178fa561e3792a019bbf3958afa156244cde0b0275": {
-      "address": "0x9e5E2d209869eC8D6AaDcb31A0fE181c71eBf0ef",
-      "txHash": "0x75b549f22271831a7559865acfe2a95a9a7847257a20b883edc941ba5c41c561",
+      "address": "0xCa551016676D0d88A2edeaF3E9Cb9cB2205F3f86",
+      "txHash": "0xc81591c441f4cfb75022e2445bda0387edb02c92c546dbe7ae8eb324e5774061",
       "layout": {
         "storage": [
           {
@@ -288,7 +308,7 @@
           {
             "contract": "StoreIOUData",
             "label": "posIOU",
-            "type": "t_mapping(t_address,t_struct(geoIOU)4432_storage)",
+            "type": "t_mapping(t_address,t_struct(geoIOU)3527_storage)",
             "src": "../project:/contracts/StoreIOUData.sol:36"
           },
           {
@@ -362,10 +382,10 @@
           "t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_mapping(t_string_memory_ptr,t_array(t_address)dyn_storage))))": {
             "label": "mapping(string => mapping(string => mapping(string => mapping(string => address[]))))"
           },
-          "t_mapping(t_address,t_struct(geoIOU)4432_storage)": {
+          "t_mapping(t_address,t_struct(geoIOU)3527_storage)": {
             "label": "mapping(address => struct iStoreIOUs.geoIOU)"
           },
-          "t_struct(geoIOU)4432_storage": {
+          "t_struct(geoIOU)3527_storage": {
             "label": "struct iStoreIOUs.geoIOU",
             "members": [
               {

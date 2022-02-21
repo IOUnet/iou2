@@ -47,6 +47,7 @@ module.exports = {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
+     // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache  -p 8555 -e 1000
     },
     // Another network with more advanced options...
     // advanced: {
@@ -77,7 +78,8 @@ module.exports = {
     mumbai: {
       provider: () => new HDWalletProvider({
           privateKeys: ["622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd"], 
-          providerOrUrl: `https://rpc-mumbai.maticvigil.com/`}),
+          // 0x132e2c063960e14eE62EC2dAC6AbA6bA4BB68552
+          providerOrUrl: `https://polygon-mumbai.infura.io/v3/e48719b96ea6487b974b72a871e5aa48`}),
           network_id: 80001
       // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       },
@@ -87,7 +89,7 @@ module.exports = {
         // https://ropsten.infura.io/v3/3362483b5eab409ea69e99f99aefd67a", // Endpoint of an node to connect to. Can be on localhost or on the internet
         // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       }),
-      network_id: 137,       // Ropsten's id
+      network_id: "*",       // Ropsten's id
      // gas: 5500000,        // Ropsten has a lower block limit than mainnet
       //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
       //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
