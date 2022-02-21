@@ -210,4 +210,12 @@ contract ProxyIOU   is IOUData /*,TransparentUpgradeableProxy */  {
 
     }
 
+    function name() public view override returns (string memory) {
+        return _name;
+    }
+
+    function symbol() public view override returns (string memory) {
+        return _symbol;
+    }
+
 }

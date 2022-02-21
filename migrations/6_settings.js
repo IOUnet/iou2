@@ -27,7 +27,7 @@ const setStoreAddress = async () => {
     //await storeInstance.setFactory(makeiouInstance.address)
 
 
-    var Curaddresses = require ("../addresses.json");
+  /*   var Curaddresses = require ("../addresses.json");
     const networkId = await web3.eth.net.getId();     
     Curaddresses[networkId].MakeIOU = makeiouInstance.address
     Curaddresses[networkId].ProxyIOU =proxyIOUinstance.address
@@ -38,7 +38,7 @@ const setStoreAddress = async () => {
             if (err) {
                 console.log(err);
             }
-      });
+      }); */
 }
 
 module.exports = async function (deployer) {
