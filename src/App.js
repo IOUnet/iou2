@@ -1,6 +1,7 @@
 import { ThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
-import React from 'react';
+import React, { useContext, useEffect } from 'react'
+
 import HomePage from './pages/home-page/HomePage';
 import MintSelectTokenPage from './pages/mint-select-token-page/MintSelectTokenPage';
 import MintEditTokenPage from './pages/mint-edit-token-page/MintEditTokenPage';
@@ -28,10 +29,32 @@ import Loading from './components/loading/Loading'
 import CreateIOUProvider from './context/CreateIOUProvider'
 import TokensListProvider from './context/TokensListProvider'
 
+import ChainWebContext from './context/chain/ChainWebContext'
+import ConnectProviderFailure from './components/main/ConnectProviderFailure'
+
+
 const drizzle = new Drizzle(drizzleOptions)
 const { DrizzleProvider } = drizzleReactHooks;
 
 function App() {
+  const {
+    initialization,
+    provider,
+    hasInitialization,
+    isChainConnected,
+  } = useContext(ChainWebContext)
+
+  useEffect(() => {
+    if (hasInitialization) { return }
+    initialization()
+  }, [initialization, hasInitialization])
+
+  let main
+  if (!hasInitialization || !provider) {
+    return ( <ConnectProviderFailure /> )
+  } else {
+    
+  
   return (
     <DrizzleProvider drizzle={drizzle}>
       <Loading>
@@ -39,6 +62,7 @@ function App() {
       <CreateIOUProvider>
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+      
         <Switch>
           <Route component={HomePage} exact path={ROUTES.main} />
           <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
@@ -58,7 +82,9 @@ function App() {
           <Route component={SelectDesiredIOUSwapPage} exact path={ROUTES.selectDesiredIOUSwap} />
           <Route component={SwapSelectDesiredTokenPage} exact path={ROUTES.swapSelectDesiredToken} />
           <Route component={SwapSelectAvailableTokenPage} exact path={ROUTES.swapSelectAvailableToken} />
-          <Redirect to={ROUTES.main} />
+          { (!hasInitialization || !isChainConnected) &&<Redirect to={ROUTES.main} />
+        }
+      
         </Switch>
       </BrowserRouter>
     </ThemeProvider>
@@ -67,6 +93,7 @@ function App() {
     </Loading>
     </DrizzleProvider>
   );
+}
 }
 
 export default App;

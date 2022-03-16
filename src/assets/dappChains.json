@@ -1,0 +1,50 @@
+[
+  {
+    "networkId": "0x89",
+    "chainId": "0x89",
+    "chainName": "Polygon",
+    "nativeCurrency": {
+      "name": "Matic",
+      "symbol": "MATIC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "https://polygon-mainnet.infura.io/v3/42562fc1754d4557a37d54da6d89a313"
+    ],
+    "blockExplorerUrls": [
+      "https://polygonscan.com/"
+    ]
+  },
+  {
+    "chainId": "0x539",
+    "chainName": "Ganache",
+    "nativeCurrency": {
+      "name": "Matic",
+      "symbol": "MATIC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "http://127.0.0.1:8545"
+    ],
+    "blockExplorerUrls": [
+      "https://polygonscan.com/"
+    ]
+  },
+  {
+    "chainName": "Ethereum Mainnet",
+    "chainId": "0x1",
+    "networkId": 1,
+    "icon": "ethereum",
+    "rpc": [
+      "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
+    ],
+    "nativeCurrency": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "blockExplorerUrls": [
+      "https://etherscan.io"
+    ]
+  }
+]
