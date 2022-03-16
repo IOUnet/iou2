@@ -671,7 +671,7 @@
   "sourceMap": "66:352:8:-:0;;;90:33;;;-1:-1:-1;;;;;;90:33:8;113:10;90:33;;;66:352;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "66:352:8:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;127:36;;;;;;;;;160:25:15;;;148:2;133:18;127:36:8;;;;;;;;90:33;;;;;-1:-1:-1;;;;;90:33:8;;;;;;-1:-1:-1;;;;;360:32:15;;;342:51;;330:2;315:18;90:33:8;196:203:15;313:103:8;;;;;;:::i;:::-;;:::i;:::-;;;225:5;;-1:-1:-1;;;;;225:5:8;211:10;:19;196:101;;;;-1:-1:-1;;;196:101:8;;791:2:15;196:101:8;;;773:21:15;830:2;810:18;;;803:30;869:34;849:18;;;842:62;-1:-1:-1;;;920:18:15;;;913:49;979:19;;196:101:8;;;;;;;;375:24:::1;:36:::0;313:103::o;404:180:15:-;463:6;516:2;504:9;495:7;491:23;487:32;484:52;;;532:1;529;522:12;484:52;-1:-1:-1;555:23:15;;404:180;-1:-1:-1;404:180:15:o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.22 <0.9.0;\n\ncontract Migrations {\n  address public owner = msg.sender;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    require(\n      msg.sender == owner,\n      \"This function is restricted to the contract's owner\"\n    );\n    _;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "/mnt/512-2/dfd/iou2/contracts/Migrations.sol",
+  "sourcePath": "/512-2/dfd/iou2/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -1508,8 +1508,8 @@
       "transactionHash": "0x19093b4df7f2726248de8c19ffe167c8377cb39a6dd331b4ff41c02b08202de6"
     }
   },
-  "schemaVersion": "3.4.4",
-  "updatedAt": "2022-02-23T14:54:34.020Z",
+  "schemaVersion": "3.4.5",
+  "updatedAt": "2022-03-08T14:03:20.182Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
