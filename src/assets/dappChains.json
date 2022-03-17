@@ -49,7 +49,7 @@
     "chainId": "0x1",
     "networkId": 1,
     "icon": "ethereum",
-    "rpc": [
+    "rpcUrls": [
       "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
     ],
     "nativeCurrency": {
@@ -59,6 +59,54 @@
     },
     "blockExplorerUrls": [
       "https://etherscan.io"
+    ]
+  },
+  "0x61":{
+    "chainName": "Binance Smart Chain Testnet",
+    "rpcUrls": [
+      "https://data-seed-prebsc-1-s1.binance.org:8545",
+      "https://data-seed-prebsc-2-s1.binance.org:8545",
+      "https://data-seed-prebsc-1-s2.binance.org:8545",
+      "https://data-seed-prebsc-2-s2.binance.org:8545",
+      "https://data-seed-prebsc-1-s3.binance.org:8545",
+      "https://data-seed-prebsc-2-s3.binance.org:8545"
+    ],
+
+    "nativeCurrency": {
+      "chainName": "Binance Chain Native Token",
+      "symbol": "tBNB",
+      "decimals": 18
+    },
+    "chainId": "0x61",
+    "blockExplorerUrls": [
+    "https://testnet.bscscan.com"
+    ]
+  },
+  "0x38":{
+    "chainName": "Binance Smart Chain Mainnet",
+    "rpcUrls": [
+      "https://bsc-dataseed1.binance.org",
+      "https://bsc-dataseed2.binance.org",
+      "https://bsc-dataseed3.binance.org",
+      "https://bsc-dataseed4.binance.org",
+      "https://bsc-dataseed1.defibit.io",
+      "https://bsc-dataseed2.defibit.io",
+      "https://bsc-dataseed3.defibit.io",
+      "https://bsc-dataseed4.defibit.io",
+      "https://bsc-dataseed1.ninicoin.io",
+      "https://bsc-dataseed2.ninicoin.io",
+      "https://bsc-dataseed3.ninicoin.io",
+      "https://bsc-dataseed4.ninicoin.io",
+      "wss://bsc-ws-node.nariox.org"
+    ],
+    "nativeCurrency": {
+      "name": "Binance Chain Native Token",
+      "symbol": "BNB",
+      "decimals": 18
+    },
+    "chainId": "0x38",
+    "blockExplorerUrls": [
+       "https://bscscan.com"
     ]
   }
 }

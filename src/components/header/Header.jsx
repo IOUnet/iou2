@@ -56,6 +56,11 @@ const Header = ({ classes }) => {
               IOU dApp 
           </Typography>
         </Link>
+        <Link  href ="https://testnet.binance.org/faucet-smart" target = "_blank">
+          <Typography component="h2" className={classes.title} style={{color:"yellow"}}>
+              -== This dApp works on BSC TESTNET! Press to get TEST BNBs! ==-
+          </Typography>
+        </Link>
         <Typography className={classes.text}>
         {`IOUs issued:  ${tokens}`}
         {`, with ${keywords} keywords`} 
