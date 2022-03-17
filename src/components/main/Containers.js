@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { Button as MUIButton, withStyles } from '@material-ui/core';
+
 
 export const CardContainer = styled.div`
   flex-shrink: 0;
@@ -19,14 +21,11 @@ export const CardContainer = styled.div`
 `
 
 export const NotificationContainer = styled.div`
-  margin-top: ${props => props.theme.spacing(2)};
+
   min-width: 280px;
   width: 100%;
   max-width: 400px;
   font-size: 1.2rem;
-  background: ${props => props.theme.palette.background.main};
-  border-radius: ${props => props.theme.shape.borderRadius()};
-  border-top: 3px solid ${props => props.theme.palette.color[props.type]};
   animation: fadeIn 0.3s;
 `
 

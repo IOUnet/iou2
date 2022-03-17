@@ -1,5 +1,4 @@
-[
-  {
+ {"0x89": {
     "networkId": "0x89",
     "chainId": "0x89",
     "chainName": "Polygon",
@@ -15,22 +14,37 @@
       "https://polygonscan.com/"
     ]
   },
-  {
+  "0x539": {
     "chainId": "0x539",
-    "chainName": "Ganache",
+    "chainName": "Ganache1",
     "nativeCurrency": {
       "name": "Matic",
       "symbol": "MATIC",
       "decimals": 18
     },
     "rpcUrls": [
-      "http://127.0.0.1:8545"
+      "https://localhost:8545"
     ],
     "blockExplorerUrls": [
       "https://polygonscan.com/"
     ]
   },
-  {
+  "0x471": {
+    "chainId": "0x471",
+    "chainName": "Ganache2",
+    "nativeCurrency": {
+      "name": "Matic",
+      "symbol": "MATIC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "https://localhost:8545"
+    ],
+    "blockExplorerUrls": [
+      "https://polygonscan.com/"
+    ]
+  },
+  "0x1":{
     "chainName": "Ethereum Mainnet",
     "chainId": "0x1",
     "networkId": 1,
@@ -47,4 +61,5 @@
       "https://etherscan.io"
     ]
   }
-]
+}
+

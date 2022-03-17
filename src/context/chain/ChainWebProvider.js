@@ -3,6 +3,7 @@ import ChainWebContext from './ChainWebContext'
 import NotificationContext from '../notification/NotificationContext'
 import * as a from '../../api/chain'
 import * as t from '../../assets/translations.json'
+const currchainID = require('../../CurrChain.json').id;
 
 const ChainWebProvider = ({ children }) => {
   const [hasInitialization, setHasInitialization] = useState(false)
@@ -69,7 +70,7 @@ const ChainWebProvider = ({ children }) => {
   const reloadChainData = useCallback(async () => {
     setIsRequest(true)
     try {
-      const { web3 } = provider
+/*       const { web3 } = provider
       const data = await a.loadFullData(web3)
       data.statistics.remainingSupply = data.statistics.totalSupply - data.statistics.raised * data.contract.rate
 
@@ -78,7 +79,7 @@ const ChainWebProvider = ({ children }) => {
       setToken(data.token)
       setChainToken(data.chainToken)
       setStatistics(data.statistics)
-      setBlock(data.block)
+      setBlock(data.block) */
     } catch (error) {
       createNote({ children: t.reloadChainDataError })
       resetChainData()
@@ -205,7 +206,7 @@ const ChainWebProvider = ({ children }) => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
     setHasInitialization(true)
-
+    switchChain(currchainID)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
 
@@ -240,7 +241,9 @@ const ChainWebProvider = ({ children }) => {
   const switchChain = async (chainConfig) => {
     setIsWalletRequest(true)
     try {
-      await a.switchChain(provider.ethereum, chainConfig)
+      const { ethereum, web3 } = await a.detectEthereumProvider()
+
+      await a.switchChain(ethereum, chainConfig)
     } catch (error) {
       createNote({ children: t.switchChainError })
     } finally {

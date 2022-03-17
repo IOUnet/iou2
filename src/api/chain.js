@@ -3,21 +3,16 @@ import tokenImg from '../assets/images/SVET.png'
 import stableImg from '../assets/images/posDai.png'
 import chainMainTokenImg from '../assets/images/polygonMatic.png'
 import * as h from '../helpers/index'
-import contracts from './contracts.json'
+//import contracts from './contracts.json'
 
-export const TOKEN_MAX_SUPPLY = '21 000 000'
-export const TOKEN_CIRCULATING_SUPPLY = '5 000 000'
-export const TOKEN_MARKET_CAP = '100 000'
-export const TOKEN_ADDRESS = '0x434CE605FC30C456c178B5B5842e54fE7C023633'
-export const TOKEN_SYMBOL = 'SVET'
 export const EXPLORER = 'https://etherscan.io/address/'
 
 export const UNISWAP_CHAIN_ID = '0x1'
-// "http://127.0.0.1:8545"
-// "https://svetindex.svetrating.com:8545/"
-// export const DAPP_CHAIN_ID = '0x89'
+
 export const DAPP_CHAIN_ID = '0x539'
 export const CHAIN_UPDATE_DATE_DELAY = 12000 // ms
+
+const chains = require("../assets/dappChains.json")
 
 function detectEthereumProvider({
   mustBeMetaMask = true,
@@ -74,27 +69,27 @@ const switchChain = async (ethereum, chain) => {
   try {
     await ethereum.request({
       method: 'wallet_switchEthereumChain',
-      params: [{ chainId: chain.chainId }],
+      params: [{ chainId: chain }],
     })
+    return
   } catch (switchError) {
     if (switchError.code === 4001) { // user rejected
-      return
+      throw new Error(switchError) 
     }
+    else if (switchError.code === 4902) { // the chain has not been added to MetaMask
+      //throw new Error(switchError)
+      try {
+        await ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [chains[chain]],
+        })
+      } catch (addError) {
+        if (addError.code === 4001) { // user rejected
+          throw new Error(addError)
 
-    if (switchError.code !== 4902) { // the chain has not been added to MetaMask
-      throw new Error(switchError)
-    }
-
-    try {
-      await ethereum.request({
-        method: 'wallet_addEthereumChain',
-        params: [chain],
-      })
-    } catch (addError) {
-      if (addError.code === 4001) { // user rejected
-        return
-      } else {
-        throw new Error(addError)
+        } else {
+          throw new Error(addError)
+        }
       }
     }
   }
@@ -248,7 +243,7 @@ const getBlockData = async (web3) => {
   return (await web3.eth.getBlock('latest'))
 }
 
-const loadFullData = async (web3) => {
+/* const loadFullData = async (web3) => {
   const contractAbi = contracts.SVETCrowdsale.abi
   const contractAddress = contracts.SVETCrowdsale.address
   const tokenAbi = contracts.SVETPoSToken.abi
@@ -272,7 +267,7 @@ const loadFullData = async (web3) => {
     block,
   }
 }
-
+ */
 const loadCurrentData = async (web3, contract, tokenContract, stableContract, address) => {
   const [user, statistics, block] = await Promise.all([
     getUserBalance(web3, contract, tokenContract, stableContract, address),
@@ -291,7 +286,7 @@ export {
   switchChain,
   addTokenToWallet,
 
-  loadFullData,
+  //loadFullData,
   getChainBalance,
   getUserBalance,
   loadCurrentData,

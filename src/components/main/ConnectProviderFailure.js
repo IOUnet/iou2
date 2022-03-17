@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import styled from 'styled-components'
 import ChainWebContext from '../../context/chain/ChainWebContext'
 import { NotificationContainer } from './Containers'
-import { Button } from '../button/Buttons'
+import  Button  from '../button/Button'
 import * as t from '../../assets/translations.json' 
 
 export default function ConnectProviderFailure({ type = 'error' }) {
@@ -32,27 +32,23 @@ export default function ConnectProviderFailure({ type = 'error' }) {
 }
 
 const Title = styled.h3`
-  padding: ${props => props.theme.spacing(1, 1)};
   text-align: left;
   font-weight: 700;
   font-size: 1.25em;
   line-height: 1.25;
-  color: ${props => props.theme.palette.color[props.type]};
+
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `
 const Body = styled.div`
-  padding: ${props => props.theme.spacing(3, 2)};
   text-align: center;
   line-height: 1.6;
 `
 const Anchor = styled.a`
   margin: 0 0.3em;
-  color: ${props => props.theme.palette.text.corporate};
 `
 const Actions = styled.div`
-  padding: ${props => props.theme.spacing(3, 2, 2)};
   display: flex;
   justify-content: center;
 `
