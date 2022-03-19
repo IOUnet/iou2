@@ -6,7 +6,7 @@ const { useDrizzleState } = drizzleReactHooks;
 const Loading = ({children}) => {
     const drizzleStatus = useDrizzleState(state => state.drizzleStatus)
     if (drizzleStatus.initialized === false) {
-        return "Loading....."
+        return "Drizzle Loading....."
     }
     return (
         <>

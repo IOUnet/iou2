@@ -32,7 +32,7 @@ const BuyIOUPage = ({ classes }) => {
 
   const handleBuy = () => {
   //  history.push(ROUTES.exchange);
-    window.location.href = "https://quickswap.exchange/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
+    window.location.href = "https://pancakeswap.finance/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
     
   };
   return (
