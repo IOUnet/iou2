@@ -24,7 +24,7 @@ const ChainWebProvider = ({ children }) => {
   const { createNote } = useContext(NotificationContext)
 
   const handleAccountsChanged = useCallback((accounts) => {
-    console.log('---accountsChanged---') // --------------------------------------------------------------------------------------
+    // console.log('---accountsChanged---') // --------------------------------------------------------------------------------------
     const account = accounts.length ? accounts[0] : ''
     setAccount(account)
   }, [setAccount])
@@ -89,7 +89,7 @@ const ChainWebProvider = ({ children }) => {
   }, [provider, resetChainData, createNote])
 
   const updateCurrentChainData = useCallback(async () => {
-    console.log('--- update chain data ---') // -------------------------------------------------------------------------------------------
+    // console.log('--- update chain data ---') // -------------------------------------------------------------------------------------------
     setIsRequest(true)
 
     const tokenContract = token?.contract
@@ -137,7 +137,7 @@ const ChainWebProvider = ({ children }) => {
   }, [updateCurrentChainData, isChainConnected, chainId, account, contract, token, stable, createNote])
 
   const handleChainChanged = useCallback((chainId) => {
-    console.log('---chainChanged---') //----------------------------------------------------------------------------------
+    // console.log('---chainChanged---') //----------------------------------------------------------------------------------
     setChainId(chainId)
     setIsChainConnected(chainId === a.DAPP_CHAIN_ID)
   }, [])
@@ -151,15 +151,15 @@ const ChainWebProvider = ({ children }) => {
   }, [chainId, reloadChainData, resetChainData])
 
   const handleConnect = useCallback((connectInfo) => {
-    console.log('---connect---', connectInfo)
+    // console.log('---connect---', connectInfo)
   }, [])
 
   const handleDisconnect = useCallback((ProviderRpcError) => {
-    console.log('---disconnect---', ProviderRpcError.error)
+    // console.log('---disconnect---', ProviderRpcError.error)
   }, [])
 
   const handleMessage = useCallback((message) => {
-    console.log('---message---', message)
+    // console.log('---message---', message)
   }, [])
 
   const subscribe = useCallback((chainWeb) => {

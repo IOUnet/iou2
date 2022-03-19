@@ -35,7 +35,7 @@ const BuyIOUSelectPage = ({ classes }) => {
 
 
   const handleSelectIOU = (_, id) => {
-    console.log('cardId ---', id);
+  //  console.log('cardId ---', id);
     if (dataIOUsBuyList != null && dataIOUsBuyList !== undefined) {
       tokenList.setTokenList(dataIOUsBuyList)
       tokenList.setCurrentToken(id)
