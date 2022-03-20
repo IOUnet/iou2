@@ -7,12 +7,12 @@ const Loading = ({children}) => {
     const drizzleStatus = useDrizzleState(state => state.drizzleStatus)
     if (drizzleStatus.initialized === false) {
         return "Drizzle Loading....."
-    }
-    return (
-        <>
-          { children }
-        </>
-    )
+    } else {
+        return (
+            <>
+            { children }
+            </>
+        )}
 }
 
 export default Loading
