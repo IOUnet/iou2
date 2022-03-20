@@ -12,6 +12,14 @@ const styles = (theme) =>
       '& > * + *': {
         marginTop: theme.spacing(4),
       },
+      radio: {
+        '&$checked': {
+          color: '#455EAB'
+        },
+        '& secondary': {
+          color: '#455EAB'
+        }
+      },
     },
     textField_green: {
       '& label.Mui-focused': {
@@ -37,6 +45,35 @@ const styles = (theme) =>
     actionSection: {
       marginTop: 'auto',
       padding: theme.spacing(2, 2),
+    },
+    selectSection: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      padding: theme.spacing(1, 2),
+      '& > * + *': {
+        marginLeft: theme.spacing(2),
+      },
+      '& button': {
+        width: theme.spacing(15),
+        paddingTop: theme.spacing(4.125),
+        paddingBottom: theme.spacing(4.125),
+      },
+      radio: {
+        '&$checked': {
+          color: '#455EAB'
+        },
+        '& secondary': {
+          color: '#455EAB'
+        }
+      },
+    },
+    listSection: {
+      padding: theme.spacing(1, 0.5),
+    },
+    radio: {
+      '&$checked': {
+        color: '#455EAB'
+      }
     },
   });
 
