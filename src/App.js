@@ -33,8 +33,6 @@ import ChainWebContext from './context/chain/ChainWebContext'
 import ConnectProviderFailure from './components/main/ConnectProviderFailure'
 
 
-const drizzle = new Drizzle(drizzleOptions)
-const { DrizzleProvider } = drizzleReactHooks;
 
 function App() {
   const {
@@ -45,18 +43,21 @@ function App() {
   } = useContext(ChainWebContext)
 
   useEffect(() => {
-    if (hasInitialization) { 
-      return 
-    }
-    else {
-      initialization()
-    }
+    if (!hasInitialization) { 
+        initialization()
+    } else {
+    console.log ( "dApp initialized.....")
+    return
+  }
   }, [initialization, hasInitialization])
  
   if (!hasInitialization || !provider) {
     return ( <ConnectProviderFailure /> )
-  } else {
-     
+  } else if (hasInitialization) {
+
+    const drizzle = new Drizzle(drizzleOptions)
+    const { DrizzleProvider } = drizzleReactHooks;
+   
   
   return (
     

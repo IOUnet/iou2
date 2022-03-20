@@ -207,7 +207,7 @@ const ChainWebProvider = ({ children }) => {
   const initialization = useCallback(async () => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
-    switchChain(currchainID)
+    await switchChain(currchainID)
     setHasInitialization(true)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
@@ -244,13 +244,13 @@ const ChainWebProvider = ({ children }) => {
     setIsWalletRequest(true)
     try {
       const { ethereum, web3 } = await a.detectEthereumProvider()
-      const currChain = await a.pollCurrentChainId();
+      const currChain = await web3.eth.net.getId();     
       if (currChain !== chainConfig) {
         
         if (window.confirm(chainswitchmessage) ) {
           await a.switchChain(ethereum, chainConfig)
         } else {
-          alert ("Can't continue, sorry")
+          alert ("Can't continue, sorry :(. Please reload page and enable switching to nessesary chain")
         }
       }
     } catch (error) {
@@ -378,15 +378,13 @@ const ChainWebProvider = ({ children }) => {
     getTransactionCost,
     getWithdrawTransactionCost,
   }
- // if (hasInitialization) {
+/*   if (hasInitialization) { */
     return (
       <ChainWebContext.Provider value={value}>
         { children }
       </ChainWebContext.Provider>
     )
- /*  } else {
-    return "dApp initializing....."
-  } */
+
 }
 
 export default ChainWebProvider
