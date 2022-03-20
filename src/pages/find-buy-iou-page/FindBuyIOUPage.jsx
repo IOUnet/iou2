@@ -1,4 +1,4 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, Typography, withStyles, RadioGroup, Radio, FormControlLabel} from '@material-ui/core';
 import React, { useEffect, useCallback, useState, useContext }  from 'react';
 
 import { useHistory } from 'react-router-dom';
@@ -10,16 +10,17 @@ import Button from '../../components/button/Button';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
-
-import { FindInPageOutlined } from '@material-ui/icons';
-import useFindIOU from '../../hooks/useFindIOU';
+import useGetIOUKeys from '../../hooks/useGetIOUKeys'
+// import { FindInPageOutlined } from '@material-ui/icons';
+// import useFindIOU from '../../hooks/useFindIOU';
 
 const FindBuyIOUPage = ({ classes }) => {
   const history = useHistory();
   //const searchIOU = useContext(TokensListContext)
   const tokenList = useContext(TokensListContext)
-
+  const [checked, setChecked] = useState([]);
   const [values, setFormValues] = useState(tokenList.values) 
+  
  // const [searchLocation, setsearchLocation] = useState();
   var searchLocation, searchStreet ;
   //  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
@@ -30,12 +31,12 @@ const FindBuyIOUPage = ({ classes }) => {
   //  findIOU(values);
   };
 
-  const onChangeHandler = useCallback(
+/*   const onChangeHandler = useCallback(
     (e) => {
       setFormValues(values => ({...values, [e.target.id]:e.target.value}))
     }, [],
-  );
-  const onChangeHandlerSet = useCallback(
+  ) */;
+  const onChangeHandler = useCallback(
     (e) => {
     //  values['searchLocation'] = searchLocation;
 //      setFormValues(values);
@@ -44,15 +45,59 @@ const FindBuyIOUPage = ({ classes }) => {
   );
   const checkboxLabelText = 'Search IOUs in location:';
   const checkboxLabelStreet = 'Search IOUs in street:';
+  const dataIOUKeys = useGetIOUKeys()
+  var keywords = [];
+  if (dataIOUKeys !== undefined) { 
+    keywords = dataIOUKeys;
+    
+   } 
+
+  const handleCheck = (e) => {
+    var updatedList = [...checked];
+    if (e.target.checked) {
+      updatedList = [...checked, e.target.value];
+    } else {
+      updatedList.splice(checked.indexOf(e.target.value), 1);
+    }
+    setChecked(updatedList);
+    setFormValues(values => ({...values, ['keyword']:e.target.value}))
+
+  };
+  var isChecked = (item) =>
+  checked.includes(item) ? "checked-item" : "not-checked-item";
 
   return (
     <PageLayout>
-      <Box className={classes.pageTitle}>
-        <PageTitle>Find IOU</PageTitle>
+      <Box className={classes.selectSection}>
+        <PageTitle>Find IOU with keywords:</PageTitle>
+{/*         <Button onClick={showallIOUs}>
+          All IOUs
+        </Button> */}
       </Box>
-
       <Box className={classes.controlsSection}>
-        <TextField
+      <div className="checkList">
+        
+{/*         <div className="list-container">
+ */}        <RadioGroup        
+       /*  aria-labelledby="demo-radio-buttons-group-label" */
+        name="radio-buttons-group">
+          {keywords.map((item, index) => (
+            <div key={index}>
+              <FormControlLabel   
+               id={'keyword'}       
+               name='keyword'
+                value={item} 
+                type="radio" 
+                control={<Radio />}
+                label = {item}
+                onChange={handleCheck} />
+              
+            </div>
+          ))}
+            </RadioGroup>
+        {/* </div> */}
+      </div>
+{/*         <TextField
           className={classes.textField_green}
           id={'keyword'}
           label={'Keyword'}
@@ -62,7 +107,7 @@ const FindBuyIOUPage = ({ classes }) => {
             onChange: (e) => onChangeHandler(e) ,
             value: values.keyword,
           }}
-        />
+        /> */}
 
         <Checkbox
           checked={values.searchLocation}
@@ -71,7 +116,7 @@ const FindBuyIOUPage = ({ classes }) => {
             <Typography className={classes.checkbox_label}>{checkboxLabelText}</Typography>
           }
           name='searchLocation'
-          onChange  = {onChangeHandlerSet}
+          onChange  = {onChangeHandler}
  /*         onClick = {onChangeHandler}
            inputProps ={{
             onClick: (e) => onChangeHandler(e) ,
@@ -117,7 +162,7 @@ const FindBuyIOUPage = ({ classes }) => {
           label={
             <Typography className={classes.checkbox_label}>{checkboxLabelStreet}</Typography>
           }
-          onChange  = {onChangeHandlerSet}
+          onChange  = {onChangeHandler}
                  />}
       {values.searchLocation&&values.searchStreet&&<TextField
           id='street'
@@ -127,12 +172,11 @@ const FindBuyIOUPage = ({ classes }) => {
             onChange: (e) => onChangeHandler(e) ,
             value: values.street,
           }}
-    />}
-      <Box className={classes.actionSection}>
+    />} <hr />
         <Button onClick={handleFind}>
           find
         </Button>
-      </Box>
+      
     </PageLayout>
   );
 };
