@@ -3,7 +3,9 @@ import ChainWebContext from './ChainWebContext'
 import NotificationContext from '../notification/NotificationContext'
 import * as a from '../../api/chain'
 import * as t from '../../assets/translations.json'
+const dappChains = require("../../assets/dappChains.json")
 const currchainID = require('../../CurrChain.json').id;
+const  chainswitchmessage = "For starting of dApp let as to switch to "+dappChains[currchainID].chainName +" chain. Press OK for switching:";
 
 const ChainWebProvider = ({ children }) => {
   const [hasInitialization, setHasInitialization] = useState(false)
@@ -22,7 +24,7 @@ const ChainWebProvider = ({ children }) => {
   const [block, setBlock] = useState(null)
 
   const { createNote } = useContext(NotificationContext)
-
+  
   const handleAccountsChanged = useCallback((accounts) => {
     // console.log('---accountsChanged---') // --------------------------------------------------------------------------------------
     const account = accounts.length ? accounts[0] : ''
@@ -30,11 +32,11 @@ const ChainWebProvider = ({ children }) => {
   }, [setAccount])
 
   useEffect(() => {
-    if (!provider || !isChainConnected || !contract || !token || !stable) { return }
+    if (!provider || !isChainConnected ) { return "dApp initializing..... waiting provider, isChainConnected " }
 
     if (!account) {
       setUser(null)
-      return
+      return "dApp initializing..... waiting account "
     }
 
     const getBalance = async () => {
@@ -179,7 +181,7 @@ const ChainWebProvider = ({ children }) => {
   }, [handleAccountsChanged, handleChainChanged, handleConnect, handleDisconnect, handleMessage])
 
   useEffect(() => {
-    if (!provider) { return }
+    if (!provider) { return "dApp initializing..... waiting provider " }
     const { ethereum } = provider
     subscribe(ethereum)
     return () => { unsubscribe(ethereum) }
@@ -198,15 +200,15 @@ const ChainWebProvider = ({ children }) => {
   }, [setIsWalletRequest, handleChainChanged, provider, createNote])
 
   useEffect(() => {
-    if (!provider || !hasInitialization) { return }
+    if (!provider || !hasInitialization) { return "dApp initializing..... waiting provider, hasInitialization " }
     requestCurrentChainId()
   }, [requestCurrentChainId, provider, hasInitialization])
 
   const initialization = useCallback(async () => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
+    await switchChain(currchainID)
     setHasInitialization(true)
-    switchChain(currchainID)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
 
@@ -242,8 +244,15 @@ const ChainWebProvider = ({ children }) => {
     setIsWalletRequest(true)
     try {
       const { ethereum, web3 } = await a.detectEthereumProvider()
-
-      await a.switchChain(ethereum, chainConfig)
+      const currChain = await web3.eth.net.getId();     
+      if (currChain !== chainConfig) {
+        
+        if (window.confirm(chainswitchmessage) ) {
+          await a.switchChain(ethereum, chainConfig)
+        } else {
+          alert ("Can't continue, sorry :(. Please reload page and enable switching to nessesary chain")
+        }
+      }
     } catch (error) {
       createNote({ children: t.switchChainError })
     } finally {
@@ -252,7 +261,7 @@ const ChainWebProvider = ({ children }) => {
   }
 
   const addAssetToMetamask = async () => {
-    if (!token) { return }
+    if (!token) { return "waiting token " }
 
     setIsWalletRequest(true)
 
@@ -369,12 +378,13 @@ const ChainWebProvider = ({ children }) => {
     getTransactionCost,
     getWithdrawTransactionCost,
   }
+/*   if (hasInitialization) { */
+    return (
+      <ChainWebContext.Provider value={value}>
+        { children }
+      </ChainWebContext.Provider>
+    )
 
-  return (
-    <ChainWebContext.Provider value={value}>
-      { children }
-    </ChainWebContext.Provider>
-  )
 }
 
 export default ChainWebProvider

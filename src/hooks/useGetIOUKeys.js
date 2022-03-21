@@ -29,8 +29,10 @@ export default function useGetKeys() {
           if (getIOUsTrx !== undefined) {
             const result = StoreIOUs.getKeystotal[getIOUsTrx]
             if (result !== undefined) {
-                
-                changeIOUKeys(result.value);
+
+                changeIOUKeys(result.value.map((value,key) => {
+                    return drizzle.web3.utils.hexToAscii(value)
+                }));
                     
             }
           }
