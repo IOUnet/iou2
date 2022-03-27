@@ -245,12 +245,13 @@ const ChainWebProvider = ({ children }) => {
     try {
       const { ethereum, web3 } = await a.detectEthereumProvider()
       const currChain = await web3.eth.net.getId();     
-      if (currChain !== chainConfig) {
+      if (currChain !== web3.utils.hexToNumber(chainConfig)) {
         
         if (window.confirm(chainswitchmessage) ) {
           await a.switchChain(ethereum, chainConfig)
         } else {
-          alert ("Can't continue, sorry :(. Please reload page and enable switching to nessesary chain")
+          alert ("Can't continue on this blockchain, sorry :(. We'll  reload page now and you can enable switching to nessesary blockchain")
+
         }
       }
     } catch (error) {
