@@ -31,6 +31,7 @@ import TokensListProvider from './context/TokensListProvider'
 
 import ChainWebContext from './context/chain/ChainWebContext'
 import ConnectProviderFailure from './components/main/ConnectProviderFailure'
+import { CookiesProvider } from 'react-cookie';
 
 
 
@@ -67,28 +68,32 @@ function App() {
             <CreateIOUProvider>
               <ThemeProvider theme={theme}>
                 <BrowserRouter>      
-                  <Switch>
-                    <Route component={HomePage} exact path={ROUTES.main} />
-                    <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
-                    <Route component={EditorIOUPage} exact path={ROUTES.editorIOU} />
-                    <Route component={MintSelectTokenPage} exact path={ROUTES.mintSelectToken} />
-                    <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver} />
-                    <Route component={MakeIOUToken1Page} exact path={ROUTES.makeIOUToken1} />
-                    <Route component={MakeIOUToken2Page} exact path={ROUTES.makeIOUToken2} />
-                    <Route component={PayoffSelectTokenPage} exact path={ROUTES.payoffSelectToken} />
-                    <Route component={PayoffAndFeedbackPage} exact path={ROUTES.payoffAndFeedback} />
-                    <Route component={StakeSelectTokenPage} exact path={ROUTES.stakeSelectToken} />
-                    <Route component={StakeAddPairPage} exact path={ROUTES.stakeAddPair} />
-                    <Route component={StakeAddLiquidityPage} exact path={ROUTES.stakeAddLiquidity} />
-                    <Route component={FindBuyIOUPage} exact path={ROUTES.findBuyIOU} />
-                    <Route component={BuyIOUSelectPage} exact path={ROUTES.buyIOUSelect} />
-                    <Route component={BuyIOUPage} exact path={ROUTES.buyIOU} />
-                    <Route component={SelectDesiredIOUSwapPage} exact path={ROUTES.selectDesiredIOUSwap} />
-                    <Route component={SwapSelectDesiredTokenPage} exact path={ROUTES.swapSelectDesiredToken} />
-                    <Route component={SwapSelectAvailableTokenPage} exact path={ROUTES.swapSelectAvailableToken} />
-                    {/* (!hasInitialization || !provider)&&<ConnectProviderFailure /> */ }
-                    { /* (hasInitialization || isChainConnected) && */}<Redirect to={ROUTES.main} />
-                  </Switch>
+                <CookiesProvider>
+
+                    <Switch>
+                      <Route component={HomePage} exact path={ROUTES.main} />
+                      <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
+                      <Route component={EditorIOUPage} exact path={ROUTES.editorIOU} />
+                      <Route component={MintSelectTokenPage} exact path={ROUTES.mintSelectToken} />
+                      <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver} />
+                      <Route component={MakeIOUToken1Page} exact path={ROUTES.makeIOUToken1} />
+                      <Route component={MakeIOUToken2Page} exact path={ROUTES.makeIOUToken2} />
+                      <Route component={PayoffSelectTokenPage} exact path={ROUTES.payoffSelectToken} />
+                      <Route component={PayoffAndFeedbackPage} exact path={ROUTES.payoffAndFeedback} />
+                      <Route component={StakeSelectTokenPage} exact path={ROUTES.stakeSelectToken} />
+                      <Route component={StakeAddPairPage} exact path={ROUTES.stakeAddPair} />
+                      <Route component={StakeAddLiquidityPage} exact path={ROUTES.stakeAddLiquidity} />
+                      <Route component={FindBuyIOUPage} exact path={ROUTES.findBuyIOU} />
+                      <Route component={BuyIOUSelectPage} exact path={ROUTES.buyIOUSelect} />
+                      <Route component={BuyIOUPage} exact path={ROUTES.buyIOU} />
+                      <Route component={SelectDesiredIOUSwapPage} exact path={ROUTES.selectDesiredIOUSwap} />
+                      <Route component={SwapSelectDesiredTokenPage} exact path={ROUTES.swapSelectDesiredToken} />
+                      <Route component={SwapSelectAvailableTokenPage} exact path={ROUTES.swapSelectAvailableToken} />
+                      {/* (!hasInitialization || !provider)&&<ConnectProviderFailure /> */ }
+                      { /* (hasInitialization || isChainConnected) && */}<Redirect to={ROUTES.main} />
+                    </Switch>
+                  </CookiesProvider>
+
                 </BrowserRouter>
               </ThemeProvider>
             </CreateIOUProvider>

@@ -5,7 +5,6 @@ import chainMainTokenImg from '../assets/images/polygonMatic.png'
 import * as h from '../helpers/index'
 //import contracts from './contracts.json'
 
-export const EXPLORER = 'https://etherscan.io/address/'
 
 export const UNISWAP_CHAIN_ID = '0x1'
 
@@ -156,7 +155,7 @@ const getERC20ContractBalance = async (contract, address) => {
   return (await contract.methods.balanceOf(address).call())
 }
 
-const getFullContractData = async (web3, abi, address) => {
+/* const getFullContractData = async (web3, abi, address) => {
   const contract = new web3.eth.Contract(abi, address)
 
   const [
@@ -202,9 +201,9 @@ const getERC20ContractData = async (web3, abi, address) => {
   ])
 
   return { symbol, decimals, address, contract }
-}
+} */
 
-const getUserBalance = async (web3, contract, tokenContract, stableContract, address) => {
+/* const getUserBalance = async (web3, contract, tokenContract, stableContract, address) => {
   const [
     CSBalance,
     tokenBalance,
@@ -238,7 +237,7 @@ const getStatistics = async (web3, tokenContract, CSContract) => {
     remainingSupply: 0,
   }
 }
-
+ */
 const getBlockData = async (web3) => {
   return (await web3.eth.getBlock('latest'))
 }
@@ -268,7 +267,7 @@ const getBlockData = async (web3) => {
   }
 }
  */
-const loadCurrentData = async (web3, contract, tokenContract, stableContract, address) => {
+/* const loadCurrentData = async (web3, contract, tokenContract, stableContract, address) => {
   const [user, statistics, block] = await Promise.all([
     getUserBalance(web3, contract, tokenContract, stableContract, address),
     getStatistics(web3, tokenContract, contract),
@@ -277,7 +276,7 @@ const loadCurrentData = async (web3, contract, tokenContract, stableContract, ad
 
   return { user, statistics, block }
 }
-
+ */
 export {
   detectEthereumProvider,
   pollWalletConnect,
@@ -288,7 +287,7 @@ export {
 
   //loadFullData,
   getChainBalance,
-  getUserBalance,
-  loadCurrentData,
+  //getUserBalance,
+  //loadCurrentData,
   getBlockData,
 }

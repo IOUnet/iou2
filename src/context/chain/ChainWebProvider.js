@@ -3,35 +3,37 @@ import ChainWebContext from './ChainWebContext'
 import NotificationContext from '../notification/NotificationContext'
 import * as a from '../../api/chain'
 import * as t from '../../assets/translations.json'
+import { useCookies } from 'react-cookie';
+
 const dappChains = require("../../assets/dappChains.json")
-const currchainID = require('../../CurrChain.json').id;
-const  chainswitchmessage = "For starting of dApp let as to switch to "+dappChains[currchainID].chainName +" chain. Press OK for switching:";
 
 const ChainWebProvider = ({ children }) => {
-  const [hasInitialization, setHasInitialization] = useState(false)
-  const [provider, setProvider] = useState(null)
-  const [isRequest, setIsRequest] = useState(false)
-  const [isWalletRequest, setIsWalletRequest] = useState(false)
-  const [chainId, setChainId] = useState('')
-  const [isChainConnected, setIsChainConnected] = useState(false)
-  const [account, setAccount] = useState('')
-  const [stable, setStable] = useState(null)
-  const [token, setToken] = useState(null)
-  const [chainToken, setChainToken] = useState(null)
-  const [contract, setContract] = useState(null)
-  const [user, setUser] = useState(null)
-  const [statistics, setStatistics] = useState(null)
-  const [block, setBlock] = useState(null)
+const [hasInitialization, setHasInitialization] = useState(false)
+const [provider, setProvider] = useState(null)
+const [isRequest, setIsRequest] = useState(false)
+const [isWalletRequest, setIsWalletRequest] = useState(false)
+const [chainId, setChainId] = useState('')
+const [isChainConnected, setIsChainConnected] = useState(false)
+const [account, setAccount] = useState('')
+const [stable, setStable] = useState(null)
+const [token, setToken] = useState(null)
+const [chainToken, setChainToken] = useState(null)
+const [contract, setContract] = useState(null)
+const [user, setUser] = useState(null)
+const [statistics, setStatistics] = useState(null)
+const [block, setBlock] = useState(null)
+const [cookies, setCookie] = useCookies(['currChainId']);
+const currchainID = cookies.currChainId;
 
-  const { createNote } = useContext(NotificationContext)
-  
-  const handleAccountsChanged = useCallback((accounts) => {
+const { createNote } = useContext(NotificationContext)
+
+const handleAccountsChanged = useCallback((accounts) => {
     // console.log('---accountsChanged---') // --------------------------------------------------------------------------------------
     const account = accounts.length ? accounts[0] : ''
     setAccount(account)
   }, [setAccount])
 
-  useEffect(() => {
+useEffect(() => {
     if (!provider || !isChainConnected ) { return "dApp initializing..... waiting provider, isChainConnected " }
 
     if (!account) {
@@ -39,7 +41,7 @@ const ChainWebProvider = ({ children }) => {
       return "dApp initializing..... waiting account "
     }
 
-    const getBalance = async () => {
+/*     const getBalance = async () => {
       const CSContract = contract?.contract
       const tokenContract = token?.contract
       const stableContract = stable?.contract
@@ -56,17 +58,17 @@ const ChainWebProvider = ({ children }) => {
       }
     }
 
-    getBalance()
+    getBalance() */
   }, [account, contract, token, stable, provider, isChainConnected, createNote])
 
-  const resetChainData = useCallback(() => {
-    setStable(null)
+const resetChainData = useCallback(() => {
+/*     setStable(null)
     setToken(null)
     setChainToken(null)
     setContract(null)
     setUser(null)
     setStatistics(null)
-    setBlock(null)
+    setBlock(null) */
   }, [])
 
   const reloadChainData = useCallback(async () => {
@@ -99,7 +101,7 @@ const ChainWebProvider = ({ children }) => {
     const contractContract = contract?.contract
 
     try {
-      const {
+/*       const {
         user,
         statistics,
         block,
@@ -109,7 +111,7 @@ const ChainWebProvider = ({ children }) => {
       statistics.remainingSupply = statistics.totalSupply - statistics.raised * contract.rate
       setUser(user)
       setStatistics(statistics)
-      setBlock(block)
+      setBlock(block) */
     } catch (error) {
       throw new Error(error)
     } finally {
@@ -207,7 +209,13 @@ const ChainWebProvider = ({ children }) => {
   const initialization = useCallback(async () => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
-    await switchChain(currchainID)
+    if (!currchainID === "") {
+      await switchChain(currchainID)
+    } else {
+      const initChain = Object.values(dappChains)[0].chainId;
+      setCookie('currChainId',initChain, { path: '/' });
+      await switchChain(initChain);
+    }
     setHasInitialization(true)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
@@ -246,7 +254,8 @@ const ChainWebProvider = ({ children }) => {
       const { ethereum, web3 } = await a.detectEthereumProvider()
       const currChain = await web3.eth.net.getId();     
       if (currChain !== web3.utils.hexToNumber(chainConfig)) {
-        
+        const  chainswitchmessage = "For starting of dApp let as to switch to "+dappChains[currchainID].chainName +" chain. Press OK for switching:";
+
         if (window.confirm(chainswitchmessage) ) {
           await a.switchChain(ethereum, chainConfig)
         } else {

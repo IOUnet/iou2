@@ -1,4 +1,25 @@
- {"0x89": {
+ { "0x61":{
+  "chainName": "Binance Smart Chain Testnet",
+  "rpcUrls": [
+    "https://data-seed-prebsc-1-s1.binance.org:8545",
+    "https://data-seed-prebsc-2-s1.binance.org:8545",
+    "https://data-seed-prebsc-1-s2.binance.org:8545",
+    "https://data-seed-prebsc-2-s2.binance.org:8545",
+    "https://data-seed-prebsc-1-s3.binance.org:8545",
+    "https://data-seed-prebsc-2-s3.binance.org:8545"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "Binance Chain Native Token",
+    "symbol": "tBNB",
+    "decimals": 18
+  },
+  "chainId": "0x61",
+  "blockExplorerUrls": [
+  "https://testnet.bscscan.com"
+  ]
+  },
+"0x89": {
     "networkId": "0x89",
     "chainId": "0x89",
     "chainName": "Polygon",
@@ -61,27 +82,7 @@
       "https://etherscan.io"
     ]
   },
-  "0x61":{
-    "chainName": "Binance Smart Chain Testnet",
-    "rpcUrls": [
-      "https://data-seed-prebsc-1-s1.binance.org:8545",
-      "https://data-seed-prebsc-2-s1.binance.org:8545",
-      "https://data-seed-prebsc-1-s2.binance.org:8545",
-      "https://data-seed-prebsc-2-s2.binance.org:8545",
-      "https://data-seed-prebsc-1-s3.binance.org:8545",
-      "https://data-seed-prebsc-2-s3.binance.org:8545"
-    ],
-
-    "nativeCurrency": {
-      "chainName": "Binance Chain Native Token",
-      "symbol": "tBNB",
-      "decimals": 18
-    },
-    "chainId": "0x61",
-    "blockExplorerUrls": [
-    "https://testnet.bscscan.com"
-    ]
-  },
+ 
   "0x38":{
     "chainName": "Binance Smart Chain Mainnet",
     "rpcUrls": [
