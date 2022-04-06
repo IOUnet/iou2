@@ -108,6 +108,21 @@
     "blockExplorerUrls": [
        "https://bscscan.com"
     ]
+  },
+  "0xA4EC":{
+    "chainName": "Celo  Forno Ether gate",
+    "rpcUrls": [
+      "https://forno.celo.org"
+    ],
+    "nativeCurrency": {
+      "name": "Celo",
+      "symbol": "CEL",
+      "decimals": 18
+    },
+    "chainId": "0xA4EC",
+    "blockExplorerUrls": [
+       "https://explorer.celo.org/blocks"
+    ]
   }
 }
 

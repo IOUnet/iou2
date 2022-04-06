@@ -21,16 +21,16 @@ contract StoreIOUData {
     address[] public allIssuers; //list all issuers of  IOus
 
     mapping (bytes32 => // keyword
-     mapping (string =>  // (country
-      mapping (string =>  //  state 
-       mapping (string =>  //street
+     mapping (bytes32 =>  // (country
+      mapping (bytes32 =>  //  state 
+       mapping (bytes32 =>  //street
         address[])))) internal  listbyCity_; // (keyword => country =>state =>city) => of IOUs
     
     mapping (bytes32 => // keyword
-     mapping (string =>  // country
-      mapping (string =>  //  state 
-       mapping (string =>  //  city 
-        mapping (string =>  //street
+     mapping (bytes32 =>  // country
+      mapping (bytes32 =>  //  state 
+       mapping (bytes32 =>  //  city 
+        mapping (bytes32 =>  //street
           address[]))))) internal listbyStreet_; // (keyword=>country=> state => city =>street) => IOU 
 
     mapping (address => iStoreIOUs.geoIOU ) posIOU;
@@ -38,5 +38,5 @@ contract StoreIOUData {
 
     address owner;
     //address makeFactory;
-    address  implementIOU;
+    address  implementIOU;    
     }

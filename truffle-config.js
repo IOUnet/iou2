@@ -95,7 +95,7 @@ module.exports = {
       //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
      // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
       // fork from Polygon mainnet, needs start ganache as
-  // rm -r ../ganache_poly && ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://polygon-mainnet.infura.io/v3/753a98a2eb6c4d64918829f47d069440' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_poly  -p 8555 -g 20 -e 1000
+  // rm -r ../ganache_poly && ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become"  -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_poly  -p 8555 -e 1000 -n -f https://forno.celo.org
   
     },
 

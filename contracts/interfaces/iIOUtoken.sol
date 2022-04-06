@@ -4,10 +4,10 @@ pragma experimental ABIEncoderV2;
 interface  iIOUtoken  {
 
     struct geo {
-        string country;
-        string state;
-        string city;
-        string street;
+        bytes32 country;
+        bytes32 state;
+        bytes32 city;
+        bytes32 street;
     }
 
     struct DescriptionIOU {

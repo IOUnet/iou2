@@ -171,10 +171,10 @@ contract IOUtoken is IOUData, iIOUtoken  {
         thisIOU.phone = _phone;
     }
 
-    function editGeo (string calldata _country,
-                    string calldata _state,
-                    string calldata _city,
-                    string calldata _street)  public onlyOwner {
+    function editGeo (bytes32 _country,
+                    bytes32 _state,
+                    bytes32 _city,
+                    bytes32 _street)  public onlyOwner {
         iIOUtoken.geo memory newloc;
         newloc.country = _country;
         newloc.state = _state;

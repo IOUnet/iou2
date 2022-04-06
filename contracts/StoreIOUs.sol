@@ -192,17 +192,17 @@ contract StoreIOUs is StoreIOUData,  iStoreIOUs {
     }
 
     function getIOUsbyCity(bytes32 _key,
-                            string memory _country,
-                            string memory _state,
-                            string memory _city) public  view returns (address[] memory) {
+                            bytes32 _country,
+                            bytes32 _state,
+                            bytes32 _city) public  view returns (address[] memory) {
         return listbyCity_  [_key][_country][_state][_city];
             }
 
     function getIOUsbyStreet (bytes32 _key,
-                        string memory _country,
-                        string memory _state,
-                        string memory _city,
-                        string memory _street) public view returns (address[] memory) {
+                        bytes32 _country,
+                        bytes32 _state,
+                        bytes32 _city,
+                        bytes32 _street) public view returns (address[] memory) {
         return listbyStreet_[_key][_country][_state][_city][_street];
                 }
     function implIOU() external view returns (address) {
