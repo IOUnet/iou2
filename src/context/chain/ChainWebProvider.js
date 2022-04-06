@@ -23,7 +23,6 @@ const [user, setUser] = useState(null)
 const [statistics, setStatistics] = useState(null)
 const [block, setBlock] = useState(null)
 const [cookies, setCookie] = useCookies(['currChainId']);
-const currchainID = cookies.currChainId;
 
 const { createNote } = useContext(NotificationContext)
 
@@ -140,10 +139,17 @@ const resetChainData = useCallback(() => {
     return () => clearTimeout(timer)
   }, [updateCurrentChainData, isChainConnected, chainId, account, contract, token, stable, createNote])
 
-  const handleChainChanged = useCallback((chainId) => {
-    // console.log('---chainChanged---') //----------------------------------------------------------------------------------
+  const handleChainChanged = useCallback(async () => {
+    // console.log('---chainChanged---') //
+    const { ethereum, web3 } = await a.detectEthereumProvider()
+
+    const chainId = await a.pollCurrentChainId(ethereum)
+
     setChainId(chainId)
+    setCookie('currChainId', chainId, { path: '/' });
+    await switchChain(chainId)
     setIsChainConnected(chainId === a.DAPP_CHAIN_ID)
+    //window.location.reload();
   }, [])
 
   useEffect(() => {
@@ -193,7 +199,7 @@ const resetChainData = useCallback(() => {
     setIsWalletRequest(true)
     try {
       const chainId = await a.pollCurrentChainId(provider.ethereum)
-      handleChainChanged(chainId)
+      handleChainChanged()
     } catch (error) {
       createNote({ children: t.requestCurrentChainIdError })
     } finally {
@@ -209,13 +215,14 @@ const resetChainData = useCallback(() => {
   const initialization = useCallback(async () => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
-    if (!currchainID === "") {
-      await switchChain(currchainID)
-    } else {
-      const initChain = Object.values(dappChains)[0].chainId;
-      setCookie('currChainId',initChain, { path: '/' });
-      await switchChain(initChain);
+    var currchainID = cookies.currChainId;
+
+    if (currchainID === "" || !dappChains.hasOwnProperty(currchainID)) {
+      const currchainID = Object.values(dappChains)[0].chainId;
+      setCookie('currChainId',currchainID, { path: '/' });
+      
     }
+    await switchChain(currchainID);
     setHasInitialization(true)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
@@ -253,8 +260,12 @@ const resetChainData = useCallback(() => {
     try {
       const { ethereum, web3 } = await a.detectEthereumProvider()
       const currChain = await web3.eth.net.getId();     
+
       if (currChain !== web3.utils.hexToNumber(chainConfig)) {
-        const  chainswitchmessage = "For starting of dApp let as to switch to "+dappChains[currchainID].chainName +" chain. Press OK for switching:";
+        if (!dappChains.hasOwnProperty(chainConfig)) {
+          chainConfig = dappChains[0].chainId
+        }
+        const  chainswitchmessage = "For starting of dApp let us to switch to "+dappChains[chainConfig].chainName +" chain. Press OK for switching:";
 
         if (window.confirm(chainswitchmessage) ) {
           await a.switchChain(ethereum, chainConfig)

@@ -16,6 +16,7 @@ import React, { useState, forwardRef, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import styles from './styles';
+import ChainWebContext from '../../context/chain/ChainWebContext'
 
 import { Box } from '@material-ui/core';
 import useGetIOUs from '../../hooks/useGetIOUstat'
@@ -26,7 +27,6 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import { useCookies } from 'react-cookie';
 import * as a from '../../api/chain'
-
 
 const LinkBehavior = forwardRef((props, ref) => (
   <RouterLink ref={ref} to={ROUTES.main} {...props} />
@@ -46,6 +46,8 @@ const Header = ({ classes }) => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     await a.switchChain(ethereum, e.value)
     setCookie('currChainId', e.value, { path: '/' });
+    window.location.reload();
+ 
   }
   var tokens,keywords, issuers;
   if (dataIOUsList != undefined) { 
@@ -78,7 +80,7 @@ const Header = ({ classes }) => {
               IOU dApp 
           </Typography>
         </Link>
-        <Dropdown options={options} onChange={onSelect} value={"Select chain"} placeholder="Select an option" />;
+        <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />
         <Link  href ="https://testnet.binance.org/faucet-smart" target = "_blank">
           <Typography component="h2" className={classes.title} style={{color:"yellow"}}>
                &gt;&gt; Click here to TEST BNBs tokens for testing! &lt;&lt; <br /> -== This dApp works on BSC TESTNET, NO real money sends! ==-
