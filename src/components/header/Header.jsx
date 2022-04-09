@@ -5,13 +5,14 @@ import {
   Toolbar,
   Typography,
   withStyles,
+  dropDown
 } from '@material-ui/core';
-import clsx from 'clsx';
+/* import clsx from 'clsx';
 import StarIcon from '@material-ui/icons/Star';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ShareIcon from '@material-ui/icons/Share';
-import CloseIcon from '@material-ui/icons/Close';
-import React, { useState, forwardRef } from 'react';
+import CloseIcon from '@material-ui/icons/Close'; */
+import React, { useState, forwardRef, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import styles from './styles';
@@ -21,7 +22,10 @@ import useGetIOUs from '../../hooks/useGetIOUstat'
 import useGetIssuers from '../../hooks/useGetIssuersStat'
 import useGetIOUKeys from '../../hooks/useGetIOUKeys'
 
-
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
+import { useCookies } from 'react-cookie';
+import * as a from '../../api/chain'
 
 const LinkBehavior = forwardRef((props, ref) => (
   <RouterLink ref={ref} to={ROUTES.main} {...props} />
@@ -33,7 +37,19 @@ const Header = ({ classes }) => {
   const dataIOUsList = useGetIOUs()
   const dataIssuers = useGetIssuers()
   const dataIOUKeys = useGetIOUKeys()
-  
+  const dappChains = require("../../assets/dappChains.json") 
+  const [cookies, setCookie] = useCookies(['currChainId']);
+  // const [chainId] =useContext(ChainWebContext)
+  const dappStaff = require("../../assets/dappStaff.json")
+
+  async function onSelect (e){
+    
+    const { ethereum, web3 } = await a.detectEthereumProvider()
+    await a.switchChain(ethereum, e.value)
+    setCookie('currChainId', e.value, { path: '/' });
+    window.location.reload();
+ 
+  }
   var tokens,keywords, issuers;
   if (dataIOUsList != undefined) { 
    tokens = dataIOUsList;
@@ -48,6 +64,15 @@ const Header = ({ classes }) => {
     issuers = dataIssuers;
     
    } 
+   var options=[];
+   for (const i  in dappChains){
+      // value = dappChains[i].chainId;
+      // label = dappChains[i].chainName;
+      options.push({
+        value: dappChains[i].chainId,
+        label: dappChains[i].chainName
+      })
+   }
   return (
     <AppBar className={classes.root} position="static">
       <Toolbar className={classes.toolbar}>
@@ -56,11 +81,13 @@ const Header = ({ classes }) => {
               IOU dApp 
           </Typography>
         </Link>
-        <Link  href ="https://testnet.binance.org/faucet-smart" target = "_blank">
+        <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />
+        {(dappStaff[cookies.currChainId].faucet !== "")&&
+        <Link  href ={dappStaff[cookies.currChainId].faucet} target = "_blank">
           <Typography component="h2" className={classes.title} style={{color:"yellow"}}>
-               &gt;&gt; Click here to TEST BNBs tokens for testing! &lt;&lt; <br /> -== This dApp works on BSC TESTNET, NO real money sends! ==-
+               &gt;&gt; Click here to get  {dappChains[cookies.currChainId].nativeCurrency.symbol} tokens for testing! &lt;&lt; <br /> -== This works on {dappChains[cookies.currChainId].chainName} ==-
           </Typography>
-        </Link>
+        </Link>}
         <Typography className={classes.text}>
         {`IOUs issued:  ${tokens}`}
         {`, with ${keywords} keywords`} 

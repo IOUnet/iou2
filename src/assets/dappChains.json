@@ -1,112 +1,39 @@
- {"0x89": {
-    "networkId": "0x89",
-    "chainId": "0x89",
-    "chainName": "Polygon",
-    "nativeCurrency": {
-      "name": "Matic",
-      "symbol": "MATIC",
-      "decimals": 18
-    },
-    "rpcUrls": [
-      "https://polygon-mainnet.infura.io/v3/42562fc1754d4557a37d54da6d89a313"
-    ],
-    "blockExplorerUrls": [
-      "https://polygonscan.com/"
-    ]
-  },
-  "0x539": {
-    "chainId": "0x539",
-    "chainName": "Ganache1",
-    "nativeCurrency": {
-      "name": "Matic",
-      "symbol": "MATIC",
-      "decimals": 18
-    },
-    "rpcUrls": [
-      "https://localhost:8545"
-    ],
-    "blockExplorerUrls": [
-      "https://polygonscan.com/"
-    ]
-  },
-  "0x471": {
-    "chainId": "0x471",
-    "chainName": "Ganache2",
-    "nativeCurrency": {
-      "name": "Matic",
-      "symbol": "MATIC",
-      "decimals": 18
-    },
-    "rpcUrls": [
-      "https://localhost:8545"
-    ],
-    "blockExplorerUrls": [
-      "https://polygonscan.com/"
-    ]
-  },
-  "0x1":{
-    "chainName": "Ethereum Mainnet",
-    "chainId": "0x1",
-    "networkId": 1,
-    "icon": "ethereum",
-    "rpcUrls": [
-      "https://mainnet.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161"
-    ],
-    "nativeCurrency": {
-      "name": "Ether",
-      "symbol": "ETH",
-      "decimals": 18
-    },
-    "blockExplorerUrls": [
-      "https://etherscan.io"
-    ]
-  },
+ { 
   "0x61":{
-    "chainName": "Binance Smart Chain Testnet",
-    "rpcUrls": [
-      "https://data-seed-prebsc-1-s1.binance.org:8545",
-      "https://data-seed-prebsc-2-s1.binance.org:8545",
-      "https://data-seed-prebsc-1-s2.binance.org:8545",
-      "https://data-seed-prebsc-2-s2.binance.org:8545",
-      "https://data-seed-prebsc-1-s3.binance.org:8545",
-      "https://data-seed-prebsc-2-s3.binance.org:8545"
-    ],
+  "chainName": "Binance Smart Chain Testnet",
+  "rpcUrls": [
+    "https://data-seed-prebsc-1-s1.binance.org:8545",
+    "https://data-seed-prebsc-2-s1.binance.org:8545",
+    "https://data-seed-prebsc-1-s2.binance.org:8545",
+    "https://data-seed-prebsc-2-s2.binance.org:8545",
+    "https://data-seed-prebsc-1-s3.binance.org:8545",
+    "https://data-seed-prebsc-2-s3.binance.org:8545"
+  ],
 
-    "nativeCurrency": {
-      "chainName": "Binance Chain Native Token",
-      "symbol": "tBNB",
-      "decimals": 18
-    },
-    "chainId": "0x61",
-    "blockExplorerUrls": [
-    "https://testnet.bscscan.com"
-    ]
+  "nativeCurrency": {
+    "chainName": "Binance Chain Native Token",
+    "symbol": "tBNB",
+    "decimals": 18
   },
-  "0x38":{
-    "chainName": "Binance Smart Chain Mainnet",
-    "rpcUrls": [
-      "https://bsc-dataseed1.binance.org",
-      "https://bsc-dataseed2.binance.org",
-      "https://bsc-dataseed3.binance.org",
-      "https://bsc-dataseed4.binance.org",
-      "https://bsc-dataseed1.defibit.io",
-      "https://bsc-dataseed2.defibit.io",
-      "https://bsc-dataseed3.defibit.io",
-      "https://bsc-dataseed4.defibit.io",
-      "https://bsc-dataseed1.ninicoin.io",
-      "https://bsc-dataseed2.ninicoin.io",
-      "https://bsc-dataseed3.ninicoin.io",
-      "https://bsc-dataseed4.ninicoin.io",
-      "wss://bsc-ws-node.nariox.org"
-    ],
+  "chainId": "0x61",
+  "blockExplorerUrls": [
+  "https://testnet.bscscan.com"
+  ]
+  },
+  "0x13881": {
+    "chainName": "Mumbai Polygon testnet",
+    "chainId": "0x13881",
     "nativeCurrency": {
-      "name": "Binance Chain Native Token",
-      "symbol": "BNB",
+      "chainName": "Mumbai Polygon testnet",
+      "name": "Mumbai Matic",
+      "symbol": "MUMAT",
       "decimals": 18
     },
-    "chainId": "0x38",
+    "rpcUrls": [
+      "https://polygon-mumbai.infura.io/v3/e48719b96ea6487b974b72a871e5aa48"
+    ],
     "blockExplorerUrls": [
-       "https://bscscan.com"
+      "https://polygonscan.com/"
     ]
   }
 }
