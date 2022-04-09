@@ -1127,7 +1127,7 @@
   "sourceMap": "168:1533:10:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "168:1533:10:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;223:46;;;;;;:::i;:::-;;:::i;:::-;;;-1:-1:-1;;;;;615:32:15;;;597:51;;585:2;570:18;223:46:10;;;;;;;;871:28;;;;;;:::i;:::-;;:::i;:::-;;;990:25:15;;;978:2;963:18;871:28:10;844:177:15;489:41:10;;;;;;:::i;:::-;;;;;;;;;;;;;;979:27;;;;;;:::i;:::-;;:::i;926:23::-;;;;;;:::i;:::-;;:::i;403:53::-;;;;;;:::i;:::-;;:::i;223:46::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;223:46:10;;-1:-1:-1;223:46:10;;-1:-1:-1;223:46:10:o;871:28::-;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;871:28:10;:::o;979:27::-;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;;;;979:27:10;;-1:-1:-1;979:27:10;:::o;926:23::-;;;;;;;;;;;;403:53;;;;;;;;;;;;;;;;;;;;14:173:15;82:20;;-1:-1:-1;;;;;131:31:15;;121:42;;111:70;;177:1;174;167:12;111:70;14:173;;;:::o;192:254::-;260:6;268;321:2;309:9;300:7;296:23;292:32;289:52;;;337:1;334;327:12;289:52;360:29;379:9;360:29;:::i;:::-;350:39;436:2;421:18;;;;408:32;;-1:-1:-1;;;192:254:15:o;659:180::-;718:6;771:2;759:9;750:7;746:23;742:32;739:52;;;787:1;784;777:12;739:52;-1:-1:-1;810:23:15;;659:180;-1:-1:-1;659:180:15:o;1026:186::-;1085:6;1138:2;1126:9;1117:7;1113:23;1109:32;1106:52;;;1154:1;1151;1144:12;1106:52;1177:29;1196:9;1177:29;:::i;:::-;1167:39;1026:186;-1:-1:-1;;;1026:186:15:o",
   "source": "pragma solidity >=  0.8.0;\npragma experimental ABIEncoderV2;\nimport \"./interfaces/iStoreIOUs.sol\";\nimport \"./interfaces/iIOUtoken.sol\";\nimport \"./Initializable.sol\";\n\n\ncontract StoreIOUData {\n//todo : break this brick \n    mapping (address => address[]) public listIOUs; // list of emitted IOUs from emitent\n    mapping (string => address[])   listIOUsSoc; // list of emitted IOUs by social profile\n    mapping (address => address[]) public listHoldersIOUs; //list of tokens by holder\n    mapping (address => uint256) public isIOU; //security check is token emitted \n    mapping (address => mapping (address => bool)) isHolderthisIOU; //  check list of tokens by holder\n\n    mapping (bytes32 => address[]) listbyKeys; //list of IOUs by keyword\n    mapping (bytes32 => \n     mapping (address => uint256))  keyByList; //reverse index for listbyKeys to editing keywords\n    bytes32[] public allKeywords;  //list all keywords\n    address[] public allIOU; //list all emitted IOus\n    address[] public allIssuers; //list all issuers of  IOus\n\n    mapping (bytes32 => // keyword\n     mapping (string =>  // (country\n      mapping (string =>  //  state \n       mapping (string =>  //street\n        address[])))) internal  listbyCity_; // (keyword => country =>state =>city) => of IOUs\n    \n    mapping (bytes32 => // keyword\n     mapping (string =>  // country\n      mapping (string =>  //  state \n       mapping (string =>  //  city \n        mapping (string =>  //street\n          address[]))))) internal listbyStreet_; // (keyword=>country=> state => city =>street) => IOU \n\n    mapping (address => iStoreIOUs.geoIOU ) posIOU;\n\n\n    address owner;\n    //address makeFactory;\n    address  implementIOU;\n    }",
-  "sourcePath": "/512-2/dfd/iou2/contracts/StoreIOUData.sol",
+  "sourcePath": "/512-2/dfd/iou2-1/contracts/StoreIOUData.sol",
   "ast": {
     "absolutePath": "project:/contracts/StoreIOUData.sol",
     "exportedSymbols": {
@@ -3069,8 +3069,8 @@
     "version": "0.8.10+commit.fc410830.Emscripten.clang"
   },
   "networks": {},
-  "schemaVersion": "3.4.5",
-  "updatedAt": "2022-03-16T06:02:31.801Z",
+  "schemaVersion": "3.4.6",
+  "updatedAt": "2022-04-05T13:26:05.147Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

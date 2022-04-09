@@ -51,6 +51,15 @@ const Header = ({ classes }) => {
  
   }
   var tokens,keywords, issuers;
+
+  if (dappChains[cookies.currChainId] === undefined) {
+    return (
+      <Typography component="h1" className={classes.title} style={{color:"red"}}>
+     Chain {cookies.currChainId} in not configured.
+  </Typography>
+    )
+  }
+
   if (dataIOUsList != undefined) { 
    tokens = dataIOUsList;
    
