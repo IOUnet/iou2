@@ -16,7 +16,6 @@ import React, { useState, forwardRef, useContext } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import styles from './styles';
-import ChainWebContext from '../../context/chain/ChainWebContext'
 
 import { Box } from '@material-ui/core';
 import useGetIOUs from '../../hooks/useGetIOUstat'
@@ -40,6 +39,8 @@ const Header = ({ classes }) => {
   const dataIOUKeys = useGetIOUKeys()
   const dappChains = require("../../assets/dappChains.json") 
   const [cookies, setCookie] = useCookies(['currChainId']);
+  // const [chainId] =useContext(ChainWebContext)
+  const dappStaff = require("../../assets/dappStaff.json")
 
   async function onSelect (e){
     
@@ -81,11 +82,12 @@ const Header = ({ classes }) => {
           </Typography>
         </Link>
         <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />
-        <Link  href ="https://testnet.binance.org/faucet-smart" target = "_blank">
+        {(dappStaff[cookies.currChainId].faucet !== "")&&
+        <Link  href ={dappStaff[cookies.currChainId].faucet} target = "_blank">
           <Typography component="h2" className={classes.title} style={{color:"yellow"}}>
-               &gt;&gt; Click here to TEST BNBs tokens for testing! &lt;&lt; <br /> -== This dApp works on BSC TESTNET, NO real money sends! ==-
+               &gt;&gt; Click here to get  {dappChains[cookies.currChainId].nativeCurrency.symbol} tokens for testing! &lt;&lt; <br /> -== This works on {dappChains[cookies.currChainId].chainName} ==-
           </Typography>
-        </Link>
+        </Link>}
         <Typography className={classes.text}>
         {`IOUs issued:  ${tokens}`}
         {`, with ${keywords} keywords`} 

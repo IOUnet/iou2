@@ -155,128 +155,10 @@ const getERC20ContractBalance = async (contract, address) => {
   return (await contract.methods.balanceOf(address).call())
 }
 
-/* const getFullContractData = async (web3, abi, address) => {
-  const contract = new web3.eth.Contract(abi, address)
-
-  const [
-    addressDAI,
-    addressSVET,
-    rate,
-    openingTime,
-    closingTime,
-    vestingPeriod,
-    minAmountSVETs,
-    maxAmountSVETs,
-  ] = await Promise.all([
-    contract.methods.addressDAI().call(),
-    contract.methods.token().call(),
-    contract.methods.rate().call(),
-    contract.methods.openingTime().call(),
-    contract.methods.closingTime().call(),
-    contract.methods.vestingPeriod().call(),
-    contract.methods.minAmountSVETs().call(),
-    contract.methods.maxAmountSVETs().call(),
-  ])
-
-  return {
-    address,
-    contract,
-    addressDAI,
-    addressSVET,
-    rate,
-    openingTime,
-    closingTime,
-    vestingPeriod,
-    minAmountSVETs: web3.utils.fromWei(minAmountSVETs, 'ether'),
-    maxAmountSVETs: web3.utils.fromWei(maxAmountSVETs, 'ether'),
-  }
-}
-
-const getERC20ContractData = async (web3, abi, address) => {
-  const contract = new web3.eth.Contract(abi, address)
-
-  const [symbol, decimals] = await Promise.all([
-    contract.methods.symbol().call(),
-    contract.methods.decimals().call(),
-  ])
-
-  return { symbol, decimals, address, contract }
-} */
-
-/* const getUserBalance = async (web3, contract, tokenContract, stableContract, address) => {
-  const [
-    CSBalance,
-    tokenBalance,
-    stableBalance,
-    chainTokenBalance,
-    contributions,
-  ] = await Promise.all([
-    contract.methods.balanceOf(address).call(),
-    getERC20ContractBalance(tokenContract, address),
-    getERC20ContractBalance(stableContract, address),
-    getChainBalance(web3, address),
-    contract.methods.contributions(address).call(),
-  ])
-
-  return {
-    CSBalance: web3.utils.fromWei(CSBalance, 'ether'),
-    tokenBalance: web3.utils.fromWei(tokenBalance, 'ether'),
-    stableBalance: web3.utils.fromWei(stableBalance, 'ether'),
-    chainTokenBalance: web3.utils.fromWei(chainTokenBalance, 'ether'),
-    contributions: web3.utils.fromWei(contributions, 'ether'),
-    remainingAllocation: 0,
-  }
-}
-
-const getStatistics = async (web3, tokenContract, CSContract) => {
-  const totalSupply = await tokenContract.methods.totalSupply().call()
-  const weiRaised = await CSContract.methods.weiRaised().call()
-  return {
-    totalSupply: web3.utils.fromWei(totalSupply, 'ether'),
-    raised: web3.utils.fromWei(weiRaised, 'ether'),
-    remainingSupply: 0,
-  }
-}
- */
 const getBlockData = async (web3) => {
   return (await web3.eth.getBlock('latest'))
 }
 
-/* const loadFullData = async (web3) => {
-  const contractAbi = contracts.SVETCrowdsale.abi
-  const contractAddress = contracts.SVETCrowdsale.address
-  const tokenAbi = contracts.SVETPoSToken.abi
-  const stableAbi = contracts.StableToken.abi
-
-  const contractData = await getFullContractData(web3, contractAbi, contractAddress)
-
-  const [stableData, tokenData, block] = await Promise.all([
-    getERC20ContractData(web3, stableAbi, contractData.addressDAI),
-    getERC20ContractData(web3, tokenAbi, contractData.addressSVET),
-    getBlockData(web3),
-  ])
-  const statistics = await getStatistics(web3, tokenData.contract, contractData.contract)
-
-  return {
-    contract: contractData,
-    stable: { ...stableData, img: stableImg },
-    token: { ...tokenData, img: tokenImg },
-    chainToken: { ...(h.getChainToken(DAPP_CHAIN_ID)), img: chainMainTokenImg },
-    statistics,
-    block,
-  }
-}
- */
-/* const loadCurrentData = async (web3, contract, tokenContract, stableContract, address) => {
-  const [user, statistics, block] = await Promise.all([
-    getUserBalance(web3, contract, tokenContract, stableContract, address),
-    getStatistics(web3, tokenContract, contract),
-    getBlockData(web3),
-  ])
-
-  return { user, statistics, block }
-}
- */
 export {
   detectEthereumProvider,
   pollWalletConnect,
@@ -284,10 +166,6 @@ export {
   pollCurrentChainId,
   switchChain,
   addTokenToWallet,
-
-  //loadFullData,
   getChainBalance,
-  //getUserBalance,
-  //loadCurrentData,
   getBlockData,
 }

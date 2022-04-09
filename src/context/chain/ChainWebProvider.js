@@ -17,7 +17,6 @@ const [isChainConnected, setIsChainConnected] = useState(false)
 const [account, setAccount] = useState('')
 const [stable, setStable] = useState(null)
 const [token, setToken] = useState(null)
-const [chainToken, setChainToken] = useState(null)
 const [contract, setContract] = useState(null)
 const [user, setUser] = useState(null)
 const [statistics, setStatistics] = useState(null)
@@ -198,7 +197,7 @@ const resetChainData = useCallback(() => {
   const requestCurrentChainId = useCallback(async () => {
     setIsWalletRequest(true)
     try {
-      const chainId = await a.pollCurrentChainId(provider.ethereum)
+      setChainId(await a.pollCurrentChainId(provider.ethereum))
       handleChainChanged()
     } catch (error) {
       createNote({ children: t.requestCurrentChainIdError })
@@ -224,6 +223,7 @@ const resetChainData = useCallback(() => {
     }
     await switchChain(currchainID);
     setHasInitialization(true)
+    setChainId(currchainID)
     createNote({ children: 'Initialization was successful', type: 'success' }) // example ------------------------------------------
   }, [createNote])
 
@@ -388,7 +388,7 @@ const resetChainData = useCallback(() => {
 
     stable,
     token,
-    chainToken,
+    //chainToken,
     contract,
     user,
     statistics,
