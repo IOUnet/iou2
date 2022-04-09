@@ -25,8 +25,9 @@ const FindBuyIOUPage = ({ classes }) => {
   var searchLocation, searchStreet ;
   //  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
   const handleFind = () => {
-    history.push(ROUTES.buyIOUSelect);
     tokenList.setFormValues(values);
+    history.push(ROUTES.buyIOUSelect);
+    
     
   //  findIOU(values);
   };

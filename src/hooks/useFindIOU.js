@@ -186,7 +186,7 @@ export default function useFindIOU() {
                //         changeIOUList(IOUListObjects)
                     }    
                     
-                }, [changeIOUList,IOUAddreses, drizzle, IOUtoken])
+                }, [ changeIOUList, IOUAddreses, drizzle, ProxyIOU.getIOU])
       
     
 

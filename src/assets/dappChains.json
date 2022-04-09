@@ -1,4 +1,20 @@
- { 
+ {   
+   "0xa4ec":{
+  "chainName": "Celo Forno Ethereum",
+  "rpcUrls": [
+    "https://forno.celo.org"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "Celo Ether",
+    "symbol": "Celo",
+    "decimals": 18
+  },
+  "chainId": "0xA4EC",
+  "blockExplorerUrls": [
+  "https://explorer.celo.org/tx/"
+  ]
+  },
   "0x61":{
   "chainName": "Binance Smart Chain Testnet",
   "rpcUrls": [
