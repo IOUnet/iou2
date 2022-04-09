@@ -90,6 +90,11 @@ const Header = ({ classes }) => {
               IOU dApp 
           </Typography>
         </Link>
+        <Link href = "https://docs.google.com/document/d/1VNJstL27zy1GKNkMgMfoCNiVy89uONcZOIH2dDH2Mqs/edit"  className={classes.mainLink} target = "_blank">
+          <Typography component="h1" className={classes.title}>
+              HOW TO  
+          </Typography>
+        </Link>
         <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />
         {(dappStaff[cookies.currChainId].faucet !== "")&&
         <Link  href ={dappStaff[cookies.currChainId].faucet} target = "_blank">
@@ -102,6 +107,7 @@ const Header = ({ classes }) => {
         {`, with ${keywords} keywords`} 
         {`, issuers in system:  ${issuers}`}
       </Typography>
+
       </Toolbar>
     </AppBar>
   );
