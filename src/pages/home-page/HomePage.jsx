@@ -14,10 +14,10 @@ const HomePage = ({ classes }) => {
   const history = useHistory();
 
   const buttons = [
-    { button: 'make & edit iou', handler: () => history.push(ROUTES.mintEditToken) },
-    { button: 'find & buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
+    { button: 'create & edit iou', handler: () => history.push(ROUTES.mintEditToken) },
+    { button: 'search & buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
 
-    { button: 'give iou', handler: () => history.push(ROUTES.mintSelectToken) },  
+    { button: 'issue iou', handler: () => history.push(ROUTES.mintSelectToken) },  
     { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
    
   /* { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },  ,

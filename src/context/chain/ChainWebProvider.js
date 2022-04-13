@@ -5,7 +5,7 @@ import * as a from '../../api/chain'
 import * as t from '../../assets/translations.json'
 import { useCookies } from 'react-cookie';
 
-const dappChains = require("../../assets/dappChains.json")
+// const dappChains = require("../../assets/dappChains.json")
 
 const ChainWebProvider = ({ children }) => {
 const [hasInitialization, setHasInitialization] = useState(false)
@@ -215,12 +215,13 @@ const resetChainData = useCallback(() => {
     const { ethereum, web3 } = await a.detectEthereumProvider()
     setProvider((ethereum && web3) ? { ethereum, web3 } : null)
     var currchainID = cookies.currChainId;
+/*     const dappChains = require("../../assets/dappChains.json")
 
     if (currchainID === "" || !dappChains.hasOwnProperty(currchainID)) {
-      const currchainID = Object.values(dappChains)[0].chainId;
-      setCookie('currChainId',currchainID, { path: '/' });
+      currchainID = Object.values(dappChains)[0].chainId;
+      setCookie('currChainId',currchainID.toLowerCase(), { path: '/' });
       
-    }
+    } */
     await switchChain(currchainID);
     setHasInitialization(true)
     setChainId(currchainID)
@@ -255,16 +256,22 @@ const resetChainData = useCallback(() => {
     }
   }
 
-  const switchChain = async (chainConfig) => {
+  const switchChain = async (_chainConfig) => {
     setIsWalletRequest(true)
+    var chainConfig
     try {
       const { ethereum, web3 } = await a.detectEthereumProvider()
       const currChain = await web3.eth.net.getId();     
+      const dappChains = require("../../assets/dappChains.json")
+
+      if (!dappChains.hasOwnProperty(_chainConfig)) {
+         chainConfig = Object.values(dappChains)[0].chainId.toLowerCase();
+       } else {
+         chainConfig = _chainConfig;
+       } 
 
       if (currChain !== web3.utils.hexToNumber(chainConfig)) {
-        if (!dappChains.hasOwnProperty(chainConfig)) {
-          chainConfig = dappChains[0].chainId
-        }
+
         const  chainswitchmessage = "For starting of dApp let us to switch to "+dappChains[chainConfig].chainName +" chain. Press OK for switching:";
 
         if (window.confirm(chainswitchmessage) ) {
