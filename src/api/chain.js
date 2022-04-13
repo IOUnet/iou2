@@ -73,6 +73,11 @@ const switchChain = async (ethereum, chain) => {
     return
   } catch (switchError) {
     if (switchError.code === 4001) { // user rejected
+      alert ("Can't automaticvally  switch to "+chains[chain].chainName+" blockchain, sorry. \nFirst check wallet unlocked or you can add and switch manually, add to wallet:  \n Chain Name: "+ chains[chain].chainName + 
+      "\n RPC Urls: " + chains[chain].rpcUrls + 
+      "\n Chain ID: " + chains[chain].chainId +
+      "\n Symbol: " + chains[chain].nativeCurrency.symbol)
+
       throw new Error(switchError) 
     }
     else if (switchError.code === 4902) { // the chain has not been added to MetaMask
@@ -84,7 +89,11 @@ const switchChain = async (ethereum, chain) => {
         })
       } catch (addError) {
         if (addError.code === 4001) { // user rejected
-          throw new Error(addError)
+          alert ("Sorry, can't automatically  add "+chains[chain].chainName+"  blockchain to your wallet. \nYou can add and switch manually, add as new chain to wallet:  \n Chain Name: "+ chains[chain].chainName + 
+          "\n RPC Urls: " + chains[chain].rpcUrls + 
+          "\n Chain ID: " + chains[chain].chainId +
+          "\n Symbol: " + chains[chain].nativeCurrency.symbol );
+              throw new Error(addError)
 
         } else {
           throw new Error(addError)
