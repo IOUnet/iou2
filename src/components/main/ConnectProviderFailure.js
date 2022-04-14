@@ -16,10 +16,16 @@ export default function ConnectProviderFailure({ type = 'error' }) {
         </Title>
 
         <Body>
-          Failed to connect to blockchain provider<br/>
+          <h1> Welcome to IOUVerse</h1> <p>
+          Unfortunately, dApp failed to connect to blockchain provider  in your browser<br/>
+      
           To use our dapp, you need to install<br/>
           a <Anchor target="_blank" rel="noreferrer" href="https://metamask.io/download.html">MetaMask wallet</Anchor>!<br/>
           After installation, reload the page.
+          </p>
+          <p>
+            Also, you can read in Google Docs how to configure your wallet manually <Anchor target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/e/2PACX-1vQcv_ZTJD6-54AMjLLCXQv1LtMSOtLdBzhGXo0aAIDkGljgivZABIMQbJyIOF0c6r1W9w8cNY4ATUoE/pub#h.657r6xhsbgq"> HOWTO Choosing a Blockchain </Anchor>
+          </p>
         </Body>
 
         <Actions>
