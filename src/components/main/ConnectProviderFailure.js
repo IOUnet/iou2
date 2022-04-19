@@ -24,7 +24,7 @@ export default function ConnectProviderFailure({ type = 'error' }) {
           After installation, reload the page.
           </p>
           <p>
-            Also, you can read in Google Docs how to configure your wallet manually <Anchor target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/e/2PACX-1vQcv_ZTJD6-54AMjLLCXQv1LtMSOtLdBzhGXo0aAIDkGljgivZABIMQbJyIOF0c6r1W9w8cNY4ATUoE/pub#h.657r6xhsbgq"> HOWTO Choosing a Blockchain </Anchor>
+            Also, you can read in Google Docs how to configure your wallet manually <Anchor target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/e/2PACX-1vQcv_ZTJD6-54AMjLLCXQv1LtMSOtLdBzhGXo0aAIDkGljgivZABIMQbJyIOF0c6r1W9w8cNY4ATUoE/pub#h.657r6xhsbgq"> HOWTO choose a Blockchain </Anchor>
           </p>
         </Body>
 
