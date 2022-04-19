@@ -1,4 +1,8 @@
- { 
+ {   
+  "0x89":{
+  "exchange": "https://quickswap.exchange/",
+  "faucet": ""
+  },
   "0x61":{
   "exchange": "",
   "faucet": "https://testnet.binance.org/faucet-smart/"
@@ -10,6 +14,10 @@
   "0xa4ec": {
     "exchange": "https://app.ubeswap.org/",
     "faucet": ""
+  }, 
+  "0x539": {
+    "exchange": "https://app.ubeswap.org/",
+    "faucet": "https://faucet.polygon.technology/"
   }
 }
 
