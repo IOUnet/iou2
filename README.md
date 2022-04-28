@@ -1,6 +1,6 @@
 # IOUverse
 
-IOU's team recognizes that ‘tokenized IOUs’, peer to peer transactions on the blockchain can be used to trade value directly for value without fiat currencies  or other centralized mediums of exchange. Every echeleon of society can benefit from trading value directly for value eliminating friction and costs. Because  'people's IOUs' usually aren't subjected to the legacy  financial system's  or other regulations, there are little to no restrictions to use IOUs as p2p settlement instrument.
+IOU's team recognizes that ‘tokenized IOUs’, peer to peer transactions on the blockchain can be used to trade value directly for value without fiat currencies or other centralized mediums of exchange. Every echeleon of society can benefit from trading value directly for value eliminating friction and costs. Because  'people's IOUs' usually aren't subjected to the legacy financial system's  or other regulations, there are little to no restrictions to use IOUs as p2p settlement instrument.
 
 IOU's can be  issued as tokenized promissory notes, by any party, anytime, anywhere and as per agreement be used as payment and the voluntary  exchange of value. Issuers can create their own IOU, tokenized promissory notes, backed by value; goods or services. 
 
@@ -21,3 +21,9 @@ React-components (based on material-ui) to [IOU.loans](https://www.iou.loans/)
 Be sure to write what inspired you, what you learned, how you built your project, and the challenges you faced. 
 
 Full UI plan on [Figma](https://www.figma.com/proto/VNS3WTR1cU54hJFB7YrbAq/IOU?node-id=1%3A145&starting-point-node-id=1%3A145)
+
+# Projects, bases on IOUtoken
+
+- [https://www.IOU.loans ](https://www.IOU.loans )- decentralised community scoring system for unbanked; 
+- [https://www.iou.works](https://www.iou.works) - decentralised portfolios for freelancers;
+- Startucati.one - decentralised student's record book & portfolio & CN (convertible notes) - coming soon.
