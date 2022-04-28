@@ -48,6 +48,7 @@ module.exports = {
      host: "127.0.0.1",     // Localhost (default: none)
      port: 8545,            // Standard Ethereum port (default: none)
      network_id: "*",       // Any network (default: none)
+     gasLimit: 6721975
      // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache  -p 8555 -e 1000
     },
     // Another network with more advanced options...
@@ -140,15 +141,25 @@ module.exports = {
   },
 
   polygon: {  provider: () => new HDWalletProvider({ //Celo Forno
-    privateKeys: [pk["137"]],
-    providerOrUrl: `https://polygon-rpc.com/`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
-  }),
-  network_id: 137,
-  gas: 10000000,
-  networkCheckTimeout: 6000,
-  gasPrice: 40000000000
+      privateKeys: [pk["137"]],
+      providerOrUrl: `https://polygon-rpc.com/`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
+    }),
+    network_id: 137,
+    gas: 10000000,
+    networkCheckTimeout: 6000,
+    gasPrice: 40000000000
   },
-},
+
+  moonriver: {  provider: () => new HDWalletProvider({ //Celo Forno
+      privateKeys: [pk["137"]],
+      providerOrUrl: `https://rpc.api.moonriver.moonbeam.network`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
+    }),
+    network_id: 1285,
+  //  gas: 15000000,
+    networkCheckTimeout: 38000,
+//    gasPrice: 20000000000
+    },
+  },
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
