@@ -1,4 +1,20 @@
- {   
+ {     
+    "0x89":{
+  "chainName": "Polygon",
+  "rpcUrls": [
+    "https://polygon-rpc.com/"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "Polygon MATIC",
+    "symbol": "MATIC",
+    "decimals": 18
+  },
+  "chainId": "0x89",
+  "blockExplorerUrls": [
+  "https://polygonscan.com/"
+  ]
+  },
    "0xa4ec":{
   "chainName": "Celo Forno Ethereum",
   "rpcUrls": [
@@ -10,9 +26,9 @@
     "symbol": "Celo",
     "decimals": 18
   },
-  "chainId": "0xA4EC",
+  "chainId": "0xa4ec",
   "blockExplorerUrls": [
-  "https://explorer.celo.org/tx/"
+  "https://explorer.celo.org/"
   ]
   },
   "0x61":{
@@ -47,6 +63,22 @@
     },
     "rpcUrls": [
       "https://polygon-mumbai.infura.io/v3/e48719b96ea6487b974b72a871e5aa48"
+    ],
+    "blockExplorerUrls": [
+      "https://polygonscan.com/"
+    ]
+  },
+  "0x539": {
+    "chainName": "Localchain ID 1337 for tests",
+    "chainId": "0x539",
+    "nativeCurrency": {
+      "chainName": "Localchain ID 1337 for tests",
+      "name": "Localchain",
+      "symbol": "LOC",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "http://localhost:8545"
     ],
     "blockExplorerUrls": [
       "https://polygonscan.com/"

@@ -24,7 +24,7 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
-const pk = require('../pk.json').pk
+const pk = require('../pk.json')
 
 module.exports = {
   /**
@@ -86,7 +86,9 @@ module.exports = {
       },
     pl: {  provider: () => new HDWalletProvider({ //poligon local fork
         privateKeys: [`b8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329`],
-        providerOrUrl: `http://localhost:8555`,
+        providerOrUrl: `http://localhost:8545`,
+        gasPrice:30e9
+
         // https://ropsten.infura.io/v3/3362483b5eab409ea69e99f99aefd67a", // Endpoint of an node to connect to. Can be on localhost or on the internet
         // https://ropsten.infura.io/v3/753a98a2eb6c4d64918829f47d069440", // Endpoint of an node to connect to. Can be on localhost or on the internet
       }),
@@ -96,7 +98,7 @@ module.exports = {
       //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
      // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
       // fork from Polygon mainnet, needs start ganache as
-  // rm -r ../ganache_poly && ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://polygon-mainnet.infura.io/v3/753a98a2eb6c4d64918829f47d069440' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_poly  -p 8555 -g 20 -e 1000
+  // rm -r ../ganache_poly && ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_poly  -p 8545 -g 20 -e 1000 -i 1337
   
     },
 
@@ -130,11 +132,21 @@ module.exports = {
 
 },
   celoforno: {  provider: () => new HDWalletProvider({ //Celo Forno
-    privateKeys: [pk],
+    privateKeys: [pk["42220"]], //0x11fEc6735eDc07270d9412cb7708776EB0b847FC
     providerOrUrl: `https://forno.celo.org/`,
   }),
   network_id: 42220,
   gas: 4000000
+  },
+
+  polygon: {  provider: () => new HDWalletProvider({ //Celo Forno
+    privateKeys: [pk["137"]],
+    providerOrUrl: `https://polygon-rpc.com/`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
+  }),
+  network_id: 137,
+  gas: 10000000,
+  networkCheckTimeout: 6000,
+  gasPrice: 40000000000
   },
 },
 
