@@ -4,9 +4,9 @@ IOU's team recognizes that ‘tokenized IOUs’, peer to peer transactions on th
 
 IOU's can be  issued as tokenized promissory notes, by any party, anytime, anywhere and as per agreement be used as payment and the voluntary  exchange of value. Issuers can create their own IOU, tokenized promissory notes, backed by value; goods or services. 
 
-IOU yearns to assist the nearly 2 billion unbanked, with about 1 billion of them having insufficient amounts of money to partake in the banking system, and about 700 million living in extreme poverty – defined as living on about $150 USD per day. Trading value for value can lift them some from extreme poverty and bring up their level of living. IOU strives to be a technological tool that improves the life of those excluded from the legacy financial system. 
+To alleviate the double coincidence of wants goods and services are synthetically represented by tokens that store value and can be traded or redeemed in the future. For trades to be made directly with those that may not know each other, issuers of tokens are rated by their counterparties, creating a reputation-based system. Community members can assist others with good reputations by acting as a surety for them guaranteeing larger projects like a performance bond and loans.
 
-To alleviate the double coincidances of wants goods and services are syntheticaly represented by tokens which store value and can be traded or redeemed in the future. For trades to be made direclty with those that may not know each other, issuers of tokens are rated by their counter parties, creating a reputation based system. Community members can assist others with good reputationss by acting as a surety for them guaranting larger projects like a perfomance bond and loans.  
+IOU yearns to assist the nearly 2 billion unbanked, with about 1 billion of them having insufficient amounts of money to partake in the banking system and about 700 million living in extreme poverty – defined as living on about $150 USD per day. Trading value for value can lift them some from extreme poverty and bring up their level of living. IOU strives to be a technological tool that improves the lives of those excluded from the legacy financial system.
 
 The IOU Ecosystem is being developedto include::
 - IOUtoken - ERC20-compatible tokens with feedback and p2p rating functionality,
