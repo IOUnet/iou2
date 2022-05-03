@@ -1,5 +1,21 @@
- {     
-    "0x89":{
+ {    
+"0x505":{
+  "chainName": "MoonRiver",
+  "rpcUrls": [
+    "https://rpc.api.moonriver.moonbeam.network"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "MoonRiver",
+    "symbol": "MOVR",
+    "decimals": 18
+  },
+  "chainId": "1285",
+  "blockExplorerUrls": [
+  "https://moonriver.moonscan.io/"
+  ]
+  },  
+"0x89":{
   "chainName": "Polygon",
   "rpcUrls": [
     "https://polygon-rpc.com/"

@@ -151,7 +151,7 @@ module.exports = {
   },
 
   moonriver: {  provider: () => new HDWalletProvider({ //Celo Forno
-      privateKeys: [pk["137"]],
+      privateKeys: [pk["1285"]],
       providerOrUrl: `https://rpc.api.moonriver.moonbeam.network`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
     }),
     network_id: 1285,
