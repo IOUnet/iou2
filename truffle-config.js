@@ -129,7 +129,7 @@ module.exports = {
  // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
   // fork from Polygon mainnet, needs start ganache as
 // rm -r ../ganache_BSC && 
-// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
+// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://api.s0.b.hmny.io -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HRM  -p 8545 -e 1000
 
 },
   celoforno: {  provider: () => new HDWalletProvider({ //Celo Forno
@@ -158,6 +158,21 @@ module.exports = {
   //  gas: 15000000,
     networkCheckTimeout: 38000,
 //    gasPrice: 20000000000
+    },
+    harmony: {  provider: () => new HDWalletProvider({ //Celo Forno
+      privateKeys: [pk["137"]],
+      providerOrUrl: 'https://api.s0.t.hmny.io', 
+      // providerOrUrl: 'https://harmony-0-rpc.gateway.pokt.network',
+      /////providerOrUrl: 'https://harmony.public-rpc.com',
+     ///  providerOrUrl: 'https://harmony-mainnet.chainstacklabs.com', // https://api.s0.t.hmny.io for mainnet,TEST https://api.s0.b.hmny.io'
+      derivationPath: `m/44'/1023'/0'/0/`,
+    }),
+    network_id: 1666600000, // 1666600000 for mainnet , 1666700000 TEST
+    networkCheckTimeout: 180000,
+
+    // gas: 80000000,
+    // networkCheckTimeout: 38000,
+    // gasPrice: 20000000000
     },
   },
 
