@@ -1,5 +1,38 @@
- {     
-    "0x89":{
+{  
+"0x63564c40":{
+    "chainName": "Harmony",
+    "rpcUrls": [
+      "https://api.s0.t.hmny.io"
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "Harmony",
+      "symbol": "ONE",
+      "decimals": 18
+    },
+    "chainId": "0x63564C40",
+    "blockExplorerUrls": [
+    "https://explorer.harmony.one/"
+    ]
+    },  
+"0x505":{
+  "chainName": "MoonRiver",
+  "rpcUrls": [
+    "https://rpc.api.moonriver.moonbeam.network"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "MoonRiver",
+    "symbol": "MOVR",
+    "decimals": 18
+  },
+  "chainId": "0x505",
+  "blockExplorerUrls": [
+  "https://moonriver.moonscan.io/"
+  ]
+  }, 
+
+"0x89":{
   "chainName": "Polygon",
   "rpcUrls": [
     "https://polygon-rpc.com/"
