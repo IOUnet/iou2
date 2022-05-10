@@ -32,7 +32,6 @@ const MakeIOUToken1Page = (props) => {
     history.push(ROUTES.makeIOUToken2);
     createIOU.setFormValues(values)
   };
-  const styleNonEdit = {color: "red !important;"}
 
   return (
     <PageLayout>
@@ -41,10 +40,9 @@ const MakeIOUToken1Page = (props) => {
       </Box>
 
       <Box className={classes.dataSection}>
-        <Input style={styleNonEdit}
+        <Input 
           id='name'
-
-          label={'ERC20 token name, (12 char) ENTER CAREFULLY! This field can\'t be changed!'}
+          label={'ERC20 token name (12 char) ENTER CAREFULLY! This field can\'t be changed!'}
           name="name"
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
