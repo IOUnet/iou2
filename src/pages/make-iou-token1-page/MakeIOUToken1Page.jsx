@@ -40,9 +40,9 @@ const MakeIOUToken1Page = (props) => {
       </Box>
 
       <Box className={classes.dataSection}>
-        <Input
+        <Input 
           id='name'
-          label={'ERC20 token name (12 char)'}
+          label={'ERC20 token name (12 char) ENTER CAREFULLY! This field can\'t be changed!'}
           name="name"
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -52,7 +52,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='symbol'
-          label={'ERC20 token symbol (4 char)'}
+          label={'ERC20 token symbol (4 char) ENTER CAREFULLY! This field can\'t be changed!'}
           name='symbol'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -62,7 +62,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='username'
-          label={'You name, surname (up to 255 chr)'}
+          label={'You name, surname (up to 255 chr) ENTER CAREFULLY! This field can\'t be changed!'}
           name='username'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -72,7 +72,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='social'
-          label={'Your profile in social networks'}
+          label={'Your profile in social networks ENTER CAREFULLY! This field can\'t be changed!' }
           name='social'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -82,7 +82,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='description'
-          label={'Description for IOU'}
+          label={'Description for IOU (you can change this later)'}
           name='description'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -92,7 +92,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='keywords'
-          label={'Keywords for IOU (max is 5 keys, separated by comma)'}
+          label={'Keywords for IOU (max is 5 keys, separated by comma, you can change this later)'}
           name='keywords'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -102,7 +102,7 @@ const MakeIOUToken1Page = (props) => {
 
         <Input
           id='unit'
-          label={'Unit of measure for your product or service (f.e. hours)'}
+          label={'Unit of measure for your product or service (f.e. hours) ENTER CAREFULLY! This field can\'t be changed!'}
           name='unit'
           inputProps={{
             onChange: (e) => onChangeHandler(e),

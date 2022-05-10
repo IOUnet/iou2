@@ -41,7 +41,7 @@ const MakeIOUToken2Page = ({ classes }) => {
       <Box className={classes.dataSection}>
         <Input
           id='country'
-          label={'Country'}
+          label={'Country (you can change this later)'}
           name='country'
           inputProps ={{
             onChange: (e) => onChangeHandler(e) ,
@@ -51,7 +51,7 @@ const MakeIOUToken2Page = ({ classes }) => {
 
         <Input
           id='state'
-          label={'State/Region'}
+          label={'State/Region (you can change this later)'}
           name='region'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -61,7 +61,7 @@ const MakeIOUToken2Page = ({ classes }) => {
 
         <Input
           id='city'
-          label={'City/Town'}
+          label={'City/Town (you can change this later)'}
           name='city'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -71,7 +71,7 @@ const MakeIOUToken2Page = ({ classes }) => {
 
         <Input
           id='street'
-          label={'Street/Block'}
+          label={'Street/Block (you can change this later)'}
           name='street'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
@@ -81,7 +81,7 @@ const MakeIOUToken2Page = ({ classes }) => {
 
         <Input
           id='phone'
-          label={'Phone'}
+          label={'Phone (you can change this later)'}
           name='phone'
           inputProps={{
             onChange: (e) => onChangeHandler(e) ,
