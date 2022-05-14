@@ -1,6 +1,7 @@
 pragma solidity >=0.4.24 <0.9.0;
 import "./IOUtoken.sol";
-contract Goods2All is IOUtoken {
+import "@openzeppelin/contracts/access/AccessControl.sol";
+contract Goods2All is IOUtoken, AccessControl {
 
 /**uint memberTokenAmount = SUMповсемупериоду (суммаПеревода / количествоУчастников [на_ дату_перевода]) - ужеВыведенноеУчастником
 */
@@ -12,13 +13,20 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
 */
     mapping (address => uint) allgoods ;
     mapping (address => mapping( address => uint)) withdrawed ;
+    mapping (address => bool) isStopped;
     address[] tokenGoods;
+    uint256 tokenNorm;
+
+    function setTokeNorm (uint256 _tokenNorm) public onlyRole("DAO") {
+        tokenNorm = _tokenNorm;
+    }
 
     function addGood (address _token, uint _amount) public {
-        require(_amount > 0, "need amount > 0");
+        require(_amount == tokenNorm, "need amount == tokenNorm");
+        require(!isStopped[msg.sender], "account is stopped by court");
         //TODO - check token is exist IOU
         //todo check proportions in/out?
-
+        //todo add sponsorship (surety ) when creating
         IOUtoken(_token).transferFrom (msg.sender, address(this), _amount);
         if (allgoods[_token] == 0 ) {
             tokenGoods.push(_token);
@@ -40,5 +48,12 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
         withdrawed[_tokengood][msg.sender] += _amount;
     }
 
+    //todo excommunication
+    function stopMembersip (address _who) public onlyRole("COURT") {
+        isStopped[_who] = true;
+    }
 
+    function restoreMembersip (address _who) public onlyRole("COURT") {
+        isStopped[_who] = false;
+    }
 }
