@@ -35,7 +35,12 @@
 "0x89":{
   "chainName": "Polygon",
   "rpcUrls": [
-    "https://polygon-rpc.com/"
+    "https://polygon-rpc.com/",
+    "https://rpc-mainnet.matic.network",
+    "https://matic-mainnet.chainstacklabs.com" ,
+    "https://rpc-mainnet.maticvigil.com" ,
+    "https://rpc-mainnet.matic.quiknode.pro",
+    "https://matic-mainnet-full-rpc.bwarelabs.com"
   ],
 
   "nativeCurrency": {
@@ -95,10 +100,13 @@
       "decimals": 18
     },
     "rpcUrls": [
-      "https://polygon-mumbai.infura.io/v3/e48719b96ea6487b974b72a871e5aa48"
+      "https://rpc-mumbai.matic.today",
+      "https://matic-mumbai.chainstacklabs.com",
+      "https://rpc-mumbai.maticvigil.com",
+      "https://matic-testnet-archive-rpc.bwarelabs.com"
     ],
     "blockExplorerUrls": [
-      "https://polygonscan.com/"
+      "https://mumbai.polygonscan.com/"
     ]
   },
   "0x539": {
