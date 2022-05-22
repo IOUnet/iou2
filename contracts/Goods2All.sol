@@ -5,47 +5,77 @@ contract Goods2All is IOUtoken, AccessControl {
 
 /**uint memberTokenAmount = SUMповсемупериоду (суммаПеревода / количествоУчастников [на_ дату_перевода]) - ужеВыведенноеУчастником
 */
-/* struct Transfer {
-uint sum;
-uint allMembers;
+/* 
 } 
 Transfer[]  transfers ;//[] -   date, 1st of every month
 */
-    mapping (address => uint) allgoods ;
+    struct GoodsTransfer {
+       uint256 amount;
+    //    uint allMembers;
+       uint256  firstTransfer;
+       uint256 lastTransfer;
+        }
+    mapping (address => GoodsTransfer) allgoods ;
     mapping (address => mapping( address => uint)) withdrawed ;
     mapping (address => bool) isStopped;
+    mapping (address => address) ownersOfGoods; 
     address[] tokenGoods;
-    uint256 tokenNorm;
+    uint256 public tokenNorm; // amount of commiting in tokens decimals = 18
+    uint256 public tokenTimeNorm; //period of commniting in secunds
+    uint256 INITTIME; // to fix 1st addition of good (when system started)
 
-    function setTokeNorm (uint256 _tokenNorm) public onlyRole("DAO") {
-        tokenNorm = _tokenNorm;
+    function setTokenNorm (uint256 _tokenNorm, uint256 _tokenTimeNorm) public onlyRole("DAO") {
+        require(_tokenTimeNorm > 0 && _tokenNorm > 0, "needs _tokenTimeNorm > 0 && _tokenNorm > 0");
+        if (tokenNorm != _tokenNorm) tokenNorm = _tokenNorm;
+        if (tokenTimeNorm != _tokenTimeNorm) tokenTimeNorm = _tokenTimeNorm;
     }
 
-    function addGood (address _token, uint _amount) public {
-        require(_amount == tokenNorm, "need amount == tokenNorm");
+    function needTokens (address _token) view public returns(uint256) {
+        // check proportions how much  tokens have to be commited
+        return tokenNorm *  (block.timestamp - allgoods[_token].lastTransfer) / tokenTimeNorm;
+    }
+    function addGood (address _token) public {
+        if (INITTIME ==0 ) INITTIME = block.timestamp;
         require(!isStopped[msg.sender], "account is stopped by court");
+        // todo owner can have several IOUs
         //TODO - check token is exist IOU
-        //todo check proportions in/out?
+
         //todo add sponsorship (surety ) when creating
-        IOUtoken(_token).transferFrom (msg.sender, address(this), _amount);
-        if (allgoods[_token] == 0 ) {
+        require( ownersOfGoods[msg.sender]== address(0x0), "This owner already registered" );
+
+        if (allgoods[_token].amount == 0 ) { //no token here
             tokenGoods.push(_token);
+            allgoods[_token].lastTransfer =  allgoods[_token].firstTransfer =  block.timestamp - tokenTimeNorm;
+            ownersOfGoods[msg.sender]= _token;
         }
-        allgoods [_token] += _amount / tokenGoods.length;
+        uint256 amount = needTokens(_token);
+        allgoods [_token].amount += amount / tokenGoods.length;
+        allgoods[_token].lastTransfer =  block.timestamp;
+                
+        IOUtoken(_token).transferFrom (msg.sender, address(this), amount);
     }
 
     function  checkMyGoods (address _tokengood) public view returns (uint  share) {
-    
-        share = allgoods [_tokengood] - withdrawed[_tokengood][msg.sender] ;
+
+        // how to calculate time of first adding?
+        //  how to balance the dilution dffusion of the shares of old participants with the arrival of new participants?
+         // 1. a new participant onboards, and the shares of the previous ones have automatically decreased proportionally
+         // 2. a new member came and got immediate access to contributions in all projects
+         // ==> calculate, share of time that active in system!
+        share = allgoods [_tokengood].amount * 
+            (block.timestamp - allgoods [_tokengood].firstTransfer ) / 
+            (block.timestamp - INITTIME) - 
+            withdrawed[_tokengood][msg.sender] ;
     
     }
 
-    function withdrawGood (address _tokengood, uint _amount) public {
-        //todo check that  men put goods !!!
-        //todo check proportions in/out?
-        require(checkMyGoods(_tokengood) - _amount > 0, "Not enought amount to withdraw");
-        IOUtoken(_tokengood).transfer(msg.sender, _amount);
-        withdrawed[_tokengood][msg.sender] += _amount;
+    function withdrawGood ( uint _amount) public {
+        //!!!  check that  men put goods early !!!
+        address tokenGood =   ownersOfGoods[msg.sender];
+        
+        require(checkMyGoods(tokenGood) - _amount > 0, "Not enought amount to withdraw");
+        IOUtoken(tokenGood).transfer(msg.sender, _amount);
+        withdrawed[tokenGood][msg.sender] += _amount;
     }
 
     //todo excommunication
