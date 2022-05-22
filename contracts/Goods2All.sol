@@ -49,7 +49,7 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
             ownersOfGoods[msg.sender]= _token;
         }
         uint256 amount = needTokens(_token);
-        allgoods [_token].amount += amount / tokenGoods.length;
+        allgoods [_token].amount += amount ;
         allgoods[_token].lastTransfer =  block.timestamp;
                 
         IOUtoken(_token).transferFrom (msg.sender, address(this), amount);
@@ -62,9 +62,10 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
          // 1. a new participant onboards, and the shares of the previous ones have automatically decreased proportionally
          // 2. a new member came and got immediate access to contributions in all projects
          // ==> calculate, share of time that active in system!
-        share = allgoods [_tokengood].amount * 
+        share = (allgoods [_tokengood].amount * 
             (block.timestamp - allgoods [_tokengood].firstTransfer ) / 
-            (block.timestamp - INITTIME) - 
+            (block.timestamp - INITTIME) /
+            tokenGoods.length) - 
             withdrawed[_tokengood][msg.sender] ;
     
     }
@@ -72,7 +73,7 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
     function withdrawGood ( uint _amount) public {
         //!!!  check that  men put goods early !!!
         address tokenGood =   ownersOfGoods[msg.sender];
-        
+        require(allgoods [tokenGood].lastTransfer > block.timestamp - tokenTimeNorm, "Need put your goods before withdraw for this period ");
         require(checkMyGoods(tokenGood) - _amount > 0, "Not enought amount to withdraw");
         IOUtoken(tokenGood).transfer(msg.sender, _amount);
         withdrawed[tokenGood][msg.sender] += _amount;
