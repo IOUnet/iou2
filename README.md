@@ -26,4 +26,5 @@ Full UI plan on [Figma](https://www.figma.com/proto/VNS3WTR1cU54hJFB7YrbAq/IOU?n
 
 - [https://www.IOU.loans ](https://www.IOU.loans )- decentralised community scoring system for unbanked; 
 - [https://www.iou.works](https://www.iou.works) - decentralised portfolios for freelancers;
-- Startucati.one - decentralised student's record book & portfolio & CN (convertible notes) - coming soon.
+- [http://Coprosperity.world](http://Coprosperity.world)  metaverse for entrepreneurship, where everybody supports others, and growth of common wealth means growth for each member;
+- www.Startucati.one - decentralised student's record book & portfolio & CN (convertible notes) - coming soon.
