@@ -22,12 +22,14 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
     address[] tokenGoods;
     uint256 public tokenNorm; // amount of commiting in tokens decimals = 18
     uint256 public tokenTimeNorm; //period of commniting in secunds
+    bytes32 public tokenUnits; // units which IOUs have to use
     uint256 INITTIME; // to fix 1st addition of good (when system started)
 
-    function setTokenNorm (uint256 _tokenNorm, uint256 _tokenTimeNorm) public onlyRole("DAO") {
+    function setTokenNorm (uint256 _tokenNorm, uint256 _tokenTimeNorm,  bytes32 _units) public onlyRole("DAO") {
         require(_tokenTimeNorm > 0 && _tokenNorm > 0, "needs _tokenTimeNorm > 0 && _tokenNorm > 0");
         if (tokenNorm != _tokenNorm) tokenNorm = _tokenNorm;
         if (tokenTimeNorm != _tokenTimeNorm) tokenTimeNorm = _tokenTimeNorm;
+        if (tokenUnits != _units) tokenUnits = _units;
     }
 
     function needTokens (address _token) view public returns(uint256) {
@@ -38,8 +40,8 @@ Transfer[]  transfers ;//[] -   date, 1st of every month
         if (INITTIME ==0 ) INITTIME = block.timestamp;
         require(!isStopped[msg.sender], "account is stopped by court");
         // todo owner can have several IOUs
-        //TODO - check token is exist IOU
-
+        // check token is exist IOU with right units
+        require(IOUtoken(_token).thisIOUDesc().units == tokenUnits, "Not right units of IOU" );
         //todo add sponsorship (surety ) when creating
         require( ownersOfGoods[msg.sender]== address(0x0), "This owner already registered" );
 
