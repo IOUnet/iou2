@@ -54,7 +54,12 @@ contract IOUData is ERC20 {
     iStoreIOUs store;
     //mapping (address => uint) Tokenholders;
  //   address implementation;
+    struct Sureties {
+        address ioutoken;
+        uint256 amount;
+    }
 
+    Sureties[] public allSureties ;
 }
 
 contract IOUtoken is IOUData, iIOUtoken  { 
@@ -125,7 +130,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
     }
     
 
-    function mint (address _who, uint256 _amount, string memory _descr) public onlyOwner { 
+    function mint (address _who, uint256 _amount, string calldata _descr) public onlyOwner { 
 /*         if (!registered) {
             StoreIOU.addIOU2(address(this), thisIOU.socialProfile, thisIOU.keywords);
             registered = true; 
@@ -140,7 +145,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
         
     }
 
-    function burn (uint256 _amount, int256 _rating, string memory _feedback) public onlyHolder (_amount) {
+    function burn (uint256 _amount, int256 _rating, string calldata  _feedback) public onlyHolder (_amount) {
         require (bytes(_feedback).length <256, "Feedback is long, must be < 256");
 
         iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,block.timestamp, _rating, _amount, _feedback);
@@ -253,6 +258,77 @@ contract IOUtoken is IOUData, iIOUtoken  {
 
     function symbol() public view override returns (string memory) {
         return _symbol;
+    }
+/**
+
+Alice, the artist, and designer with, a beautiful hairstyle, participates in a tender of Bob, the owner of several barbershops. She is young and ambitious but is a newbie in barbershops interior design. Bob doubts  Alice has enough experience and resources to  redesign all of his saloons. To ensure Bob of her ability,
+1. Alice emits for this project SureIOU tokens with amount, date & time of mature and asks her friends and partners for surety: photographer Phil, decorator Denniz, carpenter Calvin.
+1.1. Alice transfers them (to SuretyIOU contract?) her _own_ IOUs tokens (not this project SureIOU), equivalent in her amount of work, to ensure them that she will fullfill  her responsibilities to Bob.
+1.2. Phil, Dennis, and Calvin decide to support Alice with this project and transfer their IOUs to Alice’s SureIOU in the amount of work, they  pledge for Bob’s project.
+2. Alice transfers SureIOU to Bob’s security deposit,
+2.1. he sees all sureties of the project and decides to hire Alice,
+2.2. transfer prepay to her.
+3. Then Alice goes to suppliers of repair products and pays for their goods with this SureIOU tokens.
+4. When they successfully finished work, Bob pays them money (or his IOUs tokens) and
+5. Bob burns  SureIOUs provided by Alice.
+6. Alice pays
+6.1. to team their reward
+6.2. to supplier Stephan
+7. Final
+7.1. teammates  burn Alice’s IOUs and rate work win her
+7.2. Supplier Stephan  burn SureIOUs that he  holds too and rate this work too.
+
+8. If at maturity date & time this SureIOU doesn't burned by the client (holder of this SureIOU), he/she can get in proportion IOUs, deposited by sureties, and, if unsatisfied, set bad reputation marks to sureties/guarantees. So, Bob or suppliers can break the reputation of all team members.
+9. If Alice doesn’t execute the agreement with the team, they can drop down her rating using her IOUs tokens (red lines)
+
+ */
+
+ function addSurety (address _iou, uint256 _amount) public {
+    
+    /// @notice 1.0 Alice asks her friends and partners for surety: photographer Phil, decorator Denniz, carpenter Calvin. 1.1. Alice transfers them (to SuretyIOU contract?) her _own_ IOUs tokens (not this project SureIOU), equivalent in her amount of work, to ensure them that she will fullfill  her responsibilities to Bob. 1.2. Phil, Dennis, and Calvin decide to support Alice with this project and transfer their IOUs to Alice’s SureIOU in the amount of work, they  pledge for Bob’s project.
+    /// @dev TODO or delete
+    /// @param gets address of IOUtoken, sents as surety and amount of IOUtoken
+    /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
+    //delegatecall
+        (bool success, bytes memory result) = _iou.delegatecall(abi.encodeWithSignature("mint(address,uint256,string", msg.sender, address(this), _amount));
+        require(success, string( result));
+        for (uint8 i; i<allSureties.length; i++) {
+            if (_iou == allSureties[i].ioutoken) {
+            allSureties[i].amount += _amount;
+            return; 
+            }
+        }   
+        allSureties.push(Sureties(_iou, _amount));
+   }
+
+    function burnSurety (uint256 _amount, int256 _rating, string calldata _feedback) public onlyHolder(_amount) { //onlyOwner from IOU
+    /// @notice 4. When they successfully finished work, Bob pays them money (or his IOUs tokens) and 5. Bob burns  SureIOUs provided by Alice. 6. Alice pays 6.1. to  team their reward 6.2. to supplier Stephan  7. Final 7.1. teammates  burn Alice’s IOUs and rate work win her 7.2. Supplier Stephan  burn SureIOUs that he  holds too and rate this work too.
+    /// @dev all IOUtokens  on this contract have to be burned too
+    /// @param uint256 _amount - amount of surety/project token to burn
+    /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
+        burn (_amount, _rating, _feedback);
+        for (uint8 i; i<allSureties.length; i++) {
+            uint burnAmount = _amount * allSureties[i].amount/thisIOU.totalMinted;
+            IOUtoken(allSureties[i].ioutoken).burn(burnAmount, _rating, _feedback);
+        }
+    }
+
+   function payPenalty () public  {
+    /// @notice 8. If at maturity date & time this SureIOU doesn't burned by the client (holder of this SureIOU), he/she can get in proportion IOUs, deposited by sureties, and, if unsatisfied, set bad reputation marks to sureties/guarantees. So, Bob or suppliers can break the reputation of all team members.
+    /// @dev Explain to a developer any extra details
+
+    /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
+   }
+
+    function redeemSurety (address _iou) public {
+    /// @notice 9. If Alice doesn’t execute the agreement with the team, they can drop down her rating using her IOUs tokens (red lines)
+    /// @dev 
+    /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
+   }
+
+
+    function getAllSureties() public view returns( Sureties[] memory )  {
+        return allSureties;
     }
 
 }
