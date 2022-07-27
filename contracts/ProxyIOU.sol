@@ -217,5 +217,21 @@ contract ProxyIOU   is IOUData /*,TransparentUpgradeableProxy */  {
     function symbol() public view override returns (string memory) {
         return _symbol;
     }
+     function addSurety (address _iou, uint256 _amount) public {
+        (bool success, bytes memory returnedData) = store.implIOU().delegatecall(abi.encodeWithSignature(
+        (("addSurety(address,uint256)")), 
+         _iou, _amount));
+        require(success, string (returnedData)); 
+     }
+
+    function burnSurety (uint256 _amount, int256 _rating, string calldata _feedback) public onlyHolder(_amount) { 
+        (bool success, bytes memory returnedData) = store.implIOU().delegatecall(abi.encodeWithSignature(
+        (("burnSurety(uint256,int256,string)")), 
+         _amount, _rating, _feedback));
+        require(success, string (returnedData));
+    }
+     function getAllSureties() public view returns( Sureties[] memory )  {
+        return allSureties;
+    }
 
 }

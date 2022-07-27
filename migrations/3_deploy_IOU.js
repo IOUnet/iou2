@@ -10,6 +10,7 @@ module.exports = async  function (deployer,  _network, addresses) {
   const iIOU = await IOUtoken.deployed();
   console.log("iIOU", iIOU.address)
   await iIOU.initialize();
+  //TODO call SetIOU to zero-setup and lock
 };
 /**
  *  upgradable deploys 

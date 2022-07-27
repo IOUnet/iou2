@@ -312,7 +312,7 @@ Alice, the artist, and designer with, a beautiful hairstyle, participates in a t
             IOUtoken(allSureties[i].ioutoken).burn(burnAmount, _rating, _feedback);
         }
     }
-
+/* 
    function payPenalty () public  {
     /// @notice 8. If at maturity date & time this SureIOU doesn't burned by the client (holder of this SureIOU), he/she can get in proportion IOUs, deposited by sureties, and, if unsatisfied, set bad reputation marks to sureties/guarantees. So, Bob or suppliers can break the reputation of all team members.
     /// @dev Explain to a developer any extra details
@@ -320,12 +320,12 @@ Alice, the artist, and designer with, a beautiful hairstyle, participates in a t
     /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
    }
 
-    function redeemSurety (address _iou) public {
+    function revokeSurety (address _iou) public {
     /// @notice 9. If Alice doesn’t execute the agreement with the team, they can drop down her rating using her IOUs tokens (red lines)
     /// @dev 
     /// @inheritdoc	Copies all missing tags from the base function (must be followed by the contract name)
    }
-
+ */
 
     function getAllSureties() public view returns( Sureties[] memory )  {
         return allSureties;
