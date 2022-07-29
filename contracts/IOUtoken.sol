@@ -55,10 +55,6 @@ contract IOUData is ERC20 {
     //mapping (address => uint) Tokenholders;
  //   address implementation;
 
-}
-
-contract IOUtoken is IOUData, iIOUtoken  { 
-
      modifier onlyOwner() {
         require (owner == msg.sender, string(abi.encode("Only owner can do this", owner, msg.sender)));
         _;
@@ -83,6 +79,11 @@ contract IOUtoken is IOUData, iIOUtoken  {
     _;
     }
    
+
+}
+
+contract IOUtoken is IOUData, iIOUtoken  { 
+
     function initialize()  public nonInited override
     {
         owner = msg.sender;
@@ -90,11 +91,11 @@ contract IOUtoken is IOUData, iIOUtoken  {
     }
     function setIOU  (
     //    constructor (
-                    string memory name_, 
-                    string memory symbol_, 
-                    DescriptionIOU memory _thisIOU,
+                    string calldata name_, 
+                    string calldata symbol_, 
+                    DescriptionIOU calldata _thisIOU,
                     address _store
-)  public  nonConfiged /* override */ {
+)  public  nonConfiged onlyOwner /* override */ {
         thisIOU = _thisIOU;
         owner = _thisIOU.issuer;
         _name = name_; 
@@ -125,7 +126,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
     }
     
 
-    function mint (address _who, uint256 _amount, string memory _descr) public onlyOwner { 
+    function mint (address _who, uint256 _amount, string calldata _descr) public onlyOwner { 
 /*         if (!registered) {
             StoreIOU.addIOU2(address(this), thisIOU.socialProfile, thisIOU.keywords);
             registered = true; 
@@ -140,7 +141,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
         
     }
 
-    function burn (uint256 _amount, int256 _rating, string memory _feedback) public onlyHolder (_amount) {
+    function burn (uint256 _amount, int256 _rating, string calldata _feedback) public onlyHolder (_amount) {
         require (bytes(_feedback).length <256, "Feedback is long, must be < 256");
 
         iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,block.timestamp, _rating, _amount, _feedback);
