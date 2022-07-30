@@ -39,4 +39,6 @@ contract StoreIOUData {
     address owner;
     //address makeFactory;
     address  implementIOU;
+
+    mapping (address => address) internal owners; // adminAddress => ownerAddress
     }

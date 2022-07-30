@@ -56,7 +56,7 @@ contract IOUData is ERC20 {
  //   address implementation;
 
      modifier onlyOwner() {
-        require (owner == msg.sender, string(abi.encode("Only owner can do this", owner, msg.sender)));
+        require (owner == msg.sender || store.getOwner(msg.sender) == owner, string(abi.encode("Only owner can do this", owner, msg.sender)));
         _;
     }
 

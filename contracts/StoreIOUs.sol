@@ -160,6 +160,9 @@ contract StoreIOUs is StoreIOUData,  iStoreIOUs {
     }
 
     function getIOUList (address _owner) public override view returns (address[] memory) {
+            if (listIOUs[_owner].length == 0) {
+                return listIOUs[owners[_owner]];
+            }
             return listIOUs[_owner];
         }
 
@@ -207,5 +210,21 @@ contract StoreIOUs is StoreIOUData,  iStoreIOUs {
                 }
     function implIOU() external view returns (address) {
         return implementIOU;
+    }
+
+    function addAdmin (address _admin) public {
+        if (getIOUList(msg.sender).length >= 0) {
+            owners[_admin] = msg.sender;
+        }
+        revert ("No IOUs for owner's address");
+    }
+    function delAdmin (address _admin) public {
+        if (owners[_admin] == msg.sender) {
+            owners[_admin] = address(0x0);
+        }
+        revert ("Not right admin addr for owner");
+    }
+    function getOwner (address _admin) public view returns (address) {
+        return owners[_admin];
     }
     }
