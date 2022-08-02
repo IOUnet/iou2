@@ -35,8 +35,8 @@ interface  iStoreIOUs {
     function getIssuerstotal () external view returns (uint256);
     function implIOU() external view returns (address);
     
-    function addAdmin (address _admin) external;
-    function delAdmin (address _admin) external;
-    function getOwner (address _admin) external view returns (address);
+    function addAdminIOU (address _admin) external;
+    function delAdminIOU (address _admin) external;
+    function getOwnerIOU (address _admin) external view returns (address);
 
 }

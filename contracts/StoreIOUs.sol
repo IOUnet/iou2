@@ -212,19 +212,19 @@ contract StoreIOUs is StoreIOUData,  iStoreIOUs {
         return implementIOU;
     }
 
-    function addAdmin (address _admin) public {
+    function addAdminIOU (address _admin) public {
         if (getIOUList(msg.sender).length >= 0) {
             owners[_admin] = msg.sender;
         }
         revert ("No IOUs for owner's address");
     }
-    function delAdmin (address _admin) public {
+    function delAdminIOU (address _admin) public {
         if (owners[_admin] == msg.sender) {
             owners[_admin] = address(0x0);
         }
         revert ("Not right admin addr for owner");
     }
-    function getOwner (address _admin) public view returns (address) {
+    function getOwnerIOU (address _admin) public view returns (address) {
         return owners[_admin];
     }
     }
