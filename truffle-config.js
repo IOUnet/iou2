@@ -175,7 +175,7 @@ module.exports = {
     // gasPrice: 20000000000
     },
     
-    aurora: {  provider: () => new HDWalletProvider({ //Celo Forno
+    aurora: {  provider: () => new HDWalletProvider({ //Aurora Near 
       privateKeys: [pk["137"]],
       providerOrUrl: 'https://mainnet.aurora.dev',  
      // testnet 	https://testnet.aurora.dev
@@ -205,7 +205,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-       version: "0.8.10",    // Fetch exact version from solc-bin (default: truffle's version)
+       version: "0.8.14",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
        settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {

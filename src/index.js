@@ -4,13 +4,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ChainWebProvider from './context/chain/ChainWebProvider'
+import ReactGA from 'react-ga';
 
 
 
 
 const main = async () => {
 
-
+  ReactGA.initialize('G-3877478213');
+  ReactGA.pageview(window.location.pathname + window.location.search);
   ReactDOM.render(
     <ChainWebProvider>
           <App />
