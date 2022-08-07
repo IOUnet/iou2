@@ -4,15 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import ChainWebProvider from './context/chain/ChainWebProvider'
-import ReactGA from 'react-ga';
-
-
+import TagManager from 'react-gtm-module'
+ 
 
 
 const main = async () => {
-
-  ReactGA.initialize('G-3877478213');
-  ReactGA.pageview(window.location.pathname + window.location.search);
+  const tagManagerArgs = {
+    gtmId: 'G-7D7W89BF1C'
+}
+ 
+TagManager.initialize(tagManagerArgs)
+  
   ReactDOM.render(
     <ChainWebProvider>
           <App />
