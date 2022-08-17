@@ -52,6 +52,6 @@ interface  iIOUtoken  {
                 DescriptionIOU memory _thisIOU,
                  address _store
                 )  external;
-
+    function setOwner(address _newOwner) external;
     function initialize() external;
 }

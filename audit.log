@@ -1,0 +1,566 @@
+
+
+ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address) (ProxyIOU.sol#43-96) uses delegatecall to a input-controlled function id                                                                                                                                                         
+
+ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address) (ProxyIOU.sol#43-96) uses delegatecall to a input-controlled function id                                                                                                                                                         
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#controlled-delegatecall                                                                                                                                                                                                 
+
+IOUData._balances (IOUtoken.sol#31) shadows:                                                                                                                                                                                                                                                     
+
+IOUData._allowances (IOUtoken.sol#33) shadows:                                                                                                                                                                                                                                                   
+
+IOUData._totalSupply (IOUtoken.sol#35) shadows:                                                                                                                                                                                                                                                  
+
+IOUData._name (IOUtoken.sol#37) shadows:                                                                                                                                                                                                                                                         
+
+IOUData._symbol (IOUtoken.sol#38) shadows:                                                                                                                                                                                                                                                       
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variable-shadowing                                                                                                                                                                                                
+
+Goods2All.addGood(address) (Goods2All.sol#37-56) ignores return value by IOUtoken(_token).transferFrom(msg.sender,address(this),amount) (Goods2All.sol#55)                                                                                                                                       
+Goods2All.withdrawGood(uint256) (Goods2All.sol#73-80) ignores return value by IOUtoken(tokenGood).transfer(msg.sender,_amount) (Goods2All.sol#78)                                                                                                                                                
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unchecked-transfer                                                                                                                                                                                                      
+
+IOUData._name (IOUtoken.sol#37) is never initialized. It is used in:                                                                                                                                                                                                                             
+
+IOUData._symbol (IOUtoken.sol#38) is never initialized. It is used in:                                                                                                                                                                                                                           
+
+IOUData.thisIOU (IOUtoken.sol#43) is never initialized. It is used in:                                                                                                                                                                                                                           
+
+
+
+IOUData.allFeedbacks (IOUtoken.sol#45) is never initialized. It is used in:                                                                                                                                                                                                                      
+
+IOUData.allIOUs (IOUtoken.sol#48) is never initialized. It is used in:                                                                                                                                                                                                                           
+
+IOUData.owner (IOUtoken.sol#51) is never initialized. It is used in:                                                                                                                                                                                                                             
+IOUData.store (IOUtoken.sol#54) is never initialized. It is used in:                                                                                                                                                                                                                             
+
+
+
+
+
+
+
+
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-state-variables                                                                                                                                                                                           
+
+IOUtoken.burn(uint256,int256,string) (IOUtoken.sol#143-158) performs a multiplication on the result of a division:                                                                                                                                                                               
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#divide-before-multiply                                                                                                                                                                                                  
+
+Goods2All.addGood(address) (Goods2All.sol#37-56) uses a dangerous strict equality:                                                                                                                                                                                                               
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dangerous-strict-equalities                                                                                                                                                                                             
+
+Reentrancy in IOUtoken.transfer(address,uint256) (IOUtoken.sol#160-164):                                                                                                                                                                                                                         
+
+
+
+
+
+
+Reentrancy in Goods2All.withdrawGood(uint256) (Goods2All.sol#73-80):                                                                                                                                                                                                                             
+
+
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-1                                                                                                                                                                                            
+
+IOUtoken.editGeo(string,string,string,string).newloc (IOUtoken.sol#178) is a local variable never initialized                                                                                                                                                                                    
+IOUtoken.delKeys(bytes32[]).delkey (IOUtoken.sol#207) is a local variable never initialized                                                                                                                                                                                                      
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#uninitialized-local-variables                                                                                                                                                                                           
+
+StoreIOUs.setOwner(address) (StoreIOUs.sol#30-32) should emit an event for:                                                                                                                                                                                                                      
+
+newStoreIOUs.setOwner(address) (newStoreIOUs.sol#30-32) should emit an event for:                                                                                                                                                                                                                
+
+MakeIOU.setOwner(address) (MakeIOU.sol#18-20) should emit an event for:                                                                                                                                                                                                                          
+
+IOUtoken.setOwner(address) (IOUtoken.sol#121-125) should emit an event for:                                                                                                                                                                                                                      
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-events-access-control                                                                                                                                                                                           
+
+StoreIOUs.setOwner(address)._newOwner (StoreIOUs.sol#30) lacks a zero-check on :                                                                                                                                                                                                                 
+
+StoreIOUs.setimplIOU(address)._newImpl (StoreIOUs.sol#38) lacks a zero-check on :                                                                                                                                                                                                                
+
+newStoreIOUs.setOwner(address)._newOwner (newStoreIOUs.sol#30) lacks a zero-check on :                                                                                                                                                                                                           
+
+newStoreIOUs.setimplIOU(address)._newImpl (newStoreIOUs.sol#38) lacks a zero-check on :                                                                                                                                                                                                          
+
+MakeIOU.setOwner(address)._newOwner (MakeIOU.sol#18) lacks a zero-check on :                                                                                                                                                                                                                     
+
+MakeIOU.setimplement(address)._proxy (MakeIOU.sol#27) lacks a zero-check on :                                                                                                                                                                                                                    
+
+ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address).impl (ProxyIOU.sol#51) lacks a zero-check on :                                                                                                                                                                                   
+
+
+ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address)._store (ProxyIOU.sol#47) lacks a zero-check on :                                                                                                                                                                                 
+
+ProxyIOU.setStore(address)._newOwner (ProxyIOU.sol#106) lacks a zero-check on :                                                                                                                                                                                                                  
+
+ProxyIOU.setOwner(address)._newOwner (ProxyIOU.sol#114) lacks a zero-check on :                                                                                                                                                                                                                  
+
+ProxyIOU.mint(address,uint256,string)._who (ProxyIOU.sol#121) lacks a zero-check on :                                                                                                                                                                                                            
+
+ProxyIOU.transfer(address,uint256)._recipient (ProxyIOU.sol#136) lacks a zero-check on :                                                                                                                                                                                                         
+
+IOUtoken.setOwner(address)._newOwner (IOUtoken.sol#121) lacks a zero-check on :                                                                                                                                                                                                                  
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#missing-zero-address-validation                                                                                                                                                                                         
+
+StoreIOUs._delkeyIOUGeo(address,bytes32) (StoreIOUs.sol#135-151) has external calls inside a loop: curr = iIOUtoken(_addrIOU).thisIOUDesc().location (StoreIOUs.sol#138)                                                                                                                         
+newStoreIOUs._delkeyIOUGeo(address,bytes32) (newStoreIOUs.sol#135-151) has external calls inside a loop: curr = iIOUtoken(_addrIOU).thisIOUDesc().location (newStoreIOUs.sol#138)                                                                                                                
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation/#calls-inside-a-loop                                                                                                                                                                                                    
+
+Reentrancy in IOUtoken.editGeo(string,string,string,string) (IOUtoken.sol#174-188):                                                                                                                                                                                                              
+
+
+
+
+
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2                                                                                                                                                                                            
+
+Reentrancy in IOUtoken.transfer(address,uint256) (IOUtoken.sol#160-164):                                                                                                                                                                                                                         
+
+
+
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-3                                                                                                                                                                                            
+
+Goods2All.addGood(address) (Goods2All.sol#37-56) uses timestamp for comparisons                                                                                                                                                                                                                  
+
+
+Goods2All.withdrawGood(uint256) (Goods2All.sol#73-80) uses timestamp for comparisons                                                                                                                                                                                                             
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#block-timestamp                                                                                                                                                                                                         
+
+Clones.clone(address) (@openzeppelin/contracts/proxy/Clones.sol#25-34) uses assembly                                                                                                                                                                                                             
+
+Clones.cloneDeterministic(address,bytes32) (@openzeppelin/contracts/proxy/Clones.sol#43-52) uses assembly                                                                                                                                                                                        
+
+Clones.predictDeterministicAddress(address,bytes32,address) (@openzeppelin/contracts/proxy/Clones.sol#57-72) uses assembly                                                                                                                                                                       
+
+Initializable.isConstructor() (Initializable.sol#50-60) uses assembly                                                                                                                                                                                                                            
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#assembly-usage                                                                                                                                                                                                          
+
+Different versions of Solidity are used:                                                                                                                                                                                                                                                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#different-pragma-directives-are-used                                                                                                                                                                                    
+
+Initializable.isConstructor() (Initializable.sol#50-60) is never used and should be removed                                                                                                                                                                                                      
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#dead-code                                                                                                                                                                                                               
+
+Pragma version>=0.8.0 (interfaces/iIOUtoken.sol#2) allows old versions                                                                                                                                                                                                                           
+Pragma version>=0.8.0 (StoreIOUs.sol#1) allows old versions                                                                                                                                                                                                                                      
+Pragma version>=0.8.0 (IOUtoken.sol#1) allows old versions                                                                                                                                                                                                                                       
+Pragma version^0.8.0 (@openzeppelin/contracts/access/IAccessControl.sol#4) allows old versions                                                                                                                                                                                                   
+Pragma version>=0.8.0 (newStoreIOUs.sol#1) allows old versions                                                                                                                                                                                                                                   
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol#4) allows old versions                                                                                                                                                                                   
+Pragma version^0.8.0 (@openzeppelin/contracts/access/AccessControl.sol#4) allows old versions                                                                                                                                                                                                    
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/introspection/ERC165.sol#4) allows old versions                                                                                                                                                                                              
+Pragma version^0.8.0 (@openzeppelin/contracts/token/ERC20/IERC20.sol#4) allows old versions                                                                                                                                                                                                      
+Pragma version>=0.8.0 (MakeIOU.sol#1) allows old versions                                                                                                                                                                                                                                        
+Pragma version>=0.4.22<0.9.0 (Migrations.sol#2) is too complex                                                                                                                                                                                                                                   
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/introspection/IERC165.sol#4) allows old versions                                                                                                                                                                                             
+Pragma version^0.8.0 (@openzeppelin/contracts/proxy/Clones.sol#4) allows old versions                                                                                                                                                                                                            
+Pragma version>=0.8.0 (ProxyIOU.sol#1) allows old versions                                                                                                                                                                                                                                       
+Pragma version>=0.4.24<0.9.0 (Goods2All.sol#1) is too complex                                                                                                                                                                                                                                    
+Pragma version^0.8.0 (ERC20.sol#4) allows old versions                                                                                                                                                                                                                                           
+Pragma version>=0.8.0 (StoreIOUData.sol#1) allows old versions                                                                                                                                                                                                                                   
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Strings.sol#4) allows old versions                                                                                                                                                                                                           
+Pragma version>=0.4.24<0.9.0 (Initializable.sol#3) is too complex                                                                                                                                                                                                                                
+Pragma version^0.8.0 (@openzeppelin/contracts/utils/Context.sol#4) allows old versions                                                                                                                                                                                                           
+Pragma version>=0.8.0 (interfaces/iStoreIOUs.sol#1) allows old versions                                                                                                                                                                                                                          
+solc-0.8.10 is not recommended for deployment                                                                                                                                                                                                                                                    
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#incorrect-versions-of-solidity                                                                                                                                                                                          
+
+Low level call in ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address) (ProxyIOU.sol#43-96):                                                                                                                                                                                          
+
+
+Low level call in ProxyIOU.setStore(address) (ProxyIOU.sol#106-112):                                                                                                                                                                                                                             
+
+Low level call in ProxyIOU.setOwner(address) (ProxyIOU.sol#114-119):                                                                                                                                                                                                                             
+
+Low level call in ProxyIOU.mint(address,uint256,string) (ProxyIOU.sol#121-127):                                                                                                                                                                                                                  
+
+Low level call in ProxyIOU.burn(uint256,int256,string) (ProxyIOU.sol#128-134):                                                                                                                                                                                                                   
+
+Low level call in ProxyIOU.transfer(address,uint256) (ProxyIOU.sol#136-141):                                                                                                                                                                                                                     
+
+Low level call in ProxyIOU.editDescr(string) (ProxyIOU.sol#144-149):                                                                                                                                                                                                                             
+
+Low level call in ProxyIOU.editPhone(bytes32) (ProxyIOU.sol#151-156):                                                                                                                                                                                                                            
+
+Low level call in ProxyIOU.editGeo(string,string,string,string) (ProxyIOU.sol#158-166):                                                                                                                                                                                                          
+
+Low level call in ProxyIOU.addKeys(bytes32[]) (ProxyIOU.sol#167-172):                                                                                                                                                                                                                            
+
+Low level call in ProxyIOU.delKeys(bytes32[]) (ProxyIOU.sol#173-178):                                                                                                                                                                                                                            
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#low-level-calls                                                                                                                                                                                                         
+
+Contract iIOUtoken (interfaces/iIOUtoken.sol#4-58) is not in CapWords                                                                                                                                                                                                                            
+Struct iIOUtoken.geo (interfaces/iIOUtoken.sol#6-11) is not in CapWords                                                                                                                                                                                                                          
+Function iIOUtoken.IOUname() (interfaces/iIOUtoken.sol#46) is not in mixedCase                                                                                                                                                                                                                   
+Function iIOUtoken.IOUsymbol() (interfaces/iIOUtoken.sol#47) is not in mixedCase                                                                                                                                                                                                                 
+Parameter StoreIOUs.setOwner(address)._newOwner (StoreIOUs.sol#30) is not in mixedCase                                                                                                                                                                                                           
+Parameter StoreIOUs.setimplIOU(address)._newImpl (StoreIOUs.sol#38) is not in mixedCase                                                                                                                                                                                                          
+Parameter StoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._addrIOU (StoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                            
+Parameter StoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._emitent (StoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                            
+Parameter StoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._thisIOU (StoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                            
+Parameter StoreIOUs.addKeys(bytes32[],address)._keywords (StoreIOUs.sol#63) is not in mixedCase                                                                                                                                                                                                  
+Parameter StoreIOUs.addKeys(bytes32[],address)._addrIOU (StoreIOUs.sol#63) is not in mixedCase                                                                                                                                                                                                   
+Parameter StoreIOUs.delKeys(bytes32[],address)._keywords (StoreIOUs.sol#67) is not in mixedCase                                                                                                                                                                                                  
+Parameter StoreIOUs.delKeys(bytes32[],address)._addrIOU (StoreIOUs.sol#67) is not in mixedCase                                                                                                                                                                                                   
+Parameter StoreIOUs.changeIOUGeoAllkeys(iIOUtoken.geo,address)._newloc (StoreIOUs.sol#73) is not in mixedCase                                                                                                                                                                                    
+Parameter StoreIOUs.changeIOUGeoAllkeys(iIOUtoken.geo,address)._addrIOU (StoreIOUs.sol#73) is not in mixedCase                                                                                                                                                                                   
+Parameter StoreIOUs.addHolder(address,address)._holder (StoreIOUs.sol#155) is not in mixedCase                                                                                                                                                                                                   
+Parameter StoreIOUs.addHolder(address,address)._IOUtoken (StoreIOUs.sol#155) is not in mixedCase                                                                                                                                                                                                 
+Parameter StoreIOUs.getIOUList(address)._owner (StoreIOUs.sol#162) is not in mixedCase                                                                                                                                                                                                           
+Parameter StoreIOUs.getIOUListSoc(string)._profile (StoreIOUs.sol#166) is not in mixedCase                                                                                                                                                                                                       
+Parameter StoreIOUs.getIOUListKey(bytes32)._key (StoreIOUs.sol#170) is not in mixedCase                                                                                                                                                                                                          
+Parameter StoreIOUs.getIOUListHold(address)._holder (StoreIOUs.sol#175) is not in mixedCase                                                                                                                                                                                                      
+Parameter StoreIOUs.getIOUsbyCity(bytes32,string,string,string)._key (StoreIOUs.sol#194) is not in mixedCase                                                                                                                                                                                     
+Parameter StoreIOUs.getIOUsbyCity(bytes32,string,string,string)._country (StoreIOUs.sol#195) is not in mixedCase                                                                                                                                                                                 
+Parameter StoreIOUs.getIOUsbyCity(bytes32,string,string,string)._state (StoreIOUs.sol#196) is not in mixedCase                                                                                                                                                                                   
+Parameter StoreIOUs.getIOUsbyCity(bytes32,string,string,string)._city (StoreIOUs.sol#197) is not in mixedCase                                                                                                                                                                                    
+Parameter StoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._key (StoreIOUs.sol#201) is not in mixedCase                                                                                                                                                                            
+Parameter StoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._country (StoreIOUs.sol#202) is not in mixedCase                                                                                                                                                                        
+Parameter StoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._state (StoreIOUs.sol#203) is not in mixedCase                                                                                                                                                                          
+Parameter StoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._city (StoreIOUs.sol#204) is not in mixedCase                                                                                                                                                                           
+Parameter StoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._street (StoreIOUs.sol#205) is not in mixedCase                                                                                                                                                                         
+Variable IOUData._totalSupply (IOUtoken.sol#35) is not in mixedCase                                                                                                                                                                                                                              
+Variable IOUData._name (IOUtoken.sol#37) is not in mixedCase                                                                                                                                                                                                                                     
+Variable IOUData._symbol (IOUtoken.sol#38) is not in mixedCase                                                                                                                                                                                                                                   
+Variable IOUData.IOUbyReceiver (IOUtoken.sol#49) is not in mixedCase                                                                                                                                                                                                                             
+Parameter IOUtoken.setIOU(string,string,iIOUtoken.DescriptionIOU,address)._thisIOU (IOUtoken.sol#95) is not in mixedCase                                                                                                                                                                         
+Parameter IOUtoken.setIOU(string,string,iIOUtoken.DescriptionIOU,address)._store (IOUtoken.sol#96) is not in mixedCase                                                                                                                                                                           
+Parameter IOUtoken.setStore(address)._newOwner (IOUtoken.sol#115) is not in mixedCase                                                                                                                                                                                                            
+Parameter IOUtoken.setOwner(address)._newOwner (IOUtoken.sol#121) is not in mixedCase                                                                                                                                                                                                            
+Parameter IOUtoken.mint(address,uint256,string)._who (IOUtoken.sol#128) is not in mixedCase                                                                                                                                                                                                      
+Parameter IOUtoken.mint(address,uint256,string)._amount (IOUtoken.sol#128) is not in mixedCase                                                                                                                                                                                                   
+Parameter IOUtoken.mint(address,uint256,string)._descr (IOUtoken.sol#128) is not in mixedCase                                                                                                                                                                                                    
+Parameter IOUtoken.burn(uint256,int256,string)._amount (IOUtoken.sol#143) is not in mixedCase                                                                                                                                                                                                    
+Parameter IOUtoken.burn(uint256,int256,string)._rating (IOUtoken.sol#143) is not in mixedCase                                                                                                                                                                                                    
+Parameter IOUtoken.burn(uint256,int256,string)._feedback (IOUtoken.sol#143) is not in mixedCase                                                                                                                                                                                                  
+Parameter IOUtoken.transfer(address,uint256)._recipient (IOUtoken.sol#160) is not in mixedCase                                                                                                                                                                                                   
+Parameter IOUtoken.transfer(address,uint256)._amount (IOUtoken.sol#160) is not in mixedCase                                                                                                                                                                                                      
+Parameter IOUtoken.editDescr(string)._descr (IOUtoken.sol#166) is not in mixedCase                                                                                                                                                                                                               
+Parameter IOUtoken.editPhone(bytes32)._phone (IOUtoken.sol#170) is not in mixedCase                                                                                                                                                                                                              
+Parameter IOUtoken.editGeo(string,string,string,string)._country (IOUtoken.sol#174) is not in mixedCase                                                                                                                                                                                          
+Parameter IOUtoken.editGeo(string,string,string,string)._state (IOUtoken.sol#175) is not in mixedCase                                                                                                                                                                                            
+Parameter IOUtoken.editGeo(string,string,string,string)._city (IOUtoken.sol#176) is not in mixedCase                                                                                                                                                                                             
+Parameter IOUtoken.editGeo(string,string,string,string)._street (IOUtoken.sol#177) is not in mixedCase                                                                                                                                                                                           
+Parameter IOUtoken.addKeys(bytes32[])._keys (IOUtoken.sol#191) is not in mixedCase                                                                                                                                                                                                               
+Parameter IOUtoken.delKeys(bytes32[])._keys (IOUtoken.sol#199) is not in mixedCase                                                                                                                                                                                                               
+Function IOUtoken.IOUname() (IOUtoken.sol#235-237) is not in mixedCase                                                                                                                                                                                                                           
+Function IOUtoken.IOUsymbol() (IOUtoken.sol#238-240) is not in mixedCase                                                                                                                                                                                                                         
+Contract newStoreIOUs (newStoreIOUs.sol#8-212) is not in CapWords                                                                                                                                                                                                                                
+Parameter newStoreIOUs.setOwner(address)._newOwner (newStoreIOUs.sol#30) is not in mixedCase                                                                                                                                                                                                     
+Parameter newStoreIOUs.setimplIOU(address)._newImpl (newStoreIOUs.sol#38) is not in mixedCase                                                                                                                                                                                                    
+Parameter newStoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._addrIOU (newStoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                      
+Parameter newStoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._emitent (newStoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                      
+Parameter newStoreIOUs.addIOU1(address,address,iIOUtoken.DescriptionIOU)._thisIOU (newStoreIOUs.sol#48) is not in mixedCase                                                                                                                                                                      
+Parameter newStoreIOUs.addKeys(bytes32[],address)._keywords (newStoreIOUs.sol#63) is not in mixedCase                                                                                                                                                                                            
+Parameter newStoreIOUs.addKeys(bytes32[],address)._addrIOU (newStoreIOUs.sol#63) is not in mixedCase                                                                                                                                                                                             
+Parameter newStoreIOUs.delKeys(bytes32[],address)._keywords (newStoreIOUs.sol#67) is not in mixedCase                                                                                                                                                                                            
+Parameter newStoreIOUs.delKeys(bytes32[],address)._addrIOU (newStoreIOUs.sol#67) is not in mixedCase                                                                                                                                                                                             
+Parameter newStoreIOUs.changeIOUGeoAllkeys(iIOUtoken.geo,address)._newloc (newStoreIOUs.sol#73) is not in mixedCase                                                                                                                                                                              
+Parameter newStoreIOUs.changeIOUGeoAllkeys(iIOUtoken.geo,address)._addrIOU (newStoreIOUs.sol#73) is not in mixedCase                                                                                                                                                                             
+Parameter newStoreIOUs.addHolder(address,address)._holder (newStoreIOUs.sol#155) is not in mixedCase                                                                                                                                                                                             
+Parameter newStoreIOUs.addHolder(address,address)._IOUtoken (newStoreIOUs.sol#155) is not in mixedCase                                                                                                                                                                                           
+Parameter newStoreIOUs.getIOUList(address)._owner (newStoreIOUs.sol#162) is not in mixedCase                                                                                                                                                                                                     
+Parameter newStoreIOUs.getIOUListSoc(string)._profile (newStoreIOUs.sol#166) is not in mixedCase                                                                                                                                                                                                 
+Parameter newStoreIOUs.getIOUListKey(bytes32)._key (newStoreIOUs.sol#170) is not in mixedCase                                                                                                                                                                                                    
+Parameter newStoreIOUs.getIOUListHold(address)._holder (newStoreIOUs.sol#175) is not in mixedCase                                                                                                                                                                                                
+Parameter newStoreIOUs.getIOUsbyCity(bytes32,string,string,string)._key (newStoreIOUs.sol#194) is not in mixedCase                                                                                                                                                                               
+Parameter newStoreIOUs.getIOUsbyCity(bytes32,string,string,string)._country (newStoreIOUs.sol#195) is not in mixedCase                                                                                                                                                                           
+Parameter newStoreIOUs.getIOUsbyCity(bytes32,string,string,string)._state (newStoreIOUs.sol#196) is not in mixedCase                                                                                                                                                                             
+Parameter newStoreIOUs.getIOUsbyCity(bytes32,string,string,string)._city (newStoreIOUs.sol#197) is not in mixedCase                                                                                                                                                                              
+Parameter newStoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._key (newStoreIOUs.sol#201) is not in mixedCase                                                                                                                                                                      
+Parameter newStoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._country (newStoreIOUs.sol#202) is not in mixedCase                                                                                                                                                                  
+Parameter newStoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._state (newStoreIOUs.sol#203) is not in mixedCase                                                                                                                                                                    
+Parameter newStoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._city (newStoreIOUs.sol#204) is not in mixedCase                                                                                                                                                                     
+Parameter newStoreIOUs.getIOUsbyStreet(bytes32,string,string,string,string)._street (newStoreIOUs.sol#205) is not in mixedCase                                                                                                                                                                   
+Parameter MakeIOU.setOwner(address)._newOwner (MakeIOU.sol#18) is not in mixedCase                                                                                                                                                                                                               
+Parameter MakeIOU.setStore(address)._new (MakeIOU.sol#22) is not in mixedCase                                                                                                                                                                                                                    
+Parameter MakeIOU.setimplement(address)._proxy (MakeIOU.sol#27) is not in mixedCase                                                                                                                                                                                                              
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._name (MakeIOU.sol#41) is not in mixedCase                                                                                                                                                 
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._symbol (MakeIOU.sol#42) is not in mixedCase                                                                                                                                               
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._myName (MakeIOU.sol#43) is not in mixedCase                                                                                                                                               
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._socialProfile (MakeIOU.sol#44) is not in mixedCase                                                                                                                                        
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._description (MakeIOU.sol#45) is not in mixedCase                                                                                                                                          
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._location (MakeIOU.sol#46) is not in mixedCase                                                                                                                                             
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._units (MakeIOU.sol#47) is not in mixedCase                                                                                                                                                
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._keywords (MakeIOU.sol#48) is not in mixedCase                                                                                                                                             
+Parameter MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32)._phone (MakeIOU.sol#49) is not in mixedCase                                                                                                                                                
+Variable Migrations.last_completed_migration (Migrations.sol#6) is not in mixedCase                                                                                                                                                                                                              
+Parameter ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address)._thisIOU (ProxyIOU.sol#46) is not in mixedCase                                                                                                                                                                         
+Parameter ProxyIOU.setIOU(string,string,iIOUtoken.DescriptionIOU,address)._store (ProxyIOU.sol#47) is not in mixedCase                                                                                                                                                                           
+Parameter ProxyIOU.setStore(address)._newOwner (ProxyIOU.sol#106) is not in mixedCase                                                                                                                                                                                                            
+Parameter ProxyIOU.setOwner(address)._newOwner (ProxyIOU.sol#114) is not in mixedCase                                                                                                                                                                                                            
+Parameter ProxyIOU.mint(address,uint256,string)._who (ProxyIOU.sol#121) is not in mixedCase                                                                                                                                                                                                      
+Parameter ProxyIOU.mint(address,uint256,string)._amount (ProxyIOU.sol#121) is not in mixedCase                                                                                                                                                                                                   
+Parameter ProxyIOU.mint(address,uint256,string)._descr (ProxyIOU.sol#121) is not in mixedCase                                                                                                                                                                                                    
+Parameter ProxyIOU.burn(uint256,int256,string)._amount (ProxyIOU.sol#128) is not in mixedCase                                                                                                                                                                                                    
+Parameter ProxyIOU.burn(uint256,int256,string)._rating (ProxyIOU.sol#128) is not in mixedCase                                                                                                                                                                                                    
+Parameter ProxyIOU.burn(uint256,int256,string)._feedback (ProxyIOU.sol#128) is not in mixedCase                                                                                                                                                                                                  
+Parameter ProxyIOU.transfer(address,uint256)._recipient (ProxyIOU.sol#136) is not in mixedCase                                                                                                                                                                                                   
+Parameter ProxyIOU.transfer(address,uint256)._amount (ProxyIOU.sol#136) is not in mixedCase                                                                                                                                                                                                      
+Parameter ProxyIOU.editDescr(string)._descr (ProxyIOU.sol#144) is not in mixedCase                                                                                                                                                                                                               
+Parameter ProxyIOU.editPhone(bytes32)._phone (ProxyIOU.sol#151) is not in mixedCase                                                                                                                                                                                                              
+Parameter ProxyIOU.editGeo(string,string,string,string)._country (ProxyIOU.sol#158) is not in mixedCase                                                                                                                                                                                          
+Parameter ProxyIOU.editGeo(string,string,string,string)._state (ProxyIOU.sol#159) is not in mixedCase                                                                                                                                                                                            
+Parameter ProxyIOU.editGeo(string,string,string,string)._city (ProxyIOU.sol#160) is not in mixedCase                                                                                                                                                                                             
+Parameter ProxyIOU.editGeo(string,string,string,string)._street (ProxyIOU.sol#161) is not in mixedCase                                                                                                                                                                                           
+Parameter ProxyIOU.addKeys(bytes32[])._keys (ProxyIOU.sol#167) is not in mixedCase                                                                                                                                                                                                               
+Parameter ProxyIOU.delKeys(bytes32[])._keys (ProxyIOU.sol#173) is not in mixedCase                                                                                                                                                                                                               
+Parameter ProxyIOU.getIOU(address)._iou (ProxyIOU.sol#180) is not in mixedCase                                                                                                                                                                                                                   
+Function ProxyIOU.IOUname() (ProxyIOU.sol#198-200) is not in mixedCase                                                                                                                                                                                                                           
+Function ProxyIOU.IOUsymbol() (ProxyIOU.sol#201-203) is not in mixedCase                                                                                                                                                                                                                         
+Parameter Goods2All.setTokenNorm(uint256,uint256)._tokenNorm (Goods2All.sol#27) is not in mixedCase                                                                                                                                                                                              
+Parameter Goods2All.setTokenNorm(uint256,uint256)._tokenTimeNorm (Goods2All.sol#27) is not in mixedCase                                                                                                                                                                                          
+Parameter Goods2All.needTokens(address)._token (Goods2All.sol#33) is not in mixedCase                                                                                                                                                                                                            
+Parameter Goods2All.addGood(address)._token (Goods2All.sol#37) is not in mixedCase                                                                                                                                                                                                               
+Parameter Goods2All.checkMyGoods(address)._tokengood (Goods2All.sol#58) is not in mixedCase                                                                                                                                                                                                      
+Parameter Goods2All.withdrawGood(uint256)._amount (Goods2All.sol#73) is not in mixedCase                                                                                                                                                                                                         
+Parameter Goods2All.stopMembersip(address)._who (Goods2All.sol#83) is not in mixedCase                                                                                                                                                                                                           
+Parameter Goods2All.restoreMembersip(address)._who (Goods2All.sol#87) is not in mixedCase                                                                                                                                                                                                        
+Variable Goods2All.INITTIME (Goods2All.sol#25) is not in mixedCase                                                                                                                                                                                                                               
+Variable Initializable.______gap (Initializable.sol#63) is not in mixedCase                                                                                                                                                                                                                      
+Contract iStoreIOUs (interfaces/iStoreIOUs.sol#5-38) is not in CapWords                                                                                                                                                                                                                          
+Struct iStoreIOUs.geoIOU (interfaces/iStoreIOUs.sol#6-13) is not in CapWords                                                                                                                                                                                                                     
+Parameter iStoreIOUs.addKeys(bytes32[],address)._IOUtok (interfaces/iStoreIOUs.sol#16) is not in mixedCase                                                                                                                                                                                       
+Parameter iStoreIOUs.addHolder(address,address)._IOUtoken (interfaces/iStoreIOUs.sol#27) is not in mixedCase                                                                                                                                                                                     
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#conformance-to-solidity-naming-conventions                                                                                                                                                                              
+
+Clones.clone(address) (@openzeppelin/contracts/proxy/Clones.sol#25-34) uses literals with too many digits:                                                                                                                                                                                       
+
+Clones.clone(address) (@openzeppelin/contracts/proxy/Clones.sol#25-34) uses literals with too many digits:                                                                                                                                                                                       
+
+Clones.cloneDeterministic(address,bytes32) (@openzeppelin/contracts/proxy/Clones.sol#43-52) uses literals with too many digits:                                                                                                                                                                  
+
+Clones.cloneDeterministic(address,bytes32) (@openzeppelin/contracts/proxy/Clones.sol#43-52) uses literals with too many digits:                                                                                                                                                                  
+
+Clones.predictDeterministicAddress(address,bytes32,address) (@openzeppelin/contracts/proxy/Clones.sol#57-72) uses literals with too many digits:                                                                                                                                                 
+
+Clones.predictDeterministicAddress(address,bytes32,address) (@openzeppelin/contracts/proxy/Clones.sol#57-72) uses literals with too many digits:                                                                                                                                                 
+
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#too-many-digits                                                                                                                                                                                                         
+
+MakeIOU.implement (MakeIOU.sol#14) is never used in MakeIOU (MakeIOU.sol#11-75)                                                                                                                                                                                                                  
+IOUData._balances (IOUtoken.sol#31) is never used in ProxyIOU (ProxyIOU.sol#8-222)                                                                                                                                                                                                               
+IOUData._allowances (IOUtoken.sol#33) is never used in ProxyIOU (ProxyIOU.sol#8-222)                                                                                                                                                                                                             
+IOUData._totalSupply (IOUtoken.sol#35) is never used in ProxyIOU (ProxyIOU.sol#8-222)                                                                                                                                                                                                            
+IOUData._balances (IOUtoken.sol#31) is never used in Goods2All (Goods2All.sol#4-91)                                                                                                                                                                                                              
+IOUData._allowances (IOUtoken.sol#33) is never used in Goods2All (Goods2All.sol#4-91)                                                                                                                                                                                                            
+IOUData._totalSupply (IOUtoken.sol#35) is never used in Goods2All (Goods2All.sol#4-91)                                                                                                                                                                                                           
+Initializable.______gap (Initializable.sol#63) is never used in Initializable (Initializable.sol#18-64)                                                                                                                                                                                          
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#unused-state-variable                                                                                                                                                                                                   
+
+ERC20._name (ERC20.sol#42) should be constant                                                                                                                                                                                                                                                    
+ERC20._symbol (ERC20.sol#43) should be constant                                                                                                                                                                                                                                                  
+IOUData._totalSupply (IOUtoken.sol#35) should be constant                                                                                                                                                                                                                                        
+MakeIOU.implement (MakeIOU.sol#14) should be constant                                                                                                                                                                                                                                            
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#state-variables-that-could-be-declared-constant                                                                                                                                                                         
+
+initialize() should be declared external:                                                                                                                                                                                                                                                        
+
+setOwner(address) should be declared external:                                                                                                                                                                                                                                                   
+
+setimplIOU(address) should be declared external:                                                                                                                                                                                                                                                 
+
+addIOU1(address,address,iIOUtoken.DescriptionIOU) should be declared external:                                                                                                                                                                                                                   
+
+
+addKeys(bytes32[],address) should be declared external:                                                                                                                                                                                                                                          
+
+
+delKeys(bytes32[],address) should be declared external:                                                                                                                                                                                                                                          
+
+
+addHolder(address,address) should be declared external:                                                                                                                                                                                                                                          
+
+
+getIOUList(address) should be declared external:                                                                                                                                                                                                                                                 
+
+
+getIOUListSoc(string) should be declared external:                                                                                                                                                                                                                                               
+
+
+getIOUListKey(bytes32) should be declared external:                                                                                                                                                                                                                                              
+
+
+getIOUListHold(address) should be declared external:                                                                                                                                                                                                                                             
+
+
+getIOUstotal() should be declared external:                                                                                                                                                                                                                                                      
+
+
+getKeystotal() should be declared external:                                                                                                                                                                                                                                                      
+
+
+getIssuerstotal() should be declared external:                                                                                                                                                                                                                                                   
+
+
+getIOUsbyCity(bytes32,string,string,string) should be declared external:                                                                                                                                                                                                                         
+
+getIOUsbyStreet(bytes32,string,string,string,string) should be declared external:                                                                                                                                                                                                                
+
+initialize() should be declared external:                                                                                                                                                                                                                                                        
+
+setIOU(string,string,iIOUtoken.DescriptionIOU,address) should be declared external:                                                                                                                                                                                                              
+
+setStore(address) should be declared external:                                                                                                                                                                                                                                                   
+
+setOwner(address) should be declared external:                                                                                                                                                                                                                                                   
+
+mint(address,uint256,string) should be declared external:                                                                                                                                                                                                                                        
+
+burn(uint256,int256,string) should be declared external:                                                                                                                                                                                                                                         
+
+editDescr(string) should be declared external:                                                                                                                                                                                                                                                   
+
+editPhone(bytes32) should be declared external:                                                                                                                                                                                                                                                  
+
+editGeo(string,string,string,string) should be declared external:                                                                                                                                                                                                                                
+
+addKeys(bytes32[]) should be declared external:                                                                                                                                                                                                                                                  
+
+delKeys(bytes32[]) should be declared external:                                                                                                                                                                                                                                                  
+
+thisIOUkeywords() should be declared external:                                                                                                                                                                                                                                                   
+
+getlen() should be declared external:                                                                                                                                                                                                                                                            
+
+thisIOUDesc() should be declared external:                                                                                                                                                                                                                                                       
+
+IOUname() should be declared external:                                                                                                                                                                                                                                                           
+
+IOUsymbol() should be declared external:                                                                                                                                                                                                                                                         
+
+getTokenInfo() should be declared external:                                                                                                                                                                                                                                                      
+
+initialize() should be declared external:                                                                                                                                                                                                                                                        
+
+setOwner(address) should be declared external:                                                                                                                                                                                                                                                   
+
+setimplIOU(address) should be declared external:                                                                                                                                                                                                                                                 
+
+getIOUsbyCity(bytes32,string,string,string) should be declared external:                                                                                                                                                                                                                         
+
+getIOUsbyStreet(bytes32,string,string,string,string) should be declared external:                                                                                                                                                                                                                
+
+grantRole(bytes32,address) should be declared external:                                                                                                                                                                                                                                          
+
+revokeRole(bytes32,address) should be declared external:                                                                                                                                                                                                                                         
+
+renounceRole(bytes32,address) should be declared external:                                                                                                                                                                                                                                       
+        - AccessControl.renounceRole(bytes32,address) (@openzeppelin/contracts/access/AccessControl.sol#161-165)
+setOwner(address) should be declared external:
+        - MakeIOU.setOwner(address) (MakeIOU.sol#18-20)
+setStore(address) should be declared external:
+        - MakeIOU.setStore(address) (MakeIOU.sol#22-25)
+setimplement(address) should be declared external:
+        - MakeIOU.setimplement(address) (MakeIOU.sol#27-30)
+makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32) should be declared external:
+        - MakeIOU.makeIOU(string,string,string,string,string,iIOUtoken.geo,bytes32,bytes32[],bytes32) (MakeIOU.sol#41-72)
+setCompleted(uint256) should be declared external:
+        - Migrations.setCompleted(uint256) (Migrations.sol#16-18)
+setStore(address) should be declared external:
+        - ProxyIOU.setStore(address) (ProxyIOU.sol#106-112)
+setOwner(address) should be declared external:
+        - ProxyIOU.setOwner(address) (ProxyIOU.sol#114-119)
+mint(address,uint256,string) should be declared external:
+        - ProxyIOU.mint(address,uint256,string) (ProxyIOU.sol#121-127)
+burn(uint256,int256,string) should be declared external:
+        - ProxyIOU.burn(uint256,int256,string) (ProxyIOU.sol#128-134)
+editDescr(string) should be declared external:
+        - ProxyIOU.editDescr(string) (ProxyIOU.sol#144-149)
+editPhone(bytes32) should be declared external:
+        - ProxyIOU.editPhone(bytes32) (ProxyIOU.sol#151-156)
+editGeo(string,string,string,string) should be declared external:
+        - ProxyIOU.editGeo(string,string,string,string) (ProxyIOU.sol#158-166)
+addKeys(bytes32[]) should be declared external:
+        - ProxyIOU.addKeys(bytes32[]) (ProxyIOU.sol#167-172)
+delKeys(bytes32[]) should be declared external:
+        - ProxyIOU.delKeys(bytes32[]) (ProxyIOU.sol#173-178)
+getIOU(address) should be declared external:
+        - ProxyIOU.getIOU(address) (ProxyIOU.sol#180-184)
+thisIOUkeywords() should be declared external:
+        - ProxyIOU.thisIOUkeywords() (ProxyIOU.sol#186-189)
+getlen() should be declared external:
+        - ProxyIOU.getlen() (ProxyIOU.sol#191-193)
+thisIOUDesc() should be declared external:
+        - ProxyIOU.thisIOUDesc() (ProxyIOU.sol#195-197)
+IOUname() should be declared external:
+        - ProxyIOU.IOUname() (ProxyIOU.sol#198-200)
+IOUsymbol() should be declared external:
+        - ProxyIOU.IOUsymbol() (ProxyIOU.sol#201-203)
+getTokenInfo() should be declared external:
+        - ProxyIOU.getTokenInfo() (ProxyIOU.sol#206-211)
+setTokenNorm(uint256,uint256) should be declared external:
+        - Goods2All.setTokenNorm(uint256,uint256) (Goods2All.sol#27-31)
+addGood(address) should be declared external:
+        - Goods2All.addGood(address) (Goods2All.sol#37-56)
+withdrawGood(uint256) should be declared external:
+        - Goods2All.withdrawGood(uint256) (Goods2All.sol#73-80)
+stopMembersip(address) should be declared external:
+        - Goods2All.stopMembersip(address) (Goods2All.sol#83-85)
+restoreMembersip(address) should be declared external:
+        - Goods2All.restoreMembersip(address) (Goods2All.sol#87-89)
+decimals() should be declared external:
+        - ERC20.decimals() (ERC20.sol#87-89)
+totalSupply() should be declared external:
+        - ERC20.totalSupply() (ERC20.sol#94-96)
+allowance(address,address) should be declared external:
+        - ERC20.allowance(address,address) (ERC20.sol#121-123)
+approve(address,uint256) should be declared external:
+        - ERC20.approve(address,uint256) (ERC20.sol#132-135)
+transferFrom(address,address,uint256) should be declared external:
+        - ERC20.transferFrom(address,address,uint256) (ERC20.sol#150-164)
+increaseAllowance(address,uint256) should be declared external:
+        - ERC20.increaseAllowance(address,uint256) (ERC20.sol#178-181)
+decreaseAllowance(address,uint256) should be declared external:
+        - ERC20.decreaseAllowance(address,uint256) (ERC20.sol#197-205)
+Reference: https://github.com/crytic/slither/wiki/Detector-Documentation#public-function-that-could-be-declared-external
+. analyzed (22 contracts with 78 detectors), 309 result(s) found

@@ -6,44 +6,10 @@ import  "./interfaces/iStoreIOUs.sol";
 //import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 
 contract ProxyIOU   is IOUData /*,TransparentUpgradeableProxy */  {  
-   // address implementation;
-/*     constructor(
-        address _logic,
-        address admin_
-    ) payable TransparentUpgradeableProxy(_logic, admin_, "") {
-        assert(_ADMIN_SLOT == bytes32(uint256(keccak256("eip1967.proxy.admin")) - 1));
-        _changeAdmin(admin_);
-    } */
-    
-     modifier onlyOwner() {
-        require (owner == msg.sender, string(abi.encode("Only owner can do this (proxy)", owner, msg.sender)));
-        _;
-    }
-
-
-    modifier nonInited () {
-        require(!inited, "Already inited (proxy)");
-        _;
-        inited = true;
-
-    }
-
-    modifier nonConfiged () {
-        require(!configured, "Already configured (proxy)");
-        _;
-        configured = true;
-
-    }
-
-    modifier onlyHolder (uint256 _amount) {
-        require (balanceOf(msg.sender) > _amount, "No amount token holder has (proxy)" );
-    _;
-    }
-
      function setIOU (//    constructor (
-                string memory name_, 
-                string memory symbol_, 
-                iIOUtoken.DescriptionIOU memory _thisIOU,
+                string calldata name_, 
+                string calldata symbol_, 
+                iIOUtoken.DescriptionIOU calldata _thisIOU,
                  address _store                 ) /* nonConfiged */ external {
      //   implementation = _implementation;
 //        initialize();
@@ -125,7 +91,7 @@ contract ProxyIOU   is IOUData /*,TransparentUpgradeableProxy */  {
         _who, _amount,  _descr));
         require(success, string (returnedData));
     }
-    function burn (uint256 _amount, int256 _rating, string memory _feedback) onlyHolder  (_amount) public {
+    function burn (uint256 _amount, int256 _rating, string calldata _feedback) onlyHolder  (_amount) public {
         
         (bool success, bytes memory returnedData) = store.implIOU().delegatecall(abi.encodeWithSignature(
         (("burn(uint256,int256,string)")), 

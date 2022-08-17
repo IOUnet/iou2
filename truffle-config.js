@@ -174,6 +174,27 @@ module.exports = {
     // networkCheckTimeout: 38000,
     // gasPrice: 20000000000
     },
+    
+    aurora: {  provider: () => new HDWalletProvider({ //Aurora Near 
+      privateKeys: [pk["137"]],
+      providerOrUrl: 'https://mainnet.aurora.dev',  
+     // testnet 	https://testnet.aurora.dev
+     /**
+      *   "0x4e454152":{
+    "chainName": "Aurora Near",
+    "rpcUrls": [
+      "https://api.s0.t.hmny.io"
+    ],
+      */
+      derivationPath: `m/44'/1023'/0'/0/`,
+    }),
+    network_id: 1313161554, // 1313161554 for mainnet , 1313161555 TEST
+    networkCheckTimeout: 180000,
+
+    // gas: 80000000,
+    // networkCheckTimeout: 38000,
+    // gasPrice: 20000000000
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
@@ -184,7 +205,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-       version: "0.8.10",    // Fetch exact version from solc-bin (default: truffle's version)
+       version: "0.8.14",    // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
        settings: {          // See the solidity docs for advice about optimization and evmVersion
         optimizer: {

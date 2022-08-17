@@ -1,8 +1,24 @@
 {  
+  "0x4e454152":{
+    "chainName": "Aurora Mainnet",
+    "rpcUrls": [
+      "https://mainnet.aurora.dev"
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "Aurora Mainnet  ",
+      "symbol": "ETHAU",
+      "decimals": 18
+    },
+    "chainId": "0x4e454152",
+    "blockExplorerUrls": [
+    "https://aurorascan.dev/"
+    ]
+    }, 
 "0x63564c40":{
     "chainName": "Harmony",
     "rpcUrls": [
-      "https://api.s0.t.hmny.io"
+      "https://mainnet.aurora.dev"
     ],
   
     "nativeCurrency": {
