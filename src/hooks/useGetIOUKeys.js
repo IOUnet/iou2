@@ -31,7 +31,9 @@ export default function useGetKeys() {
             if (result !== undefined) {
 
                 changeIOUKeys(result.value.map((value,key) => {
-                    return drizzle.web3.utils.hexToAscii(value)
+                    if (value !==0 ){
+                        return drizzle.web3.utils.hexToUtf8 (value)
+                    }
                 }));
                     
             }

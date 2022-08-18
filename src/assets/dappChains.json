@@ -1,4 +1,20 @@
 {  
+  "0x128":{
+    "chainName": "HECO Mainnet",
+    "rpcUrls": [
+      "https://http-mainnet.hecochain.com"
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "HECO Mainnet",
+      "symbol": "HT",
+      "decimals": 18
+    },
+    "chainId": "0x128",
+    "blockExplorerUrls": [
+    "https://hecoinfo.com"
+    ]
+    }, 
   "0x4e454152":{
     "chainName": "Aurora Mainnet",
     "rpcUrls": [

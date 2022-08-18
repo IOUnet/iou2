@@ -100,13 +100,13 @@ contract IOUtoken is IOUData, iIOUtoken  {
         owner = _thisIOU.issuer;
         _name = name_; 
         _symbol = symbol_;
-         require (bytes(name_).length <16 &&
+/*          require (bytes(name_).length <16 &&
                     bytes(symbol_).length < 5 &&
                     bytes(_thisIOU.myName).length < 64 &&
                     bytes(_thisIOU.socialProfile).length < 128 &&
                     bytes(_thisIOU.description).length < 256 &&
                     _thisIOU.keywords.length <=5 , 
-                    "Too many symbs in parameter(s)" ); 
+                    "Too many symbs in parameter(s)" );  */
     //todo add visibility?
     store = iStoreIOUs(_store);
             
