@@ -6,7 +6,7 @@ const styles = () =>
       minHeight: '100vh',
       padding: 0,
       display: 'flex',
-      flexDirection: 'column',
+      flexDirection: 'column'
     },
     main: {
       flexGrow: 1,
