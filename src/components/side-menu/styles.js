@@ -30,7 +30,7 @@ const styles = () =>
       backgroundColor: "black",
       transition: "0.2s",
       opacity: 0,
-      visibility: "hidden"
+      visibility: "hidden",
     },
     shadow_active: {
       transition: "0.4s",
@@ -39,7 +39,12 @@ const styles = () =>
     },
     typography: {
       textAlign: "center",
-      cursor: "pointer"
+      cursor: "pointer",
+
+      "&:hover": {
+        borderBottom: "2px solid black",
+        marginBottom: "-2px"
+      }
     },
     brand: {
       width: '95px',
