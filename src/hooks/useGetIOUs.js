@@ -18,19 +18,18 @@ export default function useGetIOUs() {
         setIOUAddreses(addressList);
     }
 
-
    const changeIOUList = useCallback(
         (listItem) => {
             setIOUList(listItem)
         },
         [],
-    )
+   )
 
     
-    useEffect( 
+   useEffect(
         () => {
           const storeIOU = drizzle.contracts.StoreIOUs
-          
+
           const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall( drizzleState.accounts[0])
           if (getIOUsTrx !== undefined) {
             const result = StoreIOUs.getIOUList[getIOUsTrx]
@@ -45,31 +44,36 @@ export default function useGetIOUs() {
     useEffect( 
         () => {
             const proxyIOU = drizzle.contracts.ProxyIOU
-            
+
             if(IOUAddreses !== undefined && IOUAddreses != null) {
                 const IOUListObjects = []
                 for(var i=0; i<IOUAddreses.length; i++) {
-                    if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
+                    if (drizzle.contracts[IOUAddreses[i]] === undefined) {
                         const contractConfig = new drizzle.web3.eth.Contract(
                             IOUToken.abi, 
                             IOUAddreses[i]
                         )
                         drizzle.addContract({
-                            contractName: IOUAddreses[i], 
+                            contractName: IOUAddreses[i],
                             web3Contract: contractConfig
                         }, ['Approval'])
                     }
-                    const  tokenIOU = drizzle.contracts[IOUAddreses[i]]
-            //        const resultTrxT =  tokenIOU.methods["getTokenInfo"].cacheCall();
+                    const tokenIOU = drizzle.contracts[IOUAddreses[i]]
+                   // const resultTrxT =  tokenIOU.methods["getTokenInfo"].cacheCall();
+
+                  console.log(drizzle.contracts)
+
                     const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
                     if (resultTrx !== undefined && resultTrx !== "0x0" /* && resultTrxT !== undefined */) {
                        const resultItem = ProxyIOU.getIOU[resultTrx]
-         //              const resultItemT =  tokenIOU.getTokenInfo[resultTrxT]
+                      // const resultItemT =  tokenIOU.getTokenInfo[resultTrxT]
+
                         if (resultItem !== undefined ) {
                            
                                 let keys = resultItem.value.description.keywords.map((value,key) => {
                                     return drizzle.web3.utils.hexToAscii(value)
                                 })
+
                                 IOUListObjects.push( {
                                         id: i,
                                         title: resultItem.value.name,
@@ -88,8 +92,8 @@ export default function useGetIOUs() {
                                         rating: resultItem.value.description.avRate,
                                         units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
                                         location: (resultItem.value.description.location),
-                                        phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
-                                    })   
+                                        phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone),
+                                    })
                                     changeIOUList(IOUListObjects)
                                 
                         

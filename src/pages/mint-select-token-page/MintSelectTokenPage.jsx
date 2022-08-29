@@ -17,13 +17,19 @@ const MintSelectTokenPage = ({ classes }) => {
 
   const tokensList = useContext(TokensListContext)
   const dataIOUsList = useGetIOUs()
-  
+
+
   const [listDataIOU, setListDataIOU] = useState([])
   const history = useHistory();
-  
+
   const changeIOUDataList = useCallback((dataIOUsList) => {
     if (dataIOUsList != null) {
       setListDataIOU(dataIOUsList)
+
+      for (let i = 0; i < 3; i++) {
+        dataIOUsList[i].test = "test"
+      }
+
       tokensList.setTokenList(dataIOUsList)
     }
   }, [tokensList])
@@ -31,10 +37,9 @@ const MintSelectTokenPage = ({ classes }) => {
   useEffect(() => {
     changeIOUDataList(dataIOUsList)
   }, [changeIOUDataList, dataIOUsList])
-  
 
   const handleSelectIOU = (_, id) => {
-    console.log('cardId ---', id);
+    // console.log('cardId ---', id);
     history.push(ROUTES.mintSelectReceiver);
     tokensList.setCurrentToken(id)
   };

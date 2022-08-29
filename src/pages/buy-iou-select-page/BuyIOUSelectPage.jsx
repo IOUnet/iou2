@@ -19,6 +19,7 @@ const BuyIOUSelectPage = ({ classes }) => {
 
   const [dataIOUsBuyList, setDataIOUsBuyList] = useState(null)
   const [dataIOUsList] = useFindIOU()
+
   const [listDataIOU, setListDataIOU] = useState([])
 
   const changeIOUDataList = useCallback((dataIOUsList) => {
@@ -61,7 +62,8 @@ const BuyIOUSelectPage = ({ classes }) => {
   },[setDataIOUsBuyList]) 
   useEffect(() => {
       setData(dataIOUsBuyListContext)
-  },[setData]) 
+  },[setData])
+
 
   return (
     <PageLayout>

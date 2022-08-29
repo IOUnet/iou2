@@ -25,23 +25,23 @@ const PayoffAndFeedbackPage = ({ classes }) => {
 
   const setCurrentTokenData = useCallback(() => {
     if (tokenList.tokenList.length > 0) {
-     const tokenData = tokenList.tokenList[tokenList.currentTokenID]
-     setCardTokenData(tokenData)
+      const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+      setCardTokenData(tokenData)
     }
- },[tokenList])
+  },[tokenList])
 
  useEffect(() => {
    setCurrentTokenData()
  },[setCurrentTokenData, tokenList])
 
   const handlePayoff = () => {
-    console.log(number, rate, feedback)
     setParameters({amount: number,
                    rate, 
                    feedback,
                    tokenAddress:cardTokenData.address})
     //history.push(ROUTES.main);
   };
+
 
   return (
     <PageLayout>

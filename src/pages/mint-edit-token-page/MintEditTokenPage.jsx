@@ -42,6 +42,7 @@ const MintEditTokenPage = ({ classes }) => {
     tokensList.setCurrentToken(id)
   };
 
+
   return (
     <PageLayout>
       <Box className={classes.selectSection}>

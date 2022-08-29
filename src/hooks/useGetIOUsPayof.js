@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useCallback} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
+import IOUtoken from "../artifacts/IOUtoken.json";
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 export default function useGetIOUsPayof() {
@@ -10,7 +11,8 @@ export default function useGetIOUsPayof() {
     
     const { StoreIOUs, ProxyIOU } = drizzleState.contracts
 
-    const changeIOUListAddreses = (addressList) => {
+
+  const changeIOUListAddreses = (addressList) => {
         setIOUAddreses(addressList);
     }
 
@@ -36,19 +38,24 @@ export default function useGetIOUsPayof() {
           }
         }, [drizzleState, drizzle, StoreIOUs])
 
-    
-        
-    useEffect( 
+
+    useEffect(
         () => {
             const proxyIOU = drizzle.contracts.ProxyIOU
-            
             if(IOUAddreses !== undefined && IOUAddreses != null) {
                 const IOUListObjects = []
                 for(var i=0; i<IOUAddreses.length; i++) {
                     const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
-                    if (resultTrx !== undefined) {
+                  // const res = proxyIOU.methods["allFeedbacks"].cacheCall("0");
+                  const res = proxyIOU.methods["feedBacksbySender"].cacheCall("0");
+                    console.log(ProxyIOU)
+
+                  if (resultTrx !== undefined) {
                         const resultItem = ProxyIOU.getIOU[resultTrx]
-                        if (resultItem !== undefined) {
+                        //const resIt = ProxyIOU.allFeedbacks[res]
+
+
+                    if (resultItem !== undefined) {
                             let keys = resultItem.value.description.keywords.map((value,key) => {
                                 return drizzle.web3.utils.hexToAscii(value)
                             })
@@ -64,7 +71,8 @@ export default function useGetIOUsPayof() {
                                     rating: resultItem.value.description.avRate,
                                     units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
                                     location: (resultItem.value.description.location),
-                                    phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
+                                    phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone),
+                                    feedback: []
                                 })    
                            
                             
@@ -91,7 +99,7 @@ export default function useGetIOUsPayof() {
                             // length: 10
                             // name: "test"
                             // symbol: "tt"
-                            console.log(resultItem)    
+                            // console.log(resultItem)
                         }
                     }
                 }

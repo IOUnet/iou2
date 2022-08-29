@@ -2,7 +2,6 @@ import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
-
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -37,14 +36,12 @@ const BuyIOUPage = ({ classes }) => {
 },[setCurrentTokenData, tokenList])
 
   const handleBuy = () => {
-
     window.location.href = dappStaff[cookies.currChainId].exchange + "/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
-  
   };
-  
+
   if (dappStaff[cookies.currChainId].exchange === "")
   {
-  
+    console.log(tokenList)
     return (
       <PageLayout>
       <Box className={classes.pageTitle}>

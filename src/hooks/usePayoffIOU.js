@@ -10,7 +10,8 @@ export default function usePayoffIOU () {
     const [burntrx, setBurnTrx] = useState();
     const [burnParameters, setParameters] = useState()
     
-    const { curIOU } = drizzleState.contracts;
+    const { curIOU, ProxyIOU } = drizzleState.contracts;
+
 
     const burnTokens = useCallback((burnParameters) => {
         if (burnParameters !== undefined) {
@@ -23,29 +24,31 @@ export default function usePayoffIOU () {
             
     }, [drizzle, drizzleState])
 
-    
-
     useEffect(() => {
         const { curIOU } = drizzle.contracts;
         if (curIOU === undefined && burnParameters !== undefined) {
            // if (curIOU.address !== burnParameters.TokenAddress) {
+           //      console.log("current token address: ", burnParameters.tokenAddress)
                 const contractConfig = new drizzle.web3.eth.Contract(
                     IOUtoken.abi, 
                     burnParameters.tokenAddress
-                  )
+                )
+
                 drizzle.addContract({
-                    contractName: 'curIOU', 
+                    contractName: 'curIOU',
                     web3Contract: contractConfig
-                 }, ['Approval'])
-           // }
-            
+                }, ['Approval'])
+
+
+            // }
 
         }
         if (burnParameters !== undefined && burntrx === undefined) {
             burnTokens(burnParameters)
         }
         const { transactions, transactionStack } = drizzleState
-        var statusTrx = transactions[transactionStack[burntrx]] 
+
+        var statusTrx = transactions[transactionStack[burntrx]]
         if (statusTrx !== undefined) {
            
             if (statusTrx.status === "success") {
