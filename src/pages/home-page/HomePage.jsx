@@ -34,8 +34,6 @@ const HomePage = ({ classes }) => {
         </Typography>
       </Box>
 
-   
-
       <Box className={classes.button_group}>
         <Grid className={classes.button_group_container} container spacing={4}>
           {buttons.map(({ button, handler }) => (

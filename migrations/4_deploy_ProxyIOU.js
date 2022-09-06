@@ -5,9 +5,9 @@ const IOUtoken = artifacts.require("IOUtoken");
 /** */
 module.exports = async  function (deployer,  _network, addresses) {
 
-  const iIOU = await IOUtoken.deployed();
+  const implIOU = await IOUtoken.deployed();
 
-  await deployer.deploy(ProxyIOU, iIOU.address, addresses[0]);
+  await deployer.deploy(ProxyIOU, implIOU.address, addresses[0]);
   //.log (await ProxyIOU.deployed());
 };
 /**

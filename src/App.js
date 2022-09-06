@@ -67,9 +67,8 @@ function App() {
           <TokensListProvider>
             <CreateIOUProvider>
               <ThemeProvider theme={theme}>
-                <BrowserRouter>      
+                <BrowserRouter>
                 <CookiesProvider>
-
                     <Switch>
                       <Route component={HomePage} exact path={ROUTES.main} />
                       <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
@@ -93,14 +92,12 @@ function App() {
                       { /* (hasInitialization || isChainConnected) && */}<Redirect to={ROUTES.main} />
                     </Switch>
                   </CookiesProvider>
-
                 </BrowserRouter>
               </ThemeProvider>
             </CreateIOUProvider>
           </TokensListProvider>
          </Loading>
       </DrizzleProvider>
-    
   );
   }
 }

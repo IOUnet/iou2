@@ -27,10 +27,10 @@ export default function useCreateIOU() {
                             'street': values.street.trim()
                         };
             const keywords = values.keywords.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+                return drizzle.web3.utils.utf8ToHex(value.trim().toLowerCase())
             })
-            const unit = drizzle.web3.utils.asciiToHex(values.unit)
-            const phone = drizzle.web3.utils.asciiToHex(values.phone)
+            const unit = drizzle.web3.utils.utf8ToHex(values.unit)
+            const phone = drizzle.web3.utils.utf8ToHex(values.phone)
             const argumentsIOU = [values.name.trim(),
                                  values.symbol.trim(), 
                                  values.username, 
