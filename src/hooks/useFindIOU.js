@@ -35,7 +35,7 @@ export default function useFindIOU() {
             () => {
                 const storeIOU = drizzle.contracts.StoreIOUs
             if (values.searchStreet) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyStreet"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()), 
+                const getIOUsTrx = storeIOU.methods["getIOUsbyStreet"].cacheCall( Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()), 
                     values.country.trim(), 
                     values.state.trim(), 
                     values.city.trim(), 
@@ -47,7 +47,7 @@ export default function useFindIOU() {
                 }
                 }
             } else if (values.searchLocation) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()), 
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()), 
                     values.country.trim(), 
                     values.state.trim(), 
                     values.city.trim());
@@ -58,7 +58,7 @@ export default function useFindIOU() {
                 }
                 }
             } else {
-                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword.trim().toLowerCase()));
+                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()));
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUListKey[getIOUsTrx];
                 if (result !== undefined) {
@@ -71,7 +71,7 @@ export default function useFindIOU() {
           const findIOU = (values) => {
                 const storeIOU = drizzle.contracts.StoreIOUs
             if (values.searchStreet) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city, values.street);
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.utf8ToHex(values.keyword), values.country, values.state, values.city, values.street);
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
                 if (result !== undefined) {
@@ -80,7 +80,7 @@ export default function useFindIOU() {
                 }
                 }
             } else if (values.searchLocation) {
-                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.asciiToHex(values.keyword), values.country, values.state, values.city);
+                const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.utf8ToHex(values.keyword), values.country, values.state, values.city);
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
                 if (result !== undefined) {
@@ -90,7 +90,7 @@ export default function useFindIOU() {
                  }
                 }
             } else {
-                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.asciiToHex(values.keyword), {from: drizzleState.accounts[0]});
+                const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.utf8ToHex(values.keyword), {from: drizzleState.accounts[0]});
                 if (getIOUsTrx !== undefined) {
                 const result = StoreIOUs.getIOUListKey[getIOUsTrx];
                 if (result !== undefined) {
@@ -129,7 +129,7 @@ export default function useFindIOU() {
                                     if (resultItem !== undefined) {
           
                                             let keys = resultItem.value.description.keywords.map((value,key) => {
-                                                return drizzle.web3.utils.hexToAscii(value)
+                                                return drizzle.web3.utils.hexToUtf8(value)
                                             })
                                             IOUListObjects.push( {
                                                     id: i,
@@ -147,9 +147,9 @@ export default function useFindIOU() {
                                                     minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
                                                     payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
                                                     rating: resultItem.value.description.avRate,
-                                                    units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
+                                                    units: drizzle.web3.utils.hexToUtf8(resultItem.value.description.units),
                                                     location: (resultItem.value.description.location),
-                                                    phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
+                                                    phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone)
                                                 })   
                                                 changeIOUList(IOUListObjects)
                                             

@@ -27,10 +27,10 @@ export default function useEditIOU() {
                             'street': values.street.trim()
                         };
             const keywords = values.keywords.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+                return drizzle.web3.utils.utf8ToHex(value.trim().toLowerCase())
             })
-            const unit = drizzle.web3.utils.asciiToHex(values.unit)
-            const phone = drizzle.web3.utils.asciiToHex(values.phone)
+            const unit = drizzle.web3.utils.utf8ToHex(values.unit)
+            const phone = drizzle.web3.utils.utf8ToHex(values.phone)
             const argumentsIOU = [values.name.trim(),
                                  values.symbol.trim(), 
                                  values.username, 
@@ -45,7 +45,7 @@ export default function useEditIOU() {
             }*/
     const editIOUPhone = (values, _addressIOU) => {
                 const makeIOU = drizzle.contracts[_addressIOU]
-                const newphone = drizzle.web3.utils.asciiToHex(values.phone)
+                const newphone = drizzle.web3.utils.utf8ToHex(values.phone)
                 const stackId = makeIOU.methods["editPhone"].cacheSend(newphone, {from: drizzleState.accounts[0]})
         }
     const editIOUDescr = (values, _addressIOU) => {
@@ -72,14 +72,14 @@ export default function useEditIOU() {
    const editAddKeys = (values, _addressIOU) => {
             const makeIOU = drizzle.contracts[_addressIOU]
             const newkeywords = values.keywords.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+                return drizzle.web3.utils.utf8ToHex(value.trim().toLowerCase())
             });
              const stackId = makeIOU.methods["addKeys"].cacheSend(newkeywords, {from: drizzleState.accounts[0]})
         }
     const editDelKeys = (values, _addressIOU) => {
             const makeIOU = drizzle.contracts[_addressIOU]
             const delkeywords = values.keyList.map((value, key) => {
-                return drizzle.web3.utils.asciiToHex(value.trim().toLowerCase())
+                return drizzle.web3.utils.utf8ToHex(value.trim().toLowerCase())
             });
              const stackId = makeIOU.methods["delKeys"].cacheSend(delkeywords, {from: drizzleState.accounts[0]})
         }

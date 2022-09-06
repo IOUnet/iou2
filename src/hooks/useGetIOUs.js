@@ -68,7 +68,7 @@ export default function useGetIOUs() {
                         if (resultItem !== undefined ) {
                            
                                 let keys = resultItem.value.description.keywords.map((value,key) => {
-                                    return drizzle.web3.utils.hexToAscii(value)
+                                    return drizzle.web3.utils.hexToUtf8(value)
                                 })
                                 IOUListObjects.push( {
                                         id: i,
@@ -86,9 +86,9 @@ export default function useGetIOUs() {
                                         minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
                                         payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
                                         rating: resultItem.value.description.avRate,
-                                        units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
+                                        units: drizzle.web3.utils.hexToUtf8(resultItem.value.description.units),
                                         location: (resultItem.value.description.location),
-                                        phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone)
+                                        phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone)
                                     })   
                                     changeIOUList(IOUListObjects)
                                 

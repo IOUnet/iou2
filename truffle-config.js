@@ -195,6 +195,21 @@ module.exports = {
     // networkCheckTimeout: 38000,
     // gasPrice: 20000000000
     },
+    heco: {  provider: () => new HDWalletProvider({ //Aurora Near 
+      privateKeys: [pk["137"]],
+      providerOrUrl: 'https://http-mainnet.hecochain.com',  
+     // testnet 	https://http-testnet.hecochain.com
+
+      derivationPath: `m/44'/1023'/0'/0/`,
+    }),
+    network_id: "128", // 128 for mainnet , 256 TEST
+    networkCheckTimeout: 180000,
+
+    // gas: 80000000,
+    // networkCheckTimeout: 38000,
+    // gasPrice: 20000000000
+    // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://http-mainnet.hecochain.com -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HECO  -p 8545 -e 1000
+    },
   },
 
   // Set default mocha options here, use special reporters etc.
