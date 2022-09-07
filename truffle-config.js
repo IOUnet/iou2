@@ -24,6 +24,7 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const HDWalletProviderKlaytn = require("truffle-hdwallet-provider-klaytn");
 const pk = require('../pk.json')
 
 module.exports = {
@@ -210,7 +211,16 @@ module.exports = {
     // gasPrice: 20000000000
     // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://http-mainnet.hecochain.com -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HECO  -p 8545 -e 1000
     },
+    cypress: {
+      provider: () => {
+        return new HDWalletProviderKlaytn([pk["137"]], "https://public-node-api.klaytnapi.com/v1/cypress");
+      },
+      network_id: "8217", //Klaytn mainnet's network id
+      gas: "8500000",
+      gasPrice: null,
+    },
   },
+  
 
   // Set default mocha options here, use special reporters etc.
   mocha: {
