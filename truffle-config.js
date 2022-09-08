@@ -219,6 +219,16 @@ module.exports = {
       gas: "8500000",
       gasPrice: null,
     },
+
+    baobab: {
+      provider: () => {
+        return new HDWalletProviderKlaytn(["0xb8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329"], "https://api.baobab.klaytn.net:8651");
+      },
+      network_id: "1001", //Klaytn baobab testnet's network id
+      gas: "8500000",
+      gasPrice: null,
+    },
+
   },
   
 
