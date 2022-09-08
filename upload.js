@@ -17,6 +17,9 @@ async function upload(server) {
         await client.ensureDir(server.dir2)
         await client.clearWorkingDir()
         await client.uploadFromDir("./build")
+        await client.ensureDir(server.dir3)
+        await client.clearWorkingDir()
+        await client.uploadFromDir("./build")
     }
     catch(err) {
         console.log(err)

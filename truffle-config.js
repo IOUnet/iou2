@@ -210,6 +210,18 @@ module.exports = {
     // gasPrice: 20000000000
     // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://http-mainnet.hecochain.com -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HECO  -p 8545 -e 1000
     },
+    trustevm: {
+      provider: () => new HDWalletProvider({ //Aurora Near 
+        privateKeys: ["622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd"], 
+        // JUST FOR TESTNETS!!! 0x132e2c063960e14eE62EC2dAC6AbA6bA4BB68552
+         providerOrUrl: 'https://api.testnet-dev.trust.one',  
+  
+        derivationPath: `m/44'/1023'/0'/0/`,
+      }),
+      port: 8545,
+      network_id: "15555"
+    }
+
   },
 
   // Set default mocha options here, use special reporters etc.

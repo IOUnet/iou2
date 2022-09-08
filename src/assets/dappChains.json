@@ -141,6 +141,20 @@
       "https://mumbai.polygonscan.com/"
     ]
   },
+  "0x3cc3": {
+    "chainName": "Trust EVM testnet",
+    "chainId": "0x3cc3",
+    "nativeCurrency": {
+      "chainName": "Trust EVM testnet",
+      "name": "Trust testcoins",
+      "symbol": "TRUTST",
+      "decimals": 18
+    },
+    "rpcUrls": [
+      "https://api.testnet-dev.trust.one"
+    ]
+    
+  },
   "0x539": {
     "chainName": "Localchain ID 1337 for tests",
     "chainId": "0x539",
@@ -152,10 +166,8 @@
     },
     "rpcUrls": [
       "http://localhost:8545"
-    ],
-    "blockExplorerUrls": [
-      "https://polygonscan.com/"
     ]
+    
   }
 }
 

@@ -131,7 +131,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
             StoreIOU.addIOU2(address(this), thisIOU.socialProfile, thisIOU.keywords);
             registered = true; 
             } */
-        require (bytes(_descr).length <256, "IOU text is long, need < 256");
+    //    require (bytes(_descr).length <256, "IOU text is long, need < 256"); //not actual for  L2
         IOU memory bond = IOU (_who, block.timestamp, _descr);
         allIOUs.push(bond);
         IOUbyReceiver[_who].push(allIOUs.length-1);
@@ -142,7 +142,7 @@ contract IOUtoken is IOUData, iIOUtoken  {
     }
 
     function burn (uint256 _amount, int256 _rating, string calldata _feedback) public onlyHolder (_amount) {
-        require (bytes(_feedback).length <256, "Feedback is long, must be < 256");
+     //   require (bytes(_feedback).length <256, "Feedback is long, must be < 256"); //not actual for  L2
 
         iIOUtoken.FeedBack memory feedback = iIOUtoken.FeedBack(msg.sender,block.timestamp, _rating, _amount, _feedback);
         allFeedbacks.push(feedback);
