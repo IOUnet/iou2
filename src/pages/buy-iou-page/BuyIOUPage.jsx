@@ -121,9 +121,9 @@ const BuyIOUPage = ({ classes }) => {
           { feedbacks
             ?
             feedbacks.map(item => (
-              <div>
+              <Box>
                 {item.sender}:  {item.value}
-              </div>
+              </Box>
             ))
             : ""
 
