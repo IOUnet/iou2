@@ -13,8 +13,6 @@ import TokensListContext from '../../context/TokensListContext'
 
 
 const MintSelectTokenPage = ({ classes }) => {
-  
-
   const tokensList = useContext(TokensListContext)
   const dataIOUsList = useGetIOUs()
   
@@ -56,7 +54,4 @@ const MintSelectTokenPage = ({ classes }) => {
     </PageLayout>
   );
 };
-
-
-
 export default withStyles(styles, { withTheme: true })(MintSelectTokenPage);

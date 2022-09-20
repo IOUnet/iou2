@@ -2,6 +2,7 @@ import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import useFindIOU from '../../hooks/useFindIOU'
 
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -22,8 +23,10 @@ const BuyIOUPage = ({ classes }) => {
   const tokenList = useContext(TokensListContext)
   const [cardTokenData, setCardTokenData] = useState({})
   const [cookies, setCookie] = useCookies(['currChainId']);
+  const [dataIOUsList] = useFindIOU()
 
- // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+
+  // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
   const setCurrentTokenData = useCallback(() => {
     if (tokenList.tokenList.length > 0) {
      const tokenData = tokenList.tokenList[tokenList.currentTokenID]
@@ -41,10 +44,9 @@ const BuyIOUPage = ({ classes }) => {
     window.location.href = dappStaff[cookies.currChainId].exchange + "/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
   
   };
-  
+
   if (dappStaff[cookies.currChainId].exchange === "")
   {
-  
     return (
       <PageLayout>
       <Box className={classes.pageTitle}>
@@ -53,6 +55,15 @@ const BuyIOUPage = ({ classes }) => {
       </PageLayout>
     )
   } else {
+
+
+
+    let feedbacks = cardTokenData.feedback == undefined
+                  ? []
+                  : cardTokenData.feedback.map(item => { return {sender: item.value.sender, value: item.value.text}});
+
+    console.log(feedbacks)
+
     return (
       <PageLayout>
         <Box className={classes.pageTitle}>
@@ -105,7 +116,21 @@ const BuyIOUPage = ({ classes }) => {
             buy  IOU dollars
           </Button> */}
         </Box>
+        <Box>
+          Feedbacks:
+          { feedbacks
+            ?
+            feedbacks.map(item => (
+              <div>
+                {item.sender}:  {item.value}
+              </div>
+            ))
+            : ""
 
+
+          }
+
+        </Box>
         <Box className={classes.actionSection}>
           <Button onClick={handleBuy}>
             buy {number} IOUs

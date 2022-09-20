@@ -123,7 +123,7 @@ export default function useFindIOU() {
                                                 return drizzle.web3.utils.hexToAscii(value)
                                             })
                                             const feedbacks = getFeedbacks(drizzle, drizzleState, IOUAddreses[i])
- 
+
                                             IOUListObjects.push( {
                                                     id: i,
                                                     title: resultItem.value.name,
@@ -143,7 +143,7 @@ export default function useFindIOU() {
                                                     units: drizzle.web3.utils.hexToAscii(resultItem.value.description.units),
                                                     location: (resultItem.value.description.location),
                                                     phone: drizzle.web3.utils.hexToAscii(resultItem.value.description.phone),
-                                               //     feedback: 
+                                                    feedback: feedbacks
                                                 })   
                                                 changeIOUList(IOUListObjects)
                                             
@@ -176,6 +176,7 @@ export default function useFindIOU() {
                                     }
                                 }
                         }
+
                //         changeIOUList(IOUListObjects)
                     }    
                     

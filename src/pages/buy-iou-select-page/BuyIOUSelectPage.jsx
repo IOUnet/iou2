@@ -32,8 +32,6 @@ const BuyIOUSelectPage = ({ classes }) => {
     changeIOUDataList(dataIOUsList)
   }, [changeIOUDataList, dataIOUsList])
   
-
-
   const handleSelectIOU = (_, id) => {
   //  console.log('cardId ---', id);
     if (dataIOUsBuyList != null && dataIOUsBuyList !== undefined) {
