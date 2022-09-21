@@ -56,11 +56,24 @@ const BuyIOUPage = ({ classes }) => {
     )
   } else {
 
-
-
     let feedbacks = cardTokenData.feedback == undefined
                   ? []
-                  : cardTokenData.feedback.map(item => { return {sender: item.value.sender, value: item.value.text}});
+                  : cardTokenData.feedback.map(item =>{
+                      let feedbackDate =  new Date(parseInt(item.value.time) * 1000);
+                      let time = `${feedbackDate.getHours()}:${feedbackDate.getMinutes()}:${feedbackDate.getSeconds()}`;
+                      let feedbackMonth = feedbackDate.getMonth() + 1 < 10
+                                          ? "0" + (feedbackDate.getMonth() + 1)
+                                          : (feedbackDate.getMonth() + 1);
+                      let date = `${feedbackDate.getDate()}.${feedbackMonth}.${feedbackDate.getFullYear()}`;
+
+                      return {
+                        sender: item.value.sender,
+                        value: item.value.text,
+                        time,
+                        date,
+                        rating: item.value.rating
+                      }
+                    });
 
     console.log(feedbacks)
 
@@ -122,7 +135,7 @@ const BuyIOUPage = ({ classes }) => {
             ?
             feedbacks.map(item => (
               <Box>
-                {item.sender}:  {item.value}
+                [{item.time}][{item.date}][Rating: {item.rating}] {item.sender}:  {item.value}
               </Box>
             ))
             : ""
