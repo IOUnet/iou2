@@ -2,7 +2,7 @@ import React, {useEffect, useState, useCallback, useContext} from 'react'
 import { drizzleReactHooks } from '@drizzle/react-plugin';
 import Web3 from 'web3';
 import TokensListContext from '../context/TokensListContext';
-import IOUToken from '../artifacts/IOUtoken.json' 
+import { getFeedbacks  } from '../helpers/getFeedbacks';
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
@@ -13,7 +13,7 @@ export default function useFindIOU() {
     const drizzleState = useDrizzleState(state => state);
     const [IOUAddreses, setIOUAddreses] = useState();
     const [IOUList, setIOUList] = useState();
-    const { StoreIOUs, ProxyIOU, IOUtoken } = drizzleState.contracts;
+    const { StoreIOUs, ProxyIOU, IOUtoken  } = drizzleState.contracts;
 
     const tokenList = useContext(TokensListContext)
     const [values, setFormValues] = useState(tokenList.values) 
@@ -104,23 +104,13 @@ export default function useFindIOU() {
              useEffect( 
                 () => {
                  const proxyIOU = drizzle.contracts.ProxyIOU                    
-                    
+                 
                     if(IOUAddreses !== undefined && IOUAddreses != null) {
                         
                         const IOUListObjects = []
                         for(var i=0; i<IOUAddreses.length; i++) {
-                        
 
-                            if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
-                                const contractConfig = new drizzle.web3.eth.Contract(
-                                    IOUToken.abi, 
-                                    IOUAddreses[i]
-                                )
-                                drizzle.addContract({
-                                    contractName: IOUAddreses[i], 
-                                    web3Contract: contractConfig
-                                }, ['Approval'])
-                            }
+  
                             const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);                   
                             
                             if (resultTrx !== undefined) {
@@ -131,6 +121,8 @@ export default function useFindIOU() {
                                             let keys = resultItem.value.description.keywords.map((value,key) => {
                                                 return drizzle.web3.utils.hexToUtf8(value)
                                             })
+                                            const feedbacks = getFeedbacks(drizzle, drizzleState, IOUAddreses[i])
+
                                             IOUListObjects.push( {
                                                     id: i,
                                                     title: resultItem.value.name,
@@ -149,7 +141,10 @@ export default function useFindIOU() {
                                                     rating: resultItem.value.description.avRate,
                                                     units: drizzle.web3.utils.hexToUtf8(resultItem.value.description.units),
                                                     location: (resultItem.value.description.location),
-                                                    phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone)
+
+                                                    phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone),
+                                                    feedback: feedbacks
+
                                                 })   
                                                 changeIOUList(IOUListObjects)
                                             
@@ -182,6 +177,7 @@ export default function useFindIOU() {
                                     }
                                 }
                         }
+
                //         changeIOUList(IOUListObjects)
                     }    
                     
