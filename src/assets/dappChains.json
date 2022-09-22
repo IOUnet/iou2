@@ -1,4 +1,23 @@
-{  
+{  "0x2019":{
+  "chainName": "Klaytn Cypress Mainnet",
+  "rpcUrls": [
+    "https://public-node-api.klaytnapi.com/v1/cypress",
+    "https://klaytn01.fandom.finance/",
+    "https://klaytn03.fandom.finance/",
+    "https://klaytn04.fandom.finance/",
+    "https://klaytn05.fandom.finance/"
+  ],
+
+  "nativeCurrency": {
+    "chainName": "Klaytn Mainnet",
+    "symbol": "KLAY",
+    "decimals": 18
+  },
+  "chainId": "0x2019",
+  "blockExplorerUrls": [
+  "https://scope.klaytn.com/"
+  ]
+  }, 
   "0x80":{
     "chainName": "HECO Mainnet",
     "rpcUrls": [
@@ -141,6 +160,26 @@
       "https://mumbai.polygonscan.com/"
     ]
   },
+  "0x3e9":{
+    "chainName": "Klaytn Baobab testnet",
+    "rpcUrls": [
+      "https://public-node-api.klaytnapi.com/v1/baobab",
+      "https://baobab01.fandom.finance/",
+      "https://baobab02.fandom.finance/",
+      "https://baobab.fandom.finance/"
+      
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "Klaytn Baobab testnet",
+      "symbol": "KLAYB",
+      "decimals": 18
+    },
+    "chainId": "0x3E9",
+    "blockExplorerUrls": [
+    "https://scope.klaytn.com/"
+    ]
+    }, 
   "0x539": {
     "chainName": "Localchain ID 1337 for tests",
     "chainId": "0x539",

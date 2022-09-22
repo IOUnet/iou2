@@ -213,7 +213,10 @@ module.exports = {
     },
     cypress: {
       provider: () => {
-        return new HDWalletProviderKlaytn([pk["137"]], "https://public-node-api.klaytnapi.com/v1/cypress");
+        return new HDWalletProviderKlaytn([pk["137"]], 
+          /* "https://public-node-api.klaytnapi.com/v1/cypress" */
+          'https://klaytn01.fandom.finance/'
+        );
       },
       network_id: "8217", //Klaytn mainnet's network id
       gas: "8500000",
