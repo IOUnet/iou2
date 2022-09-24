@@ -24,6 +24,7 @@
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 const HDWalletProvider = require("@truffle/hdwallet-provider");
+const HDWalletProviderKlaytn = require("truffle-hdwallet-provider-klaytn");
 const pk = require('../pk.json')
 
 module.exports = {
@@ -118,20 +119,20 @@ module.exports = {
 
   },
   bsctestnet: {  provider: () => new HDWalletProvider({ //BSC local fork
-    privateKeys: [`622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd`],
-    providerOrUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
-  }),
-  network_id: 97,       
-  
- // gas: 5500000,        // Ropsten has a lower block limit than mainnet
-  //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
-  //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
- // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
-  // fork from Polygon mainnet, needs start ganache as
-// rm -r ../ganache_BSC && 
-// ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://api.s0.b.hmny.io -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HRM  -p 8545 -e 1000
+      privateKeys: [`622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd`],
+      providerOrUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
+    }),
+    network_id: 97,       
+    
+  // gas: 5500000,        // Ropsten has a lower block limit than mainnet
+    //confirmations: 1,    // # of confs to wait between deployments. (default: 0)
+    //timeoutBlocks: 5000,  // # of blocks before a deployment times out  (minimum/default: 50)
+  // skipDryRun: false     // Skip dry run before migrations? (default: false for public nets ) }, 
+    // fork from Polygon mainnet, needs start ganache as
+  // rm -r ../ganache_BSC && 
+  // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f https://api.s0.b.hmny.io -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_HRM  -p 8545 -e 1000
 
-},
+  },
   celoforno: {  provider: () => new HDWalletProvider({ //Celo Forno
     privateKeys: [pk["42220"]], //0x11fEc6735eDc07270d9412cb7708776EB0b847FC
     providerOrUrl: `https://forno.celo.org/`,
@@ -220,9 +221,30 @@ module.exports = {
       }),
       port: 8545,
       network_id: "15555"
-    }
+    },
+    cypress: {
+      provider: () => {
+        return new HDWalletProviderKlaytn([pk["137"]], 
+          /* "https://public-node-api.klaytnapi.com/v1/cypress" */
+          'https://klaytn01.fandom.finance/'
+        );
+      },
+      network_id: "8217", //Klaytn mainnet's network id
+      gas: "8500000",
+      gasPrice: null,
+    },
+
+    baobab: {
+      provider: () => {
+        return new HDWalletProviderKlaytn(["0xb8c1b5c1d81f9475fdf2e334517d29f733bdfa40682207571b12fc1142cbf329"], "https://api.baobab.klaytn.net:8651");
+      },
+      network_id: "1001", //Klaytn baobab testnet's network id
+      gas: "8500000",
+      gasPrice: null,
+    },
 
   },
+  
 
   // Set default mocha options here, use special reporters etc.
   mocha: {

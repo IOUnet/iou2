@@ -14,7 +14,7 @@ export const CHAIN_UPDATE_DATE_DELAY = 12000 // ms
 const chains = require("../assets/dappChains.json")
 
 function detectEthereumProvider({
-  mustBeMetaMask = true,
+  mustBeMetaMask = false,
   silent = false,
   timeout = 3000,
 } = {}) {
