@@ -10,6 +10,8 @@ import TokenCard from '../../components/token-card/TokenCard';
 import ValueInfo from '../../components/value-info/ValueInfo';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
+import TokenFeedbackCard from "../../components/token-feedback-card/tokenFeedbackCard";
+import TokenHoldersCard from "../../components/token-holders-card/tokenHoldersCard";
 import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
@@ -56,27 +58,6 @@ const BuyIOUPage = ({ classes }) => {
     )
   } else {
 
-    let feedbacks = cardTokenData.feedback == undefined
-                  ? []
-                  : cardTokenData.feedback.map(item =>{
-                      let feedbackDate =  new Date(parseInt(item.value.time) * 1000);
-                      let time = `${feedbackDate.getHours()}:${feedbackDate.getMinutes()}:${feedbackDate.getSeconds()}`;
-                      let feedbackMonth = feedbackDate.getMonth() + 1 < 10
-                                          ? "0" + (feedbackDate.getMonth() + 1)
-                                          : (feedbackDate.getMonth() + 1);
-                      let date = `${feedbackDate.getDate()}.${feedbackMonth}.${feedbackDate.getFullYear()}`;
-
-                      return {
-                        sender: item.value.sender,
-                        value: item.value.text,
-                        time,
-                        date,
-                        rating: item.value.rating
-                      }
-                    });
-
-    console.log(feedbacks)
-
     return (
       <PageLayout>
         <Box className={classes.pageTitle}>
@@ -85,6 +66,12 @@ const BuyIOUPage = ({ classes }) => {
 
         <Box className={classes.cardSection}>
           <TokenCard data={cardTokenData} />
+        </Box>
+        <Box>
+          <Grid container direction="row">
+            <TokenFeedbackCard data={cardTokenData} />
+            <TokenHoldersCard data={cardTokenData} />
+          </Grid>
         </Box>
 
         <Box className={classes.dataSection}>
@@ -129,21 +116,8 @@ const BuyIOUPage = ({ classes }) => {
             buy  IOU dollars
           </Button> */}
         </Box>
-        <Box>
-          Feedbacks:
-          { feedbacks
-            ?
-            feedbacks.map(item => (
-              <Box>
-                [{item.time}][{item.date}][Rating: {item.rating}] {item.sender}:  {item.value}
-              </Box>
-            ))
-            : ""
 
 
-          }
-
-        </Box>
         <Box className={classes.actionSection}>
           <Button onClick={handleBuy}>
             buy {number} IOUs

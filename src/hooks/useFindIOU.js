@@ -3,6 +3,7 @@ import { drizzleReactHooks } from '@drizzle/react-plugin';
 import Web3 from 'web3';
 import TokensListContext from '../context/TokensListContext';
 import { getFeedbacks  } from '../helpers/getFeedbacks';
+import {getAllIOUs} from "../helpers/getAllIOUs";
 const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
@@ -122,6 +123,7 @@ export default function useFindIOU() {
                                                 return drizzle.web3.utils.hexToUtf8(value)
                                             })
                                             const feedbacks = getFeedbacks(drizzle, drizzleState, IOUAddreses[i])
+                                            const IOUs = getAllIOUs(drizzle, drizzleState, IOUAddreses[i]);
 
                                             IOUListObjects.push( {
                                                     id: i,
@@ -143,7 +145,8 @@ export default function useFindIOU() {
                                                     location: (resultItem.value.description.location),
 
                                                     phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone),
-                                                    feedback: feedbacks
+                                                    feedback: feedbacks,
+                                                    holders: IOUs
 
                                                 })   
                                                 changeIOUList(IOUListObjects)
@@ -173,7 +176,7 @@ export default function useFindIOU() {
                                         // length: 10
                                         // name: "test"
                                         // symbol: "tt"
-                                        console.log(resultItem)    
+                                        // console.log(resultItem)
                                     }
                                 }
                         }
