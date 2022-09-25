@@ -13,21 +13,28 @@ export const getAllIOUs = (drizzle, drizzleState, iouAddress) => {
   }
 
   const IOUs = [];
-
-  const resFbTrx = drizzle.contracts[iouAddress].methods["allIOUs"].cacheCall(0);
-
-  if (resFbTrx !== undefined) {
+  const resHoldersTrx = drizzle.contracts[iouAddress].methods["getlen"].cacheCall();
 
 
-    if (drizzleState.contracts[iouAddress] != undefined) {
-      const feedback = drizzleState.contracts[iouAddress].allIOUs[resFbTrx];
+  if (resHoldersTrx !== undefined  && drizzleState.contracts[iouAddress] !== undefined) {
+      const arrLenghts= drizzleState.contracts[iouAddress].getlen[resHoldersTrx];
 
-      if (feedback !== undefined) {
-        console.log(drizzleState)
-        IOUs.push(feedback);
+      if (arrLenghts !== undefined  && arrLenghts.value[0]>0  ) {
+        for (var h=0; h < arrLenghts.value[0]; h++) {
+          const resHldTrx = drizzle.contracts[iouAddress].methods["allIOUs"].cacheCall(h);
+
+          if (resHldTrx !== undefined) {
+            if (drizzleState.contracts[iouAddress] !== undefined) {
+              const holder = drizzleState.contracts[iouAddress].allIOUs[resHldTrx];
+              if (holder !== undefined) {
+                IOUs.push(holder);
+              }
+            }
+          }
+        }
       }
-    }
-  }
 
-  return IOUs;
+    console.log(IOUs)
+    return IOUs;
+  }
 }
