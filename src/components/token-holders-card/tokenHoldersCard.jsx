@@ -38,16 +38,16 @@ const TokenHoldersCard = ({classes, data}) => {
                   {id+1}. {holder.receiver}
                 </Typography>
               </Grid>
-              {/*<Grid container item>*/}
-              {/*  <Grid xs={9} item>*/}
-              {/*    <Grid item className={classes.description}>*/}
-              {/*      {holder.description}*/}
-              {/*    </Grid>*/}
-              {/*  </Grid>*/}
-              {/*  <Grid xs={3} item container justifyContent="center" className={classes.timeAndDate}>*/}
-              {/*    {holder.time} - {holder.date}*/}
-              {/*  </Grid>*/}
-              {/*</Grid>*/}
+              <Grid container item>
+                <Grid xs={9} item>
+                  <Grid item className={classes.description}>
+                    {holder.description}
+                  </Grid>
+                </Grid>
+                <Grid xs={3} item container justifyContent="center" className={classes.timeAndDate}>
+                  {holder.time} - {holder.date}
+                </Grid>
+              </Grid>
             </Grid>
 
           </Grid>
