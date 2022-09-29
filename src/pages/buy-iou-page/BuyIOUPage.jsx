@@ -27,19 +27,30 @@ const BuyIOUPage = ({ classes }) => {
   const [cookies, setCookie] = useCookies(['currChainId']);
   const [dataIOUsList] = useFindIOU()
 
-
   // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
-  const setCurrentTokenData = useCallback(() => {
+  const setCurrentTokenData = useCallback((data) => {
     if (tokenList.tokenList.length > 0) {
-     const tokenData = tokenList.tokenList[tokenList.currentTokenID]
-     if (tokenData !== undefined) {
-       setCardTokenData(tokenData)
+      const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+      if (tokenData !== undefined) {
+        setCardTokenData(tokenData)
       }
     }
- },[tokenList])
- useEffect(() => {
-  setCurrentTokenData()
-},[setCurrentTokenData, tokenList])
+  },[tokenList])
+
+
+
+  if (dataIOUsList !== undefined) {
+    console.log("Работает ", dataIOUsList)
+    if (dataIOUsList.feedback !== undefined) {
+      console.log({ isWork: "Не работает", ...dataIOUsList})
+    }
+  }
+
+
+  useEffect(() => {
+    setCurrentTokenData(dataIOUsList)
+  },[setCurrentTokenData, tokenList])
+
 
   const handleBuy = () => {
 
@@ -57,7 +68,6 @@ const BuyIOUPage = ({ classes }) => {
       </PageLayout>
     )
   } else {
-
     return (
       <PageLayout>
         <Box className={classes.pageTitle}>
@@ -68,10 +78,13 @@ const BuyIOUPage = ({ classes }) => {
           <TokenCard data={cardTokenData} />
         </Box>
         <Box>
-          <Grid container direction="row">
-            <TokenFeedbackCard data={cardTokenData} />
-            <TokenHoldersCard data={cardTokenData} />
-          </Grid>
+            { cardTokenData.feedback
+              &&
+              <Grid container direction="row">
+                <TokenFeedbackCard data={cardTokenData}/>
+                <TokenHoldersCard data={cardTokenData} />
+              </Grid>
+            }
         </Box>
 
         <Box className={classes.dataSection}>
