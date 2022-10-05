@@ -7,11 +7,9 @@ import clsx from "clsx";
 
 const TokenFeedbackCard = ({classes, data}) => {
 
-  const [expanded, setExpanded] = useState('panel1');
+  let feedbacks = data
 
-  let feedbacks = data.feedback == undefined
-    ? []
-    : data.feedback.map(item =>{
+    ? data.map(item =>{
       let feedbackDate =  new Date(parseInt(item.value.time) * 1000);
       let time = `${feedbackDate.getHours()}:${feedbackDate.getMinutes()}`;
       let feedbackMonth = feedbackDate.getMonth() + 1 < 10
@@ -26,11 +24,8 @@ const TokenFeedbackCard = ({classes, data}) => {
         date,
         rating: item.value.rating
       }
-    });
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+    })
+    : [];
 
   return (
     <Grid item className={classes.root}>

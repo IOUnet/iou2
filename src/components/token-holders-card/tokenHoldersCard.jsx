@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Box, Grid, Card, withStyles, Typography} from "@material-ui/core";
 import styles from "./styles";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
-const TokenHoldersCard = ({classes, data}) => {
+const TokenHoldersCard =({classes, data}) => {
 
-  // console.log(data)
+  useEffect(() => {
+    console.log(123)
+  })
 
-  const holders = data.holders == undefined
-    ? []
-    : data.holders.map(holder => {
+
+  const holders = data
+    ? data.map(holder => {
 
       let feedbackDate =  new Date(parseInt(holder.value.time) * 1000);
       let time = `${feedbackDate.getHours()}:${feedbackDate.getMinutes()}`;
@@ -24,8 +26,8 @@ const TokenHoldersCard = ({classes, data}) => {
         date,
         time
       }
-    });
-
+    })
+    : []
   return (
     <Grid item className={classes.root}>
       <Typography variant="h5">Holders</Typography>
@@ -57,5 +59,6 @@ const TokenHoldersCard = ({classes, data}) => {
     </Grid>
   )
 };
+
 
 export default withStyles(styles, { withTheme: true })(TokenHoldersCard);
