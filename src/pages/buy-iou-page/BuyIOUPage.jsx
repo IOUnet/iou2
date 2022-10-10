@@ -1,6 +1,6 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory, Redirect, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import useFindIOU from '../../hooks/useFindIOU'
 
@@ -20,9 +20,12 @@ const dappStaff = require("../../assets/dappStaff.json")
 
 
 const BuyIOUPage = ({ classes }) => {
+
+  const params = useParams();
   const history = useHistory();
   const [number, setNumber] = useState(10);
   const tokenList = useContext(TokensListContext)
+
   const [cardTokenData, setCardTokenData] = useState({})
   const [cookies, setCookie] = useCookies(['currChainId']);
   const [dataIOUsList] = useFindIOU()
@@ -38,10 +41,11 @@ const BuyIOUPage = ({ classes }) => {
       if (tokenData !== undefined) {
         setCardTokenData(tokenData)
       }
+
       if (dataIOUsList) {
-        if (dataIOUsList[0]?.feedback && dataIOUsList[0]?.holders) {
-          setFeedbacks(dataIOUsList[0].feedback);
-          setHolders(dataIOUsList[0].holders)
+        if (dataIOUsList[tokenList.currentTokenID]?.feedback && dataIOUsList[tokenList.currentTokenID]?.holders) {
+          setFeedbacks(dataIOUsList[tokenList.currentTokenID].feedback);
+          setHolders(dataIOUsList[tokenList.currentTokenID].holders)
         }
       }
     }
@@ -49,7 +53,9 @@ const BuyIOUPage = ({ classes }) => {
 
   useEffect(() => {
     setCurrentTokenData(dataIOUsList)
-  },[setCurrentTokenData, tokenList])
+  },[setCurrentTokenData, tokenList, dataIOUsList])
+
+
 
 
   const handleBuy = () => {

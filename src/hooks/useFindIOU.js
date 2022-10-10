@@ -1,4 +1,5 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react'
+import { useHistory, Redirect, useParams } from 'react-router-dom';
 import {drizzleReactHooks} from '@drizzle/react-plugin';
 import Web3 from 'web3';
 import TokensListContext from '../context/TokensListContext';
@@ -10,6 +11,7 @@ const {useDrizzle, useDrizzleState} = drizzleReactHooks;
 
 export default function useFindIOU() {
 
+  const params = useParams();
   const {drizzle} = useDrizzle();
   const drizzleState = useDrizzleState(state => state);
   const [IOUAddreses, setIOUAddreses] = useState();
@@ -20,6 +22,7 @@ export default function useFindIOU() {
   const tokenList = useContext(TokensListContext)
   const [values, setFormValues] = useState(tokenList.values)
 
+
   const changeIOUListAddreses = useCallback((addressList) => {
     setIOUAddreses(addressList);
   }, [setIOUAddreses]);
@@ -29,8 +32,7 @@ export default function useFindIOU() {
   },[setIOUList]);
 
 
-  useEffect(
-    () => {
+  useEffect(() => {
       const storeIOU = drizzle.contracts.StoreIOUs
       if (values.searchStreet) {
         const getIOUsTrx = storeIOU.methods["getIOUsbyStreet"].cacheCall(Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()),
@@ -55,13 +57,31 @@ export default function useFindIOU() {
             changeIOUListAddreses(result.value);
           }
         }
-      } else {
+      } else if (values.keyword) {
         const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall(Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()));
+
         if (getIOUsTrx !== undefined) {
           const result = StoreIOUs.getIOUListKey[getIOUsTrx];
           if (result !== undefined) {
             changeIOUListAddreses(result.value);
           }
+        }
+
+      } else {
+
+        const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall(drizzleState.accounts[0])
+
+        if (getIOUsTrx !== undefined) {
+          const res = StoreIOUs.getIOUList[getIOUsTrx]
+          if (res !== undefined) {
+            changeIOUListAddreses(res.value);
+          }
+        }
+
+        if (IOUList) {
+          tokenList.setTokenList(IOUList)
+          let indx = IOUAddreses.indexOf(params.tokenAddress);
+          tokenList.setCurrentToken(indx);
         }
       }
     }, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs, values]);
@@ -115,6 +135,7 @@ export default function useFindIOU() {
           if (resultTrx !== undefined) {
             const resultItem = ProxyIOU.getIOU[resultTrx]
 
+
             if (resultItem !== undefined) {
 
               let keys = resultItem.value.description.keywords.map((value, key) => {
@@ -160,6 +181,7 @@ export default function useFindIOU() {
       }
 
     }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU.getIOU, feedbackList])
+
 
   return [IOUList]
 // IOUList, IOUAddreses, 

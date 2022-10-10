@@ -1,4 +1,6 @@
-import { Box, CheckBox, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
+import {Box, CheckBox, CardHeader, SvgIcon, Typography, withStyles, Grid} from '@material-ui/core';
+import FileCopyIcon from '@material-ui/icons/FileCopy';
+
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
@@ -20,6 +22,7 @@ const EditorIOUPage = ({ classes }) => {
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')
   const [checked, setChecked] = useState([]);
+  const [isCopied, setIsCopied] = useState(false);
   const [cardTokenData, setCardTokenData] = useState({
 
   })
@@ -47,9 +50,16 @@ const EditorIOUPage = ({ classes }) => {
       }    }, [],
   );
 
+
+
   useEffect(() => {
     setCurrentTokenData()
   },[setCurrentTokenData, tokenList])
+
+  const getTokenLink = () => {
+    navigator.clipboard.writeText(`${window.origin}${ROUTES.buyIOU}/${tokenList.tokenList[tokenList.currentTokenID].address}`);
+    setIsCopied(true);
+  }
 
   const handleSendPhone = () => {
     editIOUPhone(values, tokenData.address)
@@ -106,6 +116,7 @@ const EditorIOUPage = ({ classes }) => {
           <SvgIcon className={classes.qr_ico} component={QRIcon} viewBox="0 0 124 92" />
         </Button>
  */
+
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
@@ -115,7 +126,41 @@ const EditorIOUPage = ({ classes }) => {
       <Box className={classes.cardSection}>
         <TokenCard data={cardTokenData} />
       </Box>
-      
+
+
+      <Box className={classes.dataSection}>
+        <PageTitle>Share my IOU</PageTitle>
+
+        <Box>
+          <Grid container>
+            <Grid xs={11}>
+              <Input
+                disabled
+                inputProps={{
+                  value: `${window.origin}/${ROUTES.buyIOU}/${tokenList.tokenList[tokenList.currentTokenID].address}`
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={1}
+              style={{display: "flex"}}
+              alignItems="center"
+              justifyContent="center"
+            >
+              { isCopied &&
+                <Typography>
+                  Copied!
+                </Typography>
+              }
+            </Grid>
+          </Grid>
+          {/*<FileCopyIcon style={{cursor: "pointer"}} color="disabled" onClick={getTokenLink} />*/}
+          <Button onClick={getTokenLink}>
+            Copy token link
+          </Button>
+        </Box>
+      </Box>
 
       <Box className={classes.dataSection}>
 

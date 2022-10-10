@@ -12,6 +12,7 @@ import useFindIOU from '../../hooks/useFindIOU'
 
 
 const BuyIOUSelectPage = ({ classes }) => {
+
   const history = useHistory();
   const dataIOUsBuyListContext = useFindIOU()
   const tokenList = useContext(TokensListContext)
@@ -33,12 +34,13 @@ const BuyIOUSelectPage = ({ classes }) => {
   }, [changeIOUDataList, dataIOUsList])
   
   const handleSelectIOU = (_, id) => {
-  //  console.log('cardId ---', id);
     if (dataIOUsBuyList != null && dataIOUsBuyList !== undefined) {
     //  tokenList.setTokenList(dataIOUsBuyList)
+
       tokenList.setCurrentToken(id)
     }
-    history.push(ROUTES.buyIOU);
+
+    history.push(`${ROUTES.buyIOU}/${listDataIOU[id].address}`);
   };
 
 /*   const setData = useCallback((data) => {
