@@ -39,9 +39,9 @@ const BuyIOUPage = ({ classes }) => {
         setCardTokenData(tokenData)
       }
       if (dataIOUsList) {
-        if (dataIOUsList[0]?.feedback && dataIOUsList[0]?.holders) {
-          setFeedbacks(dataIOUsList[0].feedback);
-          setHolders(dataIOUsList[0].holders)
+        if (dataIOUsList[tokenList.currentTokenID]?.feedback && dataIOUsList[tokenList.currentTokenID]?.holders) {
+          setFeedbacks(dataIOUsList[tokenList.currentTokenID].feedback);
+          setHolders(dataIOUsList[tokenList.currentTokenID].holders)
         }
       }
     }
