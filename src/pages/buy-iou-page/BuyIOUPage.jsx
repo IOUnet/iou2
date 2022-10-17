@@ -3,6 +3,8 @@ import React, { useState, useContext, useCallback, useEffect } from 'react';
 import { useHistory, Redirect, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import useFindIOU from '../../hooks/useFindIOU'
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+import * as a from '../../api/chain';
 
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -16,7 +18,9 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
+import { switchChain } from '../../api/chain';
 const dappStaff = require("../../assets/dappStaff.json")
+const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 const BuyIOUPage = ({ classes }) => {
@@ -29,10 +33,28 @@ const BuyIOUPage = ({ classes }) => {
   const [cardTokenData, setCardTokenData] = useState({})
   const [cookies, setCookie] = useCookies(['currChainId']);
   const [dataIOUsList] = useFindIOU()
+  const { drizzle } = useDrizzle();
 
   const [feedbacks, setFeedbacks] = useState();
   const [holders, setHolders] = useState();
 
+
+
+  useEffect(() => {
+
+    (async () => {
+      const chainId = await drizzle.web3.eth.net.getId();
+      const hexChainId = drizzle.web3.utils.toHex(chainId);
+
+      if (hexChainId != params.chainId) {
+        const { ethereum, web3 } = await a.detectEthereumProvider()
+        await a.switchChain(ethereum, params.chainId)
+        setCookie('currChainId', params.chainId, { path: '/' });
+        window.location.reload();
+      }
+    })()
+
+  }, [])
 
   // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
   const setCurrentTokenData = useCallback((data) => {
@@ -41,22 +63,19 @@ const BuyIOUPage = ({ classes }) => {
       if (tokenData !== undefined) {
         setCardTokenData(tokenData)
       }
-
       if (dataIOUsList) {
-        if (dataIOUsList[tokenList.currentTokenID]?.feedback && dataIOUsList[tokenList.currentTokenID]?.holders) {
-          setFeedbacks(dataIOUsList[tokenList.currentTokenID].feedback);
+        if (dataIOUsList[tokenList.currentTokenID]?.feedbacks && dataIOUsList[tokenList.currentTokenID]?.holders) {
+          setFeedbacks(dataIOUsList[tokenList.currentTokenID].feedbacks);
           setHolders(dataIOUsList[tokenList.currentTokenID].holders)
         }
       }
+
     }
   },[tokenList, dataIOUsList])
 
   useEffect(() => {
     setCurrentTokenData(dataIOUsList)
   },[setCurrentTokenData, tokenList, dataIOUsList])
-
-
-
 
   const handleBuy = () => {
 

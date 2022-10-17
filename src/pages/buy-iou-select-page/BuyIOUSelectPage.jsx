@@ -9,14 +9,16 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import useFindIOU from '../../hooks/useFindIOU'
-
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 const BuyIOUSelectPage = ({ classes }) => {
 
   const history = useHistory();
   const dataIOUsBuyListContext = useFindIOU()
   const tokenList = useContext(TokensListContext)
-  const [values, setFormValues] = useState(tokenList.values) 
+  const [values, setFormValues] = useState(tokenList.values)
+  const { drizzle } = useDrizzle();
 
   const [dataIOUsBuyList, setDataIOUsBuyList] = useState(null)
   const [dataIOUsList] = useFindIOU()
@@ -32,7 +34,8 @@ const BuyIOUSelectPage = ({ classes }) => {
   useEffect(() => {
     changeIOUDataList(dataIOUsList)
   }, [changeIOUDataList, dataIOUsList])
-  
+
+
   const handleSelectIOU = (_, id) => {
     if (dataIOUsBuyList != null && dataIOUsBuyList !== undefined) {
     //  tokenList.setTokenList(dataIOUsBuyList)
@@ -40,7 +43,13 @@ const BuyIOUSelectPage = ({ classes }) => {
       tokenList.setCurrentToken(id)
     }
 
-    history.push(`${ROUTES.buyIOU}/${listDataIOU[id].address}`);
+    drizzle.web3.eth.net.getId()
+      .then(res => {
+        const hexRes = drizzle.web3.utils.toHex(res);
+        history.push(`${ROUTES.buyIOU}/${hexRes}/${listDataIOU[id].address}`);
+
+      });
+
   };
 
 /*   const setData = useCallback((data) => {
@@ -61,7 +70,7 @@ const BuyIOUSelectPage = ({ classes }) => {
   },[setDataIOUsBuyList]) 
   useEffect(() => {
       setData(dataIOUsBuyListContext)
-  },[setData]) 
+  },[setData])
 
   return (
     <PageLayout>

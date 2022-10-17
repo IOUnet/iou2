@@ -84,7 +84,7 @@ function App() {
                       <Route component={StakeAddLiquidityPage} exact path={ROUTES.stakeAddLiquidity} />
                       <Route component={FindBuyIOUPage} exact path={ROUTES.findBuyIOU} />
                       <Route component={BuyIOUSelectPage} exact path={ROUTES.buyIOUSelect} />
-                      <Route component={BuyIOUPage} exact path={ROUTES.buyIOU + "/:tokenAddress"} />
+                      <Route component={BuyIOUPage} exact path={ROUTES.buyIOU + "/:chainId/:tokenAddress"} />
                       <Route component={SelectDesiredIOUSwapPage} exact path={ROUTES.selectDesiredIOUSwap} />
                       <Route component={SwapSelectDesiredTokenPage} exact path={ROUTES.swapSelectDesiredToken} />
                       <Route component={SwapSelectAvailableTokenPage} exact path={ROUTES.swapSelectAvailableToken} />

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback, useContext} from 'react'
+import React, { useEffect, useState, useCallback, useContext, useMemo } from 'react'
 import { useHistory, Redirect, useParams } from 'react-router-dom';
 import {drizzleReactHooks} from '@drizzle/react-plugin';
 import Web3 from 'web3';
@@ -9,14 +9,15 @@ import {getAllIOUs} from "../helpers/getAllIOUs";
 const {useDrizzle, useDrizzleState} = drizzleReactHooks;
 
 
-export default function useFindIOU() {
+export default function useFindIOU(factory, deps) {
 
   const params = useParams();
   const {drizzle} = useDrizzle();
   const drizzleState = useDrizzleState(state => state);
   const [IOUAddreses, setIOUAddreses] = useState();
   const [IOUList, setIOUList] = useState();
-  const [feedbackList, setFeedbackList] = useState([]);
+  const [feedbackList, setFeedbackList] = useState(null);
+  const [tokenHolders, setTokenHolders] = useState(null);
   const {StoreIOUs, ProxyIOU, IOUtoken} = drizzleState.contracts;
 
   const tokenList = useContext(TokensListContext)
@@ -30,7 +31,6 @@ export default function useFindIOU() {
   const changeIOUList = useCallback((listItem) => {
       setIOUList(listItem)
   },[setIOUList]);
-
 
   useEffect(() => {
       const storeIOU = drizzle.contracts.StoreIOUs
@@ -142,8 +142,10 @@ export default function useFindIOU() {
                 return drizzle.web3.utils.hexToUtf8(value)
               })
 
+
+
               const feedbacks = getFeedbacks(drizzle, drizzleState, IOUAddreses[i])
-              const IOUs = getAllIOUs(drizzle, drizzleState, IOUAddreses[i]);
+              const holders = getAllIOUs(drizzle, drizzleState, IOUAddreses[i]);
 
               if (feedbacks.length === 0) {
                 setFeedbackList(feedbacks)
@@ -169,9 +171,8 @@ export default function useFindIOU() {
                 location: (resultItem.value.description.location),
 
                 phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone),
-                feedback: feedbacks,
-                holders: IOUs
-
+                feedbacks,
+                holders,
               })
 
               changeIOUList(IOUListObjects)
@@ -180,8 +181,7 @@ export default function useFindIOU() {
         }
       }
 
-    }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU.getIOU, feedbackList])
-
+    }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU.getIOU, feedbackList, tokenHolders])
 
   return [IOUList]
 // IOUList, IOUAddreses, 
