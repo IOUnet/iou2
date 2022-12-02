@@ -9,13 +9,18 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 import useGetIOUs from '../../hooks/useGetIOUs'
 import TokensListContext from '../../context/TokensListContext'
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 
 const MintSelectTokenPage = ({ classes }) => {
   const tokensList = useContext(TokensListContext)
   const dataIOUsList = useGetIOUs()
-  
+  const tokenList = useContext(TokensListContext)
+  const [values, setFormValues] = useState(tokenList.values)
+  const { drizzle } = useDrizzle();
+
   const [listDataIOU, setListDataIOU] = useState([])
   const history = useHistory();
   
@@ -31,11 +36,19 @@ const MintSelectTokenPage = ({ classes }) => {
   }, [changeIOUDataList, dataIOUsList])
   
 
-  const handleSelectIOU = (_, id) => {
+/*   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
     history.push(ROUTES.mintSelectReceiver);
     tokensList.setCurrentToken(id)
-  };
+  }; */
+  let  handleSelectIOU; 
+  drizzle.web3.eth.net.getId().then(res => {
+    const hexRes = drizzle.web3.utils.toHex(res);
+     handleSelectIOU = (_, id) => {
+    history.push(`${ROUTES.mintSelectReceiver}/${hexRes}/${listDataIOU[id].address}`);
+    tokensList.setCurrentToken(id)
+    }
+  });
 
   return (
     <PageLayout>

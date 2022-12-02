@@ -75,6 +75,8 @@ function App() {
                       <Route component={EditorIOUPage} exact path={ROUTES.editorIOU} />
                       <Route component={MintSelectTokenPage} exact path={ROUTES.mintSelectToken} />
                       <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver} />
+                      <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver + "/:chainId/:tokenAddress"} />
+
                       <Route component={MakeIOUToken1Page} exact path={ROUTES.makeIOUToken1} />
                       <Route component={MakeIOUToken2Page} exact path={ROUTES.makeIOUToken2} />
                       <Route component={PayoffSelectTokenPage} exact path={ROUTES.payoffSelectToken} />

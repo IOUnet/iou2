@@ -1,6 +1,7 @@
 import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory,  Redirect, useParams  } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -11,17 +12,26 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import useSendIOU from '../../hooks/useSendIOU'
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+import * as a from '../../api/chain';
+import { switchChain } from '../../api/chain';
+const dappStaff = require("../../assets/dappStaff.json")
+const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 const MintSelectReceiverPage = ({ classes }) => {
   const history = useHistory();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')
+  const [cookies, setCookie] = useCookies(['currChainId']);
+
   const [cardTokenData, setCardTokenData] = useState({
 
   })
   const tokenList = useContext(TokensListContext)
   const [approve, sendIOU] = useSendIOU()
+  const { drizzle } = useDrizzle();
+  const params = useParams();
 
   const setCurrentTokenData = useCallback(() => {
      if (tokenList.tokenList.length > 0) {
@@ -29,6 +39,23 @@ const MintSelectReceiverPage = ({ classes }) => {
       setCardTokenData(tokenData)
      }
   },[tokenList])
+
+
+  useEffect(() => {
+
+    (async () => {
+      const chainId = await drizzle.web3.eth.net.getId();
+      const hexChainId = drizzle.web3.utils.toHex(chainId);
+
+      if (hexChainId != params.chainId) {
+        const { ethereum, web3 } = await a.detectEthereumProvider()
+        await a.switchChain(ethereum, params.chainId)
+        setCookie('currChainId', params.chainId, { path: '/' });
+        window.location.reload();
+      }
+    })()
+
+  }, [])
 
   useEffect(() => {
     setCurrentTokenData()
