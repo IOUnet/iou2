@@ -67,7 +67,7 @@ function App() {
           <TokensListProvider>
             <CreateIOUProvider>
               <ThemeProvider theme={theme}>
-                <BrowserRouter>
+                <BrowserRouter basename={ROUTES.main} >
                 <CookiesProvider>
                     <Switch>
                       <Route component={HomePage} exact path={ROUTES.main} />
