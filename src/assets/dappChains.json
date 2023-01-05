@@ -1,4 +1,24 @@
-{  "0x2019":{
+{  
+  "0x38":{
+    "chainName": "Binance Smart Chain mainnet",
+    "rpcUrls": [
+      "https://bsc-dataseed.binance.org",
+      "https://bsc-dataseed1.defibit.io",
+      "https://bsc-dataseed1.ninicoin.io",
+      "https://bsc.nodereal.io"
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "BSC Mainnet",
+      "symbol": "BNB",
+      "decimals": 18
+    },
+    "chainId": "0x38",
+    "blockExplorerUrls": [
+    "https://bscscan.com//"
+    ]
+    },   
+"0x2019":{
   "chainName": "Klaytn Cypress Mainnet",
   "rpcUrls": [
     "https://public-node-api.klaytnapi.com/v1/cypress",

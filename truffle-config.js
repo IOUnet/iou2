@@ -118,6 +118,7 @@ module.exports = {
 // ganache-cli -m "clutch captain shoe salt awake harvest setup primary inmate ugly among become" -f 'https://bsc-dataseed.binance.org/' -u 0xa0df350d2637096571F7A701CBc1C5fdE30dF76A --db ../ganache_BSC  -p 8555 -e 1000
 
   },
+
   bsctestnet: {  provider: () => new HDWalletProvider({ //BSC local fork
       privateKeys: [`622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd`],
       providerOrUrl: `https://data-seed-prebsc-1-s1.binance.org:8545/`,
@@ -150,7 +151,13 @@ module.exports = {
     networkCheckTimeout: 6000,
     gasPrice: 40000000000
   },
+  bsc: {  provider: () => new HDWalletProvider({ //BSC mainnet
+    privateKeys: [pk["137"]],
+    providerOrUrl: `https://bsc-dataseed.binance.org/`,
+  }),
+  network_id: 56,       // Ropsten's id
 
+},
   moonriver: {  provider: () => new HDWalletProvider({ //Celo Forno
       privateKeys: [pk["1285"]],
       providerOrUrl: `https://rpc.api.moonriver.moonbeam.network`, /* https://polygon-mainnet.infura.io/v3/3362483b5eab409ea69e99f99aefd67a */
