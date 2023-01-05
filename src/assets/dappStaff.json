@@ -8,7 +8,7 @@
   "faucet": "https://testnet.binance.org/faucet-smart/"
   },
   "0x13881": {
-    "exchange": "",
+    "exchange": "https://quickswap.exchange/",
     "faucet": "https://faucet.polygon.technology/"
   }, 
   "0xa4ec": {
@@ -35,7 +35,21 @@
   "0x80": {
   "exchange": "",
   "faucet": ""
-  }
+  },
+  
+  "0x3cc3": {
+  "exchange": "",
+  "faucet": "https://faucet.testnet-dev.trust.one/"
+  
+  }, 
+  "0x2019": {
+    "exchange": "https://klayswap.com/",
+    "faucet": ""
+    },
+  "0x3e9": {
+      "exchange": "",
+      "faucet": "https://baobab.wallet.klaytn.foundation/faucet"
+      }
   
 }
 

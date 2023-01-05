@@ -1,7 +1,10 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { useHistory, Redirect } from 'react-router-dom';
+import { useHistory, Redirect, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import useFindIOU from '../../hooks/useFindIOU'
+import { drizzleReactHooks } from '@drizzle/react-plugin';
+import * as a from '../../api/chain';
 
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -9,42 +12,79 @@ import TokenCard from '../../components/token-card/TokenCard';
 import ValueInfo from '../../components/value-info/ValueInfo';
 import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
+import TokenFeedbackCard from "../../components/token-feedback-card/tokenFeedbackCard";
+import TokenHoldersCard from "../../components/token-holders-card/tokenHoldersCard";
 import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
+import { switchChain } from '../../api/chain';
 const dappStaff = require("../../assets/dappStaff.json")
+const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 const BuyIOUPage = ({ classes }) => {
+
+  const params = useParams();
   const history = useHistory();
   const [number, setNumber] = useState(10);
   const tokenList = useContext(TokensListContext)
+
   const [cardTokenData, setCardTokenData] = useState({})
   const [cookies, setCookie] = useCookies(['currChainId']);
+  const [dataIOUsList] = useFindIOU()
+  const { drizzle } = useDrizzle();
 
- // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
-  const setCurrentTokenData = useCallback(() => {
-    if (tokenList.tokenList.length > 0) {
-     const tokenData = tokenList.tokenList[tokenList.currentTokenID]
-     if (tokenData !== undefined) {
-       setCardTokenData(tokenData)
+  const [feedbacks, setFeedbacks] = useState();
+  const [holders, setHolders] = useState();
+
+
+
+  useEffect(() => {
+
+    (async () => {
+      const chainId = await drizzle.web3.eth.net.getId();
+      const hexChainId = drizzle.web3.utils.toHex(chainId);
+
+      if (hexChainId != params.chainId) {
+        const { ethereum, web3 } = await a.detectEthereumProvider()
+        await a.switchChain(ethereum, params.chainId)
+        setCookie('currChainId', params.chainId, { path: '/' });
+        window.location.reload();
       }
+    })()
+
+  }, [])
+
+  // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
+  const setCurrentTokenData = useCallback((data) => {
+    if (tokenList.tokenList.length > 0) {
+      const tokenData = tokenList.tokenList[tokenList.currentTokenID]
+      if (tokenData !== undefined) {
+        setCardTokenData(tokenData)
+      }
+      if (dataIOUsList) {
+        if (dataIOUsList[tokenList.currentTokenID]?.feedbacks && dataIOUsList[tokenList.currentTokenID]?.holders) {
+          setFeedbacks(dataIOUsList[tokenList.currentTokenID].feedbacks);
+          setHolders(dataIOUsList[tokenList.currentTokenID].holders)
+        }
+      }
+
     }
- },[tokenList])
- useEffect(() => {
-  setCurrentTokenData()
-},[setCurrentTokenData, tokenList])
+  },[tokenList, dataIOUsList])
+
+  useEffect(() => {
+    setCurrentTokenData(dataIOUsList)
+  },[setCurrentTokenData, tokenList, dataIOUsList])
 
   const handleBuy = () => {
 
     window.location.href = dappStaff[cookies.currChainId].exchange + "/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
   
   };
-  
+
   if (dappStaff[cookies.currChainId].exchange === "")
   {
-  
     return (
       <PageLayout>
       <Box className={classes.pageTitle}>
@@ -61,6 +101,12 @@ const BuyIOUPage = ({ classes }) => {
 
         <Box className={classes.cardSection}>
           <TokenCard data={cardTokenData} />
+        </Box>
+        <Box>
+          <Grid container direction="row">
+            {feedbacks && <TokenFeedbackCard data={feedbacks}/> }
+            {holders && <TokenHoldersCard data={holders}/>}
+          </Grid>
         </Box>
 
         <Box className={classes.dataSection}>
@@ -105,6 +151,7 @@ const BuyIOUPage = ({ classes }) => {
             buy  IOU dollars
           </Button> */}
         </Box>
+
 
         <Box className={classes.actionSection}>
           <Button onClick={handleBuy}>
