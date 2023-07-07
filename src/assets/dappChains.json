@@ -141,7 +141,7 @@
   ]
   },
   "0x61":{
-  "chainName": "Binance Smart Chain Testnet",
+  "chainName": "Testnet Binance Smart Chain ",
   "rpcUrls": [
     "https://data-seed-prebsc-1-s1.binance.org:8545",
     "https://data-seed-prebsc-2-s1.binance.org:8545",
@@ -162,7 +162,7 @@
   ]
   },
   "0x13881": {
-    "chainName": "Mumbai Polygon testnet",
+    "chainName": "Testnet Mumbai Polygon ",
     "chainId": "0x13881",
     "nativeCurrency": {
       "chainName": "Mumbai Polygon testnet",
@@ -181,7 +181,7 @@
     ]
   },
   "0x3cc3": {
-    "chainName": "Trust EVM testnet",
+    "chainName": "Testnet Trust EVM ",
     "chainId": "0x3cc3",
     "nativeCurrency": {
       "chainName": "Trust EVM testnet",
@@ -196,7 +196,7 @@
   },
 
   "0x3e9":{
-    "chainName": "Klaytn Baobab testnet",
+    "chainName": "Testnet Klaytn Baobab ",
     "rpcUrls": [
       "https://public-node-api.klaytnapi.com/v1/baobab",
       "https://baobab01.fandom.finance/",
@@ -215,11 +215,28 @@
     "https://scope.klaytn.com/"
     ]
     }, 
+    "0x1b59":{
+    "chainName": "Testnet Athens2 Zetachain",
+    "rpcUrls": [
+      "https://api.athens2.zetachain.com/evm"
+      
+    ],
+  
+    "nativeCurrency": {
+      "chainName": "Athens ZetaChain",
+      "symbol": "aZeta",
+      "decimals": 18
+    },
+    "chainId": "0x1b59",
+    "blockExplorerUrls": [
+    "https://explorer.zetachain.com/"
+    ]
+    }, 
   "0x539": {
-    "chainName": "Localchain ID 1337 for tests",
+    "chainName": "Localchain ID 1337 for ",
     "chainId": "0x539",
     "nativeCurrency": {
-      "chainName": "Localchain ID 1337 for tests",
+      "chainName": "Localchain ID 1337 (dev)",
       "name": "Localchain",
       "symbol": "LOC",
       "decimals": 18

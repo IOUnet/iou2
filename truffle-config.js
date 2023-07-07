@@ -250,6 +250,19 @@ module.exports = {
       gasPrice: null,
     },
 
+    athens2: {
+      provider: () => new HDWalletProvider({ //Zetachain testnet Athens2
+        privateKeys: ["622306b68d3ad3e9c73a2f847f50f97caf1eb611ac2047624959663837c4e9bd"], 
+        // JUST FOR TESTNETS!!! 0x132e2c063960e14eE62EC2dAC6AbA6bA4BB68552
+         providerOrUrl: 'https://api.athens2.zetachain.com/evm',  
+  
+        derivationPath: `m/44'/1023'/0'/0/`,
+      }),
+      port: 8545,
+      gas: "500000000",
+      network_id: "7001"    
+    }    
+
   },
   
 

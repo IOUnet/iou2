@@ -45,8 +45,8 @@ const HomePage = ({ classes }) => {
       </Box>
 
       <Box className={classes.bottom_tagline}>
-        <Typography variant="subtitle1">
-          IOU net is a new way from poverty...
+        <Typography variant="subtitle1" >
+        <font color ="#e65022"> IOU tokens is a way from poverty to <a href='https://Coprosperity.world/' target='_blank'  >Coprosperity world</a> </font>
         </Typography>
       </Box>
     </PageLayout>
