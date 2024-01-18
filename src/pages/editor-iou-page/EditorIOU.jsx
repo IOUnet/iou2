@@ -218,7 +218,7 @@ const EditorIOUPage = ({ classes }) => {
     
    </Box>
    <Box className={classes.pageTitle}>
-        <PageTitle>Edit IOU: Address</PageTitle>
+        <PageTitle>Edit IOU Talimtoken: Address</PageTitle>
       </Box>
 
       <Box className={classes.dataSection}>

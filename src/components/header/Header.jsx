@@ -101,12 +101,12 @@ const Header = ({ classes, setMenuVisibility }) => {
       </Typography>
       <Link component={LinkBehavior}  className={classes.mainLink}>
           <Typography component="h1" className={classes.title}>
-              IOU dApp home
+              IOU Talimtoken dApp home
           </Typography>
         </Link>
         <Link href = "https://docs.google.com/document/d/e/2PACX-1vQcv_ZTJD6-54AMjLLCXQv1LtMSOtLdBzhGXo0aAIDkGljgivZABIMQbJyIOF0c6r1W9w8cNY4ATUoE/pub"  className={classes.mainLink} target = "_blank">
           <Typography component="h1" className={classes.title}>
-              HOW TO IOU
+              HOW TO MAKE IOU Talimtoken
           </Typography>
         </Link>
         <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />

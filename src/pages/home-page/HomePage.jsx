@@ -14,11 +14,11 @@ const HomePage = ({ classes }) => {
   const history = useHistory();
 
   const buttons = [
-    { button: 'create & edit iou', handler: () => history.push(ROUTES.mintEditToken) },
-    { button: 'search & buy iou', handler: () => history.push(ROUTES.findBuyIOU) },
+    { button: 'create & edit Talimtoken', handler: () => history.push(ROUTES.mintEditToken) },
+    { button: 'search & buy Talimtoken', handler: () => history.push(ROUTES.findBuyIOU) },
 
-    { button: 'issue iou', handler: () => history.push(ROUTES.mintSelectToken) },  
-    { button: 'payoff iou', handler: () => history.push(ROUTES.payoffSelectToken) },
+    { button: 'issue Talimtoken', handler: () => history.push(ROUTES.mintSelectToken) },  
+    { button: 'payoff Talimtoken', handler: () => history.push(ROUTES.payoffSelectToken) },
    
   /* { button: 'stake iou', handler: () => history.push(ROUTES.stakeSelectToken) },  ,
     { button: 'swap iou for iou', handler: () => history.push(ROUTES.selectDesiredIOUSwap) },  */

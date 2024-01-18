@@ -35,7 +35,7 @@ const MakeIOUToken2Page = ({ classes }) => {
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
-        <PageTitle>Edit IOU:Phone</PageTitle>
+        <PageTitle>Edit IOU Talimtoken:Phone</PageTitle>
       </Box>
 
       <Box className={classes.dataSection}>

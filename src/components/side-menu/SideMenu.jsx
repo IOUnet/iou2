@@ -12,10 +12,10 @@ const SideMenu = ({classes, menuActive, setMenuActive}) => {
   const history = useHistory();
 
   const buttons = [
-    {button: 'Create IOU', handler: () => history.push(ROUTES.mintEditToken)},
-    {button: 'Buy IOU', handler: () => history.push(ROUTES.findBuyIOU)},
-    {button: 'Issue IOU', handler: () => history.push(ROUTES.mintSelectToken)},
-    {button: 'Payoff IOU', handler: () => history.push(ROUTES.payoffSelectToken)},
+    {button: 'Create Talimtoken', handler: () => history.push(ROUTES.mintEditToken)},
+    {button: 'Buy Talimtoken', handler: () => history.push(ROUTES.findBuyIOU)},
+    {button: 'Issue Talimtoken', handler: () => history.push(ROUTES.mintSelectToken)},
+    {button: 'Payoff Talimtoken', handler: () => history.push(ROUTES.payoffSelectToken)},
   ];
 
   return (
