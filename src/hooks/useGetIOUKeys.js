@@ -1,46 +1,59 @@
-import React, {useEffect, useState, useCallback} from 'react'
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
+import React, { useState, useCallback, useEffect } from 'react'
+import { useAccount } from 'wagmi'
+import { hexToString } from 'viem'
+import { getStoreIOUsAddress } from '../constants'
+
+// Contract ABI for StoreIOUs
+const STORE_IOUS_ABI = [
+  {
+    "inputs": [],
+    "name": "getKeystotal",
+    "outputs": [{"type": "bytes32[]"}],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
 export default function useGetKeys() {
-    const { drizzle } = useDrizzle()
-    const drizzleState = useDrizzleState(state => state)
-
-    const [IOUKeys, setIOUKeys] = useState()
+    const { address, isConnected } = useAccount();
+    const [IOUKeys, setIOUKeys] = useState();
     
-    const { StoreIOUs } = drizzleState.contracts
+    const storeIOUsAddress = getStoreIOUsAddress();
 
+    const changeIOUKeys = useCallback((listItem) => {
+        setIOUKeys(listItem);
+    }, []);
 
-   const changeIOUKeys = useCallback(
-        (listItem) => {
-            setIOUKeys(listItem)
-        },
-        []
-    )
-    
+    useEffect(() => {
+        const fetchIOUKeys = async () => {
+            if (!isConnected || !address) return;
 
-    
-    useEffect( 
-        () => {
-          const storeIOU = drizzle.contracts.StoreIOUs
-          
-          const getIOUsTrx = storeIOU.methods["getKeystotal"].cacheCall({from: drizzleState.accounts[0]})
-          
-          if (getIOUsTrx !== undefined) {
-            const result = StoreIOUs.getKeystotal[getIOUsTrx]
-            if (result !== undefined) {
-
-                changeIOUKeys(result.value.map((value,key) => {
-                    if (value !==0 ){
-                        return drizzle.web3.utils.hexToUtf8 (value)
-                    }
-                }));
+            try {
+                const { readContract } = await import('wagmi/actions');
+                const keys = await readContract({
+                    address: storeIOUsAddress,
+                    abi: STORE_IOUS_ABI,
+                    functionName: 'getKeystotal'
+                });
+                
+                if (keys) {
+                    const decodedKeys = keys.map((value) => {
+                        if (value !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
+                            return hexToString(value);
+                        }
+                        return null;
+                    }).filter(Boolean); // Remove null values
                     
+                    changeIOUKeys(decodedKeys);
+                }
+            } catch (error) {
+                console.error('Error fetching IOU keys:', error);
+                changeIOUKeys([]);
             }
-          }
-        }, [changeIOUKeys, drizzleState, drizzle, StoreIOUs])
+        };
 
-  
+        fetchIOUKeys();
+    }, [address, isConnected, changeIOUKeys]);
 
     return IOUKeys;
 }

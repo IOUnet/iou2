@@ -1,40 +1,79 @@
-import IOUToken from '../artifacts/IOUtoken.json'
+import { readContract } from 'wagmi/actions'
 
-export const getAllIOUs = (drizzle, drizzleState, iouAddress) => {
-  if ( drizzle.contracts[iouAddress] === undefined  ) {
-    const contractConfig = new drizzle.web3.eth.Contract(
-      IOUToken.abi,
-      iouAddress
-    )
-    drizzle.addContract({
-      contractName: iouAddress,
-      web3Contract: contractConfig
-    }, ['Approval'])
+// Contract ABI for IOU token holder functions
+const IOU_TOKEN_ABI = [
+  {
+    "inputs": [],
+    "name": "getlen",
+    "outputs": [
+      {"name": "holdersCount", "type": "uint256"},
+      {"name": "feedbacksCount", "type": "uint256"}
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"name": "index", "type": "uint256"}],
+    "name": "allIOUs",
+    "outputs": [{
+      "components": [
+        {"name": "holder", "type": "address"},
+        {"name": "balance", "type": "uint256"}
+      ],
+      "type": "tuple"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+
+export const getAllIOUs = async (iouAddress) => {
+  if (!iouAddress) {
+    return [];
   }
 
-  const IOUs = [];
-  const resHoldersTrx = drizzle.contracts[iouAddress].methods["getlen"].cacheCall();
+  try {
+    // Get the length of holders array
+    const lengthData = await readContract({
+      address: iouAddress,
+      abi: IOU_TOKEN_ABI,
+      functionName: 'getlen'
+    });
 
+    const holdersCount = lengthData[0]; // First element is holders count
+    
+    if (!holdersCount || holdersCount === 0n) {
+      return [];
+    }
 
-  if (resHoldersTrx !== undefined  && drizzleState.contracts[iouAddress] !== undefined) {
-      const arrLenghts= drizzleState.contracts[iouAddress].getlen[resHoldersTrx];
-
-      if (arrLenghts !== undefined  && arrLenghts.value[0]>0  ) {
-        for (var h=0; h < arrLenghts.value[0]; h++) {
-          const resHldTrx = drizzle.contracts[iouAddress].methods["allIOUs"].cacheCall(h);
-
-          if (resHldTrx !== undefined) {
-            if (drizzleState.contracts[iouAddress] !== undefined) {
-              const holder = drizzleState.contracts[iouAddress].allIOUs[resHldTrx];
-              if (holder !== undefined) {
-                IOUs.push(holder);
-              }
-            }
-          }
+    const IOUs = [];
+    
+    // Fetch all IOU holders
+    for (let i = 0; i < holdersCount; i++) {
+      try {
+        const holder = await readContract({
+          address: iouAddress,
+          abi: IOU_TOKEN_ABI,
+          functionName: 'allIOUs',
+          args: [i]
+        });
+        
+        if (holder) {
+          IOUs.push({
+            holder: holder.holder,
+            balance: holder.balance
+          });
         }
+      } catch (error) {
+        console.error(`Error fetching IOU holder at index ${i}:`, error);
+        // Continue with other holders even if one fails
       }
+    }
 
-    console.log(IOUs)
+    console.log('IOUs:', IOUs);
     return IOUs;
+  } catch (error) {
+    console.error('Error fetching IOUs:', error);
+    return [];
   }
-}
+};

@@ -2,8 +2,9 @@ import {Box, CheckBox, CardHeader, SvgIcon, Typography, withStyles, Grid} from '
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import {drizzleReactHooks} from '@drizzle/react-plugin';
 import { useHistory } from 'react-router-dom';
+import { useAccount, useChainId } from 'wagmi';
+import { toHex } from 'viem';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -16,21 +17,18 @@ import TokensListContext from '../../context/TokensListContext'
 import useEditIOU from '../../hooks/useEditIOU'
 import EditIOUContext from '../../context/EditIOUContext'
 
-const {useDrizzle, useDrizzleState} = drizzleReactHooks;
-
 const EditorIOUPage = ({ classes }) => {
   const history = useHistory();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')
-  const [chainId, setChainId] = useState('');
   const [checked, setChecked] = useState([]);
   const [isCopied, setIsCopied] = useState(false);
-  const [cardTokenData, setCardTokenData] = useState({
+  const [cardTokenData, setCardTokenData] = useState({})
 
-  })
-
-  const { drizzle } = useDrizzle();
+  const chainId = useChainId();
+  const { address: accountAddress } = useAccount();
+  
   const tokenList = useContext(TokensListContext)
   const tokenData = tokenList.tokenList[tokenList.currentTokenID];
 
@@ -56,25 +54,12 @@ const EditorIOUPage = ({ classes }) => {
   );
 
   useEffect(() => {
-    (async () => {
-      if (drizzle.web3.eth) {
-        drizzle.web3.eth.net.getId()
-          .then(chainId => {
-            const hexChainId = drizzle.web3.utils.toHex(chainId);
-            setChainId(hexChainId);
-          })
-      }
-    } )()
-  }, [])
-
-  console.log(drizzle)
-
-  useEffect(() => {
     setCurrentTokenData()
   },[setCurrentTokenData, tokenList])
 
   const getTokenLink = async () => {
-    navigator.clipboard.writeText(`${window.origin}${ROUTES.buyIOU}/${chainId}/${tokenList.tokenList[tokenList.currentTokenID].address}`);
+    const hexChainId = toHex(chainId);
+    navigator.clipboard.writeText(`${window.origin}${ROUTES.buyIOU}/${hexChainId}/${tokenList.tokenList[tokenList.currentTokenID].address}`);
     setIsCopied(true);
   }
 
@@ -134,8 +119,6 @@ const EditorIOUPage = ({ classes }) => {
         </Button>
  */
 
-  console.log(chainId)
-
   return (
     <PageLayout>
       <Box className={classes.pageTitle}>
@@ -156,7 +139,7 @@ const EditorIOUPage = ({ classes }) => {
               <Input
                 disabled
                 inputProps={{
-                  value: `${window.origin}/${ROUTES.buyIOU}/${chainId}/${tokenList.tokenList[tokenList.currentTokenID].address}`
+                  value: `${window.origin}/${ROUTES.buyIOU}/${toHex(chainId)}/${tokenList.tokenList[tokenList.currentTokenID]?.address}`
                 }}
               />
             </Grid>
@@ -292,7 +275,7 @@ const EditorIOUPage = ({ classes }) => {
     <div className="checkList">
         
         <div className="list-container">
-          {tokenData.keys.split(',').map((item, index) => (
+          {tokenData?.keys?.split(',').map((item, index) => (
             <div key={index}>
               <input   
                 id='keyList'        

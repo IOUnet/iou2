@@ -1,188 +1,279 @@
-import React, { useEffect, useState, useCallback, useContext, useMemo } from 'react'
-import { useHistory, Redirect, useParams } from 'react-router-dom';
-import {drizzleReactHooks} from '@drizzle/react-plugin';
-import Web3 from 'web3';
+import React, { useEffect, useState, useCallback, useContext } from 'react'
+import { useParams } from 'react-router-dom';
+import { useAccount } from 'wagmi'
+import { formatEther, hexToString, stringToHex, parseEther } from 'viem'
 import TokensListContext from '../context/TokensListContext';
-import {getFeedbacks} from '../helpers/getFeedbacks';
-import {getAllIOUs} from "../helpers/getAllIOUs";
+import { getFeedbacks } from '../helpers/getFeedbacks';
+import { getAllIOUs } from "../helpers/getAllIOUs";
+import { getStoreIOUsAddress, getProxyIOUAddress } from '../constants';
 
-const {useDrizzle, useDrizzleState} = drizzleReactHooks;
+// Contract ABIs - these would typically be imported from separate files
+const STORE_IOUS_ABI = [
+  {
+    "inputs": [
+      {"name": "keyword", "type": "bytes32"},
+      {"name": "country", "type": "string"},
+      {"name": "state", "type": "string"},
+      {"name": "city", "type": "string"},
+      {"name": "street", "type": "string"}
+    ],
+    "name": "getIOUsbyStreet",
+    "outputs": [{"type": "address[]"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {"name": "keyword", "type": "bytes32"},
+      {"name": "country", "type": "string"},
+      {"name": "state", "type": "string"},
+      {"name": "city", "type": "string"}
+    ],
+    "name": "getIOUsbyCity",
+    "outputs": [{"type": "address[]"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"name": "keyword", "type": "bytes32"}],
+    "name": "getIOUListKey",
+    "outputs": [{"type": "address[]"}],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{"name": "account", "type": "address"}],
+    "name": "getIOUList",
+    "outputs": [{"type": "address[]"}],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
+const PROXY_IOU_ABI = [
+  {
+    "inputs": [{"name": "ioUAddress", "type": "address"}],
+    "name": "getIOU",
+    "outputs": [{
+      "components": [
+        {"name": "name", "type": "string"},
+        {"name": "symbol", "type": "string"},
+        {
+          "name": "description",
+          "type": "tuple",
+          "components": [
+            {"name": "description", "type": "string"},
+            {"name": "myName", "type": "string"},
+            {"name": "issuer", "type": "address"},
+            {"name": "socialProfile", "type": "string"},
+            {"name": "keywords", "type": "bytes32[]"},
+            {"name": "totalMinted", "type": "uint256"},
+            {"name": "totalBurned", "type": "uint256"},
+            {"name": "avRate", "type": "uint8"},
+            {"name": "units", "type": "bytes32"},
+            {"name": "location", "type": "string"},
+            {"name": "phone", "type": "bytes32"}
+          ]
+        }
+      ],
+      "type": "tuple"
+    }],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
 export default function useFindIOU(factory, deps) {
-
   const params = useParams();
-  const {drizzle} = useDrizzle();
-  const drizzleState = useDrizzleState(state => state);
+  const { address, isConnected } = useAccount();
   const [IOUAddreses, setIOUAddreses] = useState();
   const [IOUList, setIOUList] = useState();
   const [feedbackList, setFeedbackList] = useState(null);
   const [tokenHolders, setTokenHolders] = useState(null);
-  const {StoreIOUs, ProxyIOU, IOUtoken} = drizzleState.contracts;
-
+  
   const tokenList = useContext(TokensListContext)
   const [values, setFormValues] = useState(tokenList.values)
 
+  const storeIOUsAddress = getStoreIOUsAddress()
+  const proxyIOUAddress = getProxyIOUAddress()
 
   const changeIOUListAddreses = useCallback((addressList) => {
     setIOUAddreses(addressList);
-  }, [setIOUAddreses]);
+  }, []);
 
   const changeIOUList = useCallback((listItem) => {
-      setIOUList(listItem)
-  },[setIOUList]);
+    setIOUList(listItem)
+  }, []);
 
+  // Convert string to bytes32 for contract calls
+  const stringToBytes32 = (str) => stringToHex(str.toLowerCase().trim())
+
+  // Search for IOU addresses based on search criteria
   useEffect(() => {
-      const storeIOU = drizzle.contracts.StoreIOUs
+    if (!isConnected || !address) return;
+
+    const searchIOUs = async () => {
       if (values.searchStreet) {
-        const getIOUsTrx = storeIOU.methods["getIOUsbyStreet"].cacheCall(Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()),
-          values.country.trim(),
-          values.state.trim(),
-          values.city.trim(),
-          values.street.trim());
-        if (getIOUsTrx !== undefined) {
-          const result = StoreIOUs.getIOUsbyStreet[getIOUsTrx];
-          if (result !== undefined) {
-            changeIOUListAddreses(result.value);
-          }
-        }
+        const addresses = await fetchIOUAddressesByStreet(values);
+        changeIOUListAddreses(addresses);
       } else if (values.searchLocation) {
-        const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall(Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()),
-          values.country.trim(),
-          values.state.trim(),
-          values.city.trim());
-        if (getIOUsTrx !== undefined) {
-          const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
-          if (result !== undefined) {
-            changeIOUListAddreses(result.value);
-          }
-        }
+        const addresses = await fetchIOUAddressesByLocation(values);
+        changeIOUListAddreses(addresses);
       } else if (values.keyword) {
-        const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall(Web3.utils.utf8ToHex(values.keyword.trim().toLowerCase()));
-
-        if (getIOUsTrx !== undefined) {
-          const result = StoreIOUs.getIOUListKey[getIOUsTrx];
-          if (result !== undefined) {
-            changeIOUListAddreses(result.value);
-          }
-        }
-
+        const addresses = await fetchIOUAddressesByKeyword(values.keyword.trim().toLowerCase());
+        changeIOUListAddreses(addresses);
       } else {
-
-        const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall(drizzleState.accounts[0])
-
-        if (getIOUsTrx !== undefined) {
-          const res = StoreIOUs.getIOUList[getIOUsTrx]
-          if (res !== undefined) {
-            changeIOUListAddreses(res.value);
-          }
-        }
-
-        if (IOUList) {
-          tokenList.setTokenList(IOUList)
-          let indx = IOUAddreses.indexOf(params.tokenAddress);
-          tokenList.setCurrentToken(indx);
-        }
+        // Get all IOU addresses for connected account
+        const addresses = await fetchAllIOUAddresses();
+        changeIOUListAddreses(addresses);
       }
-    }, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs, values]);
+    };
 
-  /*
-        const findIOU = (values) => {
-              const storeIOU = drizzle.contracts.StoreIOUs
-          if (values.searchStreet) {
-              const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.utf8ToHex(values.keyword), values.country, values.state, values.city, values.street);
-              if (getIOUsTrx !== undefined) {
-              const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
-              if (result !== undefined) {
-                //  changeIOUListAddreses( result.value);
-                return  result.value;
-              }
-              }
-          } else if (values.searchLocation) {
-              const getIOUsTrx = storeIOU.methods["getIOUsbyCity"].cacheCall( Web3.utils.utf8ToHex(values.keyword), values.country, values.state, values.city);
-              if (getIOUsTrx !== undefined) {
-              const result = StoreIOUs.getIOUsbyCity[getIOUsTrx];
-              if (result !== undefined) {
-               //   changeIOUListAddreses( result.value);
-               return  result.value;
+    searchIOUs();
+  }, [values, isConnected, address, changeIOUListAddreses]);
 
-               }
-              }
-          } else {
-              const getIOUsTrx = storeIOU.methods["getIOUListKey"].cacheCall( Web3.utils.utf8ToHex(values.keyword), {from: drizzleState.accounts[0]});
-              if (getIOUsTrx !== undefined) {
-              const result = StoreIOUs.getIOUListKey[getIOUsTrx];
-              if (result !== undefined) {
-                //  changeIOUListAddreses( result.value);
-                return  result.value;
+  // Helper function to fetch IOU addresses by street
+  const fetchIOUAddressesByStreet = async (searchValues) => {
+    try {
+      const { readContract } = await import('wagmi/actions');
+      const addresses = await readContract({
+        address: storeIOUsAddress,
+        abi: STORE_IOUS_ABI,
+        functionName: 'getIOUsbyStreet',
+        args: [
+          stringToBytes32(searchValues.keyword.trim().toLowerCase()),
+          searchValues.country.trim(),
+          searchValues.state.trim(),
+          searchValues.city.trim(),
+          searchValues.street.trim()
+        ]
+      });
+      return addresses || [];
+    } catch (error) {
+      console.error('Error fetching IOUs by street:', error);
+      return [];
+    }
+  };
 
-                }
-              }
-          }
-      } */
+  // Helper function to fetch IOU addresses by location
+  const fetchIOUAddressesByLocation = async (searchValues) => {
+    try {
+      const { readContract } = await import('wagmi/actions');
+      const addresses = await readContract({
+        address: storeIOUsAddress,
+        abi: STORE_IOUS_ABI,
+        functionName: 'getIOUsbyCity',
+        args: [
+          stringToBytes32(searchValues.keyword.trim().toLowerCase()),
+          searchValues.country.trim(),
+          searchValues.state.trim(),
+          searchValues.city.trim()
+        ]
+      });
+      return addresses || [];
+    } catch (error) {
+      console.error('Error fetching IOUs by location:', error);
+      return [];
+    }
+  };
 
-  useEffect(
-    () => {
-      const proxyIOU = drizzle.contracts.ProxyIOU
+  // Helper function to fetch IOU addresses by keyword
+  const fetchIOUAddressesByKeyword = async (keyword) => {
+    try {
+      const { readContract } = await import('wagmi/actions');
+      const addresses = await readContract({
+        address: storeIOUsAddress,
+        abi: STORE_IOUS_ABI,
+        functionName: 'getIOUListKey',
+        args: [stringToBytes32(keyword)]
+      });
+      return addresses || [];
+    } catch (error) {
+      console.error('Error fetching IOUs by keyword:', error);
+      return [];
+    }
+  };
 
-      if (IOUAddreses !== undefined && IOUAddreses != null) {
+  // Helper function to fetch all IOU addresses for connected account
+  const fetchAllIOUAddresses = async () => {
+    try {
+      const { readContract } = await import('wagmi/actions');
+      const addresses = await readContract({
+        address: storeIOUsAddress,
+        abi: STORE_IOUS_ABI,
+        functionName: 'getIOUList',
+        args: [address]
+      });
+      return addresses || [];
+    } catch (error) {
+      console.error('Error fetching all IOUs:', error);
+      return [];
+    }
+  };
 
-        const IOUListObjects = []
-        for (var i = 0; i < IOUAddreses.length; i++) {
+  // Process IOU addresses to get detailed information
+  useEffect(() => {
+    const processIOUAddresses = async () => {
+      if (!IOUAddreses || IOUAddreses.length === 0) return;
 
-          const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
+      const IOUListObjects = [];
+      
+      for (let i = 0; i < IOUAddreses.length; i++) {
+        try {
+          const { readContract } = await import('wagmi/actions');
+          const iouData = await readContract({
+            address: proxyIOUAddress,
+            abi: PROXY_IOU_ABI,
+            functionName: 'getIOU',
+            args: [IOUAddreses[i]]
+          });
 
-          if (resultTrx !== undefined) {
-            const resultItem = ProxyIOU.getIOU[resultTrx]
+          if (iouData) {
+            // Convert keywords from bytes32 to string
+            const keys = iouData.description.keywords.map(bytes32 => 
+              hexToString(bytes32)
+            );
 
+            // Get feedbacks and holders using the updated helpers
+            const feedbacks = getFeedbacks(IOUAddreses[i]);
+            const holders = getAllIOUs(IOUAddreses[i]);
 
-            if (resultItem !== undefined) {
-
-              let keys = resultItem.value.description.keywords.map((value, key) => {
-                return drizzle.web3.utils.hexToUtf8(value)
-              })
-
-
-
-              const feedbacks = getFeedbacks(drizzle, drizzleState, IOUAddreses[i])
-              const holders = getAllIOUs(drizzle, drizzleState, IOUAddreses[i]);
-
-              if (feedbacks.length === 0) {
-                setFeedbackList(feedbacks)
-              }
-
-              IOUListObjects.push({
-                id: i,
-                title: resultItem.value.name,
-                symbol: resultItem.value.symbol,
-                count: i,
-                description: resultItem.value.description.description,
-                issuerName: resultItem.value.description.myName,
-                issuerAddr: resultItem.value.description.issuer,
-                socialProfile: resultItem.value.description.socialProfile,
-                keys: keys.join(','),
-                portfolio: "coming soon...",
-
-                address: IOUAddreses[i],
-                minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
-                payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
-                rating: resultItem.value.description.avRate,
-                units: drizzle.web3.utils.hexToUtf8(resultItem.value.description.units),
-                location: (resultItem.value.description.location),
-
-                phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone),
-                feedbacks,
-                holders,
-              })
-
-              changeIOUList(IOUListObjects)
+            if (feedbacks.length === 0) {
+              setFeedbackList(feedbacks);
             }
+
+            IOUListObjects.push({
+              id: i,
+              title: iouData.name,
+              symbol: iouData.symbol,
+              count: i,
+              description: iouData.description.description,
+              issuerName: iouData.description.myName,
+              issuerAddr: iouData.description.issuer,
+              socialProfile: iouData.description.socialProfile,
+              keys: keys.join(','),
+              portfolio: "coming soon...",
+              address: IOUAddreses[i],
+              minted: formatEther(iouData.description.totalMinted),
+              payed: formatEther(iouData.description.totalBurned),
+              rating: iouData.description.avRate,
+              units: hexToString(iouData.description.units),
+              location: iouData.description.location,
+              phone: hexToString(iouData.description.phone),
+              feedbacks,
+              holders,
+            });
+
+            changeIOUList(IOUListObjects);
           }
+        } catch (error) {
+          console.error(`Error processing IOU ${IOUAddreses[i]}:`, error);
         }
       }
+    };
 
-    }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU.getIOU, feedbackList, tokenHolders])
+    processIOUAddresses();
+  }, [IOUAddreses, changeIOUList]);
 
-  return [IOUList]
-// IOUList, IOUAddreses, 
+  return [IOUList];
 }

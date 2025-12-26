@@ -1,106 +1,81 @@
-import React, {useEffect, useState, useCallback} from 'react'
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-import { ViewArraySharp } from '@material-ui/icons';
-//import IOUToken from '../artifacts/IOUtoken.json'
-const IOUToken = require ('../artifacts/IOUtoken.json')
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
+import React, {useEffect, useState, useCallback, useContext} from 'react'
+import { useReadContract, useAccount } from 'wagmi'
+import { readContract } from 'wagmi/actions'
+import { formatEther, hexToString } from 'viem'
+import ChainWebContext from '../context/chain/ChainWebContext'
+const StoreIOUsABI = require ('../artifacts/StoreIOUs.json').abi
+const ProxyIOUABI = require ('../artifacts/ProxyIOU.json').abi
+const IOUTokenABI = require ('../artifacts/IOUtoken.json').abi
+const addresses = require ('../../addresses.json')
 
 export default function useGetIOUs() {
-    const { drizzle } = useDrizzle()
-    const drizzleState = useDrizzleState(state => state)
-    const [IOUAddreses, setIOUAddreses] = useState();
-    const [IOUList, setIOUList] = useState()
-    var state = drizzle.store.getState()
+    const { address: account } = useAccount()
+    const { chainId } = useContext(ChainWebContext)
+    const [IOUAddresses, setIOUAddresses] = useState([])
+    const [IOUList, setIOUList] = useState([])
 
-    const { StoreIOUs, ProxyIOU, IOUtoken } = drizzleState.contracts
+    const chainAddresses = addresses[chainId] || {}
 
-    const changeIOUListAddreses = (addressList) => {
-        setIOUAddreses(addressList);
-    }
+    // Get the list of IOU addresses for the user
+    const { data: iouAddresses } = useReadContract({
+        address: chainAddresses.StoreIOUs,
+        abi: StoreIOUsABI,
+        functionName: 'getIOUList',
+        args: [account],
+        enabled: !!account && !!chainAddresses.StoreIOUs,
+    })
 
+    useEffect(() => {
+        if (iouAddresses) {
+            setIOUAddresses(iouAddresses)
+        }
+    }, [iouAddresses])
 
-   const changeIOUList = useCallback(
-        (listItem) => {
-            setIOUList(listItem)
-        },
-        [],
-    )
-
-    
-    useEffect( 
-        () => {
-          const storeIOU = drizzle.contracts.StoreIOUs
-          
-          const getIOUsTrx = storeIOU.methods["getIOUList"].cacheCall( drizzleState.accounts[0])
-          if (getIOUsTrx !== undefined) {
-            const result = StoreIOUs.getIOUList[getIOUsTrx]
-            if (result !== undefined) {
-                changeIOUListAddreses(result.value);
-            }
-          }
-        }, [changeIOUListAddreses, drizzleState, drizzle, StoreIOUs])
-
-    
-        
-    useEffect( 
-        () => {
-            const proxyIOU = drizzle.contracts.ProxyIOU
-            
-            if(IOUAddreses !== undefined && IOUAddreses != null) {
-                const IOUListObjects = []
-                for(var i=0; i<IOUAddreses.length; i++) {
-                    if (drizzle.contracts[ IOUAddreses[i]] === undefined) {
-                        const contractConfig = new drizzle.web3.eth.Contract(
-                            IOUToken.abi, 
-                            IOUAddreses[i]
-                        )
-                        drizzle.addContract({
-                            contractName: IOUAddreses[i], 
-                            web3Contract: contractConfig
-                        }, ['Approval'])
-                    }
-                    const  tokenIOU = drizzle.contracts[IOUAddreses[i]]
-            //        const resultTrxT =  tokenIOU.methods["getTokenInfo"].cacheCall();
-                    const resultTrx = proxyIOU.methods["getIOU"].cacheCall(IOUAddreses[i]);
-                    if (resultTrx !== undefined && resultTrx !== "0x0" /* && resultTrxT !== undefined */) {
-                       const resultItem = ProxyIOU.getIOU[resultTrx]
-         //              const resultItemT =  tokenIOU.getTokenInfo[resultTrxT]
-                        if (resultItem !== undefined ) {
-                           
-                                let keys = resultItem.value.description.keywords.map((value,key) => {
-                                    return drizzle.web3.utils.hexToUtf8(value)
-                                })
-                                IOUListObjects.push( {
-                                        id: i,
-                                        title: resultItem.value.name,
-                                        symbol: resultItem.value.symbol,
-                                        count: i,
-                                        description: resultItem.value.description.description,
-                                        issuerName: resultItem.value.description.myName,
-                                        issuerAddr: resultItem.value.description.issuer,
-                                        socialProfile: resultItem.value.description.socialProfile,
-                                        keys: keys.join(','),
-                                        portfolio: "coming soon...", // JSON.stringify( response.payload.portfolio),
-                                    
-                                        address: IOUAddreses[i],
-                                        minted: drizzle.web3.utils.fromWei(resultItem.value.description.totalMinted),
-                                        payed: drizzle.web3.utils.fromWei(resultItem.value.description.totalBurned),
-                                        rating: resultItem.value.description.avRate,
-                                        units: drizzle.web3.utils.hexToUtf8(resultItem.value.description.units),
-                                        location: (resultItem.value.description.location),
-                                        phone: drizzle.web3.utils.hexToUtf8(resultItem.value.description.phone)
-                                    })   
-                                    changeIOUList(IOUListObjects)
-                                
-                        
+    // For each address, get the IOU details
+    useEffect(() => {
+        if (IOUAddresses.length > 0) {
+            const fetchDetails = async () => {
+                const details = []
+                for (const addr of IOUAddresses) {
+                    try {
+                        const iouData = await readContract({
+                            address: chainAddresses.ProxyIOU,
+                            abi: ProxyIOUABI,
+                            functionName: 'getIOU',
+                            args: [addr],
+                        })
+                        if (iouData) {
+                            const desc = iouData.description
+                            const keys = desc.keywords.map(k => hexToString(k))
+                            details.push({
+                                id: details.length,
+                                title: iouData.name,
+                                symbol: iouData.symbol,
+                                count: details.length,
+                                description: desc.description,
+                                issuerName: desc.myName,
+                                issuerAddr: desc.issuer,
+                                socialProfile: desc.socialProfile,
+                                keys: keys.join(','),
+                                portfolio: "coming soon...",
+                                address: addr,
+                                minted: formatEther(desc.totalMinted),
+                                payed: formatEther(desc.totalBurned),
+                                rating: desc.avRate,
+                                units: hexToString(desc.units),
+                                location: desc.location,
+                                phone: hexToString(desc.phone)
+                            })
                         }
+                    } catch (error) {
+                        console.error('Error fetching IOU details:', error)
                     }
                 }
-//                changeIOUList(IOUListObjects)
-            }    
-        
-        }, [changeIOUList, IOUAddreses, drizzle, ProxyIOU])
+                setIOUList(details)
+            }
+            fetchDetails()
+        }
+    }, [IOUAddresses, chainAddresses.ProxyIOU])
 
-
-    return IOUList;
+    return IOUList
 }

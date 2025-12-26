@@ -1,5 +1,5 @@
-import { ThemeProvider } from '@material-ui/core/styles';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import React, { useContext, useEffect } from 'react'
 
 import HomePage from './pages/home-page/HomePage';
@@ -22,9 +22,9 @@ import SwapSelectDesiredTokenPage from './pages/swap-select-desired-token-page/S
 import SwapSelectAvailableTokenPage from './pages/swap-select-available-token-page/SwapSelectAvailableTokenPage';
 import { ROUTES } from './constants';
 import theme from './theme';
-import { Drizzle } from '@drizzle/store';
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-import drizzleOptions from './store/DrizzleOptions';
+import { WagmiProvider } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { config } from './wagmi';
 import Loading from './components/loading/Loading'
 import CreateIOUProvider from './context/CreateIOUProvider'
 import TokensListProvider from './context/TokensListProvider'
@@ -35,6 +35,8 @@ import { CookiesProvider } from 'react-cookie';
 
 
 
+const queryClient = new QueryClient()
+
 function App() {
   const {
     initialization,
@@ -44,61 +46,56 @@ function App() {
   } = useContext(ChainWebContext)
 
   useEffect(() => {
-    if (!hasInitialization) { 
+    if (!hasInitialization) {
         initialization()
     } else {
     console.log ( "dApp initialized.....")
     return
   }
   }, [initialization, hasInitialization])
- 
+
   if (!hasInitialization || !provider) {
     return ( <ConnectProviderFailure /> )
   } else if (hasInitialization) {
-
-    const drizzle = new Drizzle(drizzleOptions)
-    const { DrizzleProvider } = drizzleReactHooks;
-   
-  
-  return (
-    
-      <DrizzleProvider drizzle={drizzle}>
-        <Loading>
-          <TokensListProvider>
-            <CreateIOUProvider>
-              <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                <CookiesProvider>
-                    <Switch>
-                      <Route component={HomePage} exact path={ROUTES.main} />
-                      <Route component={MintEditTokenPage} exact path={ROUTES.mintEditToken} />
-                      <Route component={EditorIOUPage} exact path={ROUTES.editorIOU} />
-                      <Route component={MintSelectTokenPage} exact path={ROUTES.mintSelectToken} />
-                      <Route component={MintSelectReceiverPage} exact path={ROUTES.mintSelectReceiver} />
-                      <Route component={MakeIOUToken1Page} exact path={ROUTES.makeIOUToken1} />
-                      <Route component={MakeIOUToken2Page} exact path={ROUTES.makeIOUToken2} />
-                      <Route component={PayoffSelectTokenPage} exact path={ROUTES.payoffSelectToken} />
-                      <Route component={PayoffAndFeedbackPage} exact path={ROUTES.payoffAndFeedback} />
-                      <Route component={StakeSelectTokenPage} exact path={ROUTES.stakeSelectToken} />
-                      <Route component={StakeAddPairPage} exact path={ROUTES.stakeAddPair} />
-                      <Route component={StakeAddLiquidityPage} exact path={ROUTES.stakeAddLiquidity} />
-                      <Route component={FindBuyIOUPage} exact path={ROUTES.findBuyIOU} />
-                      <Route component={BuyIOUSelectPage} exact path={ROUTES.buyIOUSelect} />
-                      <Route component={BuyIOUPage} exact path={ROUTES.buyIOU + "/:chainId/:tokenAddress"} />
-                      <Route component={SelectDesiredIOUSwapPage} exact path={ROUTES.selectDesiredIOUSwap} />
-                      <Route component={SwapSelectDesiredTokenPage} exact path={ROUTES.swapSelectDesiredToken} />
-                      <Route component={SwapSelectAvailableTokenPage} exact path={ROUTES.swapSelectAvailableToken} />
-                      {/* (!hasInitialization || !provider)&&<ConnectProviderFailure /> */ }
-                      { /* (hasInitialization || isChainConnected) && */}<Redirect to={ROUTES.main} />
-                    </Switch>
-                  </CookiesProvider>
-                </BrowserRouter>
-              </ThemeProvider>
-            </CreateIOUProvider>
-          </TokensListProvider>
-         </Loading>
-      </DrizzleProvider>
-  );
+    return (
+      <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <Loading>
+            <TokensListProvider>
+              <CreateIOUProvider>
+                <ThemeProvider theme={theme}>
+                  <BrowserRouter>
+                  <CookiesProvider>
+                      <Routes>
+                        <Route path={ROUTES.main} element={<HomePage />} />
+                        <Route path={ROUTES.mintEditToken} element={<MintEditTokenPage />} />
+                        <Route path={ROUTES.editorIOU} element={<EditorIOUPage />} />
+                        <Route path={ROUTES.mintSelectToken} element={<MintSelectTokenPage />} />
+                        <Route path={ROUTES.mintSelectReceiver} element={<MintSelectReceiverPage />} />
+                        <Route path={ROUTES.makeIOUToken1} element={<MakeIOUToken1Page />} />
+                        <Route path={ROUTES.makeIOUToken2} element={<MakeIOUToken2Page />} />
+                        <Route path={ROUTES.payoffSelectToken} element={<PayoffSelectTokenPage />} />
+                        <Route path={ROUTES.payoffAndFeedback} element={<PayoffAndFeedbackPage />} />
+                        <Route path={ROUTES.stakeSelectToken} element={<StakeSelectTokenPage />} />
+                        <Route path={ROUTES.stakeAddPair} element={<StakeAddPairPage />} />
+                        <Route path={ROUTES.stakeAddLiquidity} element={<StakeAddLiquidityPage />} />
+                        <Route path={ROUTES.findBuyIOU} element={<FindBuyIOUPage />} />
+                        <Route path={ROUTES.buyIOUSelect} element={<BuyIOUSelectPage />} />
+                        <Route path={ROUTES.buyIOU + "/:chainId/:tokenAddress"} element={<BuyIOUPage />} />
+                        <Route path={ROUTES.selectDesiredIOUSwap} element={<SelectDesiredIOUSwapPage />} />
+                        <Route path={ROUTES.swapSelectDesiredToken} element={<SwapSelectDesiredTokenPage />} />
+                        <Route path={ROUTES.swapSelectAvailableToken} element={<SwapSelectAvailableTokenPage />} />
+                        <Route path="*" element={<Navigate to={ROUTES.main} />} />
+                      </Routes>
+                    </CookiesProvider>
+                  </BrowserRouter>
+                </ThemeProvider>
+              </CreateIOUProvider>
+            </TokensListProvider>
+            </Loading>
+        </QueryClientProvider>
+      </WagmiProvider>
+    );
   }
 }
 

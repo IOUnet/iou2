@@ -1,10 +1,10 @@
 import { Box, Grid, withStyles } from '@material-ui/core';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { useHistory, Redirect, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
+import { useChainId, useSwitchChain } from 'wagmi';
+import { toHex } from 'viem';
 import useFindIOU from '../../hooks/useFindIOU'
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-import * as a from '../../api/chain';
 
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
@@ -14,13 +14,9 @@ import Input from '../../components/input/Input';
 import Button from '../../components/button/Button';
 import TokenFeedbackCard from "../../components/token-feedback-card/tokenFeedbackCard";
 import TokenHoldersCard from "../../components/token-holders-card/tokenHoldersCard";
-import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
-import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
-import { switchChain } from '../../api/chain';
 const dappStaff = require("../../assets/dappStaff.json")
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 
 const BuyIOUPage = ({ classes }) => {
@@ -33,7 +29,9 @@ const BuyIOUPage = ({ classes }) => {
   const [cardTokenData, setCardTokenData] = useState({})
   const [cookies, setCookie] = useCookies(['currChainId']);
   const [dataIOUsList] = useFindIOU()
-  const { drizzle } = useDrizzle();
+  
+  const chainId = useChainId();
+  const { switchChain } = useSwitchChain();
 
   const [feedbacks, setFeedbacks] = useState();
   const [holders, setHolders] = useState();
@@ -41,20 +39,23 @@ const BuyIOUPage = ({ classes }) => {
 
 
   useEffect(() => {
-
-    (async () => {
-      const chainId = await drizzle.web3.eth.net.getId();
-      const hexChainId = drizzle.web3.utils.toHex(chainId);
+    const checkChain = async () => {
+      const hexChainId = toHex(chainId);
 
       if (hexChainId != params.chainId) {
-        const { ethereum, web3 } = await a.detectEthereumProvider()
-        await a.switchChain(ethereum, params.chainId)
-        setCookie('currChainId', params.chainId, { path: '/' });
-        window.location.reload();
+        try {
+          await switchChain({ chainId: parseInt(params.chainId, 16) });
+          setCookie('currChainId', params.chainId, { path: '/' });
+        } catch (error) {
+          console.error("Failed to switch chain:", error);
+        }
       }
-    })()
-
-  }, [])
+    };
+    
+    if (params.chainId) {
+      checkChain();
+    }
+  }, [chainId, params.chainId, switchChain, setCookie])
 
   // const tokenData = tokenList.tokenList[tokenList.currentTokenID];
   const setCurrentTokenData = useCallback((data) => {
@@ -78,12 +79,15 @@ const BuyIOUPage = ({ classes }) => {
   },[setCurrentTokenData, tokenList, dataIOUsList])
 
   const handleBuy = () => {
-
-    window.location.href = dappStaff[cookies.currChainId].exchange + "/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
-  
+    const currentChainId = cookies.currChainId || toHex(chainId);
+    if (dappStaff[currentChainId]) {
+      window.location.href = dappStaff[currentChainId].exchange + "/#/swap?exactField=input&exactAmount="+number+"&outputCurrency=" + cardTokenData.address;
+    }
   };
 
-  if (dappStaff[cookies.currChainId].exchange === "")
+  const currentChainId = cookies.currChainId || toHex(chainId);
+
+  if (!dappStaff[currentChainId] || dappStaff[currentChainId].exchange === "")
   {
     return (
       <PageLayout>

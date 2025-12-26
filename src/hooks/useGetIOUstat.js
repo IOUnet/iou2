@@ -1,42 +1,61 @@
-import React, {useEffect, useState, useCallback} from 'react'
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
+import React, { useState, useCallback, useEffect } from 'react'
+import { useAccount } from 'wagmi'
+import { getStoreIOUsAddress } from '../constants'
 
-export default function useGetKeys() {
-    const { drizzle } = useDrizzle()
-    const drizzleState = useDrizzleState(state => state)
+// Contract ABI for StoreIOUs
+const STORE_IOUS_ABI = [
+  {
+    "inputs": [],
+    "name": "getIOUstotal",
+    "outputs": [
+      {
+        "components": [
+          {"name": "totalIOUs", "type": "uint256"},
+          {"name": "totalTokens", "type": "uint256"},
+          {"name": "totalHolders", "type": "uint256"},
+          {"name": "totalBurned", "type": "uint256"}
+        ],
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
-    const [IOUstat, setIOUstat] = useState()
+export default function useGetIOUstat() {
+    const { address, isConnected } = useAccount();
+    const [IOUstat, setIOUstat] = useState();
     
-    const { StoreIOUs } = drizzleState.contracts
+    const storeIOUsAddress = getStoreIOUsAddress();
 
+    const changeIOUstat = useCallback((listItem) => {
+        setIOUstat(listItem);
+    }, []);
 
-   const changeIOUstat = useCallback(
-        (listItem) => {
-            setIOUstat(listItem)
-        },
-        []
-    )
-    
+    useEffect(() => {
+        const fetchIOUStatistics = async () => {
+            if (!isConnected || !address) return;
 
-    
-    useEffect( 
-        () => {
-          const storeIOU = drizzle.contracts.StoreIOUs
-          
-          const getIOUsTrx = storeIOU.methods["getIOUstotal"].cacheCall({from: drizzleState.accounts[0]})
-          
-          if (getIOUsTrx !== undefined) {
-            const result = StoreIOUs.getIOUstotal[getIOUsTrx]
-            if (result !== undefined) {
+            try {
+                const { readContract } = await import('wagmi/actions');
+                const stats = await readContract({
+                    address: storeIOUsAddress,
+                    abi: STORE_IOUS_ABI,
+                    functionName: 'getIOUstotal'
+                });
                 
-                changeIOUstat(result.value);
-                    
+                if (stats) {
+                    changeIOUstat(stats);
+                }
+            } catch (error) {
+                console.error('Error fetching IOU statistics:', error);
+                changeIOUstat(null);
             }
-          }
-        }, [changeIOUstat, drizzleState, drizzle, StoreIOUs])
+        };
 
-  
+        fetchIOUStatistics();
+    }, [address, isConnected, changeIOUstat]);
 
     return IOUstat;
 }
