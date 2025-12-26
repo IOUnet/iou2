@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { Button as MUIButton, withStyles } from '@material-ui/core';
+import { Button as MUIButton } from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 
 export const CardContainer = styled.div`

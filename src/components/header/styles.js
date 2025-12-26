@@ -1,4 +1,5 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const styles = (theme) =>
   createStyles({
@@ -17,7 +18,7 @@ const styles = (theme) =>
       width: theme.spacing(3),
       height: theme.spacing(3),
       '& path': {
-        fill: fade(theme.palette.common.white, 0.74),
+        fill: alpha(theme.palette.common.white, 0.74),
       },
     },
     button_active: {

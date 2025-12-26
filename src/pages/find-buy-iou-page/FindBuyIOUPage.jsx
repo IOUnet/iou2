@@ -1,7 +1,8 @@
-import { Box, Typography, withStyles, RadioGroup, Radio, FormControlLabel} from '@material-ui/core';
+import { Box, Typography, RadioGroup, Radio, FormControlLabel } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useEffect, useCallback, useState, useContext }  from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TextField from '../../components/textfield/TextField';
@@ -15,7 +16,7 @@ import useGetIOUKeys from '../../hooks/useGetIOUKeys'
 // import useFindIOU from '../../hooks/useFindIOU';
 
 const FindBuyIOUPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   //const searchIOU = useContext(TokensListContext)
   const tokenList = useContext(TokensListContext)
   const [checked, setChecked] = useState([]);
@@ -26,7 +27,7 @@ const FindBuyIOUPage = ({ classes }) => {
   //  const [searchStreet, setSearchStreet] = useState(values.searchStreet); 
   const handleFind = () => {
     tokenList.setFormValues(values);
-    history.push(ROUTES.buyIOUSelect);
+    navigate(ROUTES.buyIOUSelect);
     
     
   //  findIOU(values);

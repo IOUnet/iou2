@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Box, Grid, Card, withStyles, Typography} from "@material-ui/core";
+import { Box, Grid, Card, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import styles from "./styles";
-import FavoriteIcon from "@material-ui/icons/Favorite";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const TokenHoldersCard =({classes, data}) => {
 

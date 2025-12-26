@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, {useContext, useEffect, useState, useCallback} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
@@ -11,7 +12,7 @@ import TokensListContext from '../../context/TokensListContext'
 
 
 const PayoffSelectTokenPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dataIOUsPayofListContext = useGetIOUsPayof()
   const tokenList = useContext(TokensListContext)
   const [dataIOUsPayofList, setDataIOUsPayofList] = useState(null)
@@ -22,7 +23,7 @@ const PayoffSelectTokenPage = ({ classes }) => {
       tokenList.setTokenList(dataIOUsPayofList)
       tokenList.setCurrentToken(id)
     }
-    history.push(ROUTES.payoffAndFeedback);
+    navigate(ROUTES.payoffAndFeedback);
   };
 
   const setData = useCallback((data) => {

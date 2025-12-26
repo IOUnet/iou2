@@ -1,6 +1,7 @@
-import { Box, Grid, withStyles } from '@material-ui/core';
+import { Box, Grid } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState, useContext, useCallback, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 import { useChainId, useSwitchChain } from 'wagmi';
 import { toHex } from 'viem';
@@ -16,13 +17,13 @@ import TokenFeedbackCard from "../../components/token-feedback-card/tokenFeedbac
 import TokenHoldersCard from "../../components/token-holders-card/tokenHoldersCard";
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
-const dappStaff = require("../../assets/dappStaff.json")
+import dappStaff from '../../assets/dappStaff.json'
 
 
 const BuyIOUPage = ({ classes }) => {
 
   const params = useParams();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [number, setNumber] = useState(10);
   const tokenList = useContext(TokensListContext)
 

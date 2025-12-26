@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
@@ -17,7 +18,7 @@ const MintSelectTokenPage = ({ classes }) => {
   const dataIOUsList = useGetIOUs()
   
   const [listDataIOU, setListDataIOU] = useState([])
-  const history = useHistory();
+  const navigate = useNavigate();
   
   const changeIOUDataList = useCallback((dataIOUsList) => {
     if (dataIOUsList != null) {
@@ -33,7 +34,7 @@ const MintSelectTokenPage = ({ classes }) => {
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
-    history.push(ROUTES.mintSelectReceiver);
+    navigate(ROUTES.mintSelectReceiver);
     tokensList.setCurrentToken(id)
   };
 

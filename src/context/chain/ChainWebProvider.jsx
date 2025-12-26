@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import ChainWebContext from './ChainWebContext'
 import NotificationContext from '../notification/NotificationContext'
-import * as t from '../../assets/translations.json'
+import t from '../../assets/translations.json'
 import { useCookies } from 'react-cookie';
 import { useAccount, useConnect, useDisconnect, useSwitchChain, useBalance, useWalletClient } from 'wagmi'
 import { formatEther } from 'viem'
+
+import dappChains from '../../assets/dappChains.json'
 
 // const dappChains = require("../../assets/dappChains.json")
 
@@ -70,7 +72,6 @@ const requestPermissions = async () => {
 const switchChainHandler = async (_chainConfig) => {
   setIsWalletRequest(true)
   try {
-    const dappChains = require("../../assets/dappChains.json")
     let chainConfig = _chainConfig
 
     if (!dappChains.hasOwnProperty(_chainConfig)) {

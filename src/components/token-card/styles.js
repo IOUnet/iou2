@@ -1,4 +1,5 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const styles = (theme) =>
   createStyles({
@@ -29,7 +30,7 @@ const styles = (theme) =>
     },
     description: {
       flexGrow: 1,
-      color: fade(theme.palette.iou.text, 0.54),
+      color: alpha(theme.palette.iou.text, 0.54),
       '& > p': {
         fontSize: '0.875rem',
         lineHeight: 1.43,

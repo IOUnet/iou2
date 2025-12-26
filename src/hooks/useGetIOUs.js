@@ -3,10 +3,14 @@ import { useReadContract, useAccount } from 'wagmi'
 import { readContract } from 'wagmi/actions'
 import { formatEther, hexToString } from 'viem'
 import ChainWebContext from '../context/chain/ChainWebContext'
-const StoreIOUsABI = require ('../artifacts/StoreIOUs.json').abi
-const ProxyIOUABI = require ('../artifacts/ProxyIOU.json').abi
-const IOUTokenABI = require ('../artifacts/IOUtoken.json').abi
-const addresses = require ('../../addresses.json')
+import StoreIOUsArtifact from '../artifacts/StoreIOUs.json'
+import ProxyIOUArtifact from '../artifacts/ProxyIOU.json'
+import IOUTokenArtifact from '../artifacts/IOUtoken.json'
+import addresses from '../../addresses.json'
+
+const StoreIOUsABI = StoreIOUsArtifact.abi
+const ProxyIOUABI = ProxyIOUArtifact.abi
+const IOUTokenABI = IOUTokenArtifact.abi
 
 export default function useGetIOUs() {
     const { address: account } = useAccount()

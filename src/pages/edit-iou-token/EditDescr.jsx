@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState, useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import Button from '../../components/button/Button';
@@ -14,7 +15,7 @@ import CreateIOUContext from '../../context/CreateIOUContext'
 
 const MakeIOUToken1Page = (props) => {
   const classes = props.classes;
-  const history = useHistory();
+  const navigate = useNavigate();
   
   const createIOU = useContext(CreateIOUContext)
   const [values, setFormValues] = useState(createIOU.values)
@@ -29,7 +30,7 @@ const MakeIOUToken1Page = (props) => {
     }, [],
   );
   const handleNext = () => {
-    history.push(ROUTES.makeIOUToken2);
+    navigate(ROUTES.makeIOUToken2);
     createIOU.setFormValues(values)
   };
 

@@ -1,6 +1,7 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useEffect, useCallback, useState, useContext }  from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -13,7 +14,7 @@ import TokensListContext from '../../context/TokensListContext'
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const StakeAddPairPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [agreement, setAgreement] = useState(false);
   const [cardCheck, setCardCheck] = useState(false);
   const tokenList = useContext(TokensListContext)
@@ -30,7 +31,7 @@ const StakeAddPairPage = ({ classes }) => {
     }
  },[tokenList])
   const handleAddToSwap = () => {
-    history.push(ROUTES.stakeAddLiquidity);
+    navigate(ROUTES.stakeAddLiquidity);
   };
   useEffect(() => {
     setCurrentTokenData()

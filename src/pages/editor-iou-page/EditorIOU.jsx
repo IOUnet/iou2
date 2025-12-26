@@ -1,8 +1,9 @@
-import {Box, CheckBox, CardHeader, SvgIcon, Typography, withStyles, Grid} from '@material-ui/core';
-import FileCopyIcon from '@material-ui/icons/FileCopy';
+import { Box, Checkbox, CardHeader, SvgIcon, Typography, Grid } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAccount, useChainId } from 'wagmi';
 import { toHex } from 'viem';
 import PageLayout from '../../components/page-layout/PageLayout';
@@ -10,7 +11,6 @@ import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
-import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
@@ -18,7 +18,7 @@ import useEditIOU from '../../hooks/useEditIOU'
 import EditIOUContext from '../../context/EditIOUContext'
 
 const EditorIOUPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')

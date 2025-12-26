@@ -1,6 +1,7 @@
-import { Box, Grid, withStyles } from '@material-ui/core';
+import { Box, Grid } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -13,7 +14,7 @@ import styles from './styles';
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const StakeAddLiquidityPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [number, setNumber] = useState('');
   const [price, setPrice] = useState('');
 
@@ -26,7 +27,7 @@ const StakeAddLiquidityPage = ({ classes }) => {
   };
 
   const handleSend = () => {
-    history.push(ROUTES.main);
+    navigate(ROUTES.main);
   };
 
   return (

@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
@@ -11,14 +12,14 @@ import styles from './styles';
 import { cardListData } from '../../storybook-fake-data/storybook-fake-data';
 
 const SwapSelectAvailableTokenPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
   };
 
   const handleSwap = () => {
-    history.push(ROUTES.main);
+    navigate(ROUTES.main);
   };
 
   return (

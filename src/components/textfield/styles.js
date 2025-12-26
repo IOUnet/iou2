@@ -1,10 +1,11 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const styles = (theme) =>
   createStyles({
     root: {
       width: '100%',
-      color: fade(theme.palette.common.black, 0.87),
+      color: alpha(theme.palette.common.black, 0.87),
       '& input': {
         padding: theme.spacing(1.75),
         lineHeight: 1.5,

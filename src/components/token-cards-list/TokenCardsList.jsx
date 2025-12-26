@@ -1,4 +1,5 @@
-import { Box, List, ListItem, Typography, withStyles } from '@material-ui/core';
+import { Box, List, ListItem, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React from 'react';
 import TokenCard from '../token-card/TokenCard';
 import PageTitle from '../page-title/PageTitle';

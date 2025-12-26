@@ -1,5 +1,6 @@
-import { Box, Grid, Slider as MUISlider, Typography, withStyles } from '@material-ui/core';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Box, Grid, Slider as MUISlider, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './styles';

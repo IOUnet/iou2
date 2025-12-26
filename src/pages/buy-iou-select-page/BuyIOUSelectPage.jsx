@@ -1,7 +1,8 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, {useContext, useEffect, useState, useCallback} from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList';
@@ -9,16 +10,13 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import useFindIOU from '../../hooks/useFindIOU'
-import { drizzleReactHooks } from '@drizzle/react-plugin';
-const { useDrizzle, useDrizzleState } = drizzleReactHooks;
 
 const BuyIOUSelectPage = ({ classes }) => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
   const dataIOUsBuyListContext = useFindIOU()
   const tokenList = useContext(TokensListContext)
   const [values, setFormValues] = useState(tokenList.values)
-  const { drizzle } = useDrizzle();
 
   const [dataIOUsBuyList, setDataIOUsBuyList] = useState(null)
   const [dataIOUsList] = useFindIOU()
@@ -43,12 +41,19 @@ const BuyIOUSelectPage = ({ classes }) => {
       tokenList.setCurrentToken(id)
     }
 
-    drizzle.web3.eth.net.getId()
-      .then(res => {
-        const hexRes = drizzle.web3.utils.toHex(res);
-        history.push(`${ROUTES.buyIOU}/${hexRes}/${listDataIOU[id].address}`);
+    // Replace legacy Drizzle web3 usage with a minimal EIP-1193 call.
+    // This keeps the build working without the Drizzle dependency.
+    const go = async () => {
+      try {
+        const chainIdHex = await window.ethereum?.request?.({ method: 'eth_chainId' })
+        navigate(`${ROUTES.buyIOU}/${chainIdHex}/${listDataIOU[id].address}`)
+      } catch (e) {
+        // Fallback: navigate without chainId if provider is unavailable
+        navigate(`${ROUTES.buyIOU}/0x0/${listDataIOU[id].address}`)
+      }
+    }
 
-      });
+    go()
 
   };
 

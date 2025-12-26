@@ -1,21 +1,22 @@
 import React, {forwardRef} from 'react';
 import styles from './styles';
 import clsx from "clsx";
-import {Link, Typography, withStyles, IconButton, Grid, Box, SvgIcon} from "@material-ui/core";
-import {Link as RouterLink, useHistory } from "react-router-dom";
+import { Link, Typography, IconButton, Grid, Box, SvgIcon } from '@mui/material';
+import { withStyles } from '@mui/styles';
+import {Link as RouterLink, useNavigate } from 'react-router-dom';
 import {ROUTES} from "../../constants";
 import Button from "../button/Button";
-import {ReactComponent as BrandIcon} from "../../assets/img/iou.svg";
+import BrandIconUrl from "../../assets/img/iou.svg";
 
 const SideMenu = ({classes, menuActive, setMenuActive}) => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const buttons = [
-    {button: 'Create IOU', handler: () => history.push(ROUTES.mintEditToken)},
-    {button: 'Buy IOU', handler: () => history.push(ROUTES.findBuyIOU)},
-    {button: 'Issue IOU', handler: () => history.push(ROUTES.mintSelectToken)},
-    {button: 'Payoff IOU', handler: () => history.push(ROUTES.payoffSelectToken)},
+    {button: 'Create IOU', handler: () => navigate(ROUTES.mintEditToken)},
+    {button: 'Buy IOU', handler: () => navigate(ROUTES.findBuyIOU)},
+    {button: 'Issue IOU', handler: () => navigate(ROUTES.mintSelectToken)},
+    {button: 'Payoff IOU', handler: () => navigate(ROUTES.payoffSelectToken)},
   ];
 
   return (
@@ -31,7 +32,12 @@ const SideMenu = ({classes, menuActive, setMenuActive}) => {
           alignItems="center"
         >
           <Grid item xs={12}>
-            <SvgIcon className={classes.brand} component={BrandIcon} viewBox="0 0 95 80" />
+            <Box
+              component="img"
+              className={classes.brand}
+              src={BrandIconUrl}
+              alt="IOU"
+            />
           </Grid>
           {buttons.map(({button, handler}) => (
             <Grid item key={button} xs={12}>

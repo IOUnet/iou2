@@ -3,8 +3,8 @@ import {
   FormControl,
   InputLabel,
   Input as MUIInput,
-  withStyles,
-} from '@material-ui/core';
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 import clsx from 'clsx';
 import React from 'react';
 import styles from './styles';

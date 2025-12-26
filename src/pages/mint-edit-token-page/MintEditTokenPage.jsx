@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useEffect, useCallback, useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCardsEdit from '../../components/token-cards-edit/TokenCardsEdit';
@@ -19,7 +20,7 @@ const MintEditTokenPage = ({ classes }) => {
   const dataIOUsList = useGetIOUs()
   
   const [listDataIOU, setListDataIOU] = useState([])
-  const history = useHistory();
+  const navigate = useNavigate();
   
   const changeIOUDataList = useCallback((dataIOUsList) => {
     if (dataIOUsList != null) {
@@ -33,12 +34,12 @@ const MintEditTokenPage = ({ classes }) => {
   }, [changeIOUDataList, dataIOUsList])
   
   const handleMakeNewIOU = () => {
-    history.push(ROUTES.makeIOUToken1);
+    navigate(ROUTES.makeIOUToken1);
   };
 
   const handleSelectIOU = (_, id) => {
     console.log('cardId ---', id);
-    history.push(ROUTES.editorIOU);
+    navigate(ROUTES.editorIOU);
     tokensList.setCurrentToken(id)
   };
 

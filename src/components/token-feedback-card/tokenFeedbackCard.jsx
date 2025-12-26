@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
-import {Box, Typography, Grid, Card, Accordion, AccordionDetails, AccordionSummary, withStyles} from "@material-ui/core";
+import { Box, Typography, Grid, Card, Accordion, AccordionDetails, AccordionSummary } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import styles from './styles';
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import clsx from "clsx";
 
 

@@ -1,4 +1,5 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const styles = (theme) => {
   const currentColor = '#fa0a0a';
@@ -19,7 +20,7 @@ const styles = (theme) => {
       },
     },
     slider_rail: {
-      backgroundColor: fade(currentColor, 0.6),
+      backgroundColor: alpha(currentColor, 0.6),
     },
     slider_valueLabel: {
       top: '-5px',
@@ -45,10 +46,10 @@ const styles = (theme) => {
     icon: {},
     icon_left: {
       transform: 'rotate(180deg)',
-      fill: fade(theme.palette.common.black, 0.6),
+      fill: alpha(theme.palette.common.black, 0.6),
     },
     icon_right: {
-      fill: fade(currentColor, 0.6),
+      fill: alpha(currentColor, 0.6),
     },
   });
 }

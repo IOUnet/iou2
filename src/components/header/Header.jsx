@@ -4,35 +4,33 @@ import {
   Link,
   Toolbar,
   Typography,
-  withStyles,
-  dropDown,
   Button,
-} from '@material-ui/core';
-
-import {Dehaze} from "@material-ui/icons";
+  Box,
+} from '@mui/material';
+import { withStyles } from '@mui/styles';
 
 /* import clsx from 'clsx';
-import StarIcon from '@material-ui/icons/Star';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import ShareIcon from '@material-ui/icons/Share';
-import CloseIcon from '@material-ui/icons/Close'; */
+import StarIcon from '@mui/icons-material/Star';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import ShareIcon from '@mui/icons-material/Share';
+import CloseIcon from '@mui/icons-material/Close'; */
 import React, {useState, forwardRef, useContext, useEffect} from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 
-import { Box } from '@material-ui/core';
 import useGetIOUs from '../../hooks/useGetIOUstat'
 import useGetIssuers from '../../hooks/useGetIssuersStat'
 import useGetIOUKeys from '../../hooks/useGetIOUKeys'
 
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 import { useCookies } from 'react-cookie';
 import * as a from '../../api/chain';
 
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import MenuIcon from "@material-ui/icons/Menu";
+import dappChains from '../../assets/dappChains.json';
+import dappStaff from '../../assets/dappStaff.json';
+
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import MenuIcon from "@mui/icons-material/Menu";
 
 
 const LinkBehavior = forwardRef((props, ref) => (
@@ -45,18 +43,15 @@ const Header = ({ classes, setMenuVisibility }) => {
   const dataIOUsList = useGetIOUs()
   const dataIssuers = useGetIssuers()
   const dataIOUKeys = useGetIOUKeys()
-  const dappChains = require("../../assets/dappChains.json")
   const [cookies, setCookie] = useCookies(['currChainId']);
   // const [chainId] =useContext(ChainWebContext)
-  const dappStaff = require("../../assets/dappStaff.json")
 
   async function onSelect (e){
-
-    const { ethereum, web3 } = await a.detectEthereumProvider()
-    await a.switchChain(ethereum, e.value)
-    setCookie('currChainId', e.value, { path: '/' });
+    const nextChainId = e?.target?.value
+    const { ethereum } = await a.detectEthereumProvider()
+    await a.switchChain(ethereum, nextChainId)
+    setCookie('currChainId', nextChainId, { path: '/' });
     window.location.reload();
-
   }
   var tokens,keywords, issuers;
 
@@ -109,7 +104,20 @@ const Header = ({ classes, setMenuVisibility }) => {
               HOW TO IOU
           </Typography>
         </Link>
-        <Dropdown options={options} onChange={onSelect} placeholder={dappChains[cookies.currChainId].chainName}  />
+         <select
+           onChange={onSelect}
+           value={cookies.currChainId ?? ''}
+           style={{ marginLeft: 12, padding: 6 }}
+         >
+           <option value="" disabled>
+             {dappChains[cookies.currChainId].chainName}
+           </option>
+           {options.map((opt) => (
+             <option key={opt.value} value={opt.value}>
+               {opt.label}
+             </option>
+           ))}
+         </select>
         {(dappStaff[cookies.currChainId].faucet !== "")&&
         <Link  href ={dappStaff[cookies.currChainId].faucet} target = "_blank">
           <Typography component="h2" className={classes.title} style={{color:"yellow"}}>

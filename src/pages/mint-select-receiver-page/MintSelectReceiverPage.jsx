@@ -1,19 +1,19 @@
-import { Box, CardHeader, SvgIcon, Typography, withStyles } from '@material-ui/core';
+import { Box, CardHeader, SvgIcon, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState, useContext, useEffect, useCallback } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
 import Input from '../../components/input/Input';
-import { ReactComponent as QRIcon } from '../../assets/img/QRico.svg';
 import { ROUTES } from '../../constants';
 import styles from './styles';
 import TokensListContext from '../../context/TokensListContext'
 import useSendIOU from '../../hooks/useSendIOU'
 
 const MintSelectReceiverPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [address, setAddress] = useState('');
   const [number, setNumber] = useState('');
   const [comment, setComment] = useState('')
@@ -43,7 +43,7 @@ const MintSelectReceiverPage = ({ classes }) => {
       tokenAddress:cardTokenData.address
     })
     //sendIOU({address:address})
-   // history.push(ROUTES.main);
+   // navigate(ROUTES.main);
   };
   
  /*  const handleQR = () => {

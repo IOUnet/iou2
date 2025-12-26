@@ -1,6 +1,7 @@
-import { Box, withStyles } from '@material-ui/core';
+import { Box } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState, useCallback, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import Button from '../../components/button/Button';
@@ -11,7 +12,7 @@ import CreateIOUContext from '../../context/CreateIOUContext'
 import useCreateIOU from '../../hooks/useCreateIOU'
 
 const MakeIOUToken2Page = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
  // const getContractInstance = (current_state) => getContract(current_state, 'MakeIOU', '@makeiou')
   const createIOU = useContext(CreateIOUContext)
   const [values, setFormValues] = useState(createIOU.values) 
@@ -22,13 +23,13 @@ const MakeIOUToken2Page = ({ classes }) => {
     }, [],
   );
   const handlePrev = () => {
-    history.push(ROUTES.makeIOUToken1);
+    navigate(ROUTES.makeIOUToken1);
     createIOU.setFormValues(values)
 
   };
 
   const handlePublish = () => {
-    history.push(ROUTES.mintSelectToken);
+    navigate(ROUTES.mintSelectToken);
     createIOUInContract(values)
   };
 

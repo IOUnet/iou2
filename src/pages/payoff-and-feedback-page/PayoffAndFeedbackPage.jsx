@@ -1,6 +1,7 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState, useContext , useEffect, useCallback} from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
@@ -15,7 +16,7 @@ import usePayoffIOU from '../../hooks/usePayoffIOU';
 
 
 const PayoffAndFeedbackPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const tokenList = useContext(TokensListContext)
   const [number, setNumber] = useState('');
   const [rate, setRate] = useState(0);
@@ -40,7 +41,7 @@ const PayoffAndFeedbackPage = ({ classes }) => {
                    rate, 
                    feedback,
                    tokenAddress:cardTokenData.address})
-    //history.push(ROUTES.main);
+    //navigate(ROUTES.main);
   };
 
   return (

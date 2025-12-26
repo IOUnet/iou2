@@ -1,4 +1,5 @@
-import { Box, Container, withStyles } from '@material-ui/core';
+import { Box, Container } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, {useState} from 'react';
 import Header from '../header/Header';
 import styles from './styles';

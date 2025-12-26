@@ -1,4 +1,5 @@
-import { createStyles, fade } from '@material-ui/core/styles';
+import { createStyles } from '@mui/styles';
+import { alpha } from '@mui/material/styles';
 
 const styles = (theme) =>
   createStyles({
@@ -12,7 +13,7 @@ const styles = (theme) =>
       alignItems: 'center',
       fontSize: '0.75rem',
       lineHeight: 1.6,
-      color: fade(theme.palette.iou.text, 0.54),
+      color: alpha(theme.palette.iou.text, 0.54),
     },
     value: {
       paddingLeft: theme.spacing(1),

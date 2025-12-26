@@ -1,6 +1,7 @@
-import { Box, Typography, withStyles } from '@material-ui/core';
+import { Box, Typography } from '@mui/material';
+import { withStyles } from '@mui/styles';
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TextField from '../../components/textfield/TextField';
@@ -10,12 +11,12 @@ import { ROUTES } from '../../constants';
 import styles from './styles';
 
 const SelectDesiredIOUSwapPage = ({ classes }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [keyword, setKeyword] = useState('select desired IOU swap');
   const [search, setSearch] = useState(false);
 
   const handleFind = () => {
-    history.push(ROUTES.swapSelectDesiredToken);
+    navigate(ROUTES.swapSelectDesiredToken);
   };
 
   const checkboxLabelText = 'Search in location';
