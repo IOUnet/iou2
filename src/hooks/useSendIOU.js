@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { parseEther } from 'viem'
+import * as t from '../assets/translations.json'
+import { mapTxError } from '../helpers/txErrors'
 
 // ERC20 Token ABI with mint function
 const ERC20_ABI = [
@@ -19,117 +21,133 @@ const ERC20_ABI = [
   }
 ];
 
+const STAGES = {
+    DRAFT: 'draft',
+    REVIEW: 'review',
+    SUBMITTING: 'submitting',
+    RESULT: 'result'
+}
+
 export default function useSendIOU() {
-    const { address, isConnected } = useAccount();
-    const [mintParameters, setMintParameters] = useState();
-    const [isApproved, setIsApproved] = useState(false);
-    
-    // Transaction write hook
-    const { 
-        writeContract, 
-        data: hash, 
-        error: writeError, 
-        isPending: isWritePending 
-    } = useWriteContract();
-    
-    // Wait for transaction confirmation
-    const { 
-        data: receipt, 
-        isLoading: isConfirming, 
+    const { address, isConnected } = useAccount()
+    const [isApproved, setIsApproved] = useState(false)
+    const [flowStage, setFlowStage] = useState(STAGES.DRAFT)
+    const [draftParams, setDraftParams] = useState()
+    const [chainLabel, setChainLabel] = useState('Polygon')
+    const [txError, setTxError] = useState()
+
+    const {
+        writeContract,
+        data: hash,
+        error: writeError,
+        isPending: isWritePending
+    } = useWriteContract()
+
+    const {
+        data: receipt,
+        isLoading: isConfirming,
         isSuccess: isConfirmed,
-        error: confirmError 
+        error: confirmError
     } = useWaitForTransactionReceipt({
         hash,
-    });
+    })
 
-    // Mint tokens function
-    const mintTokens = useCallback(async (mintParams) => {
+    const beginReview = useCallback((params) => {
+        if (!params || !params.tokenAddress || !params.address || !params.amount) {
+            throw new Error('Invalid mint parameters')
+        }
+
+        setDraftParams(params)
+        setChainLabel(params.chainLabel || 'Polygon')
+        setTxError(undefined)
+        setFlowStage(STAGES.REVIEW)
+    }, [])
+
+    const cancelReview = useCallback(() => {
+        setDraftParams(undefined)
+        setTxError(undefined)
+        setFlowStage(STAGES.DRAFT)
+    }, [])
+
+    const confirmSend = useCallback(() => {
         if (!isConnected || !address) {
-            throw new Error('Wallet not connected');
+            setTxError({ code: 'WALLET_NOT_CONNECTED', messageKey: 'connectWalletError' })
+            setFlowStage(STAGES.RESULT)
+            return
         }
 
-        if (!mintParams || !mintParams.tokenAddress || !mintParams.address || !mintParams.amount) {
-            throw new Error('Invalid mint parameters');
-        }
-
-        if (isWritePending || isConfirming) {
-            throw new Error('Transaction already in progress');
-        }
+        if (!draftParams) return
+        if (isWritePending || isConfirming) return
 
         try {
-            // Convert amount to wei (assuming 18 decimal places)
-            const tokenAmount = parseEther(mintParams.amount.toString());
+            const tokenAmount = parseEther(draftParams.amount.toString())
 
-            // Send mint transaction using Wagmi
+            setFlowStage(STAGES.SUBMITTING)
+            setTxError(undefined)
+
             writeContract({
-                address: mintParams.tokenAddress,
+                address: draftParams.tokenAddress,
                 abi: ERC20_ABI,
                 functionName: 'mint',
                 args: [
-                    mintParams.address,
+                    draftParams.address,
                     tokenAmount,
-                    mintParams.comment || ''
+                    draftParams.comment || ''
                 ],
-            });
+            })
 
-            setIsApproved(true);
-            return hash;
-
+            setIsApproved(true)
         } catch (error) {
-            console.error('Error minting tokens:', error);
-            throw error;
+            setTxError(mapTxError(error))
+            setFlowStage(STAGES.RESULT)
         }
-    }, [isConnected, address, writeContract, hash, isWritePending, isConfirming]);
+    }, [address, isConnected, draftParams, isWritePending, isConfirming, writeContract])
 
-    // Handle mint parameters changes
     React.useEffect(() => {
-        if (mintParameters && !isWritePending && !isConfirming) {
-            mintTokens(mintParameters);
+        if (writeError) {
+            setTxError(mapTxError(writeError))
+            setFlowStage(STAGES.RESULT)
         }
-    }, [mintParameters, mintTokens, isWritePending, isConfirming]);
+    }, [writeError])
 
-    // Update loading state based on transaction status
     React.useEffect(() => {
-        if (isConfirmed || confirmError) {
-            setMintParameters(undefined); // Clear parameters after completion
+        if (confirmError) {
+            setTxError(mapTxError(confirmError))
+            setFlowStage(STAGES.RESULT)
         }
-    }, [isConfirmed, confirmError]);
+    }, [confirmError])
 
-    // Check transaction status
     React.useEffect(() => {
-        if (receipt) {
-            if (receipt.status === 'success') {
-                console.log('Mint transaction successful');
-                // Handle success - could emit event, update state, etc.
-            } else {
-                console.log('Mint transaction failed');
-                // Handle failure
-            }
+        if (isConfirmed) {
+            setFlowStage(STAGES.RESULT)
+            setDraftParams(undefined)
         }
-    }, [receipt]);
+    }, [isConfirmed])
 
-    // Set mint parameters function (for external use)
-    const setAmount = useCallback((params) => {
-        setMintParameters(params);
-    }, []);
+    const progressStatus = useMemo(() => {
+        if (flowStage === STAGES.DRAFT || flowStage === STAGES.REVIEW) return 'idle'
+        if (txError) return 'failed'
+        if (isConfirmed) return 'confirmed'
+        if (isWritePending) return 'waiting_wallet'
+        if (isConfirming || hash) return 'submitted'
+        return 'idle'
+    }, [flowStage, txError, isConfirmed, isWritePending, isConfirming, hash])
 
-    // Return hook interface
-    return [
-        isApproved, // approval status
-        setAmount, // function to set mint parameters
-        {
-            // Transaction status
-            isLoading: isWritePending || isConfirming,
-            isPending: isWritePending,
-            isConfirming,
-            isConfirmed,
-            isSuccess: isConfirmed,
-            hash,
-            receipt,
-            error: writeError || confirmError,
-            data: receipt,
-            // Transaction details
-            mintParameters
-        }
-    ];
+    const errorMessage = txError ? (t[txError.messageKey] || txError.messageKey) : undefined
+
+    return {
+        stage: flowStage,
+        reviewParams: draftParams,
+        beginReview,
+        confirmSend,
+        cancelReview,
+        isApproved,
+        progress: {
+            status: progressStatus,
+            txHash: hash,
+            chainLabel,
+            errorMessage
+        },
+        receipt,
+    }
 }

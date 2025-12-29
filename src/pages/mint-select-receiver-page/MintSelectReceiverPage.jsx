@@ -6,6 +6,7 @@ import PageLayout from '../../components/page-layout/PageLayout';
 import PageTitle from '../../components/page-title/PageTitle';
 import TokenCard from '../../components/token-card/TokenCard';
 import Button from '../../components/button/Button';
+import { TransactionProgress, TransactionReview } from '../../components/tx'
 import Input from '../../components/input/Input';
 import { ROUTES } from '../../constants';
 import styles from './styles';
@@ -21,7 +22,14 @@ const MintSelectReceiverPage = ({ classes }) => {
 
   })
   const tokenList = useContext(TokensListContext)
-  const [approve, sendIOU] = useSendIOU()
+  const {
+    stage,
+    reviewParams,
+    beginReview,
+    confirmSend,
+    cancelReview,
+    progress
+  } = useSendIOU()
 
   const setCurrentTokenData = useCallback(() => {
      if (tokenList.tokenList.length > 0) {
@@ -35,15 +43,17 @@ const MintSelectReceiverPage = ({ classes }) => {
   },[setCurrentTokenData, tokenList])
 
   const handleSend = () => {
-    
-    sendIOU({
-      address:address,
-      amount:number,
-      comment:comment,
-      tokenAddress:cardTokenData.address
-    })
-    //sendIOU({address:address})
-   // navigate(ROUTES.main);
+    try {
+      beginReview({
+        address: address,
+        amount: number,
+        comment: comment,
+        tokenAddress: cardTokenData.address,
+        chainLabel: 'Polygon'
+      })
+    } catch (error) {
+      console.error('Unable to start review:', error)
+    }
   };
   
  /*  const handleQR = () => {
@@ -114,6 +124,30 @@ const MintSelectReceiverPage = ({ classes }) => {
           send IOU
         </Button>
       </Box>
+
+      {stage === 'review' && (
+        <TransactionReview
+          title="Review transaction"
+          summaryItems={[
+            { label: 'To', value: address || '—' },
+            { label: 'Amount', value: number ? `${number} IOU` : '—' },
+            { label: 'Token', value: cardTokenData?.symbol || cardTokenData?.name || 'IOU' }
+          ]}
+          chainLabel={reviewParams?.chainLabel || 'Polygon'}
+          feeHint="Network fees apply"
+          onConfirm={confirmSend}
+          onCancel={cancelReview}
+        />
+      )}
+
+      {(stage === 'submitting' || stage === 'result') && (
+        <TransactionProgress
+          status={progress.status}
+          txHash={progress.txHash}
+          chainLabel={progress.chainLabel}
+          errorMessage={progress.errorMessage}
+        />
+      )}
     </PageLayout>
   );
 };

@@ -74,5 +74,13 @@
   "connectWalletError": "Can't connect to your wallet.",
   "requestPermissionsError": "Can't establish connection with your wallet",
   "switchChainError": "Can't switch to other Network",
-  "addAssetToMetamaskError": "Unable to add new asset to your Metamask."
+  "addAssetToMetamaskError": "Unable to add new asset to your Metamask.",
+  "tx.waitingWallet": "Confirm the transaction in your wallet",
+  "tx.submitted": "Transaction submitted. Waiting for confirmations",
+  "tx.confirmed": "Transaction confirmed",
+  "tx.failed": "Transaction failed",
+  "tx.error.userRejected": "You rejected the transaction.",
+  "tx.error.insufficientFunds": "Not enough funds to cover gas.",
+  "tx.error.wrongNetwork": "Wrong network. Please switch and try again.",
+  "tx.error.generic": "Transaction could not be processed."
 }
