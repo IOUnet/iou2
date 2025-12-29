@@ -8,13 +8,8 @@ const Loading = ({ children }) => {
   if (isConnecting) {
     return "Connecting Wallet...";
   }
-  
-  // Show loading state while no address is available
-  if (!address) {
-    return "Please connect your wallet...";
-  }
 
-  // If wallet is connected, render children
+  // Render children regardless of wallet connection so read-only routes work
   return <>{children}</>;
 };
 
