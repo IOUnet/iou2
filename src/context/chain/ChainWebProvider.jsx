@@ -69,29 +69,35 @@ const requestPermissions = async () => {
   // Wagmi handles permissions automatically
 }
 
-const switchChainHandler = async (_chainConfig) => {
-  setIsWalletRequest(true)
-  try {
-    let chainConfig = _chainConfig
-
-    if (!dappChains.hasOwnProperty(_chainConfig)) {
-      chainConfig = Object.values(dappChains)[0].chainId.toLowerCase();
+  const normalizeHexChainId = (maybeId) => {
+    if (!maybeId) return null
+    if (typeof maybeId === 'string') {
+      if (maybeId.startsWith('0x')) return maybeId.toLowerCase()
+      const parsed = Number(maybeId)
+      if (!Number.isNaN(parsed)) return `0x${parsed.toString(16)}`
+      return null
     }
-
-    const chainswitchmessage = "For starting of dApp let us to switch to " + dappChains[chainConfig]?.chainName + " chain. Press OK for switching:";
-
-    if (window.confirm(chainswitchmessage)) {
-      await switchChain({ chainId: parseInt(chainConfig, 16) })
-      setCookie('currChainId', chainConfig, { path: '/' });
-    } else {
-      alert("Can't continue on this blockchain, sorry :(. We'll reload page now and you can enable switching to necessary blockchain")
-    }
-  } catch (error) {
-    createNote({ children: t.switchChainError })
-  } finally {
-    setIsWalletRequest(false)
+    if (typeof maybeId === 'number') return `0x${maybeId.toString(16)}`
+    return null
   }
-}
+
+  const switchChainHandler = async (_chainConfig) => {
+    setIsWalletRequest(true)
+    try {
+      let chainConfig = normalizeHexChainId(_chainConfig)
+
+      if (!chainConfig || !dappChains.hasOwnProperty(chainConfig)) {
+        chainConfig = Object.values(dappChains)[0].chainId.toLowerCase()
+      }
+
+      await switchChain({ chainId: parseInt(chainConfig, 16) })
+      setCookie('currChainId', chainConfig, { path: '/' })
+    } catch (error) {
+      createNote({ children: t.switchChainError })
+    } finally {
+      setIsWalletRequest(false)
+    }
+  }
 
 const addAssetToMetamask = async () => {
   if (!token || !walletClient) { return "waiting token or wallet client" }

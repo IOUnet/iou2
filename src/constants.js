@@ -63,3 +63,25 @@ export const getMakeIOUAddress = (chainId = getCurrentChainId()) => {
 export const getIOUtokenAddress = (chainId = getCurrentChainId()) => {
   return addresses?.[chainId]?.IOUtoken;
 }
+
+/**
+ * Lightweight preflight helper: checks if a feature/address exists for a chain.
+ * Accepts decimal or hex (0x-prefixed) chain ids.
+ */
+export const getFeatureAvailability = (chainId = getCurrentChainId(), featureKey) => {
+  const normalized = (() => {
+    if (typeof chainId === 'string' && chainId.startsWith('0x')) {
+      return String(parseInt(chainId, 16))
+    }
+    return String(chainId)
+  })()
+
+  const addressForFeature = featureKey ? addresses?.[normalized]?.[featureKey] : undefined
+
+  return {
+    chainId: normalized,
+    feature: featureKey,
+    available: Boolean(addressForFeature),
+    address: addressForFeature || null,
+  }
+}
