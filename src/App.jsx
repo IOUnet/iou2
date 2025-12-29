@@ -29,10 +29,14 @@ import ChainWebContext from './context/chain/ChainWebContext'
 import ConnectProviderFailure from './components/main/ConnectProviderFailure'
 import Button from './components/button/Button'
 
-const RequireWalletRoute = ({ children }) => {
+const RequireWalletRoute = ({ children, hasProvider }) => {
   const { connectWallet } = useContext(ChainWebContext)
   const { address, isConnected, isConnecting } = useAccount()
   const navigate = useNavigate()
+
+  if (!hasProvider) {
+    return <ConnectProviderFailure />
+  }
 
   if (isConnecting) {
     return 'Connecting Wallet...'
@@ -74,40 +78,43 @@ function App() {
   // Always provide the MUI theme; otherwise components using `withStyles` will
   // crash when we show the <ConnectProviderFailure /> screen.
   return (
-    !hasProvider ? (
-      <ConnectProviderFailure />
-    ) : (
-      <Loading>
-        <TokensListProvider>
-          <CreateIOUProvider>
-            <BrowserRouter>
-              <Routes>
-                <Route path={ROUTES.findBuyIOU} element={<FindBuyIOUPage />} />
-                <Route path={ROUTES.buyIOU + "/:chainId/:tokenAddress"} element={<BuyIOUPage />} />
+    <Loading>
+      <TokensListProvider>
+        <CreateIOUProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path={ROUTES.findBuyIOU} element={<FindBuyIOUPage />} />
+              <Route path={ROUTES.buyIOU + "/:chainId/:tokenAddress"} element={<BuyIOUPage />} />
 
-                <Route path={ROUTES.main} element={<RequireWalletRoute><HomePage /></RequireWalletRoute>} />
-                <Route path={ROUTES.mintEditToken} element={<RequireWalletRoute><MintEditTokenPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.editorIOU} element={<RequireWalletRoute><EditorIOUPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.mintSelectToken} element={<RequireWalletRoute><MintSelectTokenPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.mintSelectReceiver} element={<RequireWalletRoute><MintSelectReceiverPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.makeIOUToken1} element={<RequireWalletRoute><MakeIOUToken1Page /></RequireWalletRoute>} />
-                <Route path={ROUTES.makeIOUToken2} element={<RequireWalletRoute><MakeIOUToken2Page /></RequireWalletRoute>} />
-                <Route path={ROUTES.payoffSelectToken} element={<RequireWalletRoute><PayoffSelectTokenPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.payoffAndFeedback} element={<RequireWalletRoute><PayoffAndFeedbackPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.stakeSelectToken} element={<RequireWalletRoute><StakeSelectTokenPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.stakeAddPair} element={<RequireWalletRoute><StakeAddPairPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.stakeAddLiquidity} element={<RequireWalletRoute><StakeAddLiquidityPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.buyIOUSelect} element={<RequireWalletRoute><BuyIOUSelectPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.selectDesiredIOUSwap} element={<RequireWalletRoute><SelectDesiredIOUSwapPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.swapSelectDesiredToken} element={<RequireWalletRoute><SwapSelectDesiredTokenPage /></RequireWalletRoute>} />
-                <Route path={ROUTES.swapSelectAvailableToken} element={<RequireWalletRoute><SwapSelectAvailableTokenPage /></RequireWalletRoute>} />
-                <Route path="*" element={<Navigate to={ROUTES.findBuyIOU} />} />
-              </Routes>
-            </BrowserRouter>
-          </CreateIOUProvider>
-        </TokensListProvider>
-      </Loading>
-    )
+              <Route
+                path={ROUTES.main}
+                element={
+                  hasProvider
+                    ? <RequireWalletRoute hasProvider={hasProvider}><HomePage /></RequireWalletRoute>
+                    : <Navigate to={ROUTES.findBuyIOU} replace />
+                }
+              />
+              <Route path={ROUTES.mintEditToken} element={<RequireWalletRoute hasProvider={hasProvider}><MintEditTokenPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.editorIOU} element={<RequireWalletRoute hasProvider={hasProvider}><EditorIOUPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.mintSelectToken} element={<RequireWalletRoute hasProvider={hasProvider}><MintSelectTokenPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.mintSelectReceiver} element={<RequireWalletRoute hasProvider={hasProvider}><MintSelectReceiverPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.makeIOUToken1} element={<RequireWalletRoute hasProvider={hasProvider}><MakeIOUToken1Page /></RequireWalletRoute>} />
+              <Route path={ROUTES.makeIOUToken2} element={<RequireWalletRoute hasProvider={hasProvider}><MakeIOUToken2Page /></RequireWalletRoute>} />
+              <Route path={ROUTES.payoffSelectToken} element={<RequireWalletRoute hasProvider={hasProvider}><PayoffSelectTokenPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.payoffAndFeedback} element={<RequireWalletRoute hasProvider={hasProvider}><PayoffAndFeedbackPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.stakeSelectToken} element={<RequireWalletRoute hasProvider={hasProvider}><StakeSelectTokenPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.stakeAddPair} element={<RequireWalletRoute hasProvider={hasProvider}><StakeAddPairPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.stakeAddLiquidity} element={<RequireWalletRoute hasProvider={hasProvider}><StakeAddLiquidityPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.buyIOUSelect} element={<RequireWalletRoute hasProvider={hasProvider}><BuyIOUSelectPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.selectDesiredIOUSwap} element={<RequireWalletRoute hasProvider={hasProvider}><SelectDesiredIOUSwapPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.swapSelectDesiredToken} element={<RequireWalletRoute hasProvider={hasProvider}><SwapSelectDesiredTokenPage /></RequireWalletRoute>} />
+              <Route path={ROUTES.swapSelectAvailableToken} element={<RequireWalletRoute hasProvider={hasProvider}><SwapSelectAvailableTokenPage /></RequireWalletRoute>} />
+              <Route path="*" element={<Navigate to={ROUTES.findBuyIOU} />} />
+            </Routes>
+          </BrowserRouter>
+        </CreateIOUProvider>
+      </TokensListProvider>
+    </Loading>
   )
 }
 

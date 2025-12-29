@@ -152,4 +152,6 @@ const MintSelectReceiverPage = ({ classes }) => {
   );
 };
 
-export default withStyles(styles, { withTheme: true })(MintSelectReceiverPage);
+const MintSelectReceiverPageWithStyles = withStyles(styles, { withTheme: true })(MintSelectReceiverPage)
+
+export default MintSelectReceiverPageWithStyles;
