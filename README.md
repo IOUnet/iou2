@@ -28,3 +28,12 @@ Full UI plan on [Figma](https://www.figma.com/proto/VNS3WTR1cU54hJFB7YrbAq/IOU?n
 - [https://www.iou.works](https://www.iou.works) - decentralised portfolios for freelancers;
 - [http://Coprosperity.world](http://Coprosperity.world)  metaverse for entrepreneurship, where everybody supports others, and growth of common wealth means growth for each member;
 - www.Startucati.one - decentralised student's record book & portfolio & CN (convertible notes) - coming soon.
+
+## Developer documentation
+
+Project documentation lives in [`docs/`](docs/README.md).
+
+- Start here: [`docs/README.md`](docs/README.md)
+- Local setup: [`docs/getting-started.md`](docs/getting-started.md)
+- Frontend overview: [`docs/frontend.md`](docs/frontend.md)
+- Smart contracts: [`docs/smart-contracts.md`](docs/smart-contracts.md)
