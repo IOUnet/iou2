@@ -27,6 +27,7 @@ Key routes include:
 - Find/buy IOUs:
   - [`ROUTES.findBuyIOU`](src/constants.js:14)
   - [`ROUTES.buyIOU`](src/constants.js:16)
+- Read-only dashboard (no wallet required): [`ReadOnlyDashboard`](src/pages/dashboard/ReadOnlyDashboard.jsx:1) is rendered on `/` when no injected provider is present and is always reachable at `/discover`.
 
 ## Wallet/chain handling
 

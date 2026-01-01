@@ -9,6 +9,7 @@ import EditorIOUPage from './pages/editor-iou-page/EditorIOU';
 import MintSelectReceiverPage from './pages/mint-select-receiver-page/MintSelectReceiverPage';
 import MakeIOUToken1Page from './pages/make-iou-token1-page/MakeIOUToken1Page';
 import MakeIOUToken2Page from './pages/make-iou-token2-page/MakeIOUToken2Page';
+import ReadOnlyDashboard from './pages/dashboard/ReadOnlyDashboard';
 import PayoffSelectTokenPage from './pages/payoff-select-token-page/PayoffSelectTokenPage';
 import PayoffAndFeedbackPage from './pages/payoff-and-feedback-page/PayoffAndFeedbackPage';
 import StakeSelectTokenPage from './pages/stake-select-token-page/StakeSelectTokenPage';
@@ -91,9 +92,10 @@ function App() {
                 element={
                   hasProvider
                     ? <RequireWalletRoute hasProvider={hasProvider}><HomePage /></RequireWalletRoute>
-                    : <Navigate to={ROUTES.findBuyIOU} replace />
+                    : <ReadOnlyDashboard />
                 }
               />
+              <Route path="/discover" element={<ReadOnlyDashboard />} />
               <Route path={ROUTES.mintEditToken} element={<RequireWalletRoute hasProvider={hasProvider}><MintEditTokenPage /></RequireWalletRoute>} />
               <Route path={ROUTES.editorIOU} element={<RequireWalletRoute hasProvider={hasProvider}><EditorIOUPage /></RequireWalletRoute>} />
               <Route path={ROUTES.mintSelectToken} element={<RequireWalletRoute hasProvider={hasProvider}><MintSelectTokenPage /></RequireWalletRoute>} />
