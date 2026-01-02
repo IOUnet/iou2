@@ -6,7 +6,7 @@ import ChainWebContext from '../context/chain/ChainWebContext'
 import StoreIOUsArtifact from '../artifacts/StoreIOUs.json'
 import ProxyIOUArtifact from '../artifacts/ProxyIOU.json'
 import IOUTokenArtifact from '../artifacts/IOUtoken.json'
-import addresses from '../../addresses.json'
+import { ADDRESS_BOOK } from '../constants'
 
 const StoreIOUsABI = StoreIOUsArtifact.abi
 const ProxyIOUABI = ProxyIOUArtifact.abi
@@ -18,7 +18,8 @@ export default function useGetIOUs() {
     const [IOUAddresses, setIOUAddresses] = useState([])
     const [IOUList, setIOUList] = useState([])
 
-    const chainAddresses = addresses[chainId] || {}
+    const chainKey = chainId ? String(chainId) : null
+    const chainAddresses = (chainKey && ADDRESS_BOOK?.[chainKey]) || {}
 
     // Get the list of IOU addresses for the user
     const { data: iouAddresses } = useReadContract({

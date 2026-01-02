@@ -1,8 +1,15 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { formatEther, hexToString, stringToHex } from 'viem'
-import { readContract } from 'wagmi/actions'
-import { getCurrentChainId, getProxyIOUAddress, getStoreIOUsAddress } from '../constants'
-import addresses from '../../addresses.json'
+import { readContract, getPublicClient } from 'wagmi/actions'
+import {
+  ADDRESS_BOOK,
+  SUPPORTED_CHAIN_IDS,
+  SUPPORTED_CHAIN_NAMES,
+  resolveChainId,
+  getCurrentChainId,
+  getProxyIOUAddress,
+  getStoreIOUsAddress,
+} from '../constants'
 import { config } from '../wagmi'
 import ChainWebContext from '../context/chain/ChainWebContext'
 import storeIOUsArtifact from '../artifacts/iStoreIOUs.json'
@@ -44,42 +51,22 @@ const PROXY_ABI = [
   },
 ]
 
-export default function useGetIOUsByKeyword(keyword) {
+export const useGetIOUsByKeyword = (keyword) => {
   const [data, setData] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const { chainId: ctxChainId } = useContext(ChainWebContext) || {}
+  const { chainId: ctxChainId, resolvedChainId: ctxResolvedChainId, isChainConnected } =
+    useContext(ChainWebContext) || {}
 
-  const normalizeChainId = (value) => {
-    if (value === undefined || value === null) return null
-    if (typeof value === 'string') {
-      const trimmed = value.trim()
-      if (!trimmed) return null
-      if (trimmed.startsWith('0x')) {
-        const parsed = Number.parseInt(trimmed, 16)
-        return Number.isNaN(parsed) ? null : parsed
-      }
-      const parsed = Number(trimmed)
-      return Number.isNaN(parsed) ? null : parsed
-    }
-    if (typeof value === 'number') return Number.isFinite(value) ? value : null
-    return null
-  }
-
-  const supportedChainIds = useMemo(
+  const chainId = useMemo(
     () =>
-      Object.keys(addresses)
-        .map((id) => Number(id))
-        .filter((id) => Number.isFinite(id) && config?.transports?.[id]),
-    []
+      resolveChainId({
+        walletChainId: ctxResolvedChainId || ctxChainId,
+        isWalletConnected: isChainConnected,
+      }),
+    [ctxResolvedChainId, ctxChainId, isChainConnected]
   )
-
-  const chainId = useMemo(() => {
-    const preferred = normalizeChainId(ctxChainId) ?? normalizeChainId(getCurrentChainId())
-    if (preferred && config?.transports?.[preferred]) return preferred
-    return supportedChainIds[0] ?? null
-  }, [ctxChainId, supportedChainIds])
 
   useEffect(() => {
     let cancelled = false
@@ -91,8 +78,39 @@ export default function useGetIOUsByKeyword(keyword) {
         return
       }
 
-      if (!chainId || !config?.transports?.[chainId]) {
-        setError('No supported chain configuration found')
+      const client = chainId ? getPublicClient(config, { chainId }) : undefined
+      const hasClient = Boolean(chainId && client)
+      const addressesForChain = chainId ? ADDRESS_BOOK?.[chainId] : undefined
+      const hasAddresses = Boolean(
+        chainId &&
+          addressesForChain?.StoreIOUs &&
+          addressesForChain?.ProxyIOU &&
+          addressesForChain?.MakeIOU
+      )
+
+      console.info('[useGetIOUsByKeyword] chain resolution', {
+        ctxChainId,
+        cookieChainId: getCurrentChainId(),
+        resolvedChainId: chainId,
+        hasClient,
+        hasAddresses,
+        addressesForChain,
+        supportedChainIds: SUPPORTED_CHAIN_IDS,
+        supportedChainNames: SUPPORTED_CHAIN_NAMES,
+        chainIdType: typeof chainId,
+      })
+
+      if (!hasClient) {
+        setError(
+          `Unsupported chain ${chainId ?? 'unknown'}. Supported chains: ${SUPPORTED_CHAIN_NAMES.join(', ')}`
+        )
+        return
+      }
+
+      if (!hasAddresses) {
+        setError(
+          `Contracts are not configured for chain ${chainId}. Check artifact networks (not addresses.json). Supported chains: ${SUPPORTED_CHAIN_NAMES.join(', ')}`
+        )
         return
       }
 
@@ -117,7 +135,7 @@ export default function useGetIOUsByKeyword(keyword) {
           return
         }
 
-        const iouAddresses = await readContract({
+        const iouAddresses = await readContract(config, {
           address: storeAddress,
           abi: STORE_ABI,
           functionName: 'getIOUListKey',
@@ -135,7 +153,7 @@ export default function useGetIOUsByKeyword(keyword) {
         const tokens = await Promise.all(
           iouAddresses.map(async (address) => {
             try {
-              const result = await readContract({
+              const result = await readContract(config, {
                 address: proxyAddress,
                 abi: PROXY_ABI,
                 functionName: 'getIOU',

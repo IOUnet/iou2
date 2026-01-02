@@ -1,6 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { useAccount } from 'wagmi'
-import { getStoreIOUsAddress } from '../constants'
+import React, { useState, useCallback, useEffect, useContext, useMemo } from 'react'
+import { readContract, getPublicClient } from 'wagmi/actions'
+import {
+    getStoreIOUsAddress,
+    resolveChainId, 
+    ADDRESS_BOOK
+} from '../constants'
+import { config } from '../wagmi'
+import ChainWebContext from '../context/chain/ChainWebContext'
 
 // Contract ABI for StoreIOUs
 const STORE_IOUS_ABI = [
@@ -24,38 +30,65 @@ const STORE_IOUS_ABI = [
 ];
 
 export default function useGetIOUstat() {
-    const { address, isConnected } = useAccount();
     const [IOUstat, setIOUstat] = useState();
     
-    const storeIOUsAddress = getStoreIOUsAddress();
+    const { chainId: ctxChainId, resolvedChainId: ctxResolvedChainId, isChainConnected } =
+        useContext(ChainWebContext) || {}
+
+    const resolvedChainId = useMemo(
+        () =>
+        resolveChainId({
+            walletChainId: ctxResolvedChainId || ctxChainId,
+            isWalletConnected: isChainConnected,
+        }),
+        [ctxResolvedChainId, ctxChainId, isChainConnected]
+    )
 
     const changeIOUstat = useCallback((listItem) => {
         setIOUstat(listItem);
     }, []);
 
     useEffect(() => {
+        let cancelled = false;
+
         const fetchIOUStatistics = async () => {
-            if (!isConnected || !address) return;
+            const client = resolvedChainId ? getPublicClient(config, { chainId: resolvedChainId }) : undefined
+            const hasClient = Boolean(resolvedChainId && client)
+            const addressesForChain = resolvedChainId ? ADDRESS_BOOK?.[resolvedChainId] : undefined
+            
+            if (!hasClient || !addressesForChain?.StoreIOUs) {
+                // console.warn(`[useGetIOUstat] Missing client or contract for chain ${resolvedChainId}`);
+                return;
+            }
+
+            const storeIOUsAddress = getStoreIOUsAddress(resolvedChainId);
+            if (!storeIOUsAddress) return;
 
             try {
-                const { readContract } = await import('wagmi/actions');
-                const stats = await readContract({
+                const stats = await readContract(config, {
                     address: storeIOUsAddress,
                     abi: STORE_IOUS_ABI,
-                    functionName: 'getIOUstotal'
+                    functionName: 'getIOUstotal',
+                    chainId: resolvedChainId
                 });
                 
-                if (stats) {
+                if (!cancelled && stats) {
                     changeIOUstat(stats);
                 }
             } catch (error) {
-                console.error('Error fetching IOU statistics:', error);
-                changeIOUstat(null);
+                if (!cancelled) {
+                    console.error('Error fetching IOU statistics:', error);
+                    changeIOUstat(null);
+                }
             }
         };
 
         fetchIOUStatistics();
-    }, [address, isConnected, changeIOUstat]);
+
+        return () => {
+            cancelled = true;
+        };
+    }, [resolvedChainId, changeIOUstat]);
 
     return IOUstat;
 }

@@ -1,7 +1,13 @@
 import { useContext, useEffect, useMemo, useState } from 'react'
-import { readContract } from 'wagmi/actions'
-import { getCurrentChainId, getStoreIOUsAddress } from '../constants'
-import addresses from '../../addresses.json'
+import { readContract, getPublicClient } from 'wagmi/actions'
+import {
+  ADDRESS_BOOK,
+  SUPPORTED_CHAIN_IDS,
+  SUPPORTED_CHAIN_NAMES,
+  resolveChainId,
+  getCurrentChainId,
+  getStoreIOUsAddress,
+} from '../constants'
 import { config } from '../wagmi'
 import ChainWebContext from '../context/chain/ChainWebContext'
 import storeIOUsArtifact from '../artifacts/iStoreIOUs.json'
@@ -18,49 +24,60 @@ const normalizeBigIntToString = (value) => {
   }
 }
 
-export default function useGetDashboardTotals() {
+export const useGetDashboardTotals = () => {
   const [totals, setTotals] = useState({ ious: '0', issuers: '0' })
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const { chainId: ctxChainId } = useContext(ChainWebContext) || {}
+  const { chainId: ctxChainId, resolvedChainId: ctxResolvedChainId, isChainConnected } =
+    useContext(ChainWebContext) || {}
 
-  const normalizeChainId = (value) => {
-    if (value === undefined || value === null) return null
-    if (typeof value === 'string') {
-      const trimmed = value.trim()
-      if (!trimmed) return null
-      if (trimmed.startsWith('0x')) {
-        const parsed = Number.parseInt(trimmed, 16)
-        return Number.isNaN(parsed) ? null : parsed
-      }
-      const parsed = Number(trimmed)
-      return Number.isNaN(parsed) ? null : parsed
-    }
-    if (typeof value === 'number') return Number.isFinite(value) ? value : null
-    return null
-  }
-
-  const supportedChainIds = useMemo(
+  const resolvedChainId = useMemo(
     () =>
-      Object.keys(addresses)
-        .map((id) => Number(id))
-        .filter((id) => Number.isFinite(id) && config?.transports?.[id]),
-    []
+      resolveChainId({
+        walletChainId: ctxResolvedChainId || ctxChainId,
+        isWalletConnected: isChainConnected,
+      }),
+    [ctxResolvedChainId, ctxChainId, isChainConnected]
   )
-
-  const resolvedChainId = useMemo(() => {
-    const preferred = normalizeChainId(ctxChainId) ?? normalizeChainId(getCurrentChainId())
-    if (preferred && config?.transports?.[preferred]) return preferred
-    return supportedChainIds[0] ?? null
-  }, [ctxChainId, supportedChainIds])
 
   useEffect(() => {
     let cancelled = false
 
     const loadTotals = async () => {
-      if (!resolvedChainId || !config?.transports?.[resolvedChainId]) {
-        setError('No supported chain configuration found')
+      const client = resolvedChainId ? getPublicClient(config, { chainId: resolvedChainId }) : undefined
+      const hasClient = Boolean(resolvedChainId && client)
+      const addressesForChain = resolvedChainId ? ADDRESS_BOOK?.[resolvedChainId] : undefined
+      const hasAddresses = Boolean(
+        resolvedChainId &&
+          addressesForChain?.StoreIOUs &&
+          addressesForChain?.ProxyIOU &&
+          addressesForChain?.MakeIOU
+      )
+
+      console.info('[useGetDashboardTotals] chain resolution', {
+        ctxChainId,
+        cookieChainId: getCurrentChainId(),
+        resolvedChainId,
+        hasClient,
+        hasAddresses,
+        addressesForChain,
+        supportedChainIds: SUPPORTED_CHAIN_IDS,
+        supportedChainNames: SUPPORTED_CHAIN_NAMES,
+        chainIdType: typeof resolvedChainId,
+      })
+
+      if (!hasClient) {
+        setError(
+          `Unsupported chain ${resolvedChainId ?? 'unknown'}. Supported chains: ${SUPPORTED_CHAIN_NAMES.join(', ')}`
+        )
+        return
+      }
+
+      if (!hasAddresses) {
+        setError(
+          `Contracts are not configured for chain ${resolvedChainId}. Check artifact networks (not addresses.json). Supported chains: ${SUPPORTED_CHAIN_NAMES.join(', ')}`
+        )
         return
       }
 
@@ -77,13 +94,13 @@ export default function useGetDashboardTotals() {
 
       try {
         const [iousTotal, issuersTotal] = await Promise.all([
-          readContract({
+          readContract(config, {
             address: storeAddress,
             abi: STORE_ABI,
             functionName: 'getIOUstotal',
             chainId: Number.isFinite(chainId) ? chainId : undefined,
           }),
-          readContract({
+          readContract(config, {
             address: storeAddress,
             abi: STORE_ABI,
             functionName: 'getIssuerstotal',

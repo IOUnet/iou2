@@ -1,7 +1,13 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { useAccount } from 'wagmi'
+import React, { useState, useCallback, useEffect, useContext, useMemo } from 'react'
+import { readContract, getPublicClient } from 'wagmi/actions'
 import { hexToString } from 'viem'
-import { getStoreIOUsAddress } from '../constants'
+import { 
+    getStoreIOUsAddress, 
+    resolveChainId, 
+    ADDRESS_BOOK
+} from '../constants'
+import { config } from '../wagmi'
+import ChainWebContext from '../context/chain/ChainWebContext'
 
 // Contract ABI for StoreIOUs
 const STORE_IOUS_ABI = [
@@ -15,28 +21,48 @@ const STORE_IOUS_ABI = [
 ];
 
 export default function useGetKeys() {
-    const { address, isConnected } = useAccount();
     const [IOUKeys, setIOUKeys] = useState();
     
-    const storeIOUsAddress = getStoreIOUsAddress();
+    const { chainId: ctxChainId, resolvedChainId: ctxResolvedChainId, isChainConnected } =
+        useContext(ChainWebContext) || {}
+
+    const resolvedChainId = useMemo(
+        () =>
+        resolveChainId({
+            walletChainId: ctxResolvedChainId || ctxChainId,
+            isWalletConnected: isChainConnected,
+        }),
+        [ctxResolvedChainId, ctxChainId, isChainConnected]
+    )
 
     const changeIOUKeys = useCallback((listItem) => {
         setIOUKeys(listItem);
     }, []);
 
     useEffect(() => {
+        let cancelled = false;
+
         const fetchIOUKeys = async () => {
-            if (!isConnected || !address) return;
+            const client = resolvedChainId ? getPublicClient(config, { chainId: resolvedChainId }) : undefined
+            const hasClient = Boolean(resolvedChainId && client)
+            const addressesForChain = resolvedChainId ? ADDRESS_BOOK?.[resolvedChainId] : undefined
+            
+            if (!hasClient || !addressesForChain?.StoreIOUs) {
+                return;
+            }
+
+            const storeIOUsAddress = getStoreIOUsAddress(resolvedChainId);
+            if (!storeIOUsAddress) return;
 
             try {
-                const { readContract } = await import('wagmi/actions');
-                const keys = await readContract({
+                const keys = await readContract(config, {
                     address: storeIOUsAddress,
                     abi: STORE_IOUS_ABI,
-                    functionName: 'getKeystotal'
+                    functionName: 'getKeystotal',
+                    chainId: resolvedChainId
                 });
                 
-                if (keys) {
+                if (!cancelled && keys) {
                     const decodedKeys = keys.map((value) => {
                         if (value !== '0x0000000000000000000000000000000000000000000000000000000000000000') {
                             return hexToString(value);
@@ -47,13 +73,19 @@ export default function useGetKeys() {
                     changeIOUKeys(decodedKeys);
                 }
             } catch (error) {
-                console.error('Error fetching IOU keys:', error);
-                changeIOUKeys([]);
+                if (!cancelled) {
+                    console.error('Error fetching IOU keys:', error);
+                    changeIOUKeys([]);
+                }
             }
         };
 
         fetchIOUKeys();
-    }, [address, isConnected, changeIOUKeys]);
+
+        return () => {
+            cancelled = true;
+        };
+    }, [resolvedChainId, changeIOUKeys]);
 
     return IOUKeys;
 }

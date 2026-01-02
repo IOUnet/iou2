@@ -7,9 +7,9 @@ import PageLayout from '../../components/page-layout/PageLayout'
 import PageTitle from '../../components/page-title/PageTitle'
 import TokenCardsList from '../../components/token-cards-list/TokenCardsList'
 import ValueInfo from '../../components/value-info/ValueInfo'
-import useGetDashboardTotals from '../../hooks/useGetDashboardTotals'
-import useGetKeywordsList from '../../hooks/useGetKeywordsList'
-import useGetIOUsByKeyword from '../../hooks/useGetIOUsByKeyword'
+import { useGetDashboardTotals } from '../../hooks/useGetDashboardTotals'
+import { useGetKeywordsList } from '../../hooks/useGetKeywordsList'
+import { useGetIOUsByKeyword } from '../../hooks/useGetIOUsByKeyword'
 import styles from './styles'
 
 const ReadOnlyDashboard = ({ classes }) => {

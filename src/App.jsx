@@ -65,6 +65,8 @@ function App() {
     hasInitialization,
   } = useContext(ChainWebContext)
 
+  const { address, isConnected } = useAccount()
+
   const hasProvider = typeof window !== 'undefined' && !!window.ethereum
 
   useEffect(() => {
@@ -90,7 +92,7 @@ function App() {
               <Route
                 path={ROUTES.main}
                 element={
-                  hasProvider
+                  isConnected
                     ? <RequireWalletRoute hasProvider={hasProvider}><HomePage /></RequireWalletRoute>
                     : <ReadOnlyDashboard />
                 }

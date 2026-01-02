@@ -5,7 +5,7 @@ import { formatEther, hexToString, stringToHex, parseEther } from 'viem'
 import TokensListContext from '../context/TokensListContext';
 import { getFeedbacks } from '../helpers/getFeedbacks';
 import { getAllIOUs } from "../helpers/getAllIOUs";
-import { getStoreIOUsAddress, getProxyIOUAddress } from '../constants';
+import { getStoreIOUsAddress, getProxyIOUAddress, resolveChainId } from '../constants';
 
 // Contract ABIs - these would typically be imported from separate files
 const STORE_IOUS_ABI = [
@@ -85,7 +85,7 @@ const PROXY_IOU_ABI = [
 
 export default function useFindIOU(factory, deps) {
   const params = useParams();
-  const { address, isConnected } = useAccount();
+  const { address, isConnected, chainId: walletChainId } = useAccount();
   const [IOUAddreses, setIOUAddreses] = useState();
   const [IOUList, setIOUList] = useState();
   const [feedbackList, setFeedbackList] = useState(null);
@@ -94,8 +94,20 @@ export default function useFindIOU(factory, deps) {
   const tokenList = useContext(TokensListContext)
   const [values, setFormValues] = useState(tokenList.values)
 
-  const storeIOUsAddress = getStoreIOUsAddress()
-  const proxyIOUAddress = getProxyIOUAddress()
+  const resolvedChainId = React.useMemo(
+    () => resolveChainId({ walletChainId, isWalletConnected: isConnected }),
+    [walletChainId, isConnected]
+  )
+
+  const storeIOUsAddress = React.useMemo(
+    () => getStoreIOUsAddress(resolvedChainId),
+    [resolvedChainId]
+  )
+
+  const proxyIOUAddress = React.useMemo(
+    () => getProxyIOUAddress(resolvedChainId),
+    [resolvedChainId]
+  )
 
   const changeIOUListAddreses = useCallback((addressList) => {
     setIOUAddreses(addressList);
@@ -110,7 +122,7 @@ export default function useFindIOU(factory, deps) {
 
   // Search for IOU addresses based on search criteria
   useEffect(() => {
-    if (!isConnected || !address) return;
+    if (!isConnected || !address || !storeIOUsAddress) return;
 
     const searchIOUs = async () => {
       if (values.searchStreet) {
@@ -130,14 +142,14 @@ export default function useFindIOU(factory, deps) {
     };
 
     searchIOUs();
-  }, [values, isConnected, address, changeIOUListAddreses]);
+  }, [values, isConnected, address, changeIOUListAddreses, storeIOUsAddress]);
 
   // Helper function to fetch IOU addresses by street
   const fetchIOUAddressesByStreet = async (searchValues) => {
     try {
       const { readContract } = await import('wagmi/actions');
-      const addresses = await readContract({
-        address: storeIOUsAddress,
+        const addresses = await readContract({
+          address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUsbyStreet',
         args: [
@@ -159,8 +171,8 @@ export default function useFindIOU(factory, deps) {
   const fetchIOUAddressesByLocation = async (searchValues) => {
     try {
       const { readContract } = await import('wagmi/actions');
-      const addresses = await readContract({
-        address: storeIOUsAddress,
+        const addresses = await readContract({
+          address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUsbyCity',
         args: [
@@ -181,8 +193,8 @@ export default function useFindIOU(factory, deps) {
   const fetchIOUAddressesByKeyword = async (keyword) => {
     try {
       const { readContract } = await import('wagmi/actions');
-      const addresses = await readContract({
-        address: storeIOUsAddress,
+        const addresses = await readContract({
+          address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUListKey',
         args: [stringToBytes32(keyword)]
@@ -198,8 +210,8 @@ export default function useFindIOU(factory, deps) {
   const fetchAllIOUAddresses = async () => {
     try {
       const { readContract } = await import('wagmi/actions');
-      const addresses = await readContract({
-        address: storeIOUsAddress,
+        const addresses = await readContract({
+          address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUList',
         args: [address]
@@ -214,7 +226,7 @@ export default function useFindIOU(factory, deps) {
   // Process IOU addresses to get detailed information
   useEffect(() => {
     const processIOUAddresses = async () => {
-      if (!IOUAddreses || IOUAddreses.length === 0) return;
+       if (!IOUAddreses || IOUAddreses.length === 0 || !proxyIOUAddress) return;
 
       const IOUListObjects = [];
       
@@ -273,7 +285,7 @@ export default function useFindIOU(factory, deps) {
     };
 
     processIOUAddresses();
-  }, [IOUAddreses, changeIOUList]);
+  }, [IOUAddreses, changeIOUList, proxyIOUAddress]);
 
   return [IOUList];
 }
