@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react'
 import { useParams } from 'react-router-dom';
 import { useAccount } from 'wagmi'
+import { readContract, getPublicClient } from 'wagmi/actions'
 import { formatEther, hexToString, stringToHex, parseEther } from 'viem'
+import { config } from '../wagmi'
 import TokensListContext from '../context/TokensListContext';
 import { getFeedbacks } from '../helpers/getFeedbacks';
 import { getAllIOUs } from "../helpers/getAllIOUs";
@@ -147,9 +149,11 @@ export default function useFindIOU(factory, deps) {
   // Helper function to fetch IOU addresses by street
   const fetchIOUAddressesByStreet = async (searchValues) => {
     try {
-      const { readContract } = await import('wagmi/actions');
-        const addresses = await readContract({
-          address: storeIOUsAddress,
+      const publicClient = getPublicClient(config)
+      if (!publicClient) return []
+
+      const addresses = await readContract(config, {
+        address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUsbyStreet',
         args: [
@@ -170,9 +174,11 @@ export default function useFindIOU(factory, deps) {
   // Helper function to fetch IOU addresses by location
   const fetchIOUAddressesByLocation = async (searchValues) => {
     try {
-      const { readContract } = await import('wagmi/actions');
-        const addresses = await readContract({
-          address: storeIOUsAddress,
+      const publicClient = getPublicClient(config)
+      if (!publicClient) return []
+
+      const addresses = await readContract(config, {
+        address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUsbyCity',
         args: [
@@ -192,9 +198,11 @@ export default function useFindIOU(factory, deps) {
   // Helper function to fetch IOU addresses by keyword
   const fetchIOUAddressesByKeyword = async (keyword) => {
     try {
-      const { readContract } = await import('wagmi/actions');
-        const addresses = await readContract({
-          address: storeIOUsAddress,
+      const publicClient = getPublicClient(config)
+      if (!publicClient) return []
+
+      const addresses = await readContract(config, {
+        address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUListKey',
         args: [stringToBytes32(keyword)]
@@ -209,9 +217,11 @@ export default function useFindIOU(factory, deps) {
   // Helper function to fetch all IOU addresses for connected account
   const fetchAllIOUAddresses = async () => {
     try {
-      const { readContract } = await import('wagmi/actions');
-        const addresses = await readContract({
-          address: storeIOUsAddress,
+      const publicClient = getPublicClient(config)
+      if (!publicClient) return []
+
+      const addresses = await readContract(config, {
+        address: storeIOUsAddress,
         abi: STORE_IOUS_ABI,
         functionName: 'getIOUList',
         args: [address]
@@ -228,12 +238,14 @@ export default function useFindIOU(factory, deps) {
     const processIOUAddresses = async () => {
        if (!IOUAddreses || IOUAddreses.length === 0 || !proxyIOUAddress) return;
 
+      const publicClient = getPublicClient(config)
+      if (!publicClient) return
+
       const IOUListObjects = [];
       
       for (let i = 0; i < IOUAddreses.length; i++) {
         try {
-          const { readContract } = await import('wagmi/actions');
-          const iouData = await readContract({
+          const iouData = await readContract(config, {
             address: proxyIOUAddress,
             abi: PROXY_IOU_ABI,
             functionName: 'getIOU',

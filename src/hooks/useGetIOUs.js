@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useCallback, useContext} from 'react'
 import { useReadContract, useAccount } from 'wagmi'
-import { readContract } from 'wagmi/actions'
+import { readContract, getPublicClient } from 'wagmi/actions'
 import { formatEther, hexToString } from 'viem'
+import { config } from '../wagmi'
 import ChainWebContext from '../context/chain/ChainWebContext'
 import StoreIOUsArtifact from '../artifacts/StoreIOUs.json'
 import ProxyIOUArtifact from '../artifacts/ProxyIOU.json'
@@ -40,10 +41,13 @@ export default function useGetIOUs() {
     useEffect(() => {
         if (IOUAddresses.length > 0) {
             const fetchDetails = async () => {
+                const publicClient = getPublicClient(config)
+                if (!publicClient) return
+
                 const details = []
                 for (const addr of IOUAddresses) {
                     try {
-                        const iouData = await readContract({
+                        const iouData = await readContract(config, {
                             address: chainAddresses.ProxyIOU,
                             abi: ProxyIOUABI,
                             functionName: 'getIOU',

@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { useAccount } from 'wagmi'
+import { readContract, getPublicClient } from 'wagmi/actions'
 import { formatEther, hexToString } from 'viem'
-import { getStoreIOUsAddress, getProxyIOUAddress } from '../constants'
+import { config } from '../wagmi'
+import { getStoreIOUsAddress, getProxyIOUAddress, resolveChainId } from '../constants'
 
 // Contract ABIs
 const STORE_IOUS_ABI = [
@@ -48,12 +50,24 @@ const PROXY_IOU_ABI = [
 ];
 
 export default function useGetIOUsPayof() {
-    const { address, isConnected } = useAccount();
+    const { address, isConnected, chainId: walletChainId } = useAccount();
     const [IOUAddresses, setIOUAddresses] = useState();
     const [IOUList, setIOUList] = useState();
     
-    const storeIOUsAddress = getStoreIOUsAddress();
-    const proxyIOUAddress = getProxyIOUAddress();
+    const resolvedChainId = useMemo(
+        () => resolveChainId({ walletChainId, isWalletConnected: isConnected }),
+        [walletChainId, isConnected]
+    )
+
+    const storeIOUsAddress = useMemo(
+        () => getStoreIOUsAddress(resolvedChainId),
+        [resolvedChainId]
+    )
+
+    const proxyIOUAddress = useMemo(
+        () => getProxyIOUAddress(resolvedChainId),
+        [resolvedChainId]
+    )
 
     const changeIOUListAddresses = useCallback((addressList) => {
         setIOUAddresses(addressList);
@@ -66,11 +80,13 @@ export default function useGetIOUsPayof() {
     // Fetch IOU addresses held by the connected account
     useEffect(() => {
         const fetchHeldIOUAddresses = async () => {
-            if (!isConnected || !address) return;
+            if (!isConnected || !address || !storeIOUsAddress) return;
+
+            const publicClient = getPublicClient(config)
+            if (!publicClient) return
 
             try {
-                const { readContract } = await import('wagmi/actions');
-                const addresses = await readContract({
+                const addresses = await readContract(config, {
                     address: storeIOUsAddress,
                     abi: STORE_IOUS_ABI,
                     functionName: 'getIOUListHold',
@@ -84,19 +100,21 @@ export default function useGetIOUsPayof() {
         };
 
         fetchHeldIOUAddresses();
-    }, [address, isConnected, changeIOUListAddresses]);
+    }, [address, isConnected, changeIOUListAddresses, storeIOUsAddress]);
 
     // Fetch detailed IOU information
     useEffect(() => {
         const fetchIOUDetails = async () => {
-            if (!IOUAddresses || IOUAddresses.length === 0) return;
+            if (!IOUAddresses || IOUAddresses.length === 0 || !proxyIOUAddress) return;
+
+            const publicClient = getPublicClient(config)
+            if (!publicClient) return
 
             const IOUListObjects = [];
             
             for (let i = 0; i < IOUAddresses.length; i++) {
                 try {
-                    const { readContract } = await import('wagmi/actions');
-                    const iouData = await readContract({
+                    const iouData = await readContract(config, {
                         address: proxyIOUAddress,
                         abi: PROXY_IOU_ABI,
                         functionName: 'getIOU',
