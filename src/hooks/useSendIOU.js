@@ -3,6 +3,7 @@ import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagm
 import { getAddress, isAddress, parseEther } from 'viem'
 import * as t from '../assets/translations.json'
 import { mapTxError } from '../helpers/txErrors'
+import { generateQrDataUrl } from '../helpers/qr'
 
 // ERC20 Token ABI with mint function
 const ERC20_ABI = [
@@ -37,6 +38,7 @@ export default function useSendIOU() {
     const [txError, setTxError] = useState()
     const [recipient, setRecipient] = useState('')
     const [isUserConfirmed, setConfirmed] = useState(false)
+    const [qrDataUrl, setQrDataUrl] = useState('')
 
     const {
         writeContract,
@@ -68,6 +70,26 @@ export default function useSendIOU() {
         if (!recipient) return false
         return isAddress(recipient)
     }, [recipient])
+
+    React.useEffect(() => {
+        let active = true
+
+        const buildQr = async () => {
+            if (!normalizedAddress) {
+                if (active) setQrDataUrl('')
+                return
+            }
+
+            const url = await generateQrDataUrl(normalizedAddress)
+            if (active) setQrDataUrl(url)
+        }
+
+        buildQr()
+
+        return () => {
+            active = false
+        }
+    }, [normalizedAddress])
 
     const beginReview = useCallback((params) => {
         if (!params || !params.tokenAddress || !params.address || !params.amount) {
@@ -180,6 +202,9 @@ export default function useSendIOU() {
             errorMessage
         },
         receipt,
+        // QR helpers for recipient sharing
+        qrValue: normalizedAddress,
+        qrDataUrl,
         // Address safety helpers
         recipient,
         setRecipient,
