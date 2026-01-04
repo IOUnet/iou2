@@ -79,6 +79,14 @@ export const useGetKeywordsList = () => {
     setError(null)
 
     try {
+      const bytecode = await client.getBytecode({ address: storeAddress })
+      if (!bytecode) {
+        console.warn(`[useGetKeywordsList] No bytecode for StoreIOUs on chain ${chainId} at ${storeAddress}`)
+        setKeywords([])
+        setIsLoading(false)
+        return
+      }
+
       const response = await readContract(config, {
         address: storeAddress,
         abi: STORE_ABI,

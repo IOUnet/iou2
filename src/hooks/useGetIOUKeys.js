@@ -55,6 +55,13 @@ export default function useGetKeys() {
             if (!storeIOUsAddress) return;
 
             try {
+                const bytecode = await client.getBytecode({ address: storeIOUsAddress })
+                if (!bytecode) {
+                    console.warn(`[useGetIOUKeys] No bytecode for StoreIOUs on chain ${resolvedChainId} at ${storeIOUsAddress}`)
+                    changeIOUKeys([])
+                    return
+                }
+
                 const keys = await readContract(config, {
                     address: storeIOUsAddress,
                     abi: STORE_IOUS_ABI,

@@ -131,6 +131,22 @@ export const useGetIOUsByKeyword = (keyword) => {
           keyBytes = stringToHex(keyword.trim().toLowerCase(), { size: 32 })
         } catch (conversionError) {
           setError('Keyword is too long to encode')
+            setIsLoading(false)
+            return
+          }
+
+        const storeBytecode = await client.getBytecode({ address: storeAddress })
+        if (!storeBytecode) {
+          console.warn(`[useGetIOUsByKeyword] No bytecode for StoreIOUs on chain ${chainId} at ${storeAddress}`)
+          setData([])
+          setIsLoading(false)
+          return
+        }
+
+        const proxyBytecode = await client.getBytecode({ address: proxyAddress })
+        if (!proxyBytecode) {
+          console.warn(`[useGetIOUsByKeyword] No bytecode for ProxyIOU on chain ${chainId} at ${proxyAddress}`)
+          setData([])
           setIsLoading(false)
           return
         }

@@ -93,6 +93,18 @@ export const useGetDashboardTotals = () => {
       setError(null)
 
       try {
+        const bytecode = await client.getBytecode({ address: storeAddress })
+        if (!bytecode) {
+          console.warn(
+            `[useGetDashboardTotals] No bytecode for StoreIOUs on chain ${chainId} at ${storeAddress}`
+          )
+          if (!cancelled) {
+            setTotals({ ious: '0', issuers: '0' })
+            setIsLoading(false)
+          }
+          return
+        }
+
         const [iousTotal, issuersTotal] = await Promise.all([
           readContract(config, {
             address: storeAddress,

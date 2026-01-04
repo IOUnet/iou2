@@ -63,6 +63,13 @@ export default function useGetIssuersStat() {
             if (!storeIOUsAddress) return;
 
             try {
+                const bytecode = await client.getBytecode({ address: storeIOUsAddress })
+                if (!bytecode) {
+                    console.warn(`[useGetIssuersStat] No bytecode for StoreIOUs on chain ${resolvedChainId} at ${storeIOUsAddress}`)
+                    changeIssuersStat(null)
+                    return
+                }
+
                 const stats = await readContract(config, {
                     address: storeIOUsAddress,
                     abi: STORE_IOUS_ABI,
