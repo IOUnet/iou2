@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { parseEther } from 'viem'
+import { getAddress, isAddress, parseEther } from 'viem'
 import * as t from '../assets/translations.json'
 import { mapTxError } from '../helpers/txErrors'
 
@@ -35,6 +35,8 @@ export default function useSendIOU() {
     const [draftParams, setDraftParams] = useState()
     const [chainLabel, setChainLabel] = useState('Polygon')
     const [txError, setTxError] = useState()
+    const [recipient, setRecipient] = useState('')
+    const [isUserConfirmed, setConfirmed] = useState(false)
 
     const {
         writeContract,
@@ -46,11 +48,26 @@ export default function useSendIOU() {
     const {
         data: receipt,
         isLoading: isConfirming,
-        isSuccess: isConfirmed,
+        isSuccess: isTxConfirmed,
         error: confirmError
     } = useWaitForTransactionReceipt({
         hash,
     })
+
+    // Normalize and validate recipient address for checksum safety
+    const normalizedAddress = useMemo(() => {
+        if (!recipient) return ''
+        try {
+            return getAddress(recipient)
+        } catch (err) {
+            return ''
+        }
+    }, [recipient])
+
+    const isAddressValid = useMemo(() => {
+        if (!recipient) return false
+        return isAddress(recipient)
+    }, [recipient])
 
     const beginReview = useCallback((params) => {
         if (!params || !params.tokenAddress || !params.address || !params.amount) {
@@ -61,6 +78,8 @@ export default function useSendIOU() {
         setChainLabel(params.chainLabel || 'Polygon')
         setTxError(undefined)
         setFlowStage(STAGES.REVIEW)
+        setRecipient(params.address || '')
+        setConfirmed(false)
     }, [])
 
     const cancelReview = useCallback(() => {
@@ -79,6 +98,18 @@ export default function useSendIOU() {
         if (!draftParams) return
         if (isWritePending || isConfirming) return
 
+        if (!isAddressValid || !normalizedAddress) {
+            setTxError({ code: 'invalid_address', messageKey: 'tx.error.invalidAddress' })
+            setFlowStage(STAGES.RESULT)
+            return
+        }
+
+        if (!isUserConfirmed) {
+            setTxError({ code: 'missing_confirmation', messageKey: 'tx.error.missingConfirmation' })
+            setFlowStage(STAGES.RESULT)
+            return
+        }
+
         try {
             const tokenAmount = parseEther(draftParams.amount.toString())
 
@@ -90,7 +121,7 @@ export default function useSendIOU() {
                 abi: ERC20_ABI,
                 functionName: 'mint',
                 args: [
-                    draftParams.address,
+                    normalizedAddress,
                     tokenAmount,
                     draftParams.comment || ''
                 ],
@@ -101,7 +132,7 @@ export default function useSendIOU() {
             setTxError(mapTxError(error))
             setFlowStage(STAGES.RESULT)
         }
-    }, [address, isConnected, draftParams, isWritePending, isConfirming, writeContract])
+    }, [address, isConnected, draftParams, isWritePending, isConfirming, isAddressValid, normalizedAddress, isUserConfirmed, writeContract])
 
     React.useEffect(() => {
         if (writeError) {
@@ -118,20 +149,20 @@ export default function useSendIOU() {
     }, [confirmError])
 
     React.useEffect(() => {
-        if (isConfirmed) {
+        if (isTxConfirmed) {
             setFlowStage(STAGES.RESULT)
             setDraftParams(undefined)
         }
-    }, [isConfirmed])
+    }, [isTxConfirmed])
 
     const progressStatus = useMemo(() => {
         if (flowStage === STAGES.DRAFT || flowStage === STAGES.REVIEW) return 'idle'
         if (txError) return 'failed'
-        if (isConfirmed) return 'confirmed'
+        if (isTxConfirmed) return 'confirmed'
         if (isWritePending) return 'waiting_wallet'
         if (isConfirming || hash) return 'submitted'
         return 'idle'
-    }, [flowStage, txError, isConfirmed, isWritePending, isConfirming, hash])
+    }, [flowStage, txError, isTxConfirmed, isWritePending, isConfirming, hash])
 
     const errorMessage = txError ? (t[txError.messageKey] || txError.messageKey) : undefined
 
@@ -149,5 +180,14 @@ export default function useSendIOU() {
             errorMessage
         },
         receipt,
+        // Address safety helpers
+        recipient,
+        setRecipient,
+        normalizedAddress,
+        isAddressValid,
+        // Confirmation gate to force explicit user acknowledgement before sending
+        confirmationRequired: true,
+        isConfirmed: isUserConfirmed,
+        setConfirmed,
     }
 }
